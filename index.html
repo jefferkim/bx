@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>淘宝网</title>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" /> 
+	<meta charset="utf-8" /> 
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" /> 
+	<meta content="yes" name="apple-mobile-web-app-capable" /> 
+	<meta content="black" name="apple-mobile-web-app-status-bar-style" /> 
+	<meta content="telephone=no" name="format-detection" /> 
+	<link href="http://a.tbcdn.cn/mw/s/hi/tbtouch/images/touch-icon.png" rel="apple-touch-icon-precomposed" />
+	<script src="http://a.tbcdn.cn/mw/base/libs/seajs/1.2.0/sea.js"></script>
+</head>
+<body>	
+	<script>
+	    seajs.use('http://sites/taobao/wireless/app/transformer/src/__build/app.js', function(index){
+	        index.init();
+	    });
+	</script>
+	<script type="text/template" id="home-tmpl">
+		<div>sdfsdf</div>
+		<% for (var i = 0; i < Things.length; i++) {
+			Things[i]
+		};%>
+	</script>
+</body>
+</html>
