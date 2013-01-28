@@ -9,7 +9,7 @@ define(function(require, exports, module){
       
 	itemCacheKey = 'allspark_item_key',
         
-   h5_cache = require('./h5_cache');
+   h5_cache = require('h5_cache');
    
    /***
    * 通过id从cache获取item数据
