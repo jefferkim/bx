@@ -1,5 +1,18 @@
 @import "normalize.less";
 
+/* Mixins */
+.box-shadow (@shadow) {
+  -webkit-box-shadow: @shadow;
+  box-shadow: @shadow;
+}
+
+.background-size (@size) {
+  -webkit-background-size: @size;
+  background-size: @size;
+}
+
+/* App Styles */
 body {
   background: #f8f8f8;
 }
+
