@@ -26,7 +26,6 @@ define(function(require, exports){
         list:function(){
             console.log('list');
         }
-
     });
     // 初始化Router
     // var Start = function(){
