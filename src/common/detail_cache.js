@@ -1,29 +1,29 @@
 /**
- * ÒÔh5_cacheÎª»ù´¡´æ´¢ÏêÇéµÄjsonÊı¾İ
- * Ä¬ÈÏ´æ´¢10ÌõÏêÇéÊı¾İ 
+ * ä»¥h5_cacheä¸ºåŸºç¡€å­˜å‚¨è¯¦æƒ…çš„jsonæ•°æ®
+ * é»˜è®¤å­˜å‚¨10æ¡è¯¦æƒ…æ•°æ® 
  * 
  */
 define(function(require, exports, module){
-  //´æ´¢ÊıÁ¿10Ìõ
+  //å­˜å‚¨æ•°é‡10æ¡
   var maxCount = 10,
       
 	itemCacheKey = 'allspark_item_key',
         
-   h5_cache = require('./h5_cache');
+   h5_cache = require('h5_cache');
    
    /***
-   * Í¨¹ıid´Ócache»ñÈ¡itemÊı¾İ
-   * Èç¹û²»´æÔÚ·µ»Ø null
+   * é€šè¿‡idä»cacheè·å–itemæ•°æ®
+   * å¦‚æœä¸å­˜åœ¨è¿”å› null
    **/   
    exports.getItemById = function (id)
    {
 	  return  h5_cache.getValue(itemCacheKey,id);	   
    }
    /***
-   * »º´æÏêÇéÊı¾İ
-   * id - ÏêÇéid
-   * jsondata - ÏêÇéµÄjsonÊı¾İ
-   *  ·µ»Øtrue or false
+   * ç¼“å­˜è¯¦æƒ…æ•°æ®
+   * id - è¯¦æƒ…id
+   * jsondata - è¯¦æƒ…çš„jsonæ•°æ®
+   *  è¿”å›true or false
    **/ 
     exports.saveItem = function (id,jsonData)
    {
