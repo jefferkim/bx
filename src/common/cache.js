@@ -32,8 +32,12 @@ define(function(require, exports, module){
    */
    exports.isCreateSns = function(nick)
    {
-	  return h5_cache.getValue(snsFlagCacheKey,nick) == '1';
-   }  
+      if(nick && nick.length > 1)
+      {
+          return h5_cache.getValue(snsFlagCacheKey,nick) == '1';
+      }
+      return false;
+   }
    /***
    * 通过id从cache获取item数据
    * 目前只对客户端缓存，非客户端直接返回null
