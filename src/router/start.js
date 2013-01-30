@@ -21,7 +21,7 @@ define(function(require, exports, module) {
             var self = this;
             //#index
             self.route('', 'index', self.filter);
-            self.route('index', 'index', self.filter);
+            self.route(/^(index)$/, 'index', self.filter);
             //#account/snsid/page  snsid - sns账号Id  page - 页码
             self.route(/^(account)\/(\d*)(\/(\d*))?$/, 'account', self.filter);
             //#detail/snsId/feedId snsid - sns账号Id  feedId - 消息Id
