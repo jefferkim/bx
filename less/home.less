@@ -1,0 +1,140 @@
+@import 'shared.less';
+.tb-h5{
+  .in-slider{margin: 0 auto;padding-top: 50px;}
+  .in-load{padding-top:20px;}
+  .in-shaft-tip{padding-top:40px;text-align:center;}
+  .in-shaft-tip a{color:#025694;}
+  .in-slider{width:320px;height:140px;position:relative;}
+  .in-slider .in-slider-cont{height:100%;overflow:hidden;position:relative;}
+  .in-slider .in-slider-cont ul{position:absolute;left:0;top:0;}
+  .in-slider .in-slider-cont ul li{width:320px;height:150px;float:left;}
+  .in-slider .in-slider-cont ul li img{border: 0;}
+  .in-slider .in-slider-status{position:absolute;width:100%;height:3px;bottom:0;background-color:rgba(51,51,51,0.5);-webkit-transform:translate3d(0,0,0);display:-webkit-box;}
+  .in-slider .in-slider-status span{display:block;-webkit-box-flex:1;height:100%;overflow:hidden;}
+  .in-slider .in-slider-status .sel{background-color:#ff4000;}
+  .login-bar{
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    a{text-decoration: none;}
+    a:hover{color:rgb(33,33,33);}
+    a:visited{color:rgb(33,33,33);}
+    border-bottom: 1px solid #ddd;
+    span{
+      font-size:12px;
+      line-height:50px;
+      color:rgb(153,153,153);
+      text-align:left;
+      text-shadow:0px 1px 0px rgb(255,255,255);
+      padding: 0 5px;
+    }
+    .login-btn{
+      font-size:14px;
+      line-height:30px;
+      text-align: center;
+      color:rgb(33,33,33);
+      text-align:center;
+      text-shadow:0px 1px 0px rgb(255,255,255);
+
+      display: inline-block;
+      .background-image-linear(-90deg,rgb(255,255,255) 0%,rgb(237,237,237) 100%);
+      background-image:-webkit-gradient(linear,50% 0%,50% 100%,color-stop(0, rgb(255,255,255)),color-stop(1, rgb(237,237,237)));
+      width:80px;
+      height:30px;
+      -webkit-border-radius:30px;
+      border-radius:30px;
+      .box-shadow("0px 0px 1px rgba(0,0,0,0.8) ,0px 2px 0px rgba(255,255,255,0.65) ,inset 0px 1px 0px rgba(255,255,255,0.65)");
+
+    }
+  }
+
+/* */
+  .account-title{
+    height: 40px;
+    text-align: center;
+    
+    span{
+      display: inline-block;
+      text-align: center;
+      margin-top:10px ;
+      background-color:rgb(238,238,238);
+      width:120px;
+      height:22px;
+      -webkit-border-radius:11px;
+      border-radius:11px;
+      font-size:12px;
+      line-height:22px;
+      color:rgb(153,153,153);
+      text-shadow:0px 1px 0px rgb(255,255,255);
+    }
+  }
+
+  .person-list{
+    li{
+      height: 53px;
+      padding: 8px 10px;
+      border-top: 1px solid #fcfcfc;
+      border-bottom: 1px solid #ddd;
+      position: relative;
+      img{
+        height: 50px;
+        width: 50px;
+        border-radius: 4px;
+        position: absolute;
+        top: 10px;
+        left: 10px;}
+      .content{
+        margin-left: 58px;
+      }
+      .title{
+        font-size:16px;
+        line-height:120%;
+        color:rgb(51,51,51);
+        text-align:left;
+        text-shadow:0px 1px 0px rgba(255,255,255,0.65);}
+      .info{
+        font-size:12px;
+        line-height:170%;
+        color:rgb(102,102,102);
+        text-align:left;
+        text-shadow:0px 1px 0px rgba(255,255,255,0.65);
+
+      }
+      .follows{
+
+        text-align:left;
+        font-size:10px;
+        color:rgb(102,102,102);
+        text-shadow:0px 1px 0px rgba(255,255,255,0.65);
+        span{
+          font-family:"Arial Black", Gadget, sans-serif;
+          font-weight:900;
+          color:rgb(51,51,51);
+          padding: 0 3px 0 0;
+        }
+      }
+      .follwbtn{
+        position: absolute;
+        right: 10px;
+        top:17px;
+        .user-select(none);
+        .box-shadow(0px 2px 0px rgba(255,255,255,0.65));
+        .background-image-linear(-90deg,rgb(144,192,35) 0%,rgb(112,169,36) 100%);
+        background-image:-webkit-gradient(linear,102% 0%,102% 98%,color-stop(0, rgb(144,192,35)),color-stop(1, rgb(112,169,36)));
+        height:34px;
+        border-color:rgb(105,140,0);
+        border-width:1px;
+        -webkit-border-radius:4px;
+        border-radius:4px;
+        border-style:solid;
+        font-size:16px;
+        color:rgb(255,255,255);
+        text-align:center;
+        text-shadow:0px 1px 0px rgba(0,0,0,0.3);
+
+      }
+    }
+
+  }
+
+}
