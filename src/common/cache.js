@@ -1,7 +1,7 @@
 /**
  * 变形项目缓存接口目前包含以下接口（以base/utils/server/h5_cache 为基础）：
- * 1、详情缓存接口，
- * 2、是否缓存创建sns账号接口
+ * 1、详情缓存接口
+ * 2、判断是否需要创建sns账号，并缓存到cache中 （先缓存到localStorage中，如果不支持则缓存在cookie中）
  * 
  */
 define(function(require, exports, module){
@@ -13,17 +13,26 @@ define(function(require, exports, module){
 	snsFlagCacheKey = 'allspark_sns_flag_key',
 	
 	 h5_base = require('h5_base'),
+
+      cookie = require('cookie'),
 	
-    h5_cache = require('h5_cache');
+     h5_cache = require('h5_cache');
    
    /**
    *在自动创建sns账号成功后调用该接口，
-   *失败时不要调用,返回结果可以忽略
+   *失败时不要调用
    *
    */
    exports.saveSnsFlag = function(nick)
    {
-	return  h5_cache.pushValue(snsFlagCacheKey,nick,'1',maxCount);     
+      if(!h5_base.isSuppLocalStorage())
+      {
+	   h5_cache.pushValue(snsFlagCacheKey,nick,'1',maxCount);
+      }
+      else
+      {
+       cookie.setCookie(snsFlagCacheKey+"_"+nick,'1');
+      }
    }
     /**
    * 判断是否创建了Sns账号
@@ -34,7 +43,14 @@ define(function(require, exports, module){
    {
       if(nick && nick.length > 1)
       {
+          if(h5_base.isSuppLocalStorage())
+          {
           return h5_cache.getValue(snsFlagCacheKey,nick) == '1';
+          }
+          else
+          {
+           return cookie.getCookie(snsFlagCacheKey+"_"+nick) =='1';
+          }
       }
       return false;
    }
