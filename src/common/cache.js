@@ -12,6 +12,8 @@ define(function(require, exports, module){
 	
 	snsFlagCacheKey = 'allspark_sns_flag_key',
 	
+	 h5_base = require('h5_base'),
+	
     h5_cache = require('h5_cache');
    
    /**
@@ -34,20 +36,30 @@ define(function(require, exports, module){
    }  
    /***
    * 通过id从cache获取item数据
+   * 目前只对客户端缓存，非客户端直接返回null
    * 如果不存在返回 null
    **/   
    exports.getItemById = function (id)
    {
+	   if(!h5_base.isClient())  
+	   {
+	   return null;
+	   }
 	  return  h5_cache.getValue(itemCacheKey,id);	   
    }
    /***
    * 缓存详情数据
+   * 目前只缓存客户端的请求
    * id - 详情id
    * jsondata - 详情的json数据
    *  返回true or false
    **/ 
     exports.saveItem = function (id,jsonData)
    {
+	   if(!h5_base.isClient())  
+	   {
+	   return false;
+	   }
 	  return  h5_cache.pushValue(itemCacheKey,id,jsonData,maxCount);   
    }
 	  
