@@ -1,4 +1,5 @@
 .comment {
+  margin-bottom: 10px;
   .no-comment {
     color: #999;
     width: 100px;
@@ -8,9 +9,10 @@
   }
 
   .comment-list {
-    margin: 15px 0;
+    margin: 0;
     > li {
       margin: 11px 0;
+      &:last-child { margin-bottom: 0; }
     }
   }
 
@@ -52,11 +54,12 @@
 
 .new-comment {
   .comment-wrap {
-    margin: 10px;
+    margin: 10px 10px 15px 10px;
     padding: 10px 10px 3px 10px;
     border: 1px solid #f3f3f3;
     background-color: #fff;
-    -webkit-box-shadow: 0 1px 2px #e8e8e8;
+    -webkit-box-shadow: 0 1px 1px #ccc;
+    -webkit-border-radius: 4px;
   }
 
   .word-count {
