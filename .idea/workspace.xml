@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3e46684d-9f46-480d-8943-c7a8aacb381f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-followed-static.html" afterPath="$PROJECT_DIR$/account-followed-static.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/home-login-static.html" afterPath="$PROJECT_DIR$/home-login-static.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/home-static.html" afterPath="$PROJECT_DIR$/home-static.html" />
@@ -9,7 +10,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/profile-static.html" afterPath="$PROJECT_DIR$/profile-static.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/less/profile.less" afterPath="$PROJECT_DIR$/less/profile.less" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/less/shared.less" afterPath="$PROJECT_DIR$/less/shared.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/less/tf.less" afterPath="$PROJECT_DIR$/less/tf.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="transformer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -17,17 +18,17 @@
     <file path="/index.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359295749275" ignored="false" />
     <file path="/tf.less" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359352486692" ignored="false" />
     <file path="/app.js" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359301353874" ignored="false" />
-    <file path="/shared.less" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359445034508" ignored="false" />
-    <file path="/profile-static.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359439648498" ignored="false" />
+    <file path="/shared.less" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359513324060" ignored="false" />
+    <file path="/profile-static.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359513812049" ignored="false" />
     <file path="/profile.less" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359452507611" ignored="false" />
     <file path="/home.static.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359364818375" ignored="false" />
     <file path="/home-static.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359444742266" ignored="false" />
-    <file path="/home.less" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359452709166" ignored="false" />
+    <file path="/home.less" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359515543327" ignored="false" />
     <file path="$PROJECT_DIR$/../../../../gundam/nature/englive/source/webapp/index.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359376348387" ignored="false" />
     <file path="$PROJECT_DIR$/../../../../gundam/nature/englive/source/webapp/apps/admin/view.js" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359377510550" ignored="false" />
-    <file path="/dummy.xml" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359427369229" ignored="false" />
-    <file path="/account-followed-static.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359450135814" ignored="false" />
-    <file path="/home-login-static.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359452591873" ignored="false" />
+    <file path="/dummy.xml" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359514676417" ignored="false" />
+    <file path="/account-followed-static.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359513763051" ignored="false" />
+    <file path="/home-login-static.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359514682538" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,22 +44,24 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.50337267">
+    <splitter split-orientation="horizontal" split-proportion="0.45025295">
       <split-first>
         <leaf>
-          <file leaf-file-name="shared.less" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/less/shared.less">
+          <file leaf-file-name="home.less" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/less/home.less">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="168" column="0" selection-start="12437" selection-end="12437" vertical-scroll-proportion="3.812766">
-                  <folding />
+                <state line="2" column="0" selection-start="31" selection-end="31" vertical-scroll-proportion="-1.28">
+                  <folding>
+                    <element signature="e#2353#4106#0" expanded="false" />
+                  </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="profile-static.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/profile-static.html">
+          <file leaf-file-name="shared.less" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/less/shared.less">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="102" column="87" selection-start="6327" selection-end="6327" vertical-scroll-proportion="0.0">
+                <state line="98" column="20" selection-start="7499" selection-end="7499" vertical-scroll-proportion="0.6817576">
                   <folding />
                 </state>
               </provider>
@@ -67,61 +70,7 @@
           <file leaf-file-name="profile.less" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/less/profile.less">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="178" column="0" selection-start="5035" selection-end="5035" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="home-static.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/home-static.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="79" column="14" selection-start="0" selection-end="11155" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="home.less" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/less/home.less">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="67" column="0" selection-start="2297" selection-end="2297" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="account-followed-static.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/account-followed-static.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="94" column="48" selection-start="5897" selection-end="5897" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="detail.less" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/less/detail.less">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="normalize.less" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/less/normalize.less">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="76" column="16" selection-start="1301" selection-end="1303" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="detail-static.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/detail-static.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="13" column="35" selection-start="706" selection-end="706" vertical-scroll-proportion="0.0">
+                <state line="4" column="37" selection-start="102" selection-end="102" vertical-scroll-proportion="-2.56">
                   <folding />
                 </state>
               </provider>
@@ -131,19 +80,10 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="home-static.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/home-static.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="157" column="0" selection-start="11066" selection-end="11066" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="home-login-static.html" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/home-login-static.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="73" column="24" selection-start="4618" selection-end="4618" vertical-scroll-proportion="0.021304926">
+                <state line="73" column="25" selection-start="4599" selection-end="4599" vertical-scroll-proportion="0.7030626">
                   <folding />
                 </state>
               </provider>
@@ -173,13 +113,13 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/less/tf.less" />
         <option value="$PROJECT_DIR$/home.static.html" />
-        <option value="$PROJECT_DIR$/home-static.html" />
         <option value="$PROJECT_DIR$/account-followed-static.html" />
-        <option value="$PROJECT_DIR$/less/shared.less" />
-        <option value="$PROJECT_DIR$/less/profile.less" />
-        <option value="$PROJECT_DIR$/home-login-static.html" />
-        <option value="$PROJECT_DIR$/less/home.less" />
+        <option value="$PROJECT_DIR$/home-static.html" />
         <option value="$PROJECT_DIR$/profile-static.html" />
+        <option value="$PROJECT_DIR$/home-login-static.html" />
+        <option value="$PROJECT_DIR$/less/profile.less" />
+        <option value="$PROJECT_DIR$/less/home.less" />
+        <option value="$PROJECT_DIR$/less/shared.less" />
       </list>
     </option>
   </component>
@@ -462,21 +402,6 @@
     </PATH>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="0" selection-start="1563" selection-end="1563" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="21" column="10" selection-start="496" selection-end="496" vertical-scroll-proportion="0.0" />
@@ -491,75 +416,72 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/detail-static.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="35" selection-start="706" selection-end="706" vertical-scroll-proportion="0.0">
+        <state line="44" column="8" selection-start="1595" selection-end="1595" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/less/normalize.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="16" selection-start="1301" selection-end="1303" vertical-scroll-proportion="0.0">
+        <state line="103" column="0" selection-start="1301" selection-end="1303" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/comment-list-static.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="313" column="4" selection-start="10307" selection-end="10728" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/less/tf.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="1" selection-start="249" selection-end="259" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/home-static.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="14" selection-start="0" selection-end="11155" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/account-followed-static.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="48" selection-start="5897" selection-end="5897" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/less/profile.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="178" column="0" selection-start="5035" selection-end="5035" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/home-login-static.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="24" selection-start="4618" selection-end="4618" vertical-scroll-proportion="0.021304926">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/less/home.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="0" selection-start="2297" selection-end="2297" vertical-scroll-proportion="0.0">
+        <state line="16" column="8" selection-start="711" selection-end="711" vertical-scroll-proportion="-10.24">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/profile-static.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="102" column="87" selection-start="6327" selection-end="6327" vertical-scroll-proportion="0.0">
+        <state line="17" column="21" selection-start="755" selection-end="755" vertical-scroll-proportion="7.04">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home-static.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="157" column="0" selection-start="11046" selection-end="11046" vertical-scroll-proportion="3.3448734">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home-login-static.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="25" selection-start="4599" selection-end="4599" vertical-scroll-proportion="0.7030626">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/less/profile.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="37" selection-start="102" selection-end="102" vertical-scroll-proportion="-2.56">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/less/home.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="0" selection-start="31" selection-end="31" vertical-scroll-proportion="-1.28">
+          <folding>
+            <element signature="e#2353#4106#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/less/shared.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="168" column="0" selection-start="12437" selection-end="12437" vertical-scroll-proportion="3.812766">
+        <state line="98" column="20" selection-start="7499" selection-end="7499" vertical-scroll-proportion="0.6817576">
           <folding />
         </state>
       </provider>
