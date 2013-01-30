@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3e46684d-9f46-480d-8943-c7a8aacb381f" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/add-account-empty-static.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/add-account-static.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/less/home.less" afterPath="$PROJECT_DIR$/less/home.less" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/less/profile.less" afterPath="$PROJECT_DIR$/less/profile.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/less/shared.less" afterPath="$PROJECT_DIR$/less/shared.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="transformer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -10,9 +15,9 @@
     <file path="/index.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359295749275" ignored="false" />
     <file path="/tf.less" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359352486692" ignored="false" />
     <file path="/app.js" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359301353874" ignored="false" />
-    <file path="/shared.less" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359513324060" ignored="false" />
+    <file path="/shared.less" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359535036097" ignored="false" />
     <file path="/profile-static.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359513812049" ignored="false" />
-    <file path="/profile.less" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359452507611" ignored="false" />
+    <file path="/profile.less" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359536343944" ignored="false" />
     <file path="/home.static.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359364818375" ignored="false" />
     <file path="/home-static.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359444742266" ignored="false" />
     <file path="/home.less" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359528290650" ignored="false" />
@@ -21,6 +26,8 @@
     <file path="/dummy.xml" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359523688124" ignored="false" />
     <file path="/account-followed-static.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359513763051" ignored="false" />
     <file path="/home-login-static.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359527067348" ignored="false" />
+    <file path="/add-account-static.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359533118966" ignored="false" />
+    <file path="/add-account-empty-static.html" changelist="3e46684d-9f46-480d-8943-c7a8aacb381f" time="1359536276364" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,14 +43,16 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.45025295">
+    <splitter split-orientation="horizontal" split-proportion="0.3994778">
       <split-first>
         <leaf>
           <file leaf-file-name="home.less" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/less/home.less">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="192" column="20" selection-start="5337" selection-end="5337" vertical-scroll-proportion="-9.56">
-                  <folding />
+                <state line="231" column="17" selection-start="6183" selection-end="6183" vertical-scroll-proportion="-25.28">
+                  <folding>
+                    <element signature="e#4117#6134#0" expanded="false" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -51,16 +60,52 @@
           <file leaf-file-name="shared.less" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/less/shared.less">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="99" column="0" selection-start="7481" selection-end="7502" vertical-scroll-proportion="-47.36">
+                <state line="72" column="0" selection-start="1855" selection-end="1855" vertical-scroll-proportion="-11.48">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="profile.less" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="add-account-empty-static.html" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/add-account-empty-static.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="29" column="21" selection-start="962" selection-end="967" vertical-scroll-proportion="0.63736266">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/app.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="21" column="0" selection-start="933" selection-end="933" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="start.js" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/router/start.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="109" column="11" selection-start="3581" selection-end="3581" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/index.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="profile.less" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/less/profile.less">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="168" column="53" selection-start="4388" selection-end="4388" vertical-scroll-proportion="0.7882823">
+                <state line="179" column="0" selection-start="5057" selection-end="5057" vertical-scroll-proportion="-24.0">
                   <folding />
                 </state>
               </provider>
@@ -70,10 +115,10 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="home-login-static.html" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="home-login-static.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/home-login-static.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="154" column="14" selection-start="9409" selection-end="9409" vertical-scroll-proportion="0.9573901">
+                <state line="154" column="14" selection-start="9409" selection-end="9409" vertical-scroll-proportion="-28.76">
                   <folding>
                     <element signature="tag#div#0;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="false" />
                   </folding>
@@ -84,10 +129,26 @@
           <file leaf-file-name="home-static.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/home-static.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="159" column="18" selection-start="8327" selection-end="11092" vertical-scroll-proportion="-23.0">
-                  <folding>
-                    <element signature="tag#div#0;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="false" />
-                  </folding>
+                <state line="148" column="29" selection-start="8631" selection-end="8631" vertical-scroll-proportion="-79.36">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="add-account-static.html" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/add-account-static.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="46" column="20" selection-start="1628" selection-end="1628" vertical-scroll-proportion="0.59653795">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="transformer.less" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/less/transformer.less">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -119,10 +180,13 @@
         <option value="$PROJECT_DIR$/account-followed-static.html" />
         <option value="$PROJECT_DIR$/home-static.html" />
         <option value="$PROJECT_DIR$/profile-static.html" />
-        <option value="$PROJECT_DIR$/less/shared.less" />
         <option value="$PROJECT_DIR$/home-login-static.html" />
-        <option value="$PROJECT_DIR$/less/home.less" />
+        <option value="$PROJECT_DIR$/src/router/start.js" />
+        <option value="$PROJECT_DIR$/less/shared.less" />
+        <option value="$PROJECT_DIR$/add-account-empty-static.html" />
         <option value="$PROJECT_DIR$/less/profile.less" />
+        <option value="$PROJECT_DIR$/less/home.less" />
+        <option value="$PROJECT_DIR$/add-account-static.html" />
       </list>
     </option>
   </component>
@@ -216,6 +280,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="router" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="transformer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="transformer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="less" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -228,7 +310,7 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.30000004" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="editor.preferences.tabs" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
     <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../gundam/nature/englive/source" />
     <property name="FullScreen" value="false" />
@@ -322,9 +404,9 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.021556886" sideWeight="0.49635038" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13430656" sideWeight="0.78443116" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16131386" sideWeight="0.78443116" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13430656" sideWeight="0.18443114" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16131386" sideWeight="0.18443114" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.021556886" sideWeight="0.49854013" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -405,18 +487,6 @@
     </PATH>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="10" selection-start="496" selection-end="496" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/less/detail.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/detail-static.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="44" column="8" selection-start="1595" selection-end="1595" vertical-scroll-proportion="0.0">
@@ -452,41 +522,83 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/less/shared.less">
+    <entry file="file://$PROJECT_DIR$/home-login-static.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="0" selection-start="7481" selection-end="7502" vertical-scroll-proportion="-47.36">
-          <folding />
+        <state line="154" column="14" selection-start="9409" selection-end="9409" vertical-scroll-proportion="-28.76">
+          <folding>
+            <element signature="tag#div#0;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/home-static.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="159" column="18" selection-start="8327" selection-end="11092" vertical-scroll-proportion="-23.0">
-          <folding>
-            <element signature="tag#div#0;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="false" />
-          </folding>
+        <state line="148" column="29" selection-start="8631" selection-end="8631" vertical-scroll-proportion="-79.36">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/home-login-static.html">
+    <entry file="file://$PROJECT_DIR$/src/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="154" column="14" selection-start="9409" selection-end="9409" vertical-scroll-proportion="0.9573901">
-          <folding>
-            <element signature="tag#div#0;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="false" />
-          </folding>
+        <state line="21" column="0" selection-start="933" selection-end="933" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/less/home.less">
+    <entry file="file://$PROJECT_DIR$/src/router/start.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="192" column="20" selection-start="5337" selection-end="5337" vertical-scroll-proportion="-9.56">
+        <state line="109" column="11" selection-start="3581" selection-end="3581" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/less/shared.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="0" selection-start="1855" selection-end="1855" vertical-scroll-proportion="-11.48">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/less/transformer.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/less/profile.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="168" column="53" selection-start="4388" selection-end="4388" vertical-scroll-proportion="0.7882823">
+        <state line="179" column="0" selection-start="5057" selection-end="5057" vertical-scroll-proportion="-24.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/less/home.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="231" column="17" selection-start="6183" selection-end="6183" vertical-scroll-proportion="-25.28">
+          <folding>
+            <element signature="e#4117#6134#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add-account-empty-static.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="21" selection-start="962" selection-end="967" vertical-scroll-proportion="0.63736266">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add-account-static.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="20" selection-start="1628" selection-end="1628" vertical-scroll-proportion="0.59653795">
           <folding />
         </state>
       </provider>
