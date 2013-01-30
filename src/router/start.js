@@ -6,6 +6,7 @@ define(function(require, exports, module) {
         tbh5 = require('h5_base'),
         h5_comm = require('h5_comm'),
         global = require('../common/global'),
+        cookie = require('cookie'),
         cache = require('../common/cache');
 	    ROUTER = {};
 
@@ -73,6 +74,14 @@ define(function(require, exports, module) {
         index :function()
         {
             console.log('是否登录:'+h5_comm.isLogin());
+            //mock nick to cookie
+            cookie.setCookie('_w_tb_nick','mickshu');
+            var nick = h5_comm.getNickFromCookie();
+            console.log('nick='+nick);
+            console.log('是否需要创建sns账号:'+cache.isCreateSns(nick));
+            //save sns flag
+            cache.saveSnsFlag(nick);
+
         }
         ,
         /**
