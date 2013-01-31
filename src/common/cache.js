@@ -11,13 +11,33 @@ define(function(require, exports, module){
 	itemCacheKey = 'allspark_item_key',
 	
 	snsFlagCacheKey = 'allspark_sns_flag_key',
+
+     indexTmsCacheKey = 'allspark_index_tms_key',
 	
 	 h5_base = require('h5_base'),
 
       cookie = require('cookie'),
 	
      h5_cache = require('h5_cache');
-   
+
+
+    /***
+     * 首页tms缓存，save TmsData
+     * 加上时间参数,缓存10分钟
+     * value - String
+     */
+    exports.saveIndexTms = function(value)
+    {
+        h5_cache.putExpireValue(indexTmsCacheKey,value,6000)
+    }
+    /***
+     * 获取tms缓存数据
+     * 无数据或超时返回null
+     */
+    exports.getIndexTms = function()
+    {
+       return h5_cache.getExpireValue(indexTmsCacheKey);
+    }
    /**
    *在自动创建sns账号成功后调用该接口，
    *失败时不要调用

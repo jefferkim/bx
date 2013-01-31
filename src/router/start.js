@@ -73,14 +73,23 @@ define(function(require, exports, module) {
          */
         index :function()
         {
+            //判断是否登录接口，需要使用
             console.log('是否登录:'+h5_comm.isLogin());
-            //mock nick to cookie
+
+            //mock nick to cookie，not need use
             cookie.setCookie('_w_tb_nick','mickshu');
             var nick = h5_comm.getNickFromCookie();
             console.log('nick='+nick);
+
+            //判断是否需要创建sns账号，需要使用
             console.log('是否需要创建sns账号:'+cache.isCreateSns(nick));
-            //save sns flag
+            //保存创建了sns账号标记，需要使用
             cache.saveSnsFlag(nick);
+            //保存首页tms，需要使用
+            cache.saveIndexTms('tms data');
+            //获取首页tms，需要使用
+            console.log('缓存中tms数据:'+cache.getIndexTms());
+
 
         }
         ,
