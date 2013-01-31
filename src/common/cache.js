@@ -28,7 +28,7 @@ define(function(require, exports, module){
      */
     exports.saveIndexTms = function(value)
     {
-        h5_cache.putExpireValue(indexTmsCacheKey,value,6000)
+        h5_cache.putExpireValue(indexTmsCacheKey,value,600000)
     }
     /***
      * 获取tms缓存数据
