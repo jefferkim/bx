@@ -14,7 +14,7 @@ seajs.config({
         'h5_base' : '../../../../base/utils/server/h5_base',
         'h5_utils' : '../../../../base/utils/server/h5_utils',
         'h5_cache' : '../../../../base/utils/server/h5_cache',
-        'cookie' : '../../../../base/utils/server/cookie',
+        'cookie' : '../../../../base/utils/server/cookie'
 
     },
     debug: 1
