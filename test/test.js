@@ -28,27 +28,27 @@ define(function (require, exports) {
     var dynIndexModel = new DynIndexModel();
     var biz = dynIndexModel._biz;
     //cart_test
-    var sid = '9d668ff1952b0dcae47bda047f0cc718';
+    var sid = 'bb4eff853258c228c43b3ada1096f51e';
     //bmwtui32/taobao1234
-    var snsSid = 'aa758062c1acaf6eab436b13f69a0339';
+    var snsSid = '5fcfcd5e55cfc5f4a41766f3b9a3d03e';
 
-    module("banner");
-    asyncTest("1. get banner api test", 1, function () {
+    module("首页banner图片");
+    asyncTest("1.远程调用tms接口", 1, function () {
         h5_cache.pushValue("allspark", "banner", {});
         biz.banner(function (value) {
-            equal(3, value.length, "We expect banner not empty");
+            equal(3, value.list.length, "We expect banner not empty");
             start();
         });
     });
-    asyncTest("2. get banner api test with cache", 1, function () {
+    asyncTest("2.从cache中获取banner", 1, function () {
         biz.banner(function (value) {
-            equal(3, value.length, "We expect banner not empty");
+            equal(3, value.list.length, "We expect banner not empty");
             start();
         });
     });
 
-    module("autocreate");
-    asyncTest("1. auto create account not logined", 2, function () {
+    module("自动创建账号");
+    asyncTest("1.未登录用户", 2, function () {
         biz.autocreate(function (value) {
             console.log(value)
             ok(!value.succ, "not logined");
@@ -57,16 +57,16 @@ define(function (require, exports) {
         }, {sid:'56c7735d02b6cf9cee8c613867ec4594'});
     });
 
-    asyncTest("2. auto create account  logined", 1, function () {
+    asyncTest("2.登录用户", 1, function () {
         biz.autocreate(function (value) {
             console.log(value)
             ok(value.succ, "succ")
             start();
-        }, {sid:sid});
+        }, {sid:snsSid});
     });
 
-    module("recommands");
-    asyncTest(" get recommands list", 2, function () {
+    module("推荐账号列表");
+    asyncTest("1.获取推荐账号列表", 2, function () {
         biz.recommands(
             {
                 "curPage":"1",
@@ -75,13 +75,13 @@ define(function (require, exports) {
             }, function (value) {
                 console.log(value)
                 ok(value.totalCount > 0, "total count > 0")
-                ok(value.list.length == 3, "list size is 3")
+                ok(value.length == 3, "list size is 3")
                 start();
             });
     });
 
-    module("listwithfirstfee");
-    asyncTest("list with first feed no login", 1, function () {
+    module("关注账号列表");
+    asyncTest("1.未登录用户获取关注列表", 1, function () {
         biz.listWithFirstFeed(
             {
                  sid:'',
@@ -93,7 +93,7 @@ define(function (require, exports) {
                 start();
             });
     });
-    asyncTest("list with first feed login", 1, function () {
+    asyncTest("2.登录用户获取关注列表", 1, function () {
         biz.listWithFirstFeed(
             {
                 sid: snsSid,
@@ -106,12 +106,12 @@ define(function (require, exports) {
             });
     });
 
-    module("getAppData");
-    asyncTest("dynIndexModel's main api not logined",2,function () {
+    module("获取动态页面数据");
+    asyncTest("1.未登录",2,function () {
         var dynIndexModel = new DynIndexModel();
         dynIndexModel.on("change:banner",function(model,result){
             console.log(result);
-            equal(3, result.length, "We expect banner not empty");
+            equal(3, result.list.length, "We expect banner not empty");
         },this);
         dynIndexModel.on("change:accWithFeed",function(model,result){
             console.log(result);
@@ -120,18 +120,17 @@ define(function (require, exports) {
             console.log(result);
             ok(result.totalCount > 0, "total count > 0")
         },this);
-
-        dynIndexModel.getAppData();
+        dynIndexModel.getPageData();
         setTimeout(function(){
             start();
         },1000)
 
     });
-    asyncTest("dynIndexModel's main api logined",3,function () {
+    asyncTest("2.未有关注账号登录首页",function () {
         var dynIndexModel = new DynIndexModel();
         dynIndexModel.on("change:banner",function(model,result){
             console.log(result);
-            equal(3, result.length, "We expect banner not empty");
+            equal(3, result.list.length, "We expect banner not empty");
         },this);
         dynIndexModel.on("change:accWithFeed",function(model,result){
             console.log(result);
@@ -141,13 +140,13 @@ define(function (require, exports) {
             console.log(result);
             ok(result.totalCount > 0, "total count > 0")
         },this);
-        dynIndexModel.getAppData({sid:sid});
+        dynIndexModel.getPageData({sid:sid});
         setTimeout(function(){
             start();
         },1000)
 
     });
-    asyncTest("dynIndexModel's get second page data",1,function () {
+    asyncTest("3.登录用户推荐列表第二页",1,function () {
         var dynIndexModel = new DynIndexModel();
         dynIndexModel.on("change:banner",function(model,result){
             console.log(result);
@@ -157,59 +156,32 @@ define(function (require, exports) {
             console.log(result);
             ok(result.totalCount > 0, "total count > 0")
         },this);
-        dynIndexModel.getAppData({sid:sid,curPage:2,type:"rec"});
+        dynIndexModel.getPageData({sid:sid,curPage:2,type:2});
         setTimeout(function(){
             start();
         },1000)
 
     });
-    asyncTest("dynIndexModel's get second page data",1,function () {
+    asyncTest("4.有关注账号登录首页",2,function () {
         var dynIndexModel = new DynIndexModel();
         dynIndexModel.on("change:banner",function(model,result){
             console.log(result);
-            equal(3, result.length, "We expect banner not empty");
+            equal(3, result.list.length, "We expect banner not empty");
         },this);
         dynIndexModel.on("change:accWithFeed",function(model,result){
             console.log(result);
-            ok(result.totalCount == 0, "total count == 0")
+            ok(result.totalCount > 0, "total count == 0")
         },this);
-        dynIndexModel.getAppData({sid:sid,curPage:2,type:"acc"});
+        dynIndexModel.on("change:recommands",function(model,result){
+            console.log(result);
+            ok(result.totalCount > 0, "total count > 0")
+        },this);
+        dynIndexModel.getPageData({sid:snsSid,curPage:1,type:1});
         setTimeout(function(){
             start();
         },1000)
     });
 
-    module("getAppDataWithAccount");
-    asyncTest("1.有关注用户查询账号列表",2,function () {
-        var dynIndexModel = new DynIndexModel();
-        dynIndexModel.on("change:banner",function(model,result){
-            console.log(result);
-            equal(3, result.length, "We expect banner not empty");
-        },this);
-        dynIndexModel.on("change:accWithFeed",function(model,result){
-            console.log(result);
-            ok(result.totalCount > 0, "total count == 0")
-        },this);
-        dynIndexModel.getAppData({sid:snsSid,curPage:1,type:"acc"});
-        setTimeout(function(){
-            start();
-        },1000)
-    });
-    asyncTest("2.有关注用户查询账号列表 第二页",1,function () {
-        var dynIndexModel = new DynIndexModel();
-        dynIndexModel.on("change:banner",function(model,result){
-            console.log(result);
-            equal(3, result.length, "We expect banner not empty");
-        },this);
-        dynIndexModel.on("change:accWithFeed",function(model,result){
-            console.log(result);
-            ok(result.totalCount > 0, "total count == 0")
-        },this);
-        dynIndexModel.getAppData({sid:snsSid,curPage:2,type:"acc"});
-        setTimeout(function(){
-            start();
-        },1000)
-    });
 
 
 });

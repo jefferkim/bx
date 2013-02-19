@@ -21,14 +21,17 @@ define(function (require, exports, module) {
             userNick:cookie.getCookie('usernick'),
             pageParam:{
                 curPage:1,
-                pageSize:3
+                pageSize:3,
+                isIndex:function(){
+                    return  1 ==  this.curPage;
+                }
             },
             bannerUrl:"/w_Wireless/webapp/transformer/test/banner.json",
             banner:function (fun) {
                 var banner = h5_cache.getValue("allspark", "banner");
                 //banner有效
                 if (banner && banner.list && banner.lastUpdate && (Date.now() - banner.lastUpdate) < (1000 * 60 * 10)) {
-                    fun && fun.call(arguments.callee, banner.list);
+                    fun && fun.call(arguments.callee, banner);
                 } else {
                     $.ajax({
                         type:'GET',
@@ -40,7 +43,7 @@ define(function (require, exports, module) {
                                 lastUpdate:Date.now()
                             }
                             h5_cache.pushValue("allspark", "banner", _banner);
-                            fun && fun.call(arguments.callee, result);
+                            fun && fun.call(arguments.callee, _banner);
                         },
                         error:function (error) {
                             console.log(error);
@@ -87,24 +90,14 @@ define(function (require, exports, module) {
          *
          * @param param.order
          * @param param.curPage  页码
-         * @param param.type 列表类型，推荐 rec 或者关注列表 acc
+         * @param param.type 列表类型
+         *             1. 关注列表 acc
+         *             2. 推荐 rec
          */
-        getAppData:function (param) {
+        getPageData:function (param) {
 
             var biz = this._biz;
             var self = this;
-
-            var pageParam = _.clone(biz.pageParam);
-            param || (param = {});
-            var type = param.type || "rec";
-            delete param.type;
-            if (param.order) {
-                self.order = param.order;
-            } else {
-                param.order = self.order || "fans";
-            }
-            _.extend(pageParam, param);
-            console.log(pageParam);
 
             /**
              * 更新推荐排序规则
@@ -112,42 +105,58 @@ define(function (require, exports, module) {
              * @param param.curPage  页码
              */
             function getRecommands(param) {
-                biz.recommands(pageParam, function (recResult) {
+                biz.recommands(param, function (recResult) {
                     self.set("recommands", recResult);
                 })
             }
 
-            //首页
-            if (1 == pageParam.curPage) {
-                biz.banner(function (result) {
-                    self.set("banner", result);
-                });
-                //logined user
-                biz.autocreate(function (result) {
-                    //successful
-                    if (result.succ) {
-                        biz.listWithFirstFeed(
-                            pageParam, function (accResult) {
-                                self.set("accWithFeed", accResult);
-                                if (accResult.totalCount || accResult.totalCount <= 1) {
-                                    getRecommands.call(this, pageParam);
-                                }
-                            })
-                    } else {
-                        getRecommands.call(this, pageParam);
-                    }
-                },pageParam)
-                //翻页处理
-            } else {
-                if (type == "rec") {
-                    getRecommands.call(this, pageParam);
-                } else if (type == "acc") {
-                    biz.listWithFirstFeed(
-                        pageParam, function (accResult) {
-                            self.set("accWithFeed", accResult);
-                        })
-                }
+            /**
+             * 获取公共账号列表
+             * @param param
+             */
+            function getPubAccounts(param, fun) {
+                biz.listWithFirstFeed(
+                    param, function (accResult) {
+                        self.set("accWithFeed", accResult);
+                        fun && fun.call(arguments.callee, accResult);
+                    })
             }
+
+            param || (param = {});
+            var type = param.type || 1;
+            delete param.type;
+
+            if (param.order) {
+                self.order = param.order;
+            } else {
+                param.order = self.order || "fans";
+            }
+
+            var pageParam = _.clone(biz.pageParam);
+            _.extend(pageParam, param);
+
+            console.log(pageParam);
+
+            //自动创建账号
+            biz.autocreate(function (result) {
+                //登录状态有关注账号列表或者推荐列表的
+                if (result.succ && 1 == type) {
+                    getPubAccounts(pageParam, pageParam.isIndex() ? function (accResult) {
+                        if (accResult.totalCount || accResult.totalCount <= 1) {
+                            getRecommands(pageParam);
+                        }
+                    } : null);
+                } else {
+                    //未登录只有推荐列表了
+                    getRecommands(pageParam);
+                }
+                //TODO 处理sid的问题,方便单元测试
+            }, pageParam && pageParam.sid ? {sid:pageParam.sid} : null);
+
+            //首页
+            pageParam.isIndex() && biz.banner(function (result) {
+                (!self.get("banner") || result.lastUpdate != self.get("banner").lastUpdate ) && self.set("banner", result);
+            });
         }
 
     });
