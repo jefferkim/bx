@@ -93,6 +93,7 @@ define(function (require, exports, module) {
          * @param param.type 列表类型
          *             1. 关注列表 acc
          *             2. 推荐 rec
+         * @param param.listOnly 只需要列表
          */
         getPageData:function (param) {
 
@@ -124,7 +125,6 @@ define(function (require, exports, module) {
 
             param || (param = {});
             var type = param.type || 1;
-            delete param.type;
 
             if (param.order) {
                 self.order = param.order;
@@ -135,13 +135,16 @@ define(function (require, exports, module) {
             var pageParam = _.clone(biz.pageParam);
             _.extend(pageParam, param);
 
+            delete pageParam.type;
+            delete pageParam.listOnly;
+
             console.log(pageParam);
 
             //自动创建账号
             biz.autocreate(function (result) {
                 //登录状态有关注账号列表或者推荐列表的
                 if (result.succ && 1 == type) {
-                    getPubAccounts(pageParam, pageParam.isIndex() ? function (accResult) {
+                    getPubAccounts(pageParam, pageParam.isIndex() ? param.listOnly ? null : function (accResult) {
                         if (accResult.totalCount || accResult.totalCount <= 1) {
                             getRecommands(pageParam);
                         }
@@ -154,7 +157,7 @@ define(function (require, exports, module) {
             }, pageParam && pageParam.sid ? {sid:pageParam.sid} : null);
 
             //首页
-            pageParam.isIndex() && biz.banner(function (result) {
+            pageParam.isIndex() && !param.listOnly && biz.banner(function (result) {
                 (!self.get("banner") || result.lastUpdate != self.get("banner").lastUpdate ) && self.set("banner", result);
             });
         }
