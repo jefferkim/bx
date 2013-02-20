@@ -17,15 +17,6 @@ define(function (require, exports, module) {
          * 私有对象，封装了简单的业务逻辑
          */
         _biz:{
-            //TODO get form cookie
-            userNick:cookie.getCookie('usernick'),
-            pageParam:{
-                curPage:1,
-                pageSize:3,
-                isIndex:function(){
-                    return  1 ==  this.curPage;
-                }
-            },
             bannerUrl:"/w_Wireless/webapp/transformer/test/banner.json",
             banner:function (fun) {
                 var banner = h5_cache.getValue("allspark", "banner");
@@ -52,9 +43,8 @@ define(function (require, exports, module) {
                     });
                 }
             },
-
             autocreate:function (fun, param) {
-                if (this.userNick && h5_cache.getValue("allspark", this.userNick + "_hasSns")) {
+                if (mtop.userNick && h5_cache.getValue("allspark", this.userNick + "_hasSns")) {
                     fun && fun.call(arguments.callee, {succ:true});
                     return true;
                 } else {
@@ -65,24 +55,7 @@ define(function (require, exports, module) {
                     });
 
                 }
-            },
-
-            recommands:function (param, fun) {
-                mtop.getData("mtop.transformer.pubAccount.recommands", param || {}, function (result) {
-                    fun && fun.call(arguments.callee, result.data);
-                }, function (result) {
-                    fun && fun.call(arguments.callee, {fail:result});
-                });
-            },
-
-            listWithFirstFeed:function (param, fun) {
-                mtop.getData("mtop.sns.pubAccount.listWithFirstFeed", param || {}, function (result) {
-                    fun && fun.call(arguments.callee, result.data);
-                }, function (result) {
-                    fun && fun.call(arguments.callee, {fail:result});
-                });
             }
-
         },
 
         /**
@@ -93,7 +66,6 @@ define(function (require, exports, module) {
          * @param param.type 列表类型
          *             1. 关注列表 acc
          *             2. 推荐 rec
-         * @param param.listOnly 只需要列表
          */
         getPageData:function (param) {
 
@@ -106,17 +78,16 @@ define(function (require, exports, module) {
              * @param param.curPage  页码
              */
             function getRecommands(param) {
-                biz.recommands(param, function (recResult) {
+                mtop.recommands(param, function (recResult) {
                     self.set("recommands", recResult);
                 })
             }
-
             /**
              * 获取公共账号列表
              * @param param
              */
             function getPubAccounts(param, fun) {
-                biz.listWithFirstFeed(
+                mtop.listWithFirstFeed(
                     param, function (accResult) {
                         self.set("accWithFeed", accResult);
                         fun && fun.call(arguments.callee, accResult);
@@ -132,19 +103,20 @@ define(function (require, exports, module) {
                 param.order = self.order || "fans";
             }
 
-            var pageParam = _.clone(biz.pageParam);
+            var pageParam = _.clone(mtop.pageParam);
             _.extend(pageParam, param);
 
             delete pageParam.type;
-            delete pageParam.listOnly;
 
             console.log(pageParam);
 
             //自动创建账号
             biz.autocreate(function (result) {
+                //设置登录状态
+                self.set("loginStatus",result.succ);
                 //登录状态有关注账号列表或者推荐列表的
                 if (result.succ && 1 == type) {
-                    getPubAccounts(pageParam, pageParam.isIndex() ? param.listOnly ? null : function (accResult) {
+                    getPubAccounts(pageParam, pageParam.isIndex() ? function (accResult) {
                         if (accResult.totalCount || accResult.totalCount <= 1) {
                             getRecommands(pageParam);
                         }
@@ -157,7 +129,7 @@ define(function (require, exports, module) {
             }, pageParam && pageParam.sid ? {sid:pageParam.sid} : null);
 
             //首页
-            pageParam.isIndex() && !param.listOnly && biz.banner(function (result) {
+            pageParam.isIndex() && biz.banner(function (result) {
                 (!self.get("banner") || result.lastUpdate != self.get("banner").lastUpdate ) && self.set("banner", result);
             });
         }

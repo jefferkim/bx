@@ -14,6 +14,7 @@ seajs.config({
         'h5_cache':'../../../../base/utils/server/h5_cache',
         'base64':'../../../../base/utils/server/base64_utf-8',
         'cookie':'../../../../base/utils/server/cookie'
+
     },
     debug:1
 });
@@ -21,6 +22,7 @@ seajs.config({
 define(function (require, exports) {
 
     var DynIndexModel = require("../src/dynIndex/dynIndexModel.js"),
+        mtop = require('../src/common/mtopForAllspark.js'),
         h5_cache = require("../../../base/utils/server/h5_cache.js");
 
     require("./framework/qunit-1.11.0.js");
@@ -28,7 +30,7 @@ define(function (require, exports) {
     var dynIndexModel = new DynIndexModel();
     var biz = dynIndexModel._biz;
     //cart_test
-    var sid = 'bb4eff853258c228c43b3ada1096f51e';
+    var sid = '209748772cdc638a00c9ace4d9c9c4b0';
     //bmwtui32/taobao1234
     var snsSid = '5fcfcd5e55cfc5f4a41766f3b9a3d03e';
 
@@ -67,7 +69,7 @@ define(function (require, exports) {
 
     module("推荐账号列表");
     asyncTest("1.获取推荐账号列表", 2, function () {
-        biz.recommands(
+        mtop.recommands(
             {
                 "curPage":"1",
                 "pageSize":"3",
@@ -75,14 +77,14 @@ define(function (require, exports) {
             }, function (value) {
                 console.log(value)
                 ok(value.totalCount > 0, "total count > 0")
-                ok(value.length == 3, "list size is 3")
+                ok(value.list.length == 3, "list size is 3")
                 start();
             });
     });
 
     module("关注账号列表");
     asyncTest("1.未登录用户获取关注列表", 1, function () {
-        biz.listWithFirstFeed(
+        mtop.listWithFirstFeed(
             {
                  sid:'',
                 "curPage":"1",
@@ -94,7 +96,7 @@ define(function (require, exports) {
             });
     });
     asyncTest("2.登录用户获取关注列表", 1, function () {
-        biz.listWithFirstFeed(
+        mtop.listWithFirstFeed(
             {
                 sid: snsSid,
                 "curPage":"1",

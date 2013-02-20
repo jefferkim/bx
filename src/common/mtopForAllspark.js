@@ -1,6 +1,11 @@
 define(function (require, exports, module) {
     var h5_mtop = require('h5_mtop'),
-        h5_comm = require("h5_comm");
+        h5_comm = require("h5_comm"),
+        base64 = require('base64'),
+        h5_cache = require('h5_cache'),
+//        $ = require('zepto'),
+//        _ = require('underscore'),
+        cookie = require('cookie');
 
     /**
      * motp api简单的封装
@@ -26,9 +31,9 @@ define(function (require, exports, module) {
             });
     };
 
-    function convertIds(ids){
-        if(ids.join){
-            return {snsIds: ids.join(":")};
+    function convertIds(ids) {
+        if (ids.join) {
+            return {snsIds:ids.join(":")};
         }
         return {snsIds:ids};
     }
@@ -57,10 +62,38 @@ define(function (require, exports, module) {
      * @param successF
      * @param failF
      */
-    exports.addAccount = function(ids, successF, failF){
-        this.getData("mtop.sns.follow.pubAccount.add",convertIds(ids), successF, failF)
+    exports.addAccount = function (ids, successF, failF) {
+        this.getData("mtop.sns.follow.pubAccount.add", convertIds(ids), successF, failF)
     }
-    exports.removeAccount = function(ids, successF, failF){
-        this.getData("mtop.sns.follow.pubAccount.remove",convertIds(ids), successF, failF)
+    exports.removeAccount = function (ids, successF, failF) {
+        this.getData("mtop.sns.follow.pubAccount.remove", convertIds(ids), successF, failF)
     }
-});
+
+    //TODO get form cookie
+    exports.userNick = cookie.getCookie('usernick');
+    exports.pageParam = {
+        curPage:1,
+        pageSize:3,
+        isIndex:function () {
+            return  1 == this.curPage;
+        }
+    };
+
+    exports.recommands = function (param, fun) {
+        getData("mtop.transformer.pubAccount.recommands", param || {}, function (result) {
+            fun && fun.call(arguments.callee, result.data);
+        }, function (result) {
+            fun && fun.call(arguments.callee, {fail:result});
+        });
+    };
+
+    exports.listWithFirstFeed = function (param, fun) {
+        getData("mtop.sns.pubAccount.listWithFirstFeed", param || {}, function (result) {
+            fun && fun.call(arguments.callee, result.data);
+        }, function (result) {
+            fun && fun.call(arguments.callee, {fail:result});
+        });
+    };
+
+})
+;
