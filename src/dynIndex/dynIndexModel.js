@@ -26,7 +26,7 @@ define(function (require, exports, module) {
                     return  1 ==  this.curPage;
                 }
             },
-            bannerUrl:"/w_Wireless/webapp/transformer/test/banner.json",
+            bannerUrl:"../transformer/test/banner.json",
             banner:function (fun) {
                 var banner = h5_cache.getValue("allspark", "banner");
                 //banner有效

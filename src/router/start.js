@@ -19,6 +19,7 @@ define(function(require, exports, module) {
             //去首次加载动画
             window.MH5slogan && window.MH5slogan.hideFunc && window.MH5slogan.hideFunc();
             var self = this;
+
             //#index
             self.route('', 'index', self.filter);
             self.route(/^(index)$/, 'index', self.filter);
@@ -89,7 +90,9 @@ define(function(require, exports, module) {
             cache.saveIndexTms('tms data');
             //获取首页tms，需要使用
             console.log('缓存中tms数据:'+cache.getIndexTms());
-
+            seajs.use('./src/dynIndex/dynIndexView',function(view){
+                new view();
+            });
 
         }
         ,

@@ -11,7 +11,9 @@ define(function(require, exports, module) {
     },
 
     index: function() {
-
+        seajs.use('./src/dynIndex/dynIndexView',function(view){
+            new view();
+        });
     },
 
     start: function() {
