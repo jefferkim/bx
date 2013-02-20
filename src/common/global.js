@@ -12,6 +12,7 @@ define(function(require){
 	return h5_utils.wrapColsure({		
 		init : function() {
 		    //判断是否支持cookie
+
 		   if(!cookie.isCookieEnable())
 		   {
 		    alert('您的浏览器不支持cookie，请开启cookie!');

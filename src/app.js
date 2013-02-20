@@ -22,5 +22,5 @@ seajs.config({
 
 
 define(function(require, exports){
-    require('./router/start').RUN();
+    require('./router').start();
 });
