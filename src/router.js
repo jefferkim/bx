@@ -7,13 +7,23 @@ define(function(require, exports, module) {
 
     routes: {
       '': 'index',
-      'home': 'index'
+      'home': 'index',
+      'detail/:snsId/:feedId': 'detail',
+      'comment/:snsId/:feedId/:page': 'comment'
     },
 
     index: function() {
         seajs.use('./src/dynIndex/dynIndexView',function(view){
             new view();
         });
+    },
+
+    detail: function(snsId, feedId) {
+
+    },
+
+    comment :function(snsId, feedId, page) {
+      page = page || 1;
     },
 
     start: function() {
