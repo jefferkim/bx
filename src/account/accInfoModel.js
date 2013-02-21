@@ -48,7 +48,7 @@ define(function (require, exports, module) {
 
             var self = this;
 
-            self._biz.info({snsId:param.snsId},function(result){
+            self._biz.info({snsId:param.snsId,sid:param.sid},function(result){
                 self.set("accInfo",result);
             });
 
@@ -60,6 +60,19 @@ define(function (require, exports, module) {
             console.log(pageParam);
             self._biz.feeds(pageParam,function(result){
                 self.set("accFeeds",result);
+
+                //获取价格参数
+                var ids = [];
+                result.totalCount && result.list && result.list.forEach(function(feed){
+                    feed.tiles && feed.tiles.forEach(function(tile){
+                       tile.items && tile.items.length && tile.items.forEach(function(item){
+                           ids.push(item.id);
+                       })
+                    });
+                });
+                mtop.getPrices(_.uniq(ids),function(prices){
+                    prices.length && self.set("prices",prices);
+                })
             })
         }
 

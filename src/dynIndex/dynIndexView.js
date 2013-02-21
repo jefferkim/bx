@@ -50,7 +50,7 @@ define(function (require, exports, module) {
                 if(result.list&&result.list.length>0){
                     $('.tb-h5').append(_.template($('#personList_tpl').html(),result));
                     var pageCount=Math.ceil(result.totalCount/_pageSize);
-                    new pageNav({'id':'#personListPageNav','pageCount':pageCount});
+                    new pageNav({'id':'#personListPageNav','pageCount':pageCount,'objId':'A'});
                 }
                 //ok(result.totalCount > 0, "total count > 0")
             },this);

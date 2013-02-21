@@ -4,10 +4,8 @@ seajs.config({
         'underscore': 'http://a.tbcdn.cn/mw/base/libs/underscore/1.3.3/underscore',
         'zepto': 'http://a.tbcdn.cn/mw/base/libs/zepto/1.0.0/zepto',
         'mustache': 'http://a.tbcdn.cn/mw/base/libs/mustache/0.5.0/mustache',
-
         'linkfocus' : '../../../../base/modules/linkfocus/linkfocus',
         'uriBroker' : '../../../../base/utils/server/uriBroker',
-
         'h5_mtop': '../../../../base/utils/server/mtop_h5_test',
         'h5_events' : '../../../../base/utils/server/h5_events',
         'h5_comm' : '../../../../base/utils/server/h5_common',

@@ -17,7 +17,7 @@ define(function (require, exports, module) {
          * 私有对象，封装了简单的业务逻辑
          */
         _biz:{
-            bannerUrl:"../transformer/test/banner.json",
+            bannerUrl:"../../app/transformer/test/banner.json",
             banner:function (fun) {
                 var banner = h5_cache.getValue("allspark", "banner");
                 //banner有效

@@ -31,8 +31,8 @@ define(function (require, exports) {
     var biz = dynIndexModel._biz;
     //cart_test
     var sid = '209748772cdc638a00c9ace4d9c9c4b0';
-    //bmwtui32/taobao1234
-    var snsSid = '5fcfcd5e55cfc5f4a41766f3b9a3d03e';
+    //tbwuzhong000/taobao1234
+    var snsSid = '2e1e0cd1112a52d7e29b1af7e8d52d74';
 
     module("首页banner图片");
     asyncTest("1.远程调用tms接口", 1, function () {
@@ -77,7 +77,7 @@ define(function (require, exports) {
             }, function (value) {
                 console.log(value)
                 ok(value.totalCount > 0, "total count > 0")
-                ok(value.list.length == 3, "list size is 3")
+                ok(value.list && value.list.length > 0, "list size is > 0")
                 start();
             });
     });
@@ -164,7 +164,7 @@ define(function (require, exports) {
         },1000)
 
     });
-    asyncTest("4.有关注账号登录首页",2,function () {
+    asyncTest("4.有关注账号登录首页",3,function () {
         var dynIndexModel = new DynIndexModel();
         dynIndexModel.on("change:banner",function(model,result){
             console.log(result);
@@ -172,7 +172,7 @@ define(function (require, exports) {
         },this);
         dynIndexModel.on("change:accWithFeed",function(model,result){
             console.log(result);
-            ok(result.totalCount > 0, "total count == 0")
+            ok(result.totalCount > 0, "total count > 0")
         },this);
         dynIndexModel.on("change:recommands",function(model,result){
             console.log(result);
@@ -183,6 +183,42 @@ define(function (require, exports) {
             start();
         },1000)
     });
+
+    module("价格查询");
+    asyncTest("1.查询2个商品价格",3,function () {
+        mtop.getPrices([2533082807,1500014021509],function(data){
+            console.log(data);
+            ok(data ,"data is not null");
+            ok( 2 == data.length ,"data length is 2");
+            ok( data[1].price && data[1].id ,"has price and id");
+        })
+        setTimeout(function(){
+            start();
+        },1000)
+    });
+
+    var AccInfoModel = require("./accInfoModel.js");
+    module("帐号首页");
+    asyncTest("1.查询2个商品价格",function () {
+        var accInfo = new AccInfoModel();
+        accInfo.on("change:accInfo",function(model,result){
+            console.log(result);
+            ok(result.followed);
+        },this);
+        accInfo.on("change:accFeeds",function(model,result){
+            console.log(result);
+            ok(result.totalCount > 0, "total count > 0")
+        },this);
+        accInfo.on("change:prices",function(model,result){
+            console.log(result);
+            ok(result.length >= 0, "i'm not sure the prices")
+        },this);
+        accInfo.getPageData({snsId:"7000084652",sid:snsSid});
+        setTimeout(function(){
+            start();
+        },1000)
+    });
+
 
 
 
