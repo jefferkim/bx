@@ -8,7 +8,7 @@ seajs.config({
         'linkfocus' : '../../../../base/modules/linkfocus/linkfocus',
         'uriBroker' : '../../../../base/utils/server/uriBroker',
 
-        'h5_mtop': '../../../../base/utils/server/mtop_h5',
+        'h5_mtop': '../../../../base/utils/server/mtop_h5_test',
         'h5_events' : '../../../../base/utils/server/h5_events',
         'h5_comm' : '../../../../base/utils/server/h5_common',
         'h5_base' : '../../../../base/utils/server/h5_base',
@@ -17,7 +17,7 @@ seajs.config({
         'cookie' : '../../../../base/utils/server/cookie'
 
     },
-    debug: 1
+    debug: 2
 });
 
 

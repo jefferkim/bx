@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
     var h5_mtop = require('h5_mtop'),
         h5_comm = require("h5_comm"),
-        base64 = require('base64'),
+        //base64 = require('base64'),
         h5_cache = require('h5_cache'),
 //        $ = require('zepto'),
 //        _ = require('underscore'),

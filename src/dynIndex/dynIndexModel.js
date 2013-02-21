@@ -3,7 +3,7 @@ define(function (require, exports, module) {
         $ = require('zepto'),
         _ = require('underscore'),
         mtop = require('../common/mtopForAllspark.js'),
-        base64 = require('base64'),
+        //base64 = require('base64'),
         h5_comm = require('h5_comm'),
         h5_cache = require('h5_cache'),
         cookie = require('cookie');
@@ -107,13 +107,10 @@ define(function (require, exports, module) {
             _.extend(pageParam, param);
 
             delete pageParam.type;
-
-            console.log(pageParam);
-
             //自动创建账号
             biz.autocreate(function (result) {
                 //设置登录状态
-                self.set("loginStatus",result.succ);
+                self.set("loginStatus",!!result.succ);
                 //登录状态有关注账号列表或者推荐列表的
                 if (result.succ && 1 == type) {
                     getPubAccounts(pageParam, pageParam.isIndex() ? function (accResult) {
