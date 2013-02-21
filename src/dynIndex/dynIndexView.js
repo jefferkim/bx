@@ -65,7 +65,7 @@ define(function (require, exports, module) {
                 }
             },this);
             dynIndexModel.getPageData({'curPage':1,'pageSize':_pageSize});
-        }
+           }
     });
     return dynIndexView;
 });

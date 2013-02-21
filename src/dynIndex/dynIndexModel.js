@@ -3,10 +3,8 @@ define(function (require, exports, module) {
         $ = require('zepto'),
         _ = require('underscore'),
         mtop = require('../common/mtopForAllspark.js'),
-        //base64 = require('base64'),
         h5_comm = require('h5_comm'),
-        h5_cache = require('h5_cache'),
-        cookie = require('cookie');
+        cache = require('../common/cache');
 
     /**
      * 动态首页
@@ -17,12 +15,12 @@ define(function (require, exports, module) {
          * 私有对象，封装了简单的业务逻辑
          */
         _biz:{
-            bannerUrl:"../../app/transformer/test/banner.json",
+            bannerUrl:"../../webapp/transformer/test/banner.json",
             banner:function (fun) {
-                var banner = h5_cache.getValue("allspark", "banner");
+                var banner = cache.getIndexTms();
                 //banner有效
-                if (banner && banner.list && banner.lastUpdate && (Date.now() - banner.lastUpdate) < (1000 * 60 * 10)) {
-                    fun && fun.call(arguments.callee, banner);
+                if (banner) {
+                    fun && fun.call(arguments.callee, JSON.parse(banner));
                 } else {
                     $.ajax({
                         type:'GET',
@@ -33,7 +31,7 @@ define(function (require, exports, module) {
                                 list:result,
                                 lastUpdate:Date.now()
                             }
-                            h5_cache.pushValue("allspark", "banner", _banner);
+                            cache.saveIndexTms(JSON.stringify(_banner));
                             fun && fun.call(arguments.callee, _banner);
                         },
                         error:function (error) {
@@ -44,12 +42,14 @@ define(function (require, exports, module) {
                 }
             },
             autocreate:function (fun, param) {
-                if (mtop.userNick && h5_cache.getValue("allspark", this.userNick + "_hasSns")) {
+                if (mtop.userNick && cache.isCreateSns(mtop.userNick)) {
                     fun && fun.call(arguments.callee, {succ:true});
                     return true;
                 } else {
                     mtop.getData("mtop.transformer.account.autoCreate", param || {}, function (result) {
+                        cache.saveSnsFlag(mtop.userNick);
                         fun && fun.call(arguments.callee, {succ:true});
+
                     }, function (result) {
                         fun && fun.call(arguments.callee, {fail:result});
                     });
