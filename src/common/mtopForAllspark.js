@@ -1,12 +1,16 @@
 define(function (require, exports, module) {
     var h5_mtop = require('h5_mtop'),
         h5_comm = require("h5_comm"),
-        base64 = require('base64'),
         h5_cache = require('h5_cache'),
-//        $ = require('zepto'),
+        uriBroker = require('uriBroker'),
+        $ = require('zepto'),
 //        _ = require('underscore'),
+        tbh5 = require('h5_base'),
         cookie = require('cookie');
 
+
+    tbh5.add("h5_paramKey",{ttid:"0001"});
+    console.log(tbh5.get("h5_paramKey"))
     /**
      * motp api简单的封装
      * @param apiName
@@ -30,6 +34,9 @@ define(function (require, exports, module) {
                 failF.call(this, result);
             });
     };
+
+    //设置ttid
+    window.localstorage
 
     function convertIds(ids) {
         if (ids.join) {
@@ -74,26 +81,72 @@ define(function (require, exports, module) {
     exports.pageParam = {
         curPage:1,
         pageSize:3,
+        ttid:"0001",
         isIndex:function () {
             return  1 == this.curPage;
         }
     };
 
-    exports.recommands = function (param, fun) {
-        getData("mtop.transformer.pubAccount.recommands", param || {}, function (result) {
+    function invokeApi(apiName, param, fun) {
+        getData(apiName, param || {}, function (result) {
             fun && fun.call(arguments.callee, result.data);
         }, function (result) {
             fun && fun.call(arguments.callee, {fail:result});
         });
+    }
+
+    exports.recommands = function (param, fun) {
+        invokeApi("mtop.transformer.pubAccount.recommands", param, fun);
+    };
+
+    exports.my = function (param, fun) {
+        invokeApi("mtop.sns.follow.pubAccount.my", param, fun);
     };
 
     exports.listWithFirstFeed = function (param, fun) {
-        getData("mtop.sns.pubAccount.listWithFirstFeed", param || {}, function (result) {
-            fun && fun.call(arguments.callee, result.data);
-        }, function (result) {
-            fun && fun.call(arguments.callee, {fail:result});
-        });
+        invokeApi("mtop.sns.pubAccount.listWithFirstFeed", param, fun);
     };
+
+
+    var priceCache = {};
+    uriBroker.URL_CONSTANTS.path['s_price'] || (uriBroker.URL_CONSTANTS.path['s_price'] = 'search_turn_page_iphone.htm');
+    /**
+     * @param ids
+     *   eg: [1],[1,2]
+     */
+    exports.getPrices = function (ids, fun) {
+        var result = [];
+        var uncachedIds = [];
+        ids.forEach(function (id) {
+            if (priceCache[id]) {
+                result.push({id:id, price:priceCache[id]});
+            } else {
+                uncachedIds.push(id);
+            }
+        });
+        if (uncachedIds.length) {
+            $.ajax({
+                type:'GET',
+                dataType:'json',
+                url:uriBroker.getUrl("s_price", {nid:uncachedIds.join(",")}) + "&callback=?",
+                success:function (sret) {
+                    if (sret.result && "true" == sret.result && sret.listItem) {
+                        sret.listItem.forEach(function (item) {
+                            priceCache[item.itemNumId] = item.price;
+                            result.push({id:item.itemNumId, price:item.price});
+                        })
+                    }
+                    fun && fun.call(arguments.callee, result);
+                },
+                error:function (error) {
+                    console.log(error);
+                    fun && fun.call(arguments.callee, result);
+                }
+            });
+        } else {
+            fun && fun.call(arguments.callee, result);
+        }
+    }
 
 })
 ;

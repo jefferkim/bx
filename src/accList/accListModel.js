@@ -36,9 +36,9 @@ define(function (require, exports, module) {
             console.log(pageParam);
 
             if (1 == type) {
-                mtop.listWithFirstFeed(
+                mtop.my(
                     pageParam, function (accResult) {
-                        self.set("accWithFeed", accResult);
+                        self.set("myAttention", accResult);
                     });
 
             } else {
