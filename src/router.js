@@ -34,13 +34,13 @@ define(function(require, exports, module) {
         });
     },
     account:function(snsId,page){
-        seajs.use('./src/account/',function(view){
-            new view();
+        seajs.use('./src/account/accountView',function(view){
+            new view(snsId,page);
         });
     },
     accountList:function(status){
-        seajs.use('./src/accountList/',function(view){
-            new view();
+        seajs.use('./src/accountList/accountListView',function(view){
+            new view(status);
         });
     },
     detail: function(snsId, feedId) {

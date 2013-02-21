@@ -3,7 +3,7 @@ define(function (require, exports, module) {
         $ = require('zepto'),
         _ = require('underscore'),
         mtop = require('../common/mtopForAllspark.js'),
-        base64 = require('base64'),
+        //base64 = require('base64'),
         h5_comm = require('h5_comm'),
         h5_cache = require('h5_cache'),
         cookie = require('cookie');

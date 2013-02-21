@@ -19,12 +19,14 @@ define(function (require, exports, module) {
 
     var dynIndexView = Backbone.View.extend({
         events:{
-            'click .pagenav .c-p-pre':'',
-            'click .pagenav .c-p-next':''
+
         },
         initialize:function () {
             //判断是否登录
+            $('body').unbind();
+            $('.tb-h5').html('');
             var _pageSize=1;
+
             var dynIndexModel = new _model();
             dynIndexModel.on("change:banner",function(model,result){
                 console.log('banner');
