@@ -197,7 +197,27 @@ define(function (require, exports) {
         },1000)
     });
 
+    var AccInfoModel = require("../src/accInfo/accInfoModel.js");
     module("帐号首页");
+    asyncTest("1.查询2个商品价格",function () {
+        var accInfo = new AccInfoModel();
+        accInfo.on("change:accInfo",function(model,result){
+            console.log(result);
+            ok(result.followed);
+        },this);
+        accInfo.on("change:accFeeds",function(model,result){
+            console.log(result);
+            ok(result.totalCount > 0, "total count > 0")
+        },this);
+        accInfo.on("change:prices",function(model,result){
+            console.log(result);
+            ok(result.length >= 0, "i'm not sure the prices")
+        },this);
+        accInfo.getPageData({snsId:"7000084652",sid:snsSid});
+        setTimeout(function(){
+            start();
+        },1000)
+    });
 
 
 

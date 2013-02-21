@@ -10,7 +10,6 @@ define(function (require, exports, module) {
 
 
     tbh5.add("h5_paramKey",{ttid:"0001"});
-    console.log(tbh5.get("h5_paramKey"))
     /**
      * motp api简单的封装
      * @param apiName
