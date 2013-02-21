@@ -15,7 +15,7 @@ seajs.config({
         'cookie' : '../../../../base/utils/server/cookie'
 
     },
-    debug: 1
+    debug: 2
 });
 
 
