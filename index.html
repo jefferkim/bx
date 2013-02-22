@@ -13,26 +13,26 @@
         <script src="less.js" type="text/javascript"></script>
     </head>
     <body>
-    <div id="content">
-        <header class="navbar">
-            <div class="back">
-                <a href="http://m.taobao.com">首页</a>
-            </div>
-            <div class="title">变形金刚</div>
-            <div class="btn add">
-            </div>
-        </header>
-        <div class="tb-h5">
+        <div id="content">
+            <header class="navbar">
 
+            </header>
+            <div class="tb-h5">
+
+            </div>
         </div>
-    </div>
-    <!-- end of #content -->
+        <!-- end of #content -->
 
         <!-- Templates -->
         <script id="navBack_tpl" type="text/template">
             <div class="back">
                 <a href="http://m.taobao.com">首页</a>
             </div>
+        </script>
+        <script id="homeTitle_tpl" type="text/template">
+            <div class="title">变形金刚</div>
+            <div class="btn add"></div>
+            <div class="btn refresh"></div>
         </script>
         <script id="accountListTabBar_tpl" type="text/template">
             <div class="tab-bar">
@@ -70,9 +70,9 @@
                             <div class="content">
                                 <div class="title"><%=item.nick%></div>
                                 <div class="info"><%=item.description%></div>
-                                <div class="follows" pid="<%=item.id%>"><span><%=item.fansCount%></span>关注者</div>
+                                <div class="follows"><span><%=item.fansCount%></span>关注者</div>
                                 <img src="<%=item.logoUrl%>">
-                                <button class="follwbtn">关注</button>
+                                <button pid="<%=item.id%>" class="follwbtn">关注</button>
                             </div>
                         </li>
                         <% }); %>
@@ -82,11 +82,68 @@
                     </div>
                     </div>
         </script>
+        <script id="recommendtip_tpl" type="text/template">
+            <div class="recommendtip">您还没有关注任何账号哦，看看我们的推荐吧！</div>
+        </script>
+        <script id="myfeed_tpl" type="text/template">
+            <div class="myfeed">
+                <ul>
+                    <% _.each(list, function(item) { %>
+                    <% if(item.firstFeed.coverTile.path!='') {%>
+                    <li class="multimedia">
+                        <div class="media">
+                            <img src="<%=item.firstFeed.coverTile.path%>">
+                        </div>
+                    <% }else{ %>
+                    <li>
+                    <% } %>
+                        <div class="feed">
+                            <div class="title"><%=item.firstFeed.title%></div>
+                            <div class="info"><%=item.firstFeed.summary%></div>
+                            <div class="status">
+                                <span class="time"><%=weibo_timestamps(Date(item.firstFeed.time))%></span>
+                                <span class="like"><%=item.account.fansCount%></span>
+                                <span class="name"><%=item.firstFeed.nick%></span>
+                            </div>
+                        </div>
+                    </li>
+                    <% }); %>
+                </ul>
+            </div>
+        </script>
         <script id="loginBar_tpl" type="text/template">
             <div class="login-bar">
                 <span>登录后就能关注您喜欢的账号了</span>
-                <a class="login-btn" href="#">登陆</a>
+                <a class="login-btn" id="J_login_btn">登陆</a>
             </div>
+        </script>
+        <script id="detail_accinfo_tpl" type="text/template">
+          <div class="brand">
+            <img class="avatar" src="imgs/avatar.png" alt="">
+            <div class="info">
+              <p class="name">la bellezza 潮品</p>
+              <p class="follow"><span class="count">1024</span> 关注者</p>
+            </div>
+          </div>
+          <div class="separator"></div>
+        </script>
+        <script id="detail_content_tpl" type="text/template">
+          <div class="main">
+            <h1>这是世界末日后第三天</h1>
+            <p class="pub-time">01-02  19:21</p>
+            <p>2012年12月24日，末日后第三天，人类艰难地摆脱“被窝引力”的束缚，拖着疲惫的身体返回地球。</p>
+            <div class="media">
+              <img src="imgs/3.png" alt="">
+            </div>
+            <div class="media">
+              <div class="item">
+                <img src="imgs/2.png" alt="">
+                <div class="price">￥218.00</div>
+              </div>
+            </div>
+            <p>地球已经被一种头戴红色帽子叫做“圣诞老人”的物种占领。每个返回地球的人类都将收到一个神秘蓝色盒子，里面放着一只苹果。当你咬一口它，你也会变成苹果，然后被装进一个蓝色盒子。</p>
+            <a href="#" class="more-content">更多内容</a>
+          </div>
         </script>
         <!-- Templates -->
 
@@ -95,6 +152,65 @@
 
         <script src="http://a.tbcdn.cn/mw/base/libs/seajs/1.2.0/sea.js"></script>
         <script>
+            function weibo_timestamps(time){
+
+                if(typeof time == 'string'){
+                    time = parseInt(time);
+                }
+
+                var ONE_SECOND = 1000,
+                        ONE_MINUTE = ONE_SECOND * 60,
+                        ONE_HOUR   = ONE_MINUTE * 60,
+                        ONE_DAY    = ONE_HOUR   * 24;
+
+                var iTrueTime = null,
+                        dNow = new Date(),
+                        iNow = dNow.getTime(),
+                        ret = "";
+
+                if(typeof time == 'number'){
+
+                    iTrueTime = time;
+                } else if(typeof time == 'object'){
+
+                    if(time.getTime){// an object of Date
+                        iTrueTime = time.getTime();
+                    }
+                }
+
+
+                if( iTrueTime != NaN){
+                    var dTrueTime = new Date();
+                    dTrueTime.setTime(iTrueTime);
+                }
+
+                if(iTrueTime == NaN){
+                    ret = "-";
+                }else if(iTrueTime > iNow){
+                    ret = "您穿越了";
+                } else if( iTrueTime > iNow - ONE_SECOND * 10){
+                    ret = "刚刚";
+                } else if( iTrueTime > iNow - ONE_MINUTE){
+                    // e.g. 30秒前
+                    ret = parseInt((iNow - iTrueTime) / ONE_SECOND / 10).toString() + "0秒前";
+                } else if( iTrueTime > iNow - ONE_HOUR){
+                    // e.g. 3分钟前
+                    ret = parseInt((iNow - iTrueTime) / ONE_MINUTE) + "分钟前";
+                } else if( iTrueTime > iNow - ONE_DAY){
+                    // e.g. 今天11:39
+                    ret = "今天" + dTrueTime.getHours() + ":" + dTrueTime.getMinutes();
+                } else{
+                    if(dTrueTime.getYear() == dNow.getYear()){
+                        // e.g. 9月10日 07:50
+                        ret = dTrueTime.getMonth() + "月" + dTrueTime.getDate() + "日 " + dTrueTime.getHours() + ":" + dTrueTime.getMinutes();
+                    }else{
+                        // e.g. 2011年2月3日 12:39
+                        ret = dTrueTime.getFullYear() + "年" + dTrueTime.getMonth() + "月" + dTrueTime.getDate() + "日 " + dTrueTime.getHours() + ":" + dTrueTime.getMinutes();
+                    }
+                }
+
+                return ret;
+            }
             seajs.use('./src/app.js', function(app){
                 //new app();
             });

@@ -7,43 +7,49 @@ define(function (require, exports, module) {
     var Backbone = require('backbone'),
         $ = require('zepto'),
         _ = require('underscore'),
-        _model=require('./accountListModel'),
-        _router=require('../router');
+        _model=require('./accountListModel');
     var accountListView = Backbone.View.extend({
         el:'body',
         events:{
-            'click header.navbar .tab-bar li':'changeTab'
+            'click .tab-bar li':'changeTab'
         },
         initialize:function (status) {
-            $('body').unbind();
+            this.status=status;
+            this.render();
+//
+        },
+        render: function() {
+            //$('body').unbind();
             $('.tb-h5').html('');
+            var _pageSize=1;
             var that=this;
-            that.status=status;
-            console.log('al');
-
-            $('.tb-h5').html('accountListView');
-
             $('header.navbar').html($('#navBack_tpl').html()+$('#accountListTabBar_tpl').html());
-            $('.tab-bar li').eq(status-1).addClass('cur');
+            $('.tab-bar li').eq(that.status-1).addClass('cur');
             var accountListModel = new _model();
             accountListModel.on("change:myAttention",function(model,result){
-
+                console.log('myAttention');
+                console.log(result);
             });
             accountListModel.on("change:recommands",function(model,result){
-                $('.tb-h5').append(_.template($('#personList_tpl').html(),result));
-                var pageCount=Math.ceil(result.totalCount/_pageSize);
-                new pageNav({'id':'#personListPageNav','pageCount':pageCount,'objId':'A'});
+
+                console.log('recommands');
+                console.log(result);
+                if(result.list&&result.list.length>0){
+                    $('.tb-h5').append(_.template($('#personList_tpl').html(),result));
+                    var pageCount=Math.ceil(result.totalCount/_pageSize);
+                    new pageNav({'id':'#personListPageNav','pageCount':pageCount,'objId':'A'});
+                }
             });
-            accountListModel.getPageData();
+            accountListModel.getPageData({'type':that.status,'curPage':1,'pageSize':_pageSize,"order":"fans"});
         },
         changeTab:function(){
             var that=this;
-            console.log(Backbone.navigate)
+            console.log('ok');
             if(that.status==1){
 
-                _router.navigate('accountList/2');
+                window.location.hash='accountList/2';
             }else{
-                _router.navigate('accountList/1');
+                window.location.hash='accountList/1';
             }
         }
 
