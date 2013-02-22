@@ -14,36 +14,32 @@ define(function (require, exports, module) {
     var CommentModel = Backbone.Model.extend({
 
         /**
-         * 获取评论数据：
+         * 获取回复列表：
          *
          * @param param.feedId
          * @param param.snsId
          */
         getPageData:function (param) {
             var self = this;
+
             function getCommentList(param) {
                 mtop.list(
                     param, function (accResult) {
                         self.set("list", accResult);
                     })
             }
-            param || (param = {});
 
+            param || (param = {});
               var pageParam = _.clone(mtop.pageParam);
             _.extend(pageParam, param);
 
-            if (mtop.userNick && h5_cache.getValue("allspark", this.userNick + "_hasSns")) {
+            if (mtop.userNick) {
                 //设置登录状态
-                self.set("loginStatus",!!result.succ);
+                self.set("loginStatus",true);
+
                 getCommentList(pageParam);
-
-                delete pageParam.sid;
-
-                getCommentCount(pageParam);
-
-                return true;
             } else {
-
+                self.set("loginStatus",false);
             }
         },
 
@@ -54,25 +50,30 @@ define(function (require, exports, module) {
          * @param param.feedId
          */
         getCommentCount:function(param) {
-         var self = this;
-        mtop.commentCount(param, function (recResult) {
-            self.set("commentCount", recResult);
-        })
+            var self = this;
+            if (mtop.userNick) {
+                //设置登录状态
+                self.set("loginStatus",true);
+
+                mtop.commentCount(param, function (recResult) {
+                self.set("commentCount", recResult);
+            })}else{
+                self.set("loginStatus",false);
+            }
         },
 
         /**
-         * 获取评论数据：
+         * 评论详情
          *
          * @param param.feedId
          * @param param.snsId
          */
         addComment:function(param) {
-        mtop.addComment(param, function (recResult) {
+            mtop.addComment(param, function (recResult) {
             self.set("comment", recResult);
         })
     }
 
     });
-
     return CommentModel;
 });

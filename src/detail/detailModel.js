@@ -22,8 +22,7 @@ define(function (require, exports, module) {
          返回特定错误码(FAIL_DOWNGRADED)表示被降级
            */
         getPageData:function (param) {
-            var commentModel = new CommentModel();
-            var accountModel = new AccountModel();
+
             function getPrices(result) {
                   //获取价格参数
                   var ids = [];
@@ -43,9 +42,11 @@ define(function (require, exports, module) {
                 getPrices(result);
 
                 //获取评论数
+                var commentModel = new CommentModel();
                 commentModel.getCommentCount(param);
 
                 //获取卖家信息
+                var accountModel = new AccountModel();
                 var pageParam = _.clone(mtop.pageParam);
                 _.extend(pageParam, param);
                 pageParam.snsId = result.creatorId;
@@ -60,7 +61,7 @@ define(function (require, exports, module) {
 
             var self = this;
             self.set("status",'sucess');
-            var cacheKey = param.snsId+"_" +param.feedId
+            var cacheKey = param.snsId+"_" +param.feedId;
             var cacheFeed = cache.getItemById(cacheKey);
             if (cacheFeed) {
                 afterProcess(cacheFeed,param);
