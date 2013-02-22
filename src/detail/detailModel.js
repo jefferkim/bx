@@ -35,23 +35,41 @@ define(function (require, exports, module) {
                   })
              }
 
+            /**
+             * 获取评论数
+             * @param param.snsId
+             * @param param.feedId
+             */
+            function getCommentCount(param) {
+                mtop.commentCount(param, function (recResult) {
+                    self.set("commentCount", recResult);
+                })
+            }
+
             var self = this;
+            self.set("status",'sucess');
             var cacheKey = param.snsId+"_" +param.feedId
             var cacheFeed = cache.getItemById(cacheKey);
             if (cacheFeed) {
                 self.set({
                         "feed": cacheFeed
                     });
+                    //获取实时优惠价格
                     getPrices(cacheFeed);
+                   //获取评论数
+                     getCommentCount(param);
                     return;
             }
             else {
                 mtop.getData("mtop.sns.feed.detail", param || {}, function (result) {
                     self.set("feed",result.data);
                     cache.saveItem(cacheKey,result.data);
+                    //获取实时优惠价格
                     getPrices(result.data);
+                     //获取评论数
+                    getCommentCount(param);
                 }, function (result) {
-                    self.set("feed","fail");
+                       self.set("status",'false');
                   }
                 );
             }
