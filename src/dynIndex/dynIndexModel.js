@@ -77,9 +77,9 @@ define(function (require, exports, module) {
              * @param param.order
              * @param param.curPage  页码
              */
-            function getRecommands(param) {
-                mtop.recommands(param, function (recResult) {
-                    self.set("recommands", recResult);
+            function getrecommends(param) {
+                mtop.recommends(param, function (recResult) {
+                    self.set("recommends", recResult);
                 })
             }
             /**
@@ -116,12 +116,12 @@ define(function (require, exports, module) {
                 if (result.succ && 1 == type) {
                     getPubAccounts(pageParam, pageParam.isIndex() ? function (accResult) {
                         if (accResult.totalCount || accResult.totalCount <= 1) {
-                            getRecommands(pageParam);
+                            getrecommends(pageParam);
                         }
                     } : null);
                 } else {
                     //未登录只有推荐列表了
-                    getRecommands(pageParam);
+                    getrecommends(pageParam);
                 }
                 //TODO 处理sid的问题,方便单元测试
             }, pageParam && pageParam.sid ? {sid:pageParam.sid} : null);

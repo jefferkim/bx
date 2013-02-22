@@ -101,7 +101,7 @@
                             <div class="title"><%=item.firstFeed.title%></div>
                             <div class="info"><%=item.firstFeed.summary%></div>
                             <div class="status">
-                                <span class="time"><%=weibo_timestamps(Date(item.firstFeed.time))%></span>
+                                <span class="time"><%=weibo_timestamps(item.firstFeed.time)%></span>
                                 <span class="like"><%=item.account.fansCount%></span>
                                 <span class="name"><%=item.firstFeed.nick%></span>
                             </div>

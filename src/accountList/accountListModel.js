@@ -42,8 +42,8 @@ define(function (require, exports, module) {
                     });
 
             } else {
-                mtop.recommands(pageParam, function (recResult) {
-                    self.set("recommands", recResult);
+                mtop.recommends(pageParam, function (recResult) {
+                    self.set("recommends", recResult);
                 })
 
             }

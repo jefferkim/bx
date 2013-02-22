@@ -31,7 +31,6 @@ define(function (require, exports, module) {
             //$('body').unbind();
             $('.tb-h5').html('');
             var _pageSize=1;
-            var that=this;
 
             $('header.navbar').html($('#navBack_tpl').html()+$('#homeTitle_tpl').html());
 
@@ -64,9 +63,9 @@ define(function (require, exports, module) {
                 }
                 //ok(result.totalCount > 0, "total count == 0")
             },this);
-            dynIndexModel.on("change:recommands",function(model,result){
+            dynIndexModel.on("change:recommends",function(model,result){
                 //推荐列表
-                console.log('recommands');
+                console.log('recommends');
                 console.log(result);
                 if(result.list&&result.list.length>0){
                     $('.tb-h5').append(_.template($('#personList_tpl').html(),result));

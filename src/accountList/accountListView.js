@@ -30,9 +30,9 @@ define(function (require, exports, module) {
                 console.log('myAttention');
                 console.log(result);
             });
-            accountListModel.on("change:recommands",function(model,result){
+            accountListModel.on("change:recommends",function(model,result){
 
-                console.log('recommands');
+                console.log('recommends');
                 console.log(result);
                 if(result.list&&result.list.length>0){
                     $('.tb-h5').append(_.template($('#personList_tpl').html(),result));
