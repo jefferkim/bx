@@ -27,7 +27,8 @@ define(function (require, exports, module) {
             function getPrices(result) {
                   //获取价格参数
                   var ids = [];
-                  result.tiles.forEach(function(tile){tile.items   && tile.items.length &&
+
+                result.tiles &&  result.tiles.forEach(function(tile){tile.items   && tile.items.length &&
                         tile.items.forEach(function(item){
                               ids.push(item.id); }
                         )
