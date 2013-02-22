@@ -9,7 +9,7 @@ define(function (require, exports, module) {
         _ = require('underscore'),
         _model=require('./detailModel');
 
-    var brandTemplate = _.template($('#detail_brand_tpl').html());
+    var accinfoTemplate = _.template($('#detail_accinfo_tpl').html());
     var contentTemplate = _.template($('#detail_content_tpl').html());
 
    var detailView = Backbone.View.extend({
@@ -19,25 +19,26 @@ define(function (require, exports, module) {
 
         },
         initialize:function (snsId,feedId) {
-          var self = this;
-            self.model.bind('change:feed', function(model, s) {
-                self.renderDetail();
-            }, self);
-            self.model.getPageData({'snsId':snsId,'feedId':feedId});
-        },
-        //渲染详情页
-        renderDetail : function(){
-          var brand = brandTemplate({});
-          var content = contentTemplate({});
-
           $('.tb-h5').html(this.el);
-          this.$el.append(brand);
+
+          this.model.on('change:feed', this.renderDetail, this)
+          this.model.on('change:accInfo', this.renderAccInfo, this)
+
+          this.model.getPageData({'snsId':snsId,'feedId':feedId});
+        },
+
+        renderAccInfo: function() {
+          var accInfo = accinfoTemplate({});
+          this.$el.prepend(accInfo)
+        },
+
+        //渲染详情页
+        renderDetail: function() {
+          var content = contentTemplate({});
           this.$el.append(content);
 
-          var self = this;
-          var feed = self.model.get('feed');
+          var feed = this.model.get('feed');
           console.log('render detail! feed='+JSON.stringify(feed));
-
         }
     });
     return detailView;
