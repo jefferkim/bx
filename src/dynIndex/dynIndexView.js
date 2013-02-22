@@ -14,18 +14,27 @@ define(function (require, exports, module) {
         cookie = require('cookie'),
         cache = require('../common/cache'),
         slider= require('../../../../base/styles/component/slider/js/slider.js'),
-        pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js');
-
+        pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js')
+        //uriBroker = require('uriBroker'),
+        //cdn = require('cdn');
 
     var dynIndexView = Backbone.View.extend({
+        el:'#ttt',
         events:{
-
+            'click .navbar .add':'add',
+            'click .navbar .refresh':'refresh'
         },
         initialize:function () {
             //判断是否登录
-            $('body').unbind();
+            //$('body').unbind();
             $('.tb-h5').html('');
             var _pageSize=1;
+            var that=this;
+
+            $('header.navbar').html($('#navBack_tpl').html()+$('#homeTitle_tpl').html());
+
+
+
 
             var dynIndexModel = new _model();
             dynIndexModel.on("change:banner",function(model,result){
@@ -43,6 +52,14 @@ define(function (require, exports, module) {
             dynIndexModel.on("change:accWithFeed",function(model,result){
                 console.log('accWithFeed');
                 console.log(result);
+                if(result.list&&result.list.length>0){
+                    console.log();
+                    if(result.list.length==1){
+                        $(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result)).insertAfter('div.in-slider');
+                    }else{
+                        $(_.template($('#myfeed_tpl').html(),result)).insertAfter('div.in-slider');
+                    }
+                }
                 //ok(result.totalCount > 0, "total count == 0")
             },this);
             dynIndexModel.on("change:recommands",function(model,result){
@@ -65,7 +82,14 @@ define(function (require, exports, module) {
                 }
             },this);
             dynIndexModel.getPageData({'curPage':1,'pageSize':_pageSize});
-           }
+        },
+        add:function(){
+            console.log('asdfadsf');
+        },
+        refresh:function(){
+
+        }
+
     });
     return dynIndexView;
 });

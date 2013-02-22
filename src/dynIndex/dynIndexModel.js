@@ -15,7 +15,7 @@ define(function (require, exports, module) {
          * 私有对象，封装了简单的业务逻辑
          */
         _biz:{
-            bannerUrl:"../../webapp/transformer/test/banner.json",
+            bannerUrl:"../transformer/test/banner.json",
             banner:function (fun) {
                 var banner = cache.getIndexTms();
                 //banner有效
@@ -89,6 +89,7 @@ define(function (require, exports, module) {
             function getPubAccounts(param, fun) {
                 mtop.listWithFirstFeed(
                     param, function (accResult) {
+
                         self.set("accWithFeed", accResult);
                         fun && fun.call(arguments.callee, accResult);
                     })
