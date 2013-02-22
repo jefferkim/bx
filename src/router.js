@@ -9,9 +9,9 @@ define(function(require, exports, module) {
       '': 'index',
       'home': 'index',
       'detail/:snsId/:feedId': 'detail',
-      'comment/:snsId/:feedId/:page': 'comment',
-      'account/:snsId/:page':'account',
-      'accountList/:status':'accountList'
+      'comment/:snsId/:feedId(/:page)': 'comment',
+      'account/:snsId(/:page)':'account',
+      'accountList(/:status)':'accountList'
 
 //      // self.route('', 'index', self.filter);
 //          self.route(/^(index)$/, 'index', self.filter);
@@ -44,7 +44,9 @@ define(function(require, exports, module) {
         });
     },
     detail: function(snsId, feedId) {
-
+        seajs.use('./src/detail/detailView',function(view){
+            new view(snsId,feedId);
+        });
     },
 
     comment :function(snsId, feedId, page) {

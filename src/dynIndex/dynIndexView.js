@@ -19,8 +19,10 @@ define(function (require, exports, module) {
         //cdn = require('cdn');
 
     var dynIndexView = Backbone.View.extend({
-        el:'#ttt',
+        el: '#content',
         events:{
+            //绑定登录链接
+            'click #J_login_btn' : 'goLogin',
             'click .navbar .add':'add',
             'click .navbar .refresh':'refresh'
         },
@@ -88,8 +90,10 @@ define(function (require, exports, module) {
         },
         refresh:function(){
 
+        },
+        goLogin : function(){
+            h5_comm.goLogin('h5_allspark');
         }
-
     });
     return dynIndexView;
 });

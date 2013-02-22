@@ -13,14 +13,17 @@
         <script src="less.js" type="text/javascript"></script>
     </head>
     <body>
+        <div id="content">
+            <header class="navbar">
 
-        <header class="navbar">
+            </header>
+            <div class="tb-h5">
 
-        </header>
-        <div class="tb-h5">
-
-
+            </div>
         </div>
+        <!-- end of #content -->
+
+        <!-- Templates -->
         <script id="navBack_tpl" type="text/template">
             <div class="back">
                 <a href="http://m.taobao.com">首页</a>
@@ -111,9 +114,39 @@
         <script id="loginBar_tpl" type="text/template">
             <div class="login-bar">
                 <span>登录后就能关注您喜欢的账号了</span>
-                <a class="login-btn" href="#">登陆</a>
+                <a class="login-btn" id="J_login_btn">登陆</a>
             </div>
         </script>
+        <script id="detail_brand_tpl" type="text/template">
+          <div class="brand">
+            <img class="avatar" src="imgs/avatar.png" alt="">
+            <div class="info">
+              <p class="name">la bellezza 潮品</p>
+              <p class="follow"><span class="count">1024</span> 关注者</p>
+            </div>
+          </div>
+          <div class="separator"></div>
+        </script>
+        <script id="detail_content_tpl" type="text/template">
+          <div class="main">
+            <h1>这是世界末日后第三天</h1>
+            <p class="pub-time">01-02  19:21</p>
+            <p>2012年12月24日，末日后第三天，人类艰难地摆脱“被窝引力”的束缚，拖着疲惫的身体返回地球。</p>
+            <div class="media">
+              <img src="imgs/3.png" alt="">
+            </div>
+            <div class="media">
+              <div class="item">
+                <img src="imgs/2.png" alt="">
+                <div class="price">￥218.00</div>
+              </div>
+            </div>
+            <p>地球已经被一种头戴红色帽子叫做“圣诞老人”的物种占领。每个返回地球的人类都将收到一个神秘蓝色盒子，里面放着一只苹果。当你咬一口它，你也会变成苹果，然后被装进一个蓝色盒子。</p>
+            <a href="#" class="more-content">更多内容</a>
+          </div>
+        </script>
+        <!-- Templates -->
+
         <input type="hidden" id="J_app_key" value="4272">
 
 
