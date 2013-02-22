@@ -24,7 +24,10 @@ define(function (require, exports, module) {
         },
         //渲染详情页
         renderDetail : function(){
-         console.log('render detail!');
+
+        var self = this;
+        var feed = self.model.get('feed');
+         console.log('render detail! feed='+JSON.stringify(feed));
         }
     });
     return detailView;
