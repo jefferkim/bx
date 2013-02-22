@@ -18,8 +18,12 @@ define(function (require, exports, module) {
 
 
     var dynIndexView = Backbone.View.extend({
+
+        el: '#content',
         events:{
 
+            //绑定登录链接
+            'click #J_login_btn' : 'goLogin'
         },
         initialize:function () {
             //判断是否登录
@@ -66,6 +70,10 @@ define(function (require, exports, module) {
             },this);
             dynIndexModel.getPageData({'curPage':1,'pageSize':_pageSize});
            }
+        ,
+        goLogin : function(){
+            h5_comm.goLogin('h5_allspark');
+        }
     });
     return dynIndexView;
 });
