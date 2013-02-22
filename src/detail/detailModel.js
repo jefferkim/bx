@@ -2,7 +2,9 @@ define(function (require, exports, module) {
         var Backbone = require('backbone'),
         _ = require('underscore'),
         mtop = require('../common/mtopForAllspark.js');
-        cache = require('../common/cache.js')
+        cache = require('../common/cache.js');
+        CommentModel = require('../comment/commentModel.js');
+        AccountModel = require('../account/accountModel.js');
 
     /**
      * 详情页面
@@ -19,8 +21,9 @@ define(function (require, exports, module) {
          业务异常：sid不存在对应的snsAccount，feed不存在，sid没有权限，
          返回特定错误码(FAIL_DOWNGRADED)表示被降级
            */
-        getData:function (param) {
-
+        getPageData:function (param) {
+            var commentModel = new CommentModel();
+            var accountModel = new AccountModel();
             function getPrices(result) {
                   //获取价格参数
                   var ids = [];
@@ -34,15 +37,24 @@ define(function (require, exports, module) {
                   })
              }
 
-            /**
-             * 获取评论数
-             * @param param.snsId
-             * @param param.feedId
-             */
-            function getCommentCount(param) {
-                mtop.commentCount(param, function (recResult) {
-                    self.set("commentCount", recResult);
-                })
+            function afterProcess(result,param) {
+                //获取实时优惠价格
+                getPrices(result);
+
+                //获取评论数
+                commentModel.getCommentCount(param);
+
+                //获取卖家信息
+                var pageParam = _.clone(mtop.pageParam);
+                _.extend(pageParam, param);
+                pageParam.snsId = result.creatorId;
+                delete pageParam.feedId;
+                accountModel._biz.info(pageParam,function(result){
+                    self.set("accInfo",result);
+                });
+
+               //保存详情信息
+                self.set({ "feed": result});
             }
 
             var self = this;
@@ -50,23 +62,14 @@ define(function (require, exports, module) {
             var cacheKey = param.snsId+"_" +param.feedId
             var cacheFeed = cache.getItemById(cacheKey);
             if (cacheFeed) {
-                self.set({
-                        "feed": cacheFeed
-                    });
-                    //获取实时优惠价格
-                    getPrices(cacheFeed);
-                   //获取评论数
-                     getCommentCount(param);
-                    return;
+                afterProcess(cacheFeed,param);
+                 return;
             }
             else {
                 mtop.getData("mtop.sns.feed.detail", param || {}, function (result) {
                     self.set("feed",result.data);
                     cache.saveItem(cacheKey,result.data);
-                    //获取实时优惠价格
-                    getPrices(result.data);
-                     //获取评论数
-                    getCommentCount(param);
+                     afterProcess(result.data,param);
                 }, function (result) {
                        self.set("status",'false');
                   }
