@@ -19,7 +19,7 @@ define(function (require, exports, module) {
          业务异常：sid不存在对应的snsAccount，feed不存在，sid没有权限，
          返回特定错误码(FAIL_DOWNGRADED)表示被降级
            */
-        getPageData:function (param) {
+        getData:function (param) {
 
             function getPrices(result) {
                   //获取价格参数
