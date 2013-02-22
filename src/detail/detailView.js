@@ -9,8 +9,11 @@ define(function (require, exports, module) {
         _ = require('underscore'),
         _model=require('./detailModel');
 
-   var detailView = Backbone.View.extend({
+    var brandTemplate = _.template($('#detail_brand_tpl').html());
+    var contentTemplate = _.template($('#detail_content_tpl').html());
 
+   var detailView = Backbone.View.extend({
+        className: 'detail',
         model : new _model(),
         events:{
 
@@ -21,10 +24,18 @@ define(function (require, exports, module) {
                 self.renderDetail();
             }, self);
             self.model.getData({'snsId':snsId,'feedId':feedId});
+            console.log(this.model)
         },
         //渲染详情页
         renderDetail : function(){
-         console.log('render detail!');
+          var brand = brandTemplate({});
+          var content = contentTemplate({});
+
+          $('.tb-h5').html(this.el);
+          this.$el.append(brand);
+          this.$el.append(content);
+
+          console.log('render detail!');
         }
     });
     return detailView;
