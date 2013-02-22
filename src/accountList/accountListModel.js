@@ -18,8 +18,8 @@ define(function (require, exports, module) {
          *
          * @param param.curPage  页码
          * @param param.type 列表类型
-         *             1. 关注列表 acc
-         *             2. 推荐 rec
+         *             2. 关注列表 acc
+         *             1. 推荐 rec
          */
         getPageData:function (param) {
 
@@ -35,7 +35,7 @@ define(function (require, exports, module) {
 
             console.log(pageParam);
 
-            if (1 == type) {
+            if (2 == type) {
                 mtop.my(
                     pageParam, function (accResult) {
                         self.set("myAttention", accResult);

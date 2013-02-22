@@ -9,8 +9,6 @@ define(function (require, exports, module) {
         tbh5 = require('h5_base'),
         cookie = require('cookie');
 
-
-    tbh5.add("h5_paramKey",{ttid:"0001"});
     /**
      * motp api简单的封装
      * @param apiName
@@ -28,15 +26,13 @@ define(function (require, exports, module) {
                     }, function (result) {
                         failF.call(this, result);
                     },
-                    "allspark"
+                    "h5_allspark"
                 );
             }, function (result) {
                 failF.call(this, result);
             });
     };
 
-    //设置ttid
-    window.localstorage
 
     function convertIds(ids) {
         if (ids.join) {
@@ -81,7 +77,6 @@ define(function (require, exports, module) {
     exports.pageParam = {
         curPage:1,
         pageSize:3,
-        ttid:"0001",
         isIndex:function () {
             return  1 == this.curPage;
         }
