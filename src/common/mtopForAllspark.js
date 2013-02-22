@@ -108,6 +108,20 @@ define(function (require, exports, module) {
     };
 
 
+    /**----------------------评论相关---------------------------------------*/
+    exports.commentCount  = function (param, fun) {
+        invokeApi("mtop.sns.comment.count", param, fun);
+    };
+
+    exports.addComment = function (param, fun) {
+        invokeApi("mtop.sns.comment.new", param, fun);
+    };
+
+    exports.commentList  = function (param, fun) {
+        invokeApi("mtop.sns.comment.list ", param, fun);
+    };
+
+
     var priceCache = {};
     uriBroker.URL_CONSTANTS.path['s_price'] || (uriBroker.URL_CONSTANTS.path['s_price'] = 'search_turn_page_iphone.htm');
     /**
