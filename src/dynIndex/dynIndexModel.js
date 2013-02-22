@@ -15,7 +15,7 @@ define(function (require, exports, module) {
          * 私有对象，封装了简单的业务逻辑
          */
         _biz:{
-            bannerUrl:"../../webapp/transformer/test/banner.json",
+            bannerUrl:"../transformer/test/banner.json",
             banner:function (fun) {
                 var banner = cache.getIndexTms();
                 //banner有效
@@ -77,9 +77,9 @@ define(function (require, exports, module) {
              * @param param.order
              * @param param.curPage  页码
              */
-            function getRecommands(param) {
-                mtop.recommands(param, function (recResult) {
-                    self.set("recommands", recResult);
+            function getrecommends(param) {
+                mtop.recommends(param, function (recResult) {
+                    self.set("recommends", recResult);
                 })
             }
             /**
@@ -89,6 +89,7 @@ define(function (require, exports, module) {
             function getPubAccounts(param, fun) {
                 mtop.listWithFirstFeed(
                     param, function (accResult) {
+
                         self.set("accWithFeed", accResult);
                         fun && fun.call(arguments.callee, accResult);
                     })
@@ -115,12 +116,12 @@ define(function (require, exports, module) {
                 if (result.succ && 1 == type) {
                     getPubAccounts(pageParam, pageParam.isIndex() ? function (accResult) {
                         if (accResult.totalCount || accResult.totalCount <= 1) {
-                            getRecommands(pageParam);
+                            getrecommends(pageParam);
                         }
                     } : null);
                 } else {
                     //未登录只有推荐列表了
-                    getRecommands(pageParam);
+                    getrecommends(pageParam);
                 }
                 //TODO 处理sid的问题,方便单元测试
             }, pageParam && pageParam.sid ? {sid:pageParam.sid} : null);
