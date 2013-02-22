@@ -9,7 +9,7 @@ define(function(require, exports, module) {
       '': 'index',
       'home': 'index',
       'detail/:snsId/:feedId': 'detail',
-      'comment/:snsId/:feedId(/:page'): 'comment',
+      'comment/:snsId/:feedId(/:page)': 'comment',
       'account/:snsId(/:page)':'account',
       'accountList(/:status)':'accountList'
 
