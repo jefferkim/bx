@@ -8,7 +8,7 @@ define(function (require, exports, module) {
         $ = require('zepto'),
         _ = require('underscore'),
         _model=require('./accountListModel'),
-        _router=require('./router');
+        _router=require('../router');
     var accountListView = Backbone.View.extend({
         el:'body',
         events:{

@@ -23,8 +23,7 @@ define(function (require, exports, module) {
             self.model.bind('change:feed', function(model, s) {
                 self.renderDetail();
             }, self);
-            self.model.getData({'snsId':snsId,'feedId':feedId});
-            console.log(this.model)
+            self.model.getPageData({'snsId':snsId,'feedId':feedId});
         },
         //渲染详情页
         renderDetail : function(){
@@ -36,6 +35,11 @@ define(function (require, exports, module) {
           this.$el.append(content);
 
           console.log('render detail!');
+
+          var self = this;
+          var feed = self.model.get('feed');
+          console.log('render detail! feed='+JSON.stringify(feed));
+
         }
     });
     return detailView;
