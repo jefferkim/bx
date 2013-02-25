@@ -197,7 +197,7 @@ define(function (require, exports) {
         },1000)
     });
 
-    var AccInfoModel = require("./accInfoModel.js");
+    var AccInfoModel = require("../src/account/accountModel.js");
     module("帐号首页");
     asyncTest("1.查询2个商品价格",function () {
         var accInfo = new AccInfoModel();
