@@ -45,7 +45,7 @@ define(function (require, exports, module) {
                 if (mtop.userNick && cache.isCreateSns(mtop.userNick)) {
                     fun && fun.call(arguments.callee, {succ:true});
                     return true;
-                } else {
+                } else if(h5_comm.isLogin()){
                     mtop.getData("mtop.transformer.account.autoCreate", param || {}, function (result) {
                         cache.saveSnsFlag(mtop.userNick);
                         fun && fun.call(arguments.callee, {succ:true});
@@ -53,7 +53,10 @@ define(function (require, exports, module) {
                     }, function (result) {
                         fun && fun.call(arguments.callee, {fail:result});
                     });
-
+                }
+                else
+                {
+                       fun && fun.call(arguments.callee, {fail:'未登录'});
                 }
             }
         },
@@ -108,10 +111,10 @@ define(function (require, exports, module) {
             _.extend(pageParam, param);
 
             delete pageParam.type;
+            //设置用户登录状态
+             self.set("loginStatus",h5_comm.isLogin());
             //自动创建账号
             biz.autocreate(function (result) {
-                //设置登录状态
-                self.set("loginStatus",!!result.succ);
                 //登录状态有关注账号列表或者推荐列表的
                 if (result.succ && 1 == type) {
                     getPubAccounts(pageParam, pageParam.isIndex() ? function (accResult) {
