@@ -24,8 +24,8 @@ define(function (require, exports, module) {
             var _pageSize=4;
             $('body').unbind();
             //$('.tb-h5').html('');
-            $('.view-page.show').removeClass('show').addClass('iL');
-            $('#accountPage').addClass('show iC');
+            $('.view-page.show').removeClass('show iC').addClass('iL');
+            $('#accountPage').removeClass('iL').addClass('show iC');
             $('header.navbar').html($('#navBack_tpl').html()+$('#accountTitle_tpl').html());
             var accountModel = new _model();
             accountModel.on("change:accInfo",function(model,result){

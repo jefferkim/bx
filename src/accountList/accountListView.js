@@ -25,8 +25,8 @@ define(function (require, exports, module) {
             //$('.tb-h5').html('');
             var _pageSize=1;
             var that=this;
-            $('.view-page.show').removeClass('show');
-            $('#accountListPage').addClass('show');
+            $('.view-page.show').removeClass('show iC').addClass('iL');
+            $('#accountListPage').removeClass('iL').addClass('show iC');
             $('header.navbar').html($('#navBack_tpl').html()+$('#accountListTabBar_tpl').html());
             $('.tab-bar li').eq(that.status-1).addClass('cur');
             var accountListModel = new _model();
