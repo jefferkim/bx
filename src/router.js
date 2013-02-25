@@ -34,6 +34,8 @@ define(function(require, exports, module) {
         });
     },
     account:function(snsId,page){
+        console.log('account:snsId'+snsId+"|page:"+page);
+
         seajs.use('./src/account/accountView',function(view){
             new view(snsId,page);
         });
