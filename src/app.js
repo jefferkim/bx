@@ -16,7 +16,7 @@ seajs.config({
         'cdn' : '../../../../base/utils/server/cdn'
 
     },
-    debug: 2
+    debug: 1
 });
 
 
