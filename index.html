@@ -118,13 +118,19 @@
             </div>
         </script>
         <script id="detail_accinfo_tpl" type="text/template">
-          <div class="brand">
+          <a href="#" class="brand">
             <img class="avatar" src="imgs/avatar.png" alt="">
             <div class="info">
-              <p class="name">la bellezza 潮品</p>
-              <p class="follow"><span class="count">1024</span> 关注者</p>
+              <p class="name"><%= nick %></p>
+              <p class="follow">
+              <% if (fansCount == 0) { %>
+                还没有人关注
+              <% } else { %>
+                <span class="count"><%= fansCount %></span> 关注者
+              <% } %>
+              </p>
             </div>
-          </div>
+          </a>
           <div class="separator"></div>
         </script>
         <script id="detail_content_tpl" type="text/template">

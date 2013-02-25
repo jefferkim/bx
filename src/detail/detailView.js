@@ -28,8 +28,10 @@ define(function (require, exports, module) {
         },
 
         renderAccInfo: function() {
-          var accInfo = accinfoTemplate({});
+          var accInfo = accinfoTemplate(this.model.get('accInfo'));
           this.$el.prepend(accInfo)
+
+          console.log('detail accInfo', JSON.stringify(this.model.get('accInfo')))
         },
 
         //渲染详情页
