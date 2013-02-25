@@ -19,7 +19,7 @@ define(function (require, exports, module) {
 
         },
         initialize:function (snsId,feedId) {
-          $('.tb-h5').html(this.el);
+          $('#detailPage').html(this.el);
 
           this.model.on('change:feed', this.renderDetail, this)
           this.model.on('change:accInfo', this.renderAccInfo, this)
