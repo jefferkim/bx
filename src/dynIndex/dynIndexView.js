@@ -29,7 +29,7 @@ define(function (require, exports, module) {
         initialize:function () {
             //判断是否登录
             //$('body').unbind();
-            $('.tb-h5').html($('#indexPage_tpl').html());
+            //$('.tb-h5').html($('#indexPage_tpl').html());
             var _pageSize=1;
 
             $('header.navbar').html($('#navBack_tpl').html()+$('#homeTitle_tpl').html());
@@ -44,7 +44,7 @@ define(function (require, exports, module) {
                 var d=result;
                 d.width=result.list.length*320;
 
-                $('#J_slider').html(_.template($('#slider_tpl').html(),d));
+                $('#indexPage .J_slider').html(_.template($('#slider_tpl').html(),d));
 
                 new slider(".in-slider", {wrap: ".in-slider-cont",trigger: ".in-slider-status",useTransform: !0,interval: 3e3,play: !0,loop: !0});
 
@@ -57,9 +57,11 @@ define(function (require, exports, module) {
                 if(result.list&&result.list.length>0){
                     console.log();
                     if(result.list.length==1){
-                        $(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result)).insertAfter('div.in-slider');
+                        $('#indexPage .J_status').html(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result));
+                        //$(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result)).insertAfter('div.in-slider');
                     }else{
-                        $(_.template($('#myfeed_tpl').html(),result)).insertAfter('div.in-slider');
+                        $('#indexPage .J_status').html(_.template($('#myfeed_tpl').html(),result));
+                        //$(_.template($('#myfeed_tpl').html(),result)).insertAfter('div.in-slider');
                     }
                 }
                 //ok(result.totalCount > 0, "total count == 0")
@@ -69,9 +71,10 @@ define(function (require, exports, module) {
                 console.log('recommends');
                 console.log(result);
                 if(result.list&&result.list.length>0){
-                    $('.tb-h5').append(_.template($('#personList_tpl').html(),result));
+                    $('#indexPage .J_list').html(_.template($('#personList_tpl').html(),result));
+                    //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));
                     var pageCount=Math.ceil(result.totalCount/_pageSize);
-                    new pageNav({'id':'#personListPageNav','pageCount':pageCount,'objId':'A'});
+                    new pageNav({'id':'#personListPageNav','pageCount':pageCount,'pageSize':_pageSize});
                 }
                 //ok(result.totalCount > 0, "total count > 0")
             },this);
@@ -80,7 +83,9 @@ define(function (require, exports, module) {
                     //已登录
                 }else{
                     //未登录
-                    $($('#loginBar_tpl').html()).insertAfter('div.in-slider');
+                    $('#indexPage .J_status').html($('#loginBar_tpl').html());
+
+                    //$($('#loginBar_tpl').html()).insertAfter('div.in-slider');
                 }
             },this);
             dynIndexModel.getPageData({'curPage':1,'pageSize':_pageSize});

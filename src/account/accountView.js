@@ -7,7 +7,9 @@ define(function (require, exports, module) {
     var Backbone = require('backbone'),
         $ = require('zepto'),
         _ = require('underscore'),
-        _model=require('./accountModel');
+        _model=require('./accountModel'),
+        pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js');
+
     var accountView = Backbone.View.extend({
         el:'#content',
         events:{
@@ -18,31 +20,27 @@ define(function (require, exports, module) {
         },
         render:function(){
             var that=this;
-            var _pageSize=1;
+            var _pageSize=4;
             $('body').unbind();
-            $('.tb-h5').html('');
-
+            //$('.tb-h5').html('');
             $('header.navbar').html($('#navBack_tpl').html()+$('#accountTitle_tpl').html());
-
-
             var accountModel = new _model();
             accountModel.on("change:accInfo",function(model,result){
                 console.log('accInfo');
                 console.log(result);
                 if(result){
-
-                    $('.tb-h5').append(_.template($('#accountinfo_tpl').html(),that.reconAccInfoData(result)));
+                    $('#accountPage .J_info').html(_.template($('#accountinfo_tpl').html(),that.reconAccInfoData(result)));
                 }
             });
             accountModel.on("change:accFeeds",function(model,result){
                 if(result.list&&result.list.length>0){
                     console.log('accFeeds');
                     console.log(result);
-                    $('.tb-h5').append(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
+                    $('#accountPage .J_feed').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
+
                     var pageCount=Math.ceil(result.totalCount/_pageSize);
-                    new pageNav({'id':'#feedPageNav','pageCount':pageCount});
 
-
+                    new pageNav({'id':'#feedPageNav','pageCount':pageCount,'pageSize':_pageSize});
                 }
             });
             accountModel.on("change:prices",function(model,result){
