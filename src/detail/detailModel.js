@@ -73,7 +73,7 @@ define(function (require, exports, module) {
                     cache.saveItem(cacheKey,result.data);
                      afterProcess(result.data,param);
                 }, function (result) {
-                       self.set("status",'false');
+                       self.set("status", false);
                   }
                 );
             }

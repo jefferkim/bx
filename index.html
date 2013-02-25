@@ -199,19 +199,25 @@
             </div>
         </script>
         <script id="detail_accinfo_tpl" type="text/template">
-          <div class="brand">
+          <a href="#" class="brand">
             <img class="avatar" src="imgs/avatar.png" alt="">
             <div class="info">
-              <p class="name">la bellezza 潮品</p>
-              <p class="follow"><span class="count">1024</span> 关注者</p>
+              <p class="name"><%= nick %></p>
+              <p class="follow">
+              <% if (fansCount == 0) { %>
+                还没有人关注
+              <% } else { %>
+                <span class="count"><%= fansCount %></span> 关注者
+              <% } %>
+              </p>
             </div>
-          </div>
+          </a>
           <div class="separator"></div>
         </script>
         <script id="detail_content_tpl" type="text/template">
           <div class="main">
             <h1>这是世界末日后第三天</h1>
-            <p class="pub-time">01-02  19:21</p>
+            <p class="pub-time"><%= timestamps(time) %></p>
             <p>2012年12月24日，末日后第三天，人类艰难地摆脱“被窝引力”的束缚，拖着疲惫的身体返回地球。</p>
             <div class="media">
               <img src="imgs/3.png" alt="">

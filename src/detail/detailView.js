@@ -28,13 +28,15 @@ define(function (require, exports, module) {
         },
 
         renderAccInfo: function() {
-          var accInfo = accinfoTemplate({});
+          var accInfo = accinfoTemplate(this.model.get('accInfo'));
           this.$el.prepend(accInfo)
+
+          console.log('detail accInfo', JSON.stringify(this.model.get('accInfo')))
         },
 
         //渲染详情页
         renderDetail: function() {
-          var content = contentTemplate({});
+          var content = contentTemplate(this.model.get('feed'));
           this.$el.append(content);
 
           var feed = this.model.get('feed');
