@@ -9,6 +9,7 @@ define(function (require, exports, module) {
         _ = require('underscore'),
         _model=require('./detailModel');
 
+    var headerTemplate  = _.template($('#detail_header_tpl').html());
     var accinfoTemplate = _.template($('#detail_accinfo_tpl').html());
     var contentTemplate = _.template($('#detail_content_tpl').html());
 
@@ -21,6 +22,8 @@ define(function (require, exports, module) {
         initialize:function (snsId,feedId) {
             $('.view-page.show').removeClass('show iL');
             $('#detailPage').addClass('show iC');
+
+          $('header.navbar').html(headerTemplate({}))
           $('#detailPage').html(this.el);
 
           this.model.on('change:feed', this.renderDetail, this)
