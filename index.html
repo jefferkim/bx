@@ -157,12 +157,6 @@
                 </div>
             </div>
         </script>
-        creatorId: "7000077656"
-        deleted: "false"
-        id: "1156002"
-        summary: "国务院总理温家宝20日主持召开国务院常务会议，研究部署继续做好房地产市场调控工作,提出了国五条。对此，搜狐焦点网第一时间采访了业界一线人士，让他们解读此次国务院提出的&ldquo;新国五条&rdquo;，并对未来调控政策进行预测。"
-        time: "1361761180000"
-        title: "好了吗"
         <script id="tbfeed_tpl" type="text/template">
             <div class="tb-feed">
                 <ul class="tb-feed-items">
@@ -214,8 +208,18 @@
         </script>
         <script id="detail_content_tpl" type="text/template">
           <div class="main">
-            <h1>这是世界末日后第三天</h1>
+            <h1><%= title %></h1>
             <p class="pub-time"><%= timestamps(time) %></p>
+            <% for (var i = 0; i < tiles.length; i++) { %>
+                <% if (tiles[i].type == "pic") { %>
+                    <div class="media"><img src="<%= tiles[i].path %>"></div>
+                <% } else if (tiles[i].type == "text") { %>
+                    <p><%= tiles[i].text %></p>
+                <% } else if (tiles[i].type == "picItem") { %>
+
+                <% } %>
+            <% } %>
+            <!--
             <p>2012年12月24日，末日后第三天，人类艰难地摆脱“被窝引力”的束缚，拖着疲惫的身体返回地球。</p>
             <div class="media">
               <img src="imgs/3.png" alt="">
@@ -227,6 +231,7 @@
               </div>
             </div>
             <p>地球已经被一种头戴红色帽子叫做“圣诞老人”的物种占领。每个返回地球的人类都将收到一个神秘蓝色盒子，里面放着一只苹果。当你咬一口它，你也会变成苹果，然后被装进一个蓝色盒子。</p>
+            -->
             <a href="#" class="more-content">更多内容</a>
           </div>
         </script>
