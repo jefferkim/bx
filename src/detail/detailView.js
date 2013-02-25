@@ -19,6 +19,8 @@ define(function (require, exports, module) {
 
         },
         initialize:function (snsId,feedId) {
+            $('.view-page.show').removeClass('show iL');
+            $('#detailPage').addClass('show iC');
           $('#detailPage').html(this.el);
 
           this.model.on('change:feed', this.renderDetail, this)

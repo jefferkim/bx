@@ -47,9 +47,10 @@ define(function (require, exports, module) {
                 }
             });
             accountModel.on("change:prices",function(model,result){
+                console.log('prices');
+                console.log(result);
                 if(result.list&&result.list.length>0){
-                    console.log('prices');
-                    console.log(result);
+
                     //<div class="price">￥102.00</div>
                 }
             });
@@ -76,6 +77,11 @@ define(function (require, exports, module) {
             if(!d.backgroundImg){d.backgroundImg='imgs/cover.png'}
             return d;
         },
+        /**
+         * 重构feed数据集
+         * @param data
+         * @returns {*}
+         */
         reconFeedListData:function(data){
             var that=this;
             var d=data;
@@ -83,7 +89,6 @@ define(function (require, exports, module) {
                 if(!d.list[i].commentCount){d.list[i].commentCount=0}
             }
             return d;
-            //commentCount
         }
 
     });
