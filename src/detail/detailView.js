@@ -14,7 +14,8 @@ define(function (require, exports, module) {
     var contentTemplate = _.template($('#detail_content_tpl').html());
 
    var detailView = Backbone.View.extend({
-        className: 'detail',
+
+        el: '#content',
         model : new _model(),
         events:{
 
@@ -26,7 +27,7 @@ define(function (require, exports, module) {
           $('.view-page.show').removeClass('show iC').addClass('iL');
           $('#detailPage').removeClass('iL').addClass('show iC');
 
-          $('#detailPage').html(this.el);
+          this.container = $('#detailPage')
 
           this.model.on('change:feed', this.renderDetail, this)
           this.model.on('change:accInfo', this.renderAccInfo, this)
@@ -36,7 +37,7 @@ define(function (require, exports, module) {
 
         renderAccInfo: function() {
           var accInfo = accinfoTemplate(this.model.get('accInfo'));
-          this.$el.prepend(accInfo)
+          this.container.prepend(accInfo)
 
           console.log('detail accInfo', JSON.stringify(this.model.get('accInfo')))
         },
@@ -44,7 +45,7 @@ define(function (require, exports, module) {
         //渲染详情页
         renderDetail: function() {
           var content = contentTemplate(this.model.get('feed'));
-          this.$el.append(content);
+          this.container.append(content);
 
           var feed = this.model.get('feed');
           console.log('render detail! feed='+JSON.stringify(feed));
