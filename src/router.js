@@ -46,6 +46,9 @@ define(function(require, exports, module) {
         });
     },
     detail: function(snsId, feedId) {
+        $('.view-page').hide()
+        $('#detailPage').show()
+
         seajs.use('./src/detail/detailView',function(view){
             new view(snsId,feedId);
         });
