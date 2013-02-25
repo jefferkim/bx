@@ -10,7 +10,7 @@ define(function(require, exports, module) {
       'home': 'index',
       'detail/:snsId/:feedId': 'detail',
       'comment/:snsId/:feedId(/:page)': 'comment',
-      'account/:snsId(/:page)':'account',
+      'account/:snsId/:page':'account',
       'accountList/:status':'accountList'
 
 //      // self.route('', 'index', self.filter);

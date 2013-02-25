@@ -29,6 +29,11 @@ define(function (require, exports, module) {
             accountListModel.on("change:myAttention",function(model,result){
                 console.log('myAttention');
                 console.log(result);
+                if(result.list&&result.list.length>0){
+                    $('.tb-h5').append(_.template($('#personList_tpl').html(),result));
+                    var pageCount=Math.ceil(result.totalCount/_pageSize);
+                    new pageNav({'id':'#personListPageNav','pageCount':pageCount,'objId':'A'});
+                }
             });
             accountListModel.on("change:recommends",function(model,result){
 
