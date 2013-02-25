@@ -199,7 +199,7 @@ define(function (require, exports) {
 
     var AccInfoModel = require("../src/account/accountModel.js");
     module("帐号首页");
-    asyncTest("1.查询2个商品价格",function () {
+    asyncTest("1.登录用户查询公共帐号",function () {
         var accInfo = new AccInfoModel();
         accInfo.on("change:accInfo",function(model,result){
             console.log(result);
