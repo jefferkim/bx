@@ -20,10 +20,12 @@ define(function (require, exports, module) {
 
         },
         initialize:function (snsId,feedId) {
-            $('.view-page.show').removeClass('show iL');
-            $('#detailPage').addClass('show iC');
 
           $('header.navbar').html(headerTemplate({}))
+
+          $('.view-page.show').removeClass('show iC').addClass('iL');
+          $('#detailPage').removeClass('iL').addClass('show iC');
+
           $('#detailPage').html(this.el);
 
           this.model.on('change:feed', this.renderDetail, this)

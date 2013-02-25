@@ -31,7 +31,7 @@ define(function (require, exports, module) {
             //判断是否登录
             $('body').unbind();
             $('.view-page.show').removeClass('show iL');
-            $('#indexPage').addClass('show iC');
+            $('#indexPage').removeClass('iL').addClass('show iC');
             //$('.tb-h5').html($('#indexPage_tpl').html());
             var _pageSize=1;
 
