@@ -17,22 +17,24 @@
             <header class="navbar">
             </header>
             <div class="tb-h5">
-                <div id="indexPage" class="view-page">
+                <div id="indexPage" class="view-page iL">
                     <div class="J_slider"></div>
                     <div class="J_status"></div>
                     <div class="J_list"></div>
                 </div>
-                <div id="accountListPage" class="view-page">
+                <div id="accountListPage" class="view-page iL">
 
                 </div>
-                <div id="accountPage" class="view-page">
+                <div id="accountPage" class="view-page iL">
                     <div class="J_info"></div>
                     <div class="J_feed"></div>
                 </div>
-                <div id="detailPage" class="view-page">
+                <div id="detailPage" class="view-page iL">
                 </div>
             </div>
         </div>
+        <input type="hidden" id="J_user_nick" value="tbwuzhong000"/>
+        <input type="hidden" id="J_sid" value="73d101e384377d4234e0ab5a2a280b71"/>
         <!-- end of #content -->
 
         <!-- Templates -->
@@ -106,12 +108,12 @@
                 <ul>
                     <% _.each(list, function(item) { %>
                     <% if(item.firstFeed.coverTile.path!='') {%>
-                    <li class="multimedia">
+                    <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="multimedia">
                         <div class="media">
                             <img src="<%=item.firstFeed.coverTile.path%>">
                         </div>
                     <% }else{ %>
-                    <li>
+                    <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>">
                     <% } %>
                         <div class="feed">
                             <div class="title"><%=item.firstFeed.title%></div>
@@ -129,7 +131,7 @@
         </script>
 
         <script id="accountinfo_tpl" type="text/template">
-            <div class="tb-profile">
+            <div snsid="<%=id%>" class="tb-profile">
                 <div class="user-mark"></div>
                 <div class="user-cover" style="background-image: url('<%=backgroundImg%>')">
                 </div>
@@ -163,9 +165,15 @@
                     </a>
                 </div>
                 <div class="profile-overview">
-                    <button class="stats-follow-btn <% if(followed=='true'){ %> followed <% } %>">
+                    <% if(followed=='true'){ %>
+                    <button class="stats-follow-btn followed">
+                        已关注
+                    </button>
+                     <% }else{ %>
+                    <button class="stats-follow-btn">
                         关注
                     </button>
+                    <% } %>
                 </div>
             </div>
         </script>
@@ -173,7 +181,7 @@
             <div class="tb-feed">
                 <ul class="tb-feed-items">
                     <% _.each(list, function(item) { %>
-                    <li>
+                    <li feedId="<%=item.id%>">
                         <div class="title"><%=item.title%></div>
                         <% if(item.coverTile.path){ %>
                         <div class="media">

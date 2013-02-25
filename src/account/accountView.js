@@ -13,6 +13,7 @@ define(function (require, exports, module) {
     var accountView = Backbone.View.extend({
         el:'#content',
         events:{
+            'touchend .tb-feed-items li':'goToDetail'
         },
         initialize:function (snsid) {
             this.snsid=snsid;
@@ -23,6 +24,8 @@ define(function (require, exports, module) {
             var _pageSize=4;
             $('body').unbind();
             //$('.tb-h5').html('');
+            $('.view-page.show').removeClass('show').addClass('iL');
+            $('#accountPage').addClass('show iC');
             $('header.navbar').html($('#navBack_tpl').html()+$('#accountTitle_tpl').html());
             var accountModel = new _model();
             accountModel.on("change:accInfo",function(model,result){
@@ -55,6 +58,10 @@ define(function (require, exports, module) {
 //            * @param param.snsId
 //            * @param param.afterTimestamp
             accountModel.getPageData({'snsId':that.snsid,'curPage':1,'pageSize':_pageSize,'afterTimestamp':''});
+        },
+        goToDetail:function(e){
+            var cur=$(e.currentTarget);
+            window.location.hash='#detail/'+$('.tb-profile').attr('snsid')+'/'+cur.attr('feedid');
         },
         /**
          * 重构数据集

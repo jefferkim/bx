@@ -24,11 +24,14 @@ define(function (require, exports, module) {
             //绑定登录链接
             'click #J_login_btn' : 'goLogin',
             'click .navbar .add':'add',
-            'click .navbar .refresh':'refresh'
+            'click .navbar .refresh':'refresh',
+            'click .myfeed li':'goToAccount'
         },
         initialize:function () {
             //判断是否登录
-            //$('body').unbind();
+            $('body').unbind();
+            $('.view-page.show').removeClass('show iL');
+            $('#indexPage').addClass('show iC');
             //$('.tb-h5').html($('#indexPage_tpl').html());
             var _pageSize=1;
 
@@ -98,6 +101,11 @@ define(function (require, exports, module) {
         },
         goLogin : function(){
             h5_comm.goLogin('h5_allspark');
+        },
+        goToAccount:function(e){
+            var cur=$(e.currentTarget);
+            window.location.hash='#account/'+cur.attr('snsid')+'/1';
+
         }
     });
     return dynIndexView;
