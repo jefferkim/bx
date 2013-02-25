@@ -211,6 +211,10 @@
                 <a class="login-btn" id="J_login_btn">登陆</a>
             </div>
         </script>
+
+        <script id="detail_header_tpl" type="text/template">
+
+        </script>
         <script id="detail_accinfo_tpl" type="text/template">
           <a href="#" class="brand">
             <img class="avatar" src="imgs/avatar.png" alt="">
@@ -240,19 +244,6 @@
 
                 <% } %>
             <% } %>
-            <!--
-            <p>2012年12月24日，末日后第三天，人类艰难地摆脱“被窝引力”的束缚，拖着疲惫的身体返回地球。</p>
-            <div class="media">
-              <img src="imgs/3.png" alt="">
-            </div>
-            <div class="media">
-              <div class="item">
-                <img src="imgs/2.png" alt="">
-                <div class="price">￥218.00</div>
-              </div>
-            </div>
-            <p>地球已经被一种头戴红色帽子叫做“圣诞老人”的物种占领。每个返回地球的人类都将收到一个神秘蓝色盒子，里面放着一只苹果。当你咬一口它，你也会变成苹果，然后被装进一个蓝色盒子。</p>
-            -->
             <% if (linkUrl) { %>
                 <a href="<%= linkUrl %>" class="more-content">更多内容</a>
             <% } %>
@@ -329,7 +320,7 @@
             });
         </script>
 
-<div id="notification" class="notification" style="visibility: hidden;">
+<div id="notification" class="notification" style="top: 100px; visibility: hidden;">
   <div class="panel">
     <div class="long-message" style="display: none;">
       即将前往外部页面，页面地址是：
