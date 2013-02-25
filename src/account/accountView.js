@@ -18,7 +18,7 @@ define(function (require, exports, module) {
         },
         render:function(){
             var that=this;
-            var _pageSize=3;
+            var _pageSize=1;
             $('body').unbind();
             $('.tb-h5').html('');
 
@@ -39,6 +39,8 @@ define(function (require, exports, module) {
                     console.log('accFeeds');
                     console.log(result);
                     $('.tb-h5').append(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
+                    var pageCount=Math.ceil(result.totalCount/_pageSize);
+                    new pageNav({'id':'#feedPageNav','pageCount':pageCount});
 
 
                 }
@@ -47,6 +49,7 @@ define(function (require, exports, module) {
                 if(result.list&&result.list.length>0){
                     console.log('prices');
                     console.log(result);
+                    //<div class="price">￥102.00</div>
                 }
             });
 //            * @param param.curPage  页码

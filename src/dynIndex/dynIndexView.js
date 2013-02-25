@@ -29,10 +29,11 @@ define(function (require, exports, module) {
         initialize:function () {
             //判断是否登录
             //$('body').unbind();
-            $('.tb-h5').html('');
+            $('.tb-h5').html($('#indexPage_tpl').html());
             var _pageSize=1;
 
             $('header.navbar').html($('#navBack_tpl').html()+$('#homeTitle_tpl').html());
+
 
 
 
@@ -43,7 +44,7 @@ define(function (require, exports, module) {
                 var d=result;
                 d.width=result.list.length*320;
 
-                $('.tb-h5').append(_.template($('#slider_tpl').html(),d));
+                $('#J_slider').html(_.template($('#slider_tpl').html(),d));
 
                 new slider(".in-slider", {wrap: ".in-slider-cont",trigger: ".in-slider-status",useTransform: !0,interval: 3e3,play: !0,loop: !0});
 
