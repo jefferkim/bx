@@ -15,7 +15,7 @@ define(function(require, exports, module) {
 
     events: {
       'click .btn.comment': 'newComment'
-    }
+    },
 
     initialize: function(snsId, feedId, page) {
 
