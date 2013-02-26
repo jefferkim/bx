@@ -23,22 +23,20 @@ define(function (require, exports, module) {
             var self = this;
 
             function getCommentList(param) {
-                mtop.list(
+                mtop.commentList(
                     param, function (accResult) {
-                        self.set("list", accResult);
+                        self.set("commentList", accResult);
+                        self.set("status",true);
+                    },function(){
+                        self.set("status",false);
                     })
             }
-
-            param || (param = {});
-              var pageParam = _.clone(mtop.pageParam);
-            _.extend(pageParam, param);
             //伪代码
             mtop.userNick = 'tbseed91';
             if (mtop.userNick) {
                 //设置登录状态
                 self.set("loginStatus",true);
-
-                getCommentList(pageParam);
+                getCommentList(param);
             } else {
                 self.set("loginStatus",false);
             }
