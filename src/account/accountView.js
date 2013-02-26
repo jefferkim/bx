@@ -7,10 +7,13 @@ define(function (require, exports, module) {
     var Backbone = require('backbone'),
         $ = require('zepto'),
         _ = require('underscore'),
-        _model=require('./accountModel');
+        _model=require('./accountModel'),
+        pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js');
+
     var accountView = Backbone.View.extend({
         el:'#content',
         events:{
+            'touchend .tb-feed-items li':'goToDetail'
         },
         initialize:function (snsid) {
             this.snsid=snsid;
@@ -18,37 +21,36 @@ define(function (require, exports, module) {
         },
         render:function(){
             var that=this;
-            var _pageSize=1;
+            var _pageSize=4;
             $('body').unbind();
-            $('.tb-h5').html('');
-
+            //$('.tb-h5').html('');
+            $('.view-page.show').removeClass('show iC').addClass('iL');
+            $('#accountPage').removeClass('iL').addClass('show iC');
             $('header.navbar').html($('#navBack_tpl').html()+$('#accountTitle_tpl').html());
-
-
             var accountModel = new _model();
             accountModel.on("change:accInfo",function(model,result){
                 console.log('accInfo');
                 console.log(result);
                 if(result){
-
-                    $('.tb-h5').append(_.template($('#accountinfo_tpl').html(),that.reconAccInfoData(result)));
+                    $('#accountPage .J_info').html(_.template($('#accountinfo_tpl').html(),that.reconAccInfoData(result)));
                 }
             });
             accountModel.on("change:accFeeds",function(model,result){
                 if(result.list&&result.list.length>0){
                     console.log('accFeeds');
                     console.log(result);
-                    $('.tb-h5').append(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
+                    $('#accountPage .J_feed').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
+
                     var pageCount=Math.ceil(result.totalCount/_pageSize);
-                    new pageNav({'id':'#feedPageNav','pageCount':pageCount});
 
-
+                    new pageNav({'id':'#feedPageNav','pageCount':pageCount,'pageSize':_pageSize});
                 }
             });
             accountModel.on("change:prices",function(model,result){
+                console.log('prices');
+                console.log(result);
                 if(result.list&&result.list.length>0){
-                    console.log('prices');
-                    console.log(result);
+
                     //<div class="price">￥102.00</div>
                 }
             });
@@ -57,6 +59,10 @@ define(function (require, exports, module) {
 //            * @param param.snsId
 //            * @param param.afterTimestamp
             accountModel.getPageData({'snsId':that.snsid,'curPage':1,'pageSize':_pageSize,'afterTimestamp':''});
+        },
+        goToDetail:function(e){
+            var cur=$(e.currentTarget);
+            window.location.hash='#detail/'+$('.tb-profile').attr('snsid')+'/'+cur.attr('feedid');
         },
         /**
          * 重构数据集
@@ -71,6 +77,11 @@ define(function (require, exports, module) {
             if(!d.backgroundImg){d.backgroundImg='imgs/cover.png'}
             return d;
         },
+        /**
+         * 重构feed数据集
+         * @param data
+         * @returns {*}
+         */
         reconFeedListData:function(data){
             var that=this;
             var d=data;
@@ -78,7 +89,6 @@ define(function (require, exports, module) {
                 if(!d.list[i].commentCount){d.list[i].commentCount=0}
             }
             return d;
-            //commentCount
         }
 
     });

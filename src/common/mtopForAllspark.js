@@ -113,7 +113,7 @@ define(function (require, exports, module) {
     };
 
     exports.commentList  = function (param, fun) {
-        invokeApi("mtop.sns.comment.list ", param, fun);
+        invokeApi("mtop.sns.comment.list", param, fun);
     };
 
 

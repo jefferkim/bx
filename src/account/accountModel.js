@@ -55,6 +55,10 @@ define(function (require, exports, module) {
 
             console.log(pageParam);
             self._biz.feeds(pageParam,function(result){
+                result.totalCount && result.list && result.list.forEach(function(feed){
+                    feed.coverTile.item={'id':'1500020722928'};
+                });
+
                 self.set("accFeeds",result);
 
                 //获取价格参数
