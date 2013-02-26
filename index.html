@@ -14,8 +14,7 @@
     </head>
     <body>
         <div id="content">
-            <header class="navbar">
-            </header>
+            <header class="navbar"></header>
             <div class="tb-h5">
                 <div id="indexPage" class="view-page iL">
                     <div class="J_slider"></div>
@@ -29,7 +28,11 @@
                     <div class="J_info"></div>
                     <div class="J_feed"></div>
                 </div>
-                <div id="detailPage" class="view-page iL">
+                <div id="detailPage" class="view-page iL detail">
+                </div>
+                <div id="commentListPage" class="view-page iL comment">
+                </div>
+                <div id="newCommentPage" class="view-page iL new-comment">
                 </div>
             </div>
         </div>
@@ -208,7 +211,7 @@
 
         <script id="detail_header_tpl" type="text/template">
             <div class="back">
-                <a>返回</a>
+                <a href="javascript:history.back();">返回</a>
             </div>
             <div class="title">&nbsp;</div>
             <div class="btn comment">
@@ -245,11 +248,35 @@
                 <% } %>
             <% } %>
 
-            <% if (linkUrl) { %>
+            <% if (this.linkUrl) { %>
                 <a href="<%= linkUrl %>" class="more-content">更多内容</a>
             <% } %>
           </div>
         </script>
+
+        <script id="comment_list_header_tpl" type="text/template">
+            <div class="back">
+                <a href="javascript:history.back();">返回</a>
+            </div>
+            <div class="title">&nbsp;</div>
+            <div class="btn comment">写评论</div>
+        </script>
+
+        <script id="newComment_header_tpl" type="text/template">
+            <div class="back">
+                <a href="javascript:history.back();">返回</a>
+            </div>
+            <div class="title">&nbsp;</div>
+            <div class="btn comment green">发布</div>
+        </script>
+
+        <script id="newComment_input_tpl" type="text/template">
+          <div class="comment-wrap">
+          <textarea id="comment-area" placeholder="说点儿什么吧"></textarea>
+          <p class="word-count"><span class="char-count">0</span> / 140</p>
+          </div>
+        </script>
+
         <!-- Templates -->
 
         <input type="hidden" id="J_app_key" value="4272">
@@ -319,6 +346,7 @@
             seajs.use('./src/app.js', function(app){
                 //new app();
             });
+            console.log(document.referrer);
         </script>
 
         <div id="notification" class="notification" style="top: 100px; visibility: hidden;">

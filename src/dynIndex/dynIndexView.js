@@ -15,9 +15,9 @@ define(function (require, exports, module) {
         cache = require('../common/cache'),
         slider= require('../../../../base/styles/component/slider/js/slider.js'),
         pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
-        mtop = require('../common/mtopForAllspark.js');
-        //uriBroker = require('uriBroker'),
-        //cdn = require('cdn');
+        mtop = require('../common/mtopForAllspark.js'),
+        uriBroker = require('uriBroker'),
+        cdn = require('cdn');
 
     var dynIndexView = Backbone.View.extend({
         el: '#content',

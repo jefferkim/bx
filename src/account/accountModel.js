@@ -46,18 +46,14 @@ define(function (require, exports, module) {
          * @param param.afterTimestamp  可选时传入空值，表示取在该时间之后的Feed
          */
         getPageData:function (param) {
-
             var self = this;
-
             self._biz.info({snsId:param.snsId,sid:param.sid},function(result){
                 console.log('refine accInfo');
                 refine.refinePubAccount(result);
                 console.log(result);
                 self.set("accInfo",result);
             });
-
             param || (param = {});
-
             var pageParam = _.clone(mtop.pageParam);
             _.extend(pageParam, param);
 

@@ -1,56 +1,74 @@
+seajs.config({
+    alias:{
+        'backbone':'http://a.tbcdn.cn/mw/base/libs/backbone/0.9.2/backbone',
+        'underscore':'http://a.tbcdn.cn/mw/base/libs/underscore/1.3.3/underscore',
+        'zepto':'http://a.tbcdn.cn/mw/base/libs/zepto/1.0.0/zepto',
+        'mustache':'http://a.tbcdn.cn/mw/base/libs/mustache/0.5.0/mustache',
+        'linkfocus':'../../../../../base/modules/linkfocus/linkfocus',
+        'uriBroker':'../../../../../base/utils/server/uriBroker',
+        'h5_mtop':'../../../../../base/utils/server/mtop_h5_test',
+        'h5_events':'../../../../../base/utils/server/h5_events',
+        'h5_comm':'../../../../../base/utils/server/h5_common',
+        'mtop_h5_chunk':'../../../../base/utils/server/mtop_h5_chunk',
+        'h5_base':'../../../../../base/utils/server/h5_base',
+        'h5_utils':'../../../../../base/utils/server/h5_utils',
+        'h5_cache':'../../../../../base/utils/server/h5_cache',
+        'base64':'../../../../../base/utils/server/base64_utf-8',
+        'cookie':'../../../../../base/utils/server/cookie'
+    },
+    debug:1
+});
 
-var jsonpID = 0,
-    isObject = $.isObject,
-    document = window.document,
-    key,
-    name,
-    rscript = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
-    scriptTypeRE = /^(?:text|application)\/javascript/i,
-    xmlTypeRE = /^(?:text|application)\/xml/i,
-    jsonType = 'application/json',
-    htmlType = 'text/html',
-    blankRE = /^\s*$/
+define(function (require, exports) {
 
-function jsonp(url){
-    var callbackName = 'jsonp' + (++jsonpID),
-        script = document.createElement('script');
+    var mtopchunk = require("mtop_h5_chunk");
 
-    script.src = url.replace(/=\?/, '=' + callbackName);
+    asyncTest("1.没有token,直接abort", 1, function () {
+        mtopchunk.chunkAjax({
+            url: 'http://localhost:8080/tomcat/test.jsp',
+            // data to be added to query string:
+            data: { name: 'chunktest' },
+            // type of data we are expecting in return:
+            // response type to expect from the server (“json”, “jsonp”, “xml”, “html”, or “text”)
+            timeout: 30000,
+            success: function(data){
+                console.log(data)
+            },
+            error: function(data){
+                console.log(data);
+                ok(0 == data.indexOf("ERRCODE_AUTH_REJECT"));
+                start();
+            }
+        })
+    });
 
-    script.onchange =
-
-    $('head').append(script);
-
-
-}
-
-
-jsonp("http://localhost:8080/tomcat/test.jsp?callback=?")
-
-//asyncTest( "hello test", function() {
-//        $.ajax({
-//            type: 'GET',
-//            url: 'http://localhost:8080/tomcat/test.jsp?callback=?',
-//            // data to be added to query string:
-//            // type of data we are expecting in return:
-//            timeout: 2300,
-//            success: function(data){
-//               ok(data);
-//               console.log(data);
-//            },
-//            error: function(xhr, type){
-//                alert('Ajax error!')
-//            }
-//        });
-//
-//    setTimeout(function(){
-//        start();
-//    },3000)
-//
-//});
+    asyncTest("2. 跨域请求", 0, function () {
+        try{
+        mtopchunk.chunkAjax({
+            url: 'http://api.waptest.taobao.com/rest/api2.do?api=mtop.transformer.account.autoCreate&v=2.0',
+            // data to be added to query string:
+            data: { name: 'chunktest' },
+            // type of data we are expecting in return:
+            // response type to expect from the server (“json”, “jsonp”, “xml”, “html”, or “text”)
+            timeout: 30000,
+            success: function(data){
+                console.log(data)
+            },
+            error: function(data){
+                console.log(data);
+                ok(0 == data.indexOf("ERRCODE_AUTH_REJECT"));
+                start();
+            }
+        })
+        }catch(e){
+            console.log(e);
+        }
+    });
 
 
 
 
+
+});
 
 

@@ -38,7 +38,11 @@ define(function (require, exports, module) {
             //$('.tb-h5').html('');
             $('.view-page.show').removeClass('show iC').addClass('iL');
             $('#accountPage').removeClass('iL').addClass('show iC');
-            $('header.navbar').html(_.template($('#navBack_tpl').html(),{'backUrl':'','backTitle':'返回'})+$('#accountTitle_tpl').html());
+            var _back={'backUrl':'','backTitle':'返回'};
+            if(document.referrer==''){
+                _back={'backUrl':'#','backTitle':'首页'}
+            }
+            $('header.navbar').html(_.template($('#navBack_tpl').html(),_back)+$('#accountTitle_tpl').html());
 
             that.accountModel.on("change:accInfo",function(model,result){
                 console.log('accInfo');

@@ -9,7 +9,8 @@ define(function(require, exports, module) {
       '': 'index',
       'home': 'index',
       'detail/:snsId/:feedId': 'detail',
-      'comment/:snsId/:feedId(/:page)': 'comment',
+      'commentList/:snsId/:feedId/:page': 'commentList',
+      'newComment': 'newComment',
       'account/:snsId/:page':'account',
       'accountList/:status':'accountList'
 
@@ -51,8 +52,18 @@ define(function(require, exports, module) {
         });
     },
 
-    comment :function(snsId, feedId, page) {
-      page = page || 1;
+    commentList: function(snsId, feedId, page) {
+      seajs.use('./src/comment/commentListView', function(CommentListView) {
+        new CommentListView(snsId, feedId, page)
+      })
+      console.log('route into commentList')
+    },
+
+    newComment: function() {
+      seajs.use('./src/comment/newCommentView', function(NewCommentView) {
+        new NewCommentView()
+      })
+      console.log('route into newComment')
     },
 
     start: function() {
@@ -62,6 +73,7 @@ define(function(require, exports, module) {
 
   });
 
-  return new Router();
+  App = window.App || new Router()
+  return App;
 
 });
