@@ -32,7 +32,8 @@ define(function (require, exports, module) {
             param || (param = {});
               var pageParam = _.clone(mtop.pageParam);
             _.extend(pageParam, param);
-
+            //伪代码
+            mtop.userNick = 'tbseed91';
             if (mtop.userNick) {
                 //设置登录状态
                 self.set("loginStatus",true);
@@ -51,6 +52,7 @@ define(function (require, exports, module) {
          */
         getCommentCount:function(param) {
             var self = this;
+            mtop.userNick = 'tbseed91';
             if (mtop.userNick) {
                 //设置登录状态
                 self.set("loginStatus",true);
