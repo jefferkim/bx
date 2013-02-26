@@ -58,7 +58,7 @@ define(function (require, exports, module) {
         },
 
         commentList: function() {
-          router.navigate('commentList/' + this.snsId + '/' + this.feedId, { trigger: true })
+          router.navigate('commentList/' + this.snsId + '/' + this.feedId + '/1', { trigger: true })
         }
 
     });

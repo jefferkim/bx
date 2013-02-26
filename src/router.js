@@ -9,7 +9,7 @@ define(function(require, exports, module) {
       '': 'index',
       'home': 'index',
       'detail/:snsId/:feedId': 'detail',
-      'commentList/:snsId/:feedId(/:page)': 'commentList',
+      'commentList/:snsId/:feedId/:page': 'commentList',
       'account/:snsId/:page':'account',
       'accountList/:status':'accountList'
 
@@ -51,8 +51,7 @@ define(function(require, exports, module) {
         });
     },
 
-    commentList :function(snsId, feedId, page) {
-      page = page || 1;
+    commentList: function(snsId, feedId, page) {
       console.log('route into commentList')
     },
 
