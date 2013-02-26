@@ -71,7 +71,7 @@ define(function (require, exports, module) {
                 mtop.getData("mtop.sns.feed.detail", param || {}, function (result) {
                     self.set("feed",result.data);
                     cache.saveItem(cacheKey,result.data);
-                     afterProcess(result.data,param);
+                    afterProcess(result.data,param);
                 }, function (result) {
                        self.set("status",'false');
                   }
