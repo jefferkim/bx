@@ -9,7 +9,7 @@ define(function(require, exports, module) {
       '': 'index',
       'home': 'index',
       'detail/:snsId/:feedId': 'detail',
-      'comment/:snsId/:feedId(/:page)': 'comment',
+      'commentList/:snsId/:feedId(/:page)': 'commentList',
       'account/:snsId/:page':'account',
       'accountList/:status':'accountList'
 
@@ -51,8 +51,9 @@ define(function(require, exports, module) {
         });
     },
 
-    comment :function(snsId, feedId, page) {
+    commentList :function(snsId, feedId, page) {
       page = page || 1;
+      console.log('route into commentList')
     },
 
     start: function() {
@@ -62,6 +63,7 @@ define(function(require, exports, module) {
 
   });
 
-  return new Router();
+  App = window.App || new Router()
+  return App;
 
 });
