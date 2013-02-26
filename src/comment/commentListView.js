@@ -27,13 +27,20 @@ define(function(require, exports, module) {
 
       this.$container = $('#commentListPage')
 
-      this.model.on('change:list', this.renderCommentList, this)
+      this.model.on('change:commentList', this.renderCommentList, this)
 
-      //this.model.getPageData({'snsId':snsId,'feedId':feedId});
+      this.model.getPageData({'snsId':snsId,'feedId':feedId});
     },
 
     renderCommentList: function() {
-      console.log('comment list', this.model.get('list'))
+      var list = this.model.get('commentList')
+      if (list.totalCount == 0) {
+        this.$container.html('<p class="no-comment">暂时没有评论</p>')
+      } else {
+
+      }
+
+      console.log('comment list', this.model.get('commentList'))
     },
 
     newComment: function() {
