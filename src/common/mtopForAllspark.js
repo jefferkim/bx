@@ -90,8 +90,8 @@ define(function (require, exports, module) {
         });
     }
 
-    exports.recommands = function (param, fun) {
-        invokeApi("mtop.transformer.pubAccount.recommands", param, fun);
+    exports.recommends = function (param, fun) {
+        invokeApi("mtop.transformer.pubAccount.recommends", param, fun);
     };
 
     exports.my = function (param, fun) {

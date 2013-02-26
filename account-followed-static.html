@@ -18,7 +18,8 @@
         <a>首页</a>
     </div>
     <div class="title">变形金刚</div>
-    <div class="btn refresh">
+    <div class="btn comment">评论</div>
+    <div class="btn refresh" style="display: none">
     </div>
 
 </header>
@@ -58,7 +59,7 @@
         </a>
     </div>
     <div class="profile-overview">
-        <button class="stats-follow-btn followed">
+        <button class="stats-follow-btn <%if(followed=='true'){%>followed<% }%>">
             关注
         </button>
     </div>

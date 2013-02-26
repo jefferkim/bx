@@ -24,16 +24,19 @@ define(function (require, exports, module) {
             //绑定登录链接
             'click #J_login_btn' : 'goLogin',
             'click .navbar .add':'add',
-            'click .navbar .refresh':'refresh'
+            'click .navbar .refresh':'refresh',
+            'click .myfeed li':'goToAccount'
         },
         initialize:function () {
             //判断是否登录
-            //$('body').unbind();
-            $('.tb-h5').html('');
+            $('body').unbind();
+            $('.view-page.show').removeClass('show iL');
+            $('#indexPage').removeClass('iL').addClass('show iC');
+            //$('.tb-h5').html($('#indexPage_tpl').html());
             var _pageSize=1;
-            var that=this;
 
             $('header.navbar').html($('#navBack_tpl').html()+$('#homeTitle_tpl').html());
+
 
 
 
@@ -44,7 +47,7 @@ define(function (require, exports, module) {
                 var d=result;
                 d.width=result.list.length*320;
 
-                $('.tb-h5').append(_.template($('#slider_tpl').html(),d));
+                $('#indexPage .J_slider').html(_.template($('#slider_tpl').html(),d));
 
                 new slider(".in-slider", {wrap: ".in-slider-cont",trigger: ".in-slider-status",useTransform: !0,interval: 3e3,play: !0,loop: !0});
 
@@ -57,21 +60,24 @@ define(function (require, exports, module) {
                 if(result.list&&result.list.length>0){
                     console.log();
                     if(result.list.length==1){
-                        $(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result)).insertAfter('div.in-slider');
+                        $('#indexPage .J_status').html(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result));
+                        //$(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result)).insertAfter('div.in-slider');
                     }else{
-                        $(_.template($('#myfeed_tpl').html(),result)).insertAfter('div.in-slider');
+                        $('#indexPage .J_status').html(_.template($('#myfeed_tpl').html(),result));
+                        //$(_.template($('#myfeed_tpl').html(),result)).insertAfter('div.in-slider');
                     }
                 }
                 //ok(result.totalCount > 0, "total count == 0")
             },this);
-            dynIndexModel.on("change:recommands",function(model,result){
+            dynIndexModel.on("change:recommends",function(model,result){
                 //推荐列表
-                console.log('recommands');
+                console.log('recommends');
                 console.log(result);
                 if(result.list&&result.list.length>0){
-                    $('.tb-h5').append(_.template($('#personList_tpl').html(),result));
+                    $('#indexPage .J_list').html(_.template($('#personList_tpl').html(),result));
+                    //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));
                     var pageCount=Math.ceil(result.totalCount/_pageSize);
-                    new pageNav({'id':'#personListPageNav','pageCount':pageCount,'objId':'A'});
+                    new pageNav({'id':'#personListPageNav','pageCount':pageCount,'pageSize':_pageSize});
                 }
                 //ok(result.totalCount > 0, "total count > 0")
             },this);
@@ -80,7 +86,9 @@ define(function (require, exports, module) {
                     //已登录
                 }else{
                     //未登录
-                    $($('#loginBar_tpl').html()).insertAfter('div.in-slider');
+                    $('#indexPage .J_status').html($('#loginBar_tpl').html());
+
+                    //$($('#loginBar_tpl').html()).insertAfter('div.in-slider');
                 }
             },this);
             dynIndexModel.getPageData({'curPage':1,'pageSize':_pageSize});
@@ -93,6 +101,11 @@ define(function (require, exports, module) {
         },
         goLogin : function(){
             h5_comm.goLogin('h5_allspark');
+        },
+        goToAccount:function(e){
+            var cur=$(e.currentTarget);
+            window.location.hash='#account/'+cur.attr('snsid')+'/1';
+
         }
     });
     return dynIndexView;

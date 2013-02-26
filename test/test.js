@@ -31,8 +31,8 @@ define(function (require, exports) {
     var biz = dynIndexModel._biz;
     //cart_test
     var sid = '209748772cdc638a00c9ace4d9c9c4b0';
-    //tbwuzhong000/taobao1234
-    var snsSid = '2e1e0cd1112a52d7e29b1af7e8d52d74';
+    //bmwtui15/taobao1234
+    var snsSid = '73d101e384377d4234e0ab5a2a280b71';
 
     module("首页banner图片");
     asyncTest("1.远程调用tms接口", 1, function () {
@@ -69,7 +69,7 @@ define(function (require, exports) {
 
     module("推荐账号列表");
     asyncTest("1.获取推荐账号列表", 2, function () {
-        mtop.recommands(
+        mtop.recommends(
             {
                 "curPage":"1",
                 "pageSize":"3",
@@ -118,7 +118,7 @@ define(function (require, exports) {
         dynIndexModel.on("change:accWithFeed",function(model,result){
             console.log(result);
         },this);
-        dynIndexModel.on("change:recommands",function(model,result){
+        dynIndexModel.on("change:recommends",function(model,result){
             console.log(result);
             ok(result.totalCount > 0, "total count > 0")
         },this);
@@ -138,7 +138,7 @@ define(function (require, exports) {
             console.log(result);
             ok(result.totalCount == 0, "total count == 0")
         },this);
-        dynIndexModel.on("change:recommands",function(model,result){
+        dynIndexModel.on("change:recommends",function(model,result){
             console.log(result);
             ok(result.totalCount > 0, "total count > 0")
         },this);
@@ -154,7 +154,7 @@ define(function (require, exports) {
             console.log(result);
             equal(3, result.length, "We expect banner not empty");
         },this);
-        dynIndexModel.on("change:recommands",function(model,result){
+        dynIndexModel.on("change:recommends",function(model,result){
             console.log(result);
             ok(result.totalCount > 0, "total count > 0")
         },this);
@@ -174,7 +174,7 @@ define(function (require, exports) {
             console.log(result);
             ok(result.totalCount > 0, "total count > 0")
         },this);
-        dynIndexModel.on("change:recommands",function(model,result){
+        dynIndexModel.on("change:recommends",function(model,result){
             console.log(result);
             ok(result.totalCount > 0, "total count > 0")
         },this);
@@ -197,9 +197,9 @@ define(function (require, exports) {
         },1000)
     });
 
-    var AccInfoModel = require("./accInfoModel.js");
+    var AccInfoModel = require("../src/account/accountModel.js");
     module("帐号首页");
-    asyncTest("1.查询2个商品价格",function () {
+    asyncTest("1.登录用户查询公共帐号",function () {
         var accInfo = new AccInfoModel();
         accInfo.on("change:accInfo",function(model,result){
             console.log(result);
