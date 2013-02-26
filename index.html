@@ -32,7 +32,8 @@
                 <div id="detailPage" class="view-page iL detail">
                 </div>
                 <div id="commentListPage" class="view-page iL comment">
-
+                </div>
+                <div id="newCommentPage" class="view-page iL new-comment">
                 </div>
             </div>
         </div>
@@ -261,13 +262,29 @@
           </div>
         </script>
 
-        <script id="comment_list_tpl" type="text/template">
+        <script id="comment_list_header_tpl" type="text/template">
             <div class="back">
                 <a href="http://m.taobao.com">返回</a>
             </div>
             <div class="title">&nbsp;</div>
             <div class="btn comment">写评论</div>
         </script>
+
+        <script id="newComment_header_tpl" type="text/template">
+            <div class="back">
+                <a href="http://m.taobao.com">返回</a>
+            </div>
+            <div class="title">&nbsp;</div>
+            <div class="btn comment green">发布</div>
+        </script>
+
+        <script id="newComment_input_tpl" type="text/template">
+          <div class="comment-wrap">
+          <textarea id="comment-area" placeholder="说点儿什么吧"></textarea>
+          <p class="word-count"><span class="char-count">0</span> / 140</p>
+          </div>
+        </script>
+
         <!-- Templates -->
 
         <input type="hidden" id="J_app_key" value="4272">

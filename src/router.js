@@ -10,6 +10,7 @@ define(function(require, exports, module) {
       'home': 'index',
       'detail/:snsId/:feedId': 'detail',
       'commentList/:snsId/:feedId/:page': 'commentList',
+      'newComment': 'newComment',
       'account/:snsId/:page':'account',
       'accountList/:status':'accountList'
 
@@ -56,6 +57,13 @@ define(function(require, exports, module) {
         new CommentListView(snsId, feedId, page)
       })
       console.log('route into commentList')
+    },
+
+    newComment: function() {
+      seajs.use('./src/comment/newCommentView', function(NewCommentView) {
+        new NewCommentView()
+      })
+      console.log('route into newComment')
     },
 
     start: function() {

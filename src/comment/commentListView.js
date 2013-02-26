@@ -1,9 +1,10 @@
 define(function(require, exports, module) {
   var Backbone = require('backbone'),
       $ = require('zepto'),
-      _ = require('underscore');
+      _ = require('underscore'),
+      router = require('../router');
 
-  var commentListTemplate = _.template($('#comment_list_tpl').html())
+  var commentListHeaderTemplate = _.template($('#comment_list_header_tpl').html())
 
   var CommentModel = require('./commentModel')
 
@@ -19,7 +20,7 @@ define(function(require, exports, module) {
 
     initialize: function(snsId, feedId, page) {
 
-      $('header.navbar').html(commentListTemplate({}))
+      $('header.navbar').html(commentListHeaderTemplate({}))
 
       $('.view-page.show').removeClass('show iC').addClass('iL');
       $('#commentListPage').removeClass('iL').addClass('show iC');
@@ -28,7 +29,7 @@ define(function(require, exports, module) {
 
       this.model.on('change:list', this.renderCommentList, this)
 
-      this.model.getPageData({'snsId':snsId,'feedId':feedId});
+      //this.model.getPageData({'snsId':snsId,'feedId':feedId});
     },
 
     renderCommentList: function() {
@@ -36,7 +37,7 @@ define(function(require, exports, module) {
     },
 
     newComment: function() {
-
+      router.navigate('newComment', { trigger: true })
     }
 
   })
