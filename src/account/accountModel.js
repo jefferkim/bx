@@ -1,7 +1,8 @@
 define(function (require, exports, module) {
     var Backbone = require('backbone'),
         _ = require('underscore'),
-        mtop = require('../common/mtopForAllspark.js');
+        mtop = require('../common/mtopForAllspark.js'),
+        refine = require('../common/refine.js');
 
     /**
      * 公共帐号信息页面
@@ -49,6 +50,9 @@ define(function (require, exports, module) {
             var self = this;
 
             self._biz.info({snsId:param.snsId,sid:param.sid},function(result){
+                console.log('refine accInfo');
+                refine.refinePubAccount(result);
+                console.log(result);
                 self.set("accInfo",result);
             });
 
@@ -62,7 +66,8 @@ define(function (require, exports, module) {
                 result.totalCount && result.list && result.list.forEach(function(feed){
                     feed.coverTile.item={'id':'1500020722928'};
                 });
-
+                console.log('refine accFeeds');
+                refine.refineFeed(result);
                 self.set("accFeeds",result);
 
                 //获取价格参数

@@ -8,16 +8,28 @@ define(function (require, exports, module) {
         $ = require('zepto'),
         _ = require('underscore'),
         _model=require('./accountModel'),
-        pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js');
+        pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
+        mtop = require('../common/mtopForAllspark.js');
+
 
     var accountView = Backbone.View.extend({
         el:'#content',
         events:{
-            'touchend .tb-feed-items li':'goToDetail'
+            'touchend .tb-feed-items li':'goToDetail',
+            'click .navbar .back':'goBack',
+            'click .J_info .stats-follow-btn':'follw'
+
+
         },
         initialize:function (snsid) {
-            this.snsid=snsid;
+            var that=this;
+            that.snsid=snsid;
+            that.accountModel = new _model();
+            //that.accountModel.on('change',that.render,this);
             this.render();
+        },
+        goBack:function(){
+            history.go(-1);
         },
         render:function(){
             var that=this;
@@ -26,16 +38,16 @@ define(function (require, exports, module) {
             //$('.tb-h5').html('');
             $('.view-page.show').removeClass('show iC').addClass('iL');
             $('#accountPage').removeClass('iL').addClass('show iC');
-            $('header.navbar').html($('#navBack_tpl').html()+$('#accountTitle_tpl').html());
-            var accountModel = new _model();
-            accountModel.on("change:accInfo",function(model,result){
+            $('header.navbar').html(_.template($('#navBack_tpl').html(),{'backUrl':'','backTitle':'返回'})+$('#accountTitle_tpl').html());
+
+            that.accountModel.on("change:accInfo",function(model,result){
                 console.log('accInfo');
                 console.log(result);
                 if(result){
                     $('#accountPage .J_info').html(_.template($('#accountinfo_tpl').html(),that.reconAccInfoData(result)));
                 }
             });
-            accountModel.on("change:accFeeds",function(model,result){
+            that.accountModel.on("change:accFeeds",function(model,result){
                 if(result.list&&result.list.length>0){
                     console.log('accFeeds');
                     console.log(result);
@@ -46,24 +58,57 @@ define(function (require, exports, module) {
                     new pageNav({'id':'#feedPageNav','pageCount':pageCount,'pageSize':_pageSize});
                 }
             });
-            accountModel.on("change:prices",function(model,result){
+            that.accountModel.on("change:prices",function(model,result){
                 console.log('prices');
                 console.log(result);
                 if(result.list&&result.list.length>0){
 
                     //<div class="price">￥102.00</div>
                 }
+                //测试插入效果
+                setTimeout(function(){
+                    var _item=$('.media .item');
+                    for(var i=0;i<_item.length;i++){
+                        _item.eq(i).append('<div class="price">￥102.00</div>');
+                    }
+                },5000);
+
             });
 //            * @param param.curPage  页码
 //            * @param param.pageSize
 //            * @param param.snsId
 //            * @param param.afterTimestamp
-            accountModel.getPageData({'snsId':that.snsid,'curPage':1,'pageSize':_pageSize,'afterTimestamp':''});
+            that.accountModel.getPageData({'snsId':that.snsid,'curPage':1,'pageSize':_pageSize,'afterTimestamp':''});
+        },
+        follw:function(e){
+            var that=this;
+            console.log('adddddd');
+            var cur=$(e.currentTarget);
+            if(cur.hasClass('followed')){
+                cur.html('取消关注...');
+                mtop.removeAccount(cur.attr('pid'),function(){
+                    cur.html('关注');
+                    cur.removeClass('followed');
+                },function(){
+                    cur.html('已关注');
+                });
+            }else{
+                cur.html('关注中...');
+                cur.addClass('followed');
+                mtop.addAccount(cur.attr('pid'),function(){
+                    cur.html('已关注');
+                },function(){
+                    cur.html('关注');
+                    cur.removeClass('followed');
+                });
+
+            }
         },
         goToDetail:function(e){
             var cur=$(e.currentTarget);
             window.location.hash='#detail/'+$('.tb-profile').attr('snsid')+'/'+cur.attr('feedid');
         },
+
         /**
          * 重构数据集
          * @param data

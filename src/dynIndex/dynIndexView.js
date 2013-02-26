@@ -14,7 +14,8 @@ define(function (require, exports, module) {
         cookie = require('cookie'),
         cache = require('../common/cache'),
         slider= require('../../../../base/styles/component/slider/js/slider.js'),
-        pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js')
+        pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
+        mtop = require('../common/mtopForAllspark.js');
         //uriBroker = require('uriBroker'),
         //cdn = require('cdn');
 
@@ -25,25 +26,22 @@ define(function (require, exports, module) {
             'click #J_login_btn' : 'goLogin',
             'click .navbar .add':'add',
             'click .navbar .refresh':'refresh',
-            'click .myfeed li':'goToAccount'
+            'click .myfeed li':'goToAccount',
+            'click .person-list li':'goToAccount',
+            'click .person-list .follwbtn':'follw'
         },
         initialize:function () {
             //判断是否登录
+            var that=this;
+            that._pageSize=2;
             $('body').unbind();
             $('.view-page.show').removeClass('show iL');
             $('#indexPage').removeClass('iL').addClass('show iC');
-            //$('.tb-h5').html($('#indexPage_tpl').html());
-            var _pageSize=1;
 
-            $('header.navbar').html($('#navBack_tpl').html()+$('#homeTitle_tpl').html());
-
-
-
-
-
-            var dynIndexModel = new _model();
-            dynIndexModel.on("change:banner",function(model,result){
+            that.dynIndexModel = new _model();
+            that.dynIndexModel.on("change:banner",function(model,result){
                 console.log('banner');
+                console.log(result);
                 var d=result;
                 d.width=result.list.length*320;
 
@@ -51,10 +49,10 @@ define(function (require, exports, module) {
 
                 new slider(".in-slider", {wrap: ".in-slider-cont",trigger: ".in-slider-status",useTransform: !0,interval: 3e3,play: !0,loop: !0});
 
-                console.log(result);
+
                 //equal(3, result.list.length, "We expect banner not empty");
             });
-            dynIndexModel.on("change:accWithFeed",function(model,result){
+            that.dynIndexModel.on("change:accWithFeed",function(model,result){
                 console.log('accWithFeed');
                 console.log(result);
                 if(result.list&&result.list.length>0){
@@ -69,19 +67,22 @@ define(function (require, exports, module) {
                 }
                 //ok(result.totalCount > 0, "total count == 0")
             },this);
-            dynIndexModel.on("change:recommends",function(model,result){
+            that.dynIndexModel.on("change:recommends",function(model,result){
                 //推荐列表
                 console.log('recommends');
                 console.log(result);
                 if(result.list&&result.list.length>0){
                     $('#indexPage .J_list').html(_.template($('#personList_tpl').html(),result));
                     //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));
-                    var pageCount=Math.ceil(result.totalCount/_pageSize);
-                    new pageNav({'id':'#personListPageNav','pageCount':pageCount,'pageSize':_pageSize});
+                    var pageCount=Math.ceil(result.totalCount/that._pageSize);
+                    var recommentPage=new pageNav({'id':'#personListPageNav','pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
+                    recommentPage.pContainer().on('P:switchPage', function(e,page){
+                        that.changePage(page.index);
+                    });
                 }
                 //ok(result.totalCount > 0, "total count > 0")
             },this);
-            dynIndexModel.on("change:loginStatus",function(model,result){
+            that.dynIndexModel.on("change:loginStatus",function(model,result){
                 if(result){
                     //已登录
                 }else{
@@ -91,18 +92,66 @@ define(function (require, exports, module) {
                     //$($('#loginBar_tpl').html()).insertAfter('div.in-slider');
                 }
             },this);
-            dynIndexModel.getPageData({'curPage':1,'pageSize':_pageSize});
+
+
+
+            that.dynIndexModel.getPageData({'curPage':1,'pageSize':that._pageSize});
+
+            that.dynIndexModel.on('change',this.render,this);
+
+
+        },
+        render:function(){
+
+            //$('.tb-h5').html($('#indexPage_tpl').html());
+            console.log('homePage render');
+
+            $('header.navbar').html(_.template($('#navBack_tpl').html(),{'backUrl':'http://m.taobao.com','backTitle':'首页'})+$('#homeTitle_tpl').html());
+
+
+        },
+        PageNavRender:function(){
+
+        },
+        changePage:function(page){
+            var that=this;
+            that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});
         },
         add:function(){
-            console.log('asdfadsf');
+            window.location.hash='#accountList/1';
         },
         refresh:function(){
+            console.log('refresh');
+        },
+        follw:function(e){
+            console.log('follw');
+            var cur=$(e.currentTarget);
+            if(cur.hasClass('followed')){
+                cur.html('取消关注...');
+                mtop.removeAccount(cur.attr('pid'),function(){
+                    cur.html('关注');
+                    cur.removeClass('followed');
+                },function(){
+                    cur.html('已关注');
+                });
+            }else{
+                cur.html('关注中...');
+                cur.addClass('followed');
+                mtop.addAccount(cur.attr('pid'),function(){
+                    cur.html('已关注');
+                },function(){
+                    cur.html('关注');
+                    cur.removeClass('followed');
+                });
 
+            }
+            //cur.addClass('followed');
         },
         goLogin : function(){
             h5_comm.goLogin('h5_allspark');
         },
         goToAccount:function(e){
+            console.log('goToAccount');
             var cur=$(e.currentTarget);
             window.location.hash='#account/'+cur.attr('snsid')+'/1';
 

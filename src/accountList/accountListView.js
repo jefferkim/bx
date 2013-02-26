@@ -8,17 +8,21 @@ define(function (require, exports, module) {
         $ = require('zepto'),
         _ = require('underscore'),
         _model=require('./accountListModel'),
-        pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js');
+        pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
+        mtop = require('../common/mtopForAllspark.js');
+
 
     var accountListView = Backbone.View.extend({
-        el:'body',
+        el:'#content',
         events:{
-            'click .tab-bar li':'changeTab'
+            'click .tab-bar li':'changeTab',
+            'click .navbar .back':'goBack'
         },
         initialize:function (status) {
+            var that=this;
             this.status=status;
-            this.render();
-//
+            that.accountListModel = new _model();
+            that.accountListModel.on('change',that.render,this);
         },
         render: function() {
             $('body').unbind();
@@ -27,10 +31,10 @@ define(function (require, exports, module) {
             var that=this;
             $('.view-page.show').removeClass('show iC').addClass('iL');
             $('#accountListPage').removeClass('iL').addClass('show iC');
-            $('header.navbar').html($('#navBack_tpl').html()+$('#accountListTabBar_tpl').html());
+            $('header.navbar').html(_.template($('#navBack_tpl').html(),{'backUrl':'','backTitle':'返回'})+$('#accountListTabBar_tpl').html());
             $('.tab-bar li').eq(that.status-1).addClass('cur');
-            var accountListModel = new _model();
-            accountListModel.on("change:myAttention",function(model,result){
+
+            that.accountListModel.on("change:myAttention",function(model,result){
                 console.log('myAttention');
                 console.log(result);
                 if(result.list&&result.list.length>0){
@@ -40,7 +44,7 @@ define(function (require, exports, module) {
                     new pageNav({'id':'#personListPageNav','pageCount':pageCount,'pageSize':_pageSize});
                 }
             });
-            accountListModel.on("change:recommends",function(model,result){
+            that.accountListModel.on("change:recommends",function(model,result){
 
                 console.log('recommends');
                 console.log(result);
@@ -50,7 +54,10 @@ define(function (require, exports, module) {
                     new pageNav({'id':'#personListPageNav','pageCount':pageCount,'pagesize':_pageSize});
                 }
             });
-            accountListModel.getPageData({'type':that.status,'curPage':1,'pageSize':_pageSize,"order":"fans"});
+            that.accountListModel.getPageData({'type':that.status,'curPage':1,'pageSize':_pageSize,"order":"fans"});
+        },
+        goBack:function(){
+            history.go(-1);
         },
         changeTab:function(){
             var that=this;

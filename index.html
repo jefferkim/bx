@@ -40,7 +40,7 @@
         <!-- Templates -->
         <script id="navBack_tpl" type="text/template">
             <div class="back">
-                <a href="http://m.taobao.com">首页</a>
+                <a href="<%=backUrl%>"><%=backTitle%></a>
             </div>
 
         </script>
@@ -81,25 +81,23 @@
             </div>
         </script>
         <script id="personList_tpl" type="text/template">
-
             <div class="person-list">
-                    <ul class="">
-                        <% _.each(list, function(item) { %>
-                        <li>
-                            <div class="content">
-                                <div class="title"><%=item.nick%></div>
-                                <div class="info"><%=item.description%></div>
-                                <div class="follows"><span><%=item.fansCount%></span>关注者</div>
-                                <img src="<%=item.logoUrl%>">
-                                <button pid="<%=item.id%>" class="follwbtn">关注</button>
-                            </div>
-                        </li>
-                        <% }); %>
-                    </ul>
-                    <div id="personListPageNav" class="pagenav c-pnav-con">
-
-                    </div>
-                    </div>
+                <ul>
+                    <% _.each(list, function(item) { %>
+                    <li snsid="<%=item.id%>">
+                        <div class="content">
+                            <div class="title"><%=item.nick%></div>
+                            <div class="info"><%=item.description%></div>
+                            <div class="follows"><span><%=item.fansCount%></span>关注者</div>
+                            <img src="<%=item.logoUrl%>">
+                            <button pid="<%=item.id%>" class="follwbtn">关注</button>
+                        </div>
+                    </li>
+                    <% }); %>
+                </ul>
+                <div id="personListPageNav" class="pagenav c-pnav-con">
+                </div>
+            </div>
         </script>
         <script id="recommendtip_tpl" type="text/template">
             <div class="recommendtip">您还没有关注任何账号哦，看看我们的推荐吧！</div>
@@ -159,19 +157,14 @@
                         </a>
                     </div>
                 </div>
-                <div class="profile-overview">
-                    <a href="http://h5.m.taobao.com/ww/index.htm" wwid="<%=wangwang%>" target="_blank">
-                        <div class="stats-wangwang wwIco" >
-                        </div>
-                    </a>
-                </div>
+
                 <div class="profile-overview">
                     <% if(followed=='true'){ %>
-                    <button class="stats-follow-btn followed">
+                    <button pid="<%=id%>" class="stats-follow-btn followed">
                         已关注
                     </button>
                      <% }else{ %>
-                    <button class="stats-follow-btn">
+                    <button pid="<%=id%>" class="stats-follow-btn">
                         关注
                     </button>
                     <% } %>
@@ -215,7 +208,7 @@
 
         <script id="detail_header_tpl" type="text/template">
             <div class="back">
-                <a href="http://m.taobao.com">返回</a>
+                <a>返回</a>
             </div>
             <div class="title">&nbsp;</div>
             <div class="btn comment">

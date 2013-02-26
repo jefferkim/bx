@@ -135,7 +135,6 @@ img{background-color: #eee;}
     right: 10px;
     text-align: center;
     line-height: 35px;
-
   }
   .btn.green{
     .background-image-linear(-90deg,rgb(144,192,35) 0%,rgb(112,169,36) 100%);
@@ -184,8 +183,16 @@ img{background-color: #eee;}
   & > * {
     -webkit-transform: translateZ(0);
   }
-  .view-page{display: none}
-  .view-page.show{display: block}
+  & >div.view-page{
+      opacity: 0;
+      -webkit-transition: all .4s;
+      -moz-transition: all .4s;
+      -o-transition: all .4s;
+      transition: all .4s;
+  }
+  /*.view-page{display: none}
+  */
+  .view-page.show{opacity: 1}
   .J_info{
     height: 190px;
   }
@@ -264,9 +271,9 @@ img{background-color: #eee;}
 
 /* */
 
-.iL{-webkit-transform: translate3d(-320px, 0px, 0px);position: absolute; -webkit-transition: -webkit-transform 200ms ease-out;}
+.iL{-webkit-transform: translate3d(-100%, 0px, 0px);position: absolute; -webkit-transition: -webkit-transform 200ms ease-out;}
 .iC{-webkit-transform: translate3d(0px, 0px, 0px); -webkit-transition: -webkit-transform 200ms ease-in}
-.iR{-webkit-transform: translate3d(320px, 0px, 0px); -webkit-transition: -webkit-transform 200ms ease-out}
+.iR{-webkit-transform: translate3d(100%, 0px, 0px); -webkit-transition: -webkit-transform 200ms ease-out}
 
 
 

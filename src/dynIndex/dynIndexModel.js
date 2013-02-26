@@ -75,6 +75,8 @@ define(function (require, exports, module) {
             var biz = this._biz;
             var self = this;
 
+
+
             /**
              * 更新推荐排序规则
              * @param param.order
@@ -111,6 +113,13 @@ define(function (require, exports, module) {
             _.extend(pageParam, param);
 
             delete pageParam.type;
+
+            //首页
+            pageParam.isIndex() && biz.banner(function (result) {
+                (!self.get("banner") || result.lastUpdate != self.get("banner").lastUpdate ) && self.set("banner", result);
+            });
+
+
             //设置用户登录状态
              self.set("loginStatus",h5_comm.isLogin());
             //自动创建账号
@@ -129,10 +138,7 @@ define(function (require, exports, module) {
                 //TODO 处理sid的问题,方便单元测试
             }, pageParam && pageParam.sid ? {sid:pageParam.sid} : null);
 
-            //首页
-            pageParam.isIndex() && biz.banner(function (result) {
-                (!self.get("banner") || result.lastUpdate != self.get("banner").lastUpdate ) && self.set("banner", result);
-            });
+
         }
 
     });
