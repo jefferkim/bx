@@ -52,6 +52,9 @@ define(function(require, exports, module) {
     },
 
     commentList: function(snsId, feedId, page) {
+      seajs.use('./src/comment/commentListView', function(CommentListView) {
+        new CommentListView(snsId, feedId, page)
+      })
       console.log('route into commentList')
     },
 
