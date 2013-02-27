@@ -25,10 +25,11 @@ define(function(require, exports, module) {
           self.route(/^(detail)\/(\d*)\/(\d*)$/, 'detail', self.filter);
           //#comment/snsId/feedId/page snsid - sns账号Id  feedId - 消息Id page - 页码
           self.route(/^(comment)\/(\d*)\/(\d*)(\/(\d*))?$/, 'comment', self.filter);
+          self.route(/^(newComment)$/, 'newComment', self.filter);
           //#accountList/status  status - 0 - 未关注列表 1 - 以关注列表 默认 未关注列表
           self.route(/^(accountList)\/(\d*)(\/(\d*))?$/, 'accountList', self.filter);
           // 全局初始化
-          global.init();
+          //global.init();
 
       },
       /**
