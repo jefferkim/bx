@@ -1,7 +1,8 @@
 define(function(require, exports, module) {
   var Backbone = require('backbone'),
       $ = require('zepto'),
-      _ = require('underscore');
+      _ = require('underscore'),
+      notification = require('../ui/notification.js');
 
   var newCommentHeaderTempalte = _.template($('#newComment_header_tpl').html())
   var newCommentInputTemplate = _.template($('#newComment_input_tpl').html())
@@ -11,7 +12,8 @@ define(function(require, exports, module) {
     el: '#content',
 
     events: {
-      'keyup #comment-area': 'typing'
+      'keyup #comment-area': 'typing',
+      'click .publish-comment.btn': 'publish'
     },
 
     initialize: function() {
@@ -34,6 +36,15 @@ define(function(require, exports, module) {
 
       if (length) this.$charCount.addClass('typing')
       else this.$charCount.removeClass('typing')
+    },
+
+    publish: function() {
+      var comment = this.$commentArea.val()
+      console.log('comment length is', comment.length)
+
+      if (comment.length == 0) {
+        notification.message('写点什么吧 ^_^')
+      }
     }
 
   })

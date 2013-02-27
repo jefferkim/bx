@@ -228,7 +228,7 @@
                 <a href="javascript:history.back();">返回</a>
             </div>
             <div class="title">&nbsp;</div>
-            <div class="btn comment">
+            <div class="btn comment comment-list">
                 评论 <span>99+</span>
             </div>
         </script>
@@ -262,7 +262,7 @@
                 <% } %>
             <% } %>
 
-            <% if (this.linkUrl) { %>
+            <% if (linkUrl) { %>
                 <a href="<%= linkUrl %>" class="more-content">更多内容</a>
             <% } %>
           </div>
@@ -273,7 +273,7 @@
                 <a href="javascript:history.back();">返回</a>
             </div>
             <div class="title">&nbsp;</div>
-            <div class="btn comment">写评论</div>
+            <div class="btn comment write-comment">写评论</div>
         </script>
 
         <script id="newComment_header_tpl" type="text/template">
@@ -281,7 +281,7 @@
                 <a href="javascript:history.back();">返回</a>
             </div>
             <div class="title">&nbsp;</div>
-            <div class="btn comment green">发布</div>
+            <div class="btn comment green publish-comment">发布</div>
         </script>
 
         <script id="newComment_input_tpl" type="text/template">
@@ -363,7 +363,7 @@
             console.log(document.referrer);
         </script>
 
-        <div id="notification" class="notification" style="top: 100px; visibility: hidden;">
+        <div id="notification" class="notification" style="opacity: 0">
           <div class="panel">
             <div class="long-message" style="display: none;">
               即将前往外部页面，页面地址是：

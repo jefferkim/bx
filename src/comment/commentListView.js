@@ -2,7 +2,8 @@ define(function(require, exports, module) {
   var Backbone = require('backbone'),
       $ = require('zepto'),
       _ = require('underscore'),
-      router = require('../router');
+      router = require('../router'),
+      h5_comm = require('h5_comm');
 
   var commentListHeaderTemplate = _.template($('#comment_list_header_tpl').html())
 
@@ -15,7 +16,7 @@ define(function(require, exports, module) {
     model: new CommentModel(),
 
     events: {
-      'click .btn.comment': 'newComment'
+      'click .write-comment.btn': 'newComment'
     },
 
     initialize: function(snsId, feedId, page) {
@@ -44,7 +45,11 @@ define(function(require, exports, module) {
     },
 
     newComment: function() {
-      router.navigate('newComment', { trigger: true })
+      //if (h5_comm.isLogin())
+      if (true)
+        router.navigate('newComment', { trigger: true })
+      else
+        h5_comm.goLogin('h5_allspark');
     }
 
   })

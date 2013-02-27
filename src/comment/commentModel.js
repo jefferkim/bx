@@ -2,16 +2,12 @@ define(function (require, exports, module) {
     var Backbone = require('backbone'),
         $ = require('zepto'),
         _ = require('underscore'),
-        mtop = require('../common/mtopForAllspark.js'),
-        //base64 = require('base64'),
-        h5_comm = require('h5_comm'),
-        h5_cache = require('h5_cache'),
-        cookie = require('cookie');
+        mtop = require('../common/mtopForAllspark.js')
 
     /**
      * 动态首页
      */
-    var CommentModel = Backbone.Model.extend({
+    return Backbone.Model.extend({
 
         /**
          * 获取回复列表：
@@ -63,17 +59,25 @@ define(function (require, exports, module) {
         },
 
         /**
-         * 评论详情
+         * 评论
          *
          * @param param.feedId
          * @param param.snsId
+         * @param param.content
          */
         addComment:function(param) {
-            mtop.addComment(param, function (recResult) {
-            self.set("comment", recResult);
-        })
-    }
-
+            var self = this;
+            if (mtop.userNick){
+                //设置登录状态
+                self.set("loginStatus",true);
+                mtop.addComment(param, function (recResult) {
+                    self.set("status",'sucess');
+                },function(recResult){
+                    self.set("status",'fail');
+                })
+            } else {
+                self.set("loginStatus",false);
+            }
+        }
     });
-    return CommentModel;
 });

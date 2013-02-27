@@ -94,6 +94,10 @@ define(function(require){
         refineBatOperationResult:function (data){
                 data.isAllSuccess = !!data.isAllSuccess;
                 data.list.forEach(this.refineOperationResult);
-            }
+        },
+        refineDetail: function(data) {
+            data.title = data.title || ''
+            data.linkUrl = data.linkUrl || ''
+        }
     };
 });

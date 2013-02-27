@@ -1,10 +1,12 @@
 define(function (require, exports, module) {
         var Backbone = require('backbone'),
         _ = require('underscore'),
-        mtop = require('../common/mtopForAllspark.js');
-        cache = require('../common/cache.js');
-        CommentModel = require('../comment/commentModel.js');
+        mtop = require('../common/mtopForAllspark.js'),
+        cache = require('../common/cache.js'),
+        CommentModel = require('../comment/commentModel.js'),
         AccountModel = require('../account/accountModel.js');
+
+        var refine = require('../common/refine.js')
 
     /**
      * 详情页面
@@ -52,6 +54,7 @@ define(function (require, exports, module) {
                 pageParam.snsId = result.creatorId;
                 delete pageParam.feedId;
                 accountModel._biz.info(pageParam,function(result){
+                    refine.refinePubAccount(result)
                     self.set("accInfo",result);
                 });
 
@@ -69,6 +72,7 @@ define(function (require, exports, module) {
             }
             else {
                 mtop.getData("mtop.sns.feed.detail", param || {}, function (result) {
+                    refine.refineDetail(result.data)
                     self.set("feed",result.data);
                     cache.saveItem(cacheKey,result.data);
                     afterProcess(result.data,param);
