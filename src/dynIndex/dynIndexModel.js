@@ -4,7 +4,8 @@ define(function (require, exports, module) {
         _ = require('underscore'),
         mtop = require('../common/mtopForAllspark.js'),
         h5_comm = require('h5_comm'),
-        cache = require('../common/cache');
+        cache = require('../common/cache'),
+        refine = require('../common/refine.js');
 
     /**
      * 动态首页
@@ -84,6 +85,7 @@ define(function (require, exports, module) {
              */
             function getrecommends(param) {
                 mtop.recommends(param, function (recResult) {
+                    refine.refineRecommend(recResult);
                     self.set("recommends", recResult);
                 })
             }
@@ -120,12 +122,16 @@ define(function (require, exports, module) {
             });
 
 
-            //设置用户登录状态
-             self.set("loginStatus",h5_comm.isLogin());
+
             //自动创建账号
             biz.autocreate(function (result) {
+                //设置用户登录状态
+
+                self.set("loginStatus",result.succ);
+
                 //登录状态有关注账号列表或者推荐列表的
                 if (result.succ && 1 == type) {
+
                     getPubAccounts(pageParam, pageParam.isIndex() ? function (accResult) {
                         if (accResult.totalCount || accResult.totalCount <= 1) {
                             getrecommends(pageParam);

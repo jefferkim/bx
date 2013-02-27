@@ -19,7 +19,10 @@
                 <div id="indexPage" class="view-page iL">
                     <div class="J_slider"></div>
                     <div class="J_status"></div>
-                    <div class="J_list"></div>
+                    <div class="J_list">
+                        <div class="person-list"></div>
+                        <div id="personListPageNav" class="pagenav c-pnav-con"></div>
+                    </div>
                 </div>
                 <div id="accountListPage" class="view-page iL">
 
@@ -37,7 +40,7 @@
             </div>
         </div>
         <input type="hidden" id="J_user_nick" value="tbwuzhong000"/>
-        <input type="hidden" id="J_sid" value="73d101e384377d4234e0ab5a2a280b71"/>
+        <input type="hidden" id="J_sid" value="f8460f424bec82e84c61380335b31555"/>
         <!-- end of #content -->
 
         <!-- Templates -->
@@ -84,22 +87,20 @@
             </div>
         </script>
         <script id="personList_tpl" type="text/template">
-            <div class="person-list">
+
                 <ul>
                     <% _.each(list, function(item) { %>
-                    <li snsid="<%=item.id%>">
-                        <div class="content">
+                    <li>
+                        <div snsid="<%=item.id%>" class="content">
                             <div class="title"><%=item.nick%></div>
                             <div class="info"><%=item.description%></div>
                             <div class="follows"><span><%=item.fansCount%></span>关注者</div>
                             <img src="<%=item.logoUrl%>">
-                            <button pid="<%=item.id%>" class="follwbtn">关注</button>
                         </div>
+                        <button pid="<%=item.id%>" class="follwbtn">关注</button>
                     </li>
                     <% }); %>
                 </ul>
-                <div id="personListPageNav" class="pagenav c-pnav-con">
-                </div>
             </div>
         </script>
         <script id="recommendtip_tpl" type="text/template">
@@ -109,25 +110,28 @@
             <div class="myfeed">
                 <ul>
                     <% _.each(list, function(item) { %>
-                    <% if(item.firstFeed.coverTile.path!='') {%>
-                    <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="multimedia">
-                        <div class="media">
-                            <img src="<%=item.firstFeed.coverTile.path%>">
-                        </div>
-                    <% }else{ %>
-                    <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>">
+                    <% if(item.firstFeed){ %>
+                        <% if(item.firstFeed.coverTile.path!='') {%>
+                            <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="multimedia">
+                                <div class="media">
+                                    <img src="<%=item.firstFeed.coverTile.path%>">
+                                </div>
+                            <% }else{ %>
+                            <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>">
+                            <% } %>
+                                <div class="feed">
+                                    <div class="title"><%=item.firstFeed.title%></div>
+                                    <div class="info"><%=item.firstFeed.summary%></div>
+                                    <div class="status">
+                                        <span class="time"><%=timestamps(item.firstFeed.time)%></span>
+                                        <span class="like"><%=item.account.fansCount%></span>
+                                        <span class="name"><%=item.firstFeed.nick%></span>
+                                    </div>
+                                </div>
+                            </li>
                     <% } %>
-                        <div class="feed">
-                            <div class="title"><%=item.firstFeed.title%></div>
-                            <div class="info"><%=item.firstFeed.summary%></div>
-                            <div class="status">
-                                <span class="time"><%=timestamps(item.firstFeed.time)%></span>
-                                <span class="like"><%=item.account.fansCount%></span>
-                                <span class="name"><%=item.firstFeed.nick%></span>
-                            </div>
-                        </div>
-                    </li>
                     <% }); %>
+
                 </ul>
             </div>
         </script>
@@ -138,7 +142,7 @@
                 <div class="user-cover" style="background-image: url('<%=backgroundImg%>')">
                 </div>
                 <div class="user-avatar">
-                    <img src="<%=logoUrl%>"/>
+                    <img src="<%=logoUrl%>_60x60.jpg"/>
                 </div>
                 <div class="user-info">
                     <h1><%=nick%></h1>

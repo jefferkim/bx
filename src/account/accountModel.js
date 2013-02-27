@@ -60,7 +60,7 @@ define(function (require, exports, module) {
             console.log(pageParam);
             self._biz.feeds(pageParam,function(result){
                 result.totalCount && result.list && result.list.forEach(function(feed){
-                    feed.coverTile.item={'id':'1500020722928'};
+                    //feed.coverTile.item={'id':'1500020722928'};
                 });
                 console.log('refine accFeeds');
                 refine.refineFeed(result);

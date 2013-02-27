@@ -39,9 +39,9 @@ define(function (require, exports, module) {
             $('.view-page.show').removeClass('show iC').addClass('iL');
             $('#accountPage').removeClass('iL').addClass('show iC');
             var _back={'backUrl':'','backTitle':'返回'};
-            if(document.referrer==''){
-                _back={'backUrl':'#','backTitle':'首页'}
-            }
+//            if(document.referrer==''){
+//                _back={'backUrl':'#','backTitle':'首页'}
+//            }
             $('header.navbar').html(_.template($('#navBack_tpl').html(),_back)+$('#accountTitle_tpl').html());
 
             that.accountModel.on("change:accInfo",function(model,result){

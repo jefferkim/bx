@@ -1,4 +1,6 @@
 define(function(require){
+    var uriBroker = require('uriBroker'),
+        cdn = require('cdn');
     /**
      * 重构数据集
      * @type {{refinePubAccount: Function, refineFeed: Function, refineFeedListItem: Function, refineFeedTile: Function, refineFeedItem: Function, refineComment: Function, refineAccountFeed: Function, refinePagination: Function, refinePaginationResult: Function, refineOperationResult: Function, refineBatOperationResult: Function}}
@@ -6,7 +8,7 @@ define(function(require){
     return {
         refinePubAccount:function (data){
             data.id = data.id===undefined?0:data.id;
-            data.logoUrl = data.logoUrl || "";
+            data.logoUrl = cdn.getImg(data.logoUrl,60,60) || "";
             data.nick = data.nick || "";
             data.description = data.description || "";
             data.url = data.url || "";
@@ -16,6 +18,13 @@ define(function(require){
             data.fansCount = data.fansCount===undefined?0:data.fansCount;
             data.followed = !!data.followed;
             data.accountType = data.accountType===undefined?0:data.accountType;
+
+        },
+        refineRecommend:function(data){
+            var that=this;
+            data.list&&data.list.forEach(function(d){
+                that.refinePubAccount(d);
+            });
 
         },
         refineFeed:function (data){
