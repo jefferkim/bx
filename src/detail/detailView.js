@@ -21,7 +21,7 @@ define(function (require, exports, module) {
         el: '#content',
         model : new _model(),
         events:{
-          'click .comment.btn': 'commentList'
+          'click .comment-list.btn': 'commentList'
         },
         initialize:function (snsId,feedId) {
 
