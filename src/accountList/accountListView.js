@@ -19,14 +19,13 @@ define(function (require, exports, module) {
             'click .navbar .back':'goBack',
             'click .followbtn':'follow'
         },
-        initialize:function (status) {
+        initialize:function () {
+            var that=this;
+               that.accountListModel = new _model();
+        },
+        render: function(status) {
             var that=this;
             this.status=status;
-            that.accountListModel = new _model();
-            that.render();
-            //that.accountListModel.on('change',,this);
-        },
-        render: function() {
             $('body').unbind();
             //$('.tb-h5').html('');
             var _pageSize=5;

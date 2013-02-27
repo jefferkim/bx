@@ -4,7 +4,16 @@ define(function(require, exports, module) {
       global = require('../common/global'),
       tbh5 = require('h5_base'),
       h5_comm = require('h5_comm'),
-      Backbone = require('backbone');
+      Backbone = require('backbone'),
+      //view class import
+      indexView =  require('../dynIndex/dynIndexView'),
+      accountView = require('../account/accountView'),
+      detailView = require('../detail/detailView'),
+      accountListView = require('../accountList/accountListView'),
+      commentView = require('../comment/commentListView'),
+      newCommentView = require('../comment/newCommentView'),
+      //缓存实例变量view
+      _indexView,_accountView,_detailView,_accountListView,_commentView,_newCommentView ;
 
   var Router = Backbone.Router.extend({
 
@@ -27,8 +36,11 @@ define(function(require, exports, module) {
           self.route(/^(comment)\/(\d*)\/(\d*)(\/(\d*))?$/, 'comment', self.filter);
           //#accountList/status  status - 0 - 未关注列表 1 - 以关注列表 默认 未关注列表
           self.route(/^(accountList)\/(\d*)(\/(\d*))?$/, 'accountList', self.filter);
+          //#newcomment/snsId/feedId/page snsid - sns账号Id  feedId - 消息Id page - 页码
+          self.route(/^(newComment)\/(\d*)\/(\d*)(\/(\d*))?$/, 'newComment', self.filter);
           // 全局初始化
           global.init();
+
 
       },
       /**
@@ -46,65 +58,60 @@ define(function(require, exports, module) {
           divName = divName || 'index';
           switch (divName) {
               case 'index':
-                  self.index();
+                  _indexView= _indexView || new indexView();
+                  self.index(arg0);
                   break;
               case 'account':
+                  _accountView= _accountView || new accountView();
                   self.account(arg0,arg1);
                   break;
               case 'detail':
+                  _detailView= _detailView || new detailView();
                   self.detail(arg0,arg1);
                   break;
               case 'comment':
-                  self.comment(arg0,arg1,arg2);
+                  _commentView= _commentView || new commentView();
+                  self.commentList(arg0,arg1,arg2);
                   break;
               case 'accountList':
+                  _accountListView= _accountListView || new accountListView();
                   self.accountList(arg0);
                   break;
               case 'newComment':
+                  _newCommentView= _newCommentView || new newCommentView();
                   self.newComment(arg0,arg1,arg2);
                   break;
               default :
-                  self.index();
+                  _indexView= _indexView || new indexView();
+                  self.index(arg0);
 
           }
       },
 
     index: function(page) {
         page = page || 1;
-        seajs.use('./src/dynIndex/dynIndexView',function(view){
-            new view(page);
-        });
+         console.log('index'+page);
+        _indexView.goIndex(page);
     },
     account:function(snsId,page){
         console.log('account:snsId'+snsId+"|page:"+page);
         page = page || 1;
-
-        seajs.use('./src/account/accountView',function(view){
-            new view(snsId,page);
-        });
+        _accountView.render(snsId,page);
     },
     accountList:function(status){
-        seajs.use('./src/accountList/accountListView',function(view){
-            new view(status);
-        });
+        _accountListView.render(status);
     },
     detail: function(snsId, feedId) {
-        seajs.use('./src/detail/detailView',function(view){
-            new view(snsId,feedId);
-        });
+        _detailView.goDetail(snsId,feedId);
     },
 
     commentList: function(snsId, feedId, page) {
-      seajs.use('./src/comment/commentListView', function(CommentListView) {
-        new CommentListView(snsId, feedId, page)
-      })
+        _commentView.goComment(snsId, feedId, page);
       console.log('route into commentList')
     },
 
-    newComment: function() {
-      seajs.use('./src/comment/newCommentView', function(NewCommentView) {
-        new NewCommentView()
-      })
+    newComment: function(snsId, feedId, page) {
+        _newCommentView.goNewComment(snsId, feedId, page);
       console.log('route into newComment')
     },
 
