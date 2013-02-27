@@ -2,12 +2,11 @@ define(function(require, exports, module) {
   var Backbone = require('backbone'),
       $ = require('zepto'),
       _ = require('underscore'),
-      router = require('../router'),
       h5_comm = require('h5_comm');
 
-  var commentListHeaderTemplate = _.template($('#comment_list_header_tpl').html())
+  var commentListHeaderTemplate = _.template($('#comment_list_header_tpl').html());
 
-  var CommentModel = require('./commentModel')
+  var CommentModel = require('./commentModel');
 
   var CommentListView = Backbone.View.extend({
 
@@ -19,22 +18,23 @@ define(function(require, exports, module) {
       'click .write-comment.btn': 'newComment'
     },
 
-    initialize: function(snsId, feedId, page) {
+    initialize: function() {
 
-      $('header.navbar').html(commentListHeaderTemplate({}))
-
-      $('.view-page.show').removeClass('show iC').addClass('iL');
-      $('#commentListPage').removeClass('iL').addClass('show iC');
-
-      this.$container = $('#commentListPage')
-
-      this.model.on('change:commentList', this.renderCommentList, this)
-
-      this.model.getPageData({'snsId':snsId,'feedId':feedId});
+      this.$container = $('#commentListPage');
+      this.model.on('change:commentList', this.renderCommentList, this);
     },
+     goComment:function(snsId, feedId, page){
 
+         var that=this;
+         $('header.navbar').html(commentListHeaderTemplate({}));
+
+         $('.view-page.show').removeClass('show iC').addClass('iL');
+         $('#commentListPage').removeClass('iL').addClass('show iC');
+         that.model.getPageData({'snsId':snsId,'feedId':feedId,'page':page});
+     }
+     ,
     renderCommentList: function() {
-      var list = this.model.get('commentList')
+      var list = this.model.get('commentList');
       if (list.totalCount == 0) {
         this.$container.html('<p class="no-comment">暂时没有评论</p>')
       } else {
@@ -47,7 +47,7 @@ define(function(require, exports, module) {
     newComment: function() {
       //if (h5_comm.isLogin())
       if (true)
-        router.navigate('newComment', { trigger: true })
+        location.hash = 'newComment/' + this.snsId + '/' + this.feedId ;
       else
         h5_comm.goLogin('h5_allspark');
     }

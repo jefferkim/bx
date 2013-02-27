@@ -2,13 +2,13 @@ define(function (require, exports, module) {
     var Backbone = require('backbone'),
         $ = require('zepto'),
         _ = require('underscore'),
-        mtop = require('../common/mtopForAllspark.js')
+        mtop = require('../common/mtopForAllspark.js'),
+        h5_comm = require('h5_comm')
 
     /**
      * 动态首页
      */
     return Backbone.Model.extend({
-
         /**
          * 获取回复列表：
          *
@@ -17,22 +17,14 @@ define(function (require, exports, module) {
          */
         getPageData:function (param) {
             var self = this;
+            if (h5_comm.isLogin()) {
+                //设置登录状态
+                self.set("loginStatus",true);
 
-            function getCommentList(param) {
                 mtop.commentList(
                     param, function (accResult) {
                         self.set("commentList", accResult);
-                        self.set("status",true);
-                    },function(){
-                        self.set("status",false);
                     })
-            }
-            //伪代码
-            mtop.userNick = 'tbseed91';
-            if (mtop.userNick) {
-                //设置登录状态
-                self.set("loginStatus",true);
-                getCommentList(param);
             } else {
                 self.set("loginStatus",false);
             }
@@ -46,8 +38,7 @@ define(function (require, exports, module) {
          */
         getCommentCount:function(param) {
             var self = this;
-            mtop.userNick = 'tbseed91';
-            if (mtop.userNick) {
+            if (h5_comm.isLogin()) {
                 //设置登录状态
                 self.set("loginStatus",true);
 
@@ -65,15 +56,15 @@ define(function (require, exports, module) {
          * @param param.snsId
          * @param param.content
          */
-        addComment:function(param) {
+        addComment:function(param,fun) {
             var self = this;
-            if (mtop.userNick){
+            if (h5_comm.isLogin()){
                 //设置登录状态
                 self.set("loginStatus",true);
-                mtop.addComment(param, function (recResult) {
-                    self.set("status",'sucess');
-                },function(recResult){
-                    self.set("status",'fail');
+                mtop.addComment(param, function (result) {
+                    fun && fun(true);
+                },function(){
+                    fun && fun(false);
                 })
             } else {
                 self.set("loginStatus",false);

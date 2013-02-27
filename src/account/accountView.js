@@ -21,20 +21,18 @@ define(function (require, exports, module) {
 
 
         },
-        initialize:function (snsid) {
+        initialize:function () {
             var that=this;
-            that.snsid=snsid;
             that._pageSize=4;
             that.accountModel = new _model();
-            //that.accountModel.on('change',that.render,this);
-            this.render();
         },
         goBack:function(){
             history.go(-1);
         },
-        render:function(){
+        render:function(snsid,page){
             var that=this;
-
+            that.snsid=snsid;
+            that.curPage= page;
             $('body').unbind();
             //$('.tb-h5').html('');
             $('.view-page.show').removeClass('show iC').addClass('iL');

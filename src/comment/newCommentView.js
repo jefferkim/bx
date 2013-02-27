@@ -4,6 +4,8 @@ define(function(require, exports, module) {
       _ = require('underscore'),
       notification = require('../ui/notification.js');
 
+  var CommentModel = require('./commentModel')
+
   var newCommentHeaderTempalte = _.template($('#newComment_header_tpl').html())
   var newCommentInputTemplate = _.template($('#newComment_input_tpl').html())
 
@@ -11,25 +13,30 @@ define(function(require, exports, module) {
 
     el: '#content',
 
+    model: new CommentModel(),
+
     events: {
       'keyup #comment-area': 'typing',
       'click .publish-comment.btn': 'publish'
     },
 
-    initialize: function() {
+    initialize: function(snsId, feedId) {
 
-      $('header.navbar').html(newCommentHeaderTempalte({}))
+      this.snsId = snsId
+      this.feedId = feedId
 
-      $('.view-page.show').removeClass('show iC').addClass('iL');
-      $('#newCommentPage').removeClass('iL').addClass('show iC');
 
-      this.$container = $('#newCommentPage')
-      this.$container.html(newCommentInputTemplate({}))
+      this.$container = $('#newCommentPage');
+      this.$container.html(newCommentInputTemplate({}));
 
-      this.$commentArea = $('#comment-area')
-      this.$charCount = this.$container.find('.char-count')
+      this.$commentArea = $('#comment-area');
+      this.$charCount = this.$container.find('.char-count');
     },
-
+      goNewComment : function(){
+          $('header.navbar').html(newCommentHeaderTempalte({}));
+          $('.view-page.show').removeClass('show iC').addClass('iL');
+          $('#newCommentPage').removeClass('iL').addClass('show iC');
+      },
     typing: function() {
       var length = this.$commentArea.val().length
       this.$charCount.text(length)

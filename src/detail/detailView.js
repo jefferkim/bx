@@ -7,10 +7,9 @@ define(function (require, exports, module) {
     var Backbone = require('backbone'),
         $ = require('zepto'),
         _ = require('underscore'),
-        _model=require('./detailModel'),
-        router = require('../router');
+        _model=require('./detailModel');
 
-    var CommentListView = require('../comment/commentListView')
+    var CommentListView = require('../comment/commentListView');
 
     var headerTemplate  = _.template($('#detail_header_tpl').html());
     var accinfoTemplate = _.template($('#detail_accinfo_tpl').html());
@@ -23,27 +22,33 @@ define(function (require, exports, module) {
         events:{
           'click .comment-list.btn': 'commentList'
         },
-        initialize:function (snsId,feedId) {
+        initialize:function () {
 
-          this.snsId = snsId
-          this.feedId = feedId
+            var that = this;
+            that.$container = $('#detailPage');
 
-          $('header.navbar').html(headerTemplate({}))
+            that.model.on('change:feed', this.renderDetail, this);
 
-          $('.view-page.show').removeClass('show iC').addClass('iL');
-          $('#detailPage').removeClass('iL').addClass('show iC');
+            that.model.on('change:accInfo', this.renderAccInfo, this);
 
-          this.$container = $('#detailPage')
 
-          this.model.on('change:feed', this.renderDetail, this)
-          this.model.on('change:accInfo', this.renderAccInfo, this)
-
-          this.model.getPageData({'snsId':snsId,'feedId':feedId});
         },
+       goDetail : function(snsId,feedId){
 
+           var that = this;
+           that.snsId = snsId;
+           that.feedId = feedId;
+           $('header.navbar').html(headerTemplate({}));
+
+           $('.view-page.show').removeClass('show iC').addClass('iL');
+           $('#detailPage').removeClass('iL').addClass('show iC');
+
+           that.model.getPageData({'snsId':snsId,'feedId':feedId});
+
+       },
         renderAccInfo: function() {
           var accInfo = accinfoTemplate(this.model.get('accInfo'));
-          this.$container.prepend(accInfo)
+          this.$container.prepend(accInfo);
 
           console.log('detail accInfo', JSON.stringify(this.model.get('accInfo')))
         },
@@ -58,7 +63,7 @@ define(function (require, exports, module) {
         },
 
         commentList: function() {
-          router.navigate('commentList/' + this.snsId + '/' + this.feedId + '/1', { trigger: true })
+            location.hash ='comment/' + this.snsId + '/' + this.feedId + '/1';
         }
 
     });
