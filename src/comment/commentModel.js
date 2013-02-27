@@ -59,16 +59,25 @@ define(function (require, exports, module) {
         },
 
         /**
-         * 评论详情
+         * 评论
          *
          * @param param.feedId
          * @param param.snsId
+         * @param param.content
          */
         addComment:function(param) {
-            mtop.addComment(param, function (recResult) {
-            self.set("comment", recResult);
-        })
-    }
-
+            var self = this;
+            if (mtop.userNick){
+                //设置登录状态
+                self.set("loginStatus",true);
+                mtop.addComment(param, function (recResult) {
+                    self.set("status",'sucess');
+                },function(recResult){
+                    self.set("status",'fail');
+                })
+            } else {
+                self.set("loginStatus",false);
+            }
+        }
     });
 });
