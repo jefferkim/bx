@@ -22,8 +22,7 @@ define(function(require, exports, module) {
 
     initialize: function(snsId, feedId) {
 
-      this.snsId = snsId
-      this.feedId = feedId
+
 
 
       this.$container = $('#newCommentPage');
@@ -32,7 +31,11 @@ define(function(require, exports, module) {
       this.$commentArea = $('#comment-area');
       this.$charCount = this.$container.find('.char-count');
     },
-      goNewComment : function(){
+      goNewComment : function(snsId, feedId){
+
+        this.snsId = snsId
+        this.feedId = feedId
+
           $('header.navbar').html(newCommentHeaderTempalte({}));
           $('.view-page.show').removeClass('show iC').addClass('iL');
           $('#newCommentPage').removeClass('iL').addClass('show iC');

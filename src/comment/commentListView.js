@@ -25,12 +25,14 @@ define(function(require, exports, module) {
     },
      goComment:function(snsId, feedId, page){
 
-         var that=this;
+         this.snsId = snsId
+         this.feedId = feedId
+
          $('header.navbar').html(commentListHeaderTemplate({}));
 
          $('.view-page.show').removeClass('show iC').addClass('iL');
          $('#commentListPage').removeClass('iL').addClass('show iC');
-         that.model.getPageData({'snsId':snsId,'feedId':feedId,'page':page});
+         this.model.getPageData({'snsId':snsId,'feedId':feedId,'page':page});
      }
      ,
     renderCommentList: function() {
