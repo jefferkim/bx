@@ -27,12 +27,12 @@ define(function (require, exports, module) {
             'click .navbar .refresh':'refresh',
             'click .myfeed li':'goToAccount',
             'click .person-list li .content':'goToAccount',
-            'click .person-list .follwbtn':'follw'
+            'click .person-list .followbtn':'follow'
         },
         initialize:function () {
             //判断是否登录
             var that=this;
-            that._pageSize=2;
+            that._pageSize=5;
             that.loginFlag=false;
             $('body').unbind();
             $('.view-page.show').removeClass('show iL');
@@ -122,18 +122,23 @@ define(function (require, exports, module) {
             that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});
         },
         add:function(){
-            window.location.hash='#accountList/1';
+            var that=this;
+            if(that.loginFlag){
+                window.location.hash='#accountList/1';
+            }else{
+                h5_comm.goLogin('h5_allspark');
+            }
         },
         refresh:function(){
             console.log('refresh');
         },
-        follw:function(e){
+        follow:function(e){
             e.stopPropagation();
             var that=this;
             var cur=$(e.currentTarget);
             if(that.loginFlag){
                 //已登录
-                console.log('follw');
+                console.log('follow');
 
                 if(cur.hasClass('followed')){
                     cur.html('取消关注...');

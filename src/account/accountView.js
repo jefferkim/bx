@@ -17,13 +17,14 @@ define(function (require, exports, module) {
         events:{
             'touchend .tb-feed-items li':'goToDetail',
             'click .navbar .back':'goBack',
-            'click .J_info .stats-follow-btn':'follw'
+            'click .J_info .stats-follow-btn':'follow'
 
 
         },
         initialize:function (snsid) {
             var that=this;
             that.snsid=snsid;
+            that._pageSize=4;
             that.accountModel = new _model();
             //that.accountModel.on('change',that.render,this);
             this.render();
@@ -33,7 +34,7 @@ define(function (require, exports, module) {
         },
         render:function(){
             var that=this;
-            var _pageSize=4;
+
             $('body').unbind();
             //$('.tb-h5').html('');
             $('.view-page.show').removeClass('show iC').addClass('iL');
@@ -55,11 +56,15 @@ define(function (require, exports, module) {
                 if(result.list&&result.list.length>0){
                     console.log('accFeeds');
                     console.log(result);
-                    $('#accountPage .J_feed').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
+                    $('#accountPage .J_feed .tb-feed-items').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
 
-                    var pageCount=Math.ceil(result.totalCount/_pageSize);
-
-                    new pageNav({'id':'#feedPageNav','pageCount':pageCount,'pageSize':_pageSize});
+                    if(!that.pageNav){
+                        var pageCount=Math.ceil(result.totalCount/that._pageSize);
+                        that.pageNav=new pageNav({'id':'#feedPageNav','pageCount':pageCount,'pageSize':that._pageSize});
+                        that.pageNav.pContainer().on('P:switchPage', function(e,page){
+                            that.changePage(page.index);
+                        });
+                    }
                 }
             });
             that.accountModel.on("change:prices",function(model,result){
@@ -82,9 +87,9 @@ define(function (require, exports, module) {
 //            * @param param.pageSize
 //            * @param param.snsId
 //            * @param param.afterTimestamp
-            that.accountModel.getPageData({'snsId':that.snsid,'curPage':1,'pageSize':_pageSize,'afterTimestamp':''});
+            that.accountModel.getPageData({'snsId':that.snsid,'curPage':1,'pageSize':that._pageSize,'timestamp':''});
         },
-        follw:function(e){
+        follow:function(e){
             var that=this;
             console.log('adddddd');
             var cur=$(e.currentTarget);
@@ -107,6 +112,11 @@ define(function (require, exports, module) {
                 });
 
             }
+        },
+        changePage:function(page){
+            var that=this;
+            console.log('page:'+page);
+            that.accountModel.getPageData({'snsId':that.snsid,'curPage':page,'pageSize':that._pageSize,'disableHash': 'true'});
         },
         goToDetail:function(e){
             var cur=$(e.currentTarget);

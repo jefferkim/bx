@@ -16,18 +16,20 @@ define(function (require, exports, module) {
         el:'#content',
         events:{
             'click .tab-bar li':'changeTab',
-            'click .navbar .back':'goBack'
+            'click .navbar .back':'goBack',
+            'click .followbtn':'follow'
         },
         initialize:function (status) {
             var that=this;
             this.status=status;
             that.accountListModel = new _model();
-            that.accountListModel.on('change',that.render,this);
+            that.render();
+            //that.accountListModel.on('change',,this);
         },
         render: function() {
             $('body').unbind();
             //$('.tb-h5').html('');
-            var _pageSize=1;
+            var _pageSize=5;
             var that=this;
             $('.view-page.show').removeClass('show iC').addClass('iL');
             $('#accountListPage').removeClass('iL').addClass('show iC');
@@ -38,10 +40,10 @@ define(function (require, exports, module) {
                 console.log('myAttention');
                 console.log(result);
                 if(result.list&&result.list.length>0){
-                    $('#accountListPage').html(_.template($('#personList_tpl').html(),result));
+                    $('#accountListPage .person-list').html(_.template($('#personList_tpl').html(),result));
                     //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));
                     var pageCount=Math.ceil(result.totalCount/_pageSize);
-                    new pageNav({'id':'#personListPageNav','pageCount':pageCount,'pageSize':_pageSize});
+                    new pageNav({'id':'#accountListPageNav','pageCount':pageCount,'pageSize':_pageSize});
                 }
             });
             that.accountListModel.on("change:recommends",function(model,result){
@@ -49,12 +51,43 @@ define(function (require, exports, module) {
                 console.log('recommends');
                 console.log(result);
                 if(result.list&&result.list.length>0){
-                    $('#accountListPage').html((_.template($('#personList_tpl').html(),result)));
+                    $('#accountListPage .person-list').html((_.template($('#personList_tpl').html(),result)));
                     var pageCount=Math.ceil(result.totalCount/_pageSize);
-                    new pageNav({'id':'#personListPageNav','pageCount':pageCount,'pagesize':_pageSize});
+                    new pageNav({'id':'#accountListPageNav','pageCount':pageCount,'pagesize':_pageSize});
                 }
             });
             that.accountListModel.getPageData({'type':that.status,'curPage':1,'pageSize':_pageSize,"order":"fans"});
+        },
+        follow:function(e){
+            e.stopPropagation();
+            var that=this;
+            var cur=$(e.currentTarget);
+            if(that.loginFlag){
+                //已登录
+                console.log('follow');
+
+                if(cur.hasClass('followed')){
+                    cur.html('取消关注...');
+                    mtop.removeAccount(cur.attr('pid'),function(){
+                        cur.html('关注');
+                        cur.removeClass('followed');
+                    },function(){
+                        cur.html('已关注');
+                    });
+                }else{
+                    cur.html('关注中...');
+                    cur.addClass('followed');
+                    mtop.addAccount(cur.attr('pid'),function(){
+                        cur.html('已关注');
+                    },function(){
+                        cur.html('关注');
+                        cur.removeClass('followed');
+                    });
+
+                }
+            }else{
+                h5_comm.goLogin('h5_allspark');
+            }
         },
         goBack:function(){
             history.go(-1);

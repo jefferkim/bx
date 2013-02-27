@@ -16,7 +16,7 @@ define(function(require){
             data.wangwang = data.wangwang || "";
             data.backgroundImg = data.backgroundImg || "";
             data.fansCount = data.fansCount===undefined?0:data.fansCount;
-            data.followed = !!data.followed;
+            //data.followed = !!data.followed;
             data.accountType = data.accountType===undefined?0:data.accountType;
 
         },
@@ -35,10 +35,10 @@ define(function(require){
         },
         refineFeedListItem:function(data){
             var that=this;
-            that.refineFeedTile(data.coverTile);
-            data.tiles&&data.tiles.forEach(function(d){
-                that.refineFeedTile(d);
-            });
+            data.coverTile&&that.refineFeedTile(data.coverTile);
+//            data.tiles&&data.tiles.forEach(function(d){
+//                that.refineFeedTile(d);
+//            });
             data.id = data.id===undefined?0:data.id;
             data.layout = data.layout || "";
             data.title = data.title || "";
@@ -50,10 +50,13 @@ define(function(require){
         },
         refineFeedTile:function (data){
             var that=this;
-            data.type = data.type || "";
+            if(typeof  data.type=='undefined'){
+                data.type='';
+            }
+            //data.type =data.type===undefined?"":data.type;
             data.text = data.text || "";
             data.path = data.path || "";
-            that.refineFeedItem(data.item);
+            data.item&&that.refineFeedItem(data.item);
         },
         refineFeedItem:function (data){
             data.id = data.id===undefined?0:data.id;

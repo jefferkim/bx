@@ -25,11 +25,18 @@
                     </div>
                 </div>
                 <div id="accountListPage" class="view-page iL">
-
+                    <div class="person-list"></div>
+                    <div id="accountListPageNav" class="pagenav c-pnav-con"></div>
                 </div>
                 <div id="accountPage" class="view-page iL">
                     <div class="J_info"></div>
-                    <div class="J_feed"></div>
+                    <div class="J_feed">
+                        <div class="tb-feed">
+                            <ul class="tb-feed-items">
+                            </ul>
+                            <div id="feedPageNav" class="pagenav c-pnav-con"></div>
+                        </div>
+                    </div>
                 </div>
                 <div id="detailPage" class="view-page iL detail">
                 </div>
@@ -97,7 +104,12 @@
                             <div class="follows"><span><%=item.fansCount%></span>关注者</div>
                             <img src="<%=item.logoUrl%>">
                         </div>
-                        <button pid="<%=item.id%>" class="follwbtn">关注</button>
+                        <% if(item.followed=='true'){ %>
+                            <button pid="<%=item.id%>" class="followbtn followed">已关注</button>
+
+                        <% }else{ %>
+                            <button pid="<%=item.id%>" class="followbtn">关注</button>
+                        <% }%>
                     </li>
                     <% }); %>
                 </ul>
@@ -125,7 +137,7 @@
                                     <div class="status">
                                         <span class="time"><%=timestamps(item.firstFeed.time)%></span>
                                         <span class="like"><%=item.account.fansCount%></span>
-                                        <span class="name"><%=item.firstFeed.nick%></span>
+                                        <span class="name"><%=item.account.nick%></span>
                                     </div>
                                 </div>
                             </li>
@@ -179,12 +191,11 @@
             </div>
         </script>
         <script id="tbfeed_tpl" type="text/template">
-            <div class="tb-feed">
-                <ul class="tb-feed-items">
+
                     <% _.each(list, function(item) { %>
                     <li feedId="<%=item.id%>">
                         <div class="title"><%=item.title%></div>
-                        <% if(item.coverTile.path){ %>
+                        <% if(item.coverTile){ %>
                         <div class="media">
                             <div class="item">
                                 <img src="<%=item.coverTile.path%>" width="290px" height="120px"/>
@@ -203,8 +214,7 @@
                     </li>
                     <% }); %>
                 </ul>
-                <div id="feedPageNav" class="pagenav c-pnav-con"></div>
-            </div>
+
         </script>
         <script id="loginBar_tpl" type="text/template">
             <div class="login-bar">
