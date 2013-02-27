@@ -3,6 +3,7 @@ define(function (require, exports, module) {
         _ = require('underscore'),
         mtop = require('../common/mtopForAllspark.js'),
         cache = require('../common/cache.js'),
+        h5_comm = require('h5_comm'),
         CommentModel = require('../comment/commentModel.js'),
         AccountModel = require('../account/accountModel.js');
 
@@ -24,10 +25,10 @@ define(function (require, exports, module) {
          返回特定错误码(FAIL_DOWNGRADED)表示被降级
            */
         getPageData:function (param) {
-
+            var self = this;
             function getPrices(result) {
                   //获取价格参数
-                  var ids = [];
+                var ids = [];
 
                 result.tiles &&  result.tiles.forEach(function(tile){tile.items   && tile.items.length &&
                         tile.items.forEach(function(item){
@@ -39,7 +40,7 @@ define(function (require, exports, module) {
                   })
              }
 
-            function afterProcess(result,param) {
+            function setPageData(result,param) {
                 //获取实时优惠价格
                 getPrices(result);
 
@@ -62,24 +63,29 @@ define(function (require, exports, module) {
                 self.set({ "feed": result});
             }
 
-            var self = this;
-            self.set("status",'sucess');
+            function detail(param, fun) {
+                mtop.getData("mtop.sns.feed.detail", param || {}, function (result) {
+                    fun && fun.call(arguments.callee, result.data);
+                }, function (result) {
+                    fun && fun.call(arguments.callee, {fail:result});
+                });
+            }
+
             var cacheKey = param.snsId+"_" +param.feedId;
             var cacheFeed = cache.getItemById(cacheKey);
             if (cacheFeed) {
-                afterProcess(cacheFeed,param);
+                setPageData(cacheFeed,param);
                  return;
             }
             else {
-                mtop.getData("mtop.sns.feed.detail", param || {}, function (result) {
-                    refine.refineDetail(result.data)
-                    self.set("feed",result.data);
-                    cache.saveItem(cacheKey,result.data);
-                    afterProcess(result.data,param);
-                }, function (result) {
-                       self.set("status", false);
-                  }
-                );
+                 detail(param || {},function(result){
+                     console.log('refine detail');
+                     refine.refineDetail(result);
+                     console.log(result);
+                     self.set("feed",result);
+                     cache.saveItem(cacheKey,result);
+                     setPageData(result,param);
+                });
             }
     }
 });
