@@ -56,22 +56,15 @@ define(function (require, exports, module) {
          * @param param.snsId
          * @param param.content
          */
-        addComment:function(param) {
-
-            function addComment(fun, param) {
-                mtop.addComment(param, function (accResult) {
-                        fun && fun.call(arguments.callee, {succ:true});
-                    },function(){
-                        fun && fun.call(arguments.callee, {fail:result});
-                    })
-            }
-
+        addComment:function(param,fun) {
             var self = this;
             if (h5_comm.isLogin()){
                 //设置登录状态
                 self.set("loginStatus",true);
-                self.addComment(param, function (recResult) {
-                },function(recResult){
+                mtop.addComment(param, function (result) {
+                    fun && fun(true);
+                },function(){
+                    fun && fun(false);
                 })
             } else {
                 self.set("loginStatus",false);

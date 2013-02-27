@@ -4,6 +4,8 @@ define(function(require, exports, module) {
       _ = require('underscore'),
       notification = require('../ui/notification.js');
 
+  var CommentModel = require('./commentModel')
+
   var newCommentHeaderTempalte = _.template($('#newComment_header_tpl').html())
   var newCommentInputTemplate = _.template($('#newComment_input_tpl').html())
 
@@ -11,12 +13,17 @@ define(function(require, exports, module) {
 
     el: '#content',
 
+    model: new CommentModel(),
+
     events: {
       'keyup #comment-area': 'typing',
       'click .publish-comment.btn': 'publish'
     },
 
-    initialize: function() {
+    initialize: function(snsId, feedId) {
+
+      this.snsId = snsId
+      this.feedId = feedId
 
 
       this.$container = $('#newCommentPage');

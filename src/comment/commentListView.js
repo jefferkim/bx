@@ -21,7 +21,6 @@ define(function(require, exports, module) {
     initialize: function() {
 
       this.$container = $('#commentListPage');
-
       this.model.on('change:commentList', this.renderCommentList, this);
     },
      goComment:function(snsId, feedId, page){
@@ -48,7 +47,7 @@ define(function(require, exports, module) {
     newComment: function() {
       //if (h5_comm.isLogin())
       if (true)
-        location.hash='newComment/';
+        location.hash = 'newComment/' + this.snsId + '/' + this.feedId ;
       else
         h5_comm.goLogin('h5_allspark');
     }
