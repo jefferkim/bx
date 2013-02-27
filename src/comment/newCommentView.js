@@ -11,7 +11,8 @@ define(function(require, exports, module) {
     el: '#content',
 
     events: {
-      'keyup #comment-area': 'typing'
+      'keyup #comment-area': 'typing',
+      'click .commnet.btn': 'publish'
     },
 
     initialize: function() {
@@ -34,6 +35,10 @@ define(function(require, exports, module) {
 
       if (length) this.$charCount.addClass('typing')
       else this.$charCount.removeClass('typing')
+    },
+
+    publish: function() {
+
     }
 
   })
