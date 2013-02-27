@@ -8,7 +8,7 @@ define(function (require, exports, module) {
         $ = require('zepto'),
         _ = require('underscore'),
         _model=require('./detailModel'),
-        router = require('../router');
+        router = require('../app/routerNew');
 
     var CommentListView = require('../comment/commentListView')
 

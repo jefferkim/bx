@@ -16,7 +16,10 @@ define(function(require, exports, module) {
       'click .publish-comment.btn': 'publish'
     },
 
-    initialize: function() {
+    initialize: function(snsId, feedId) {
+
+      this.snsId = snsId
+      this.feedId = feedId
 
       $('header.navbar').html(newCommentHeaderTempalte({}))
 
