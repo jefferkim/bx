@@ -45,8 +45,9 @@ define(function(require, exports, module) {
     },
 
     newComment: function() {
-      if (h5_comm.isLogin())
-        router.navigate('newComment', { trigger: true, replace: true })
+      //if (h5_comm.isLogin())
+      if (true)
+        router.navigate('newComment', { trigger: true })
       else
         h5_comm.goLogin('h5_allspark');
     }
