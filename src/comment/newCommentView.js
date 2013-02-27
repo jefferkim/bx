@@ -4,12 +4,16 @@ define(function(require, exports, module) {
       _ = require('underscore'),
       notification = require('../ui/notification.js');
 
+  var CommentModel = require('./commentModel')
+
   var newCommentHeaderTempalte = _.template($('#newComment_header_tpl').html())
   var newCommentInputTemplate = _.template($('#newComment_input_tpl').html())
 
   var NewCommentView = Backbone.View.extend({
 
     el: '#content',
+
+    model: new CommentModel(),
 
     events: {
       'keyup #comment-area': 'typing',
