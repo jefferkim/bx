@@ -7,7 +7,7 @@ define(function(require, exports, module) {
 
     routes: {
       '': 'index',
-      'home': 'index',
+      'home/(:page)': 'index',
       'detail/:snsId/:feedId': 'detail',
       'commentList/:snsId/:feedId/:page': 'commentList',
       'newComment': 'newComment',
@@ -30,6 +30,7 @@ define(function(require, exports, module) {
     },
 
     index: function() {
+
         seajs.use('./src/dynIndex/dynIndexView',function(view){
             new view();
         });

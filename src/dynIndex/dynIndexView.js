@@ -29,10 +29,10 @@ define(function (require, exports, module) {
             'click .person-list li .content':'goToAccount',
             'click .person-list .followbtn':'follow'
         },
-        initialize:function () {
+        initialize:function (page) {
             //判断是否登录
             var that=this;
-            that._pageSize=5;
+            that._pageSize=30;
             that.loginFlag=false;
             $('body').unbind();
             $('.view-page.show').removeClass('show iL');
@@ -98,8 +98,8 @@ define(function (require, exports, module) {
             },this);
 
 
-
             that.dynIndexModel.getPageData({'curPage':1,'pageSize':that._pageSize});
+
 
             that.dynIndexModel.on('change',this.render,this);
 

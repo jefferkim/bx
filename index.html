@@ -119,11 +119,12 @@
             <div class="recommendtip">您还没有关注任何账号哦，看看我们的推荐吧！</div>
         </script>
         <script id="myfeed_tpl" type="text/template">
+            
             <div class="myfeed">
                 <ul>
                     <% _.each(list, function(item) { %>
                     <% if(item.firstFeed){ %>
-                        <% if(item.firstFeed.coverTile.path!='') {%>
+                        <% if(item.firstFeed.coverTile.path) {%>
                             <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="multimedia">
                                 <div class="media">
                                     <img src="<%=item.firstFeed.coverTile.path%>">
