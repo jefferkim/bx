@@ -2,16 +2,12 @@ define(function (require, exports, module) {
     var Backbone = require('backbone'),
         $ = require('zepto'),
         _ = require('underscore'),
-        mtop = require('../common/mtopForAllspark.js'),
-        //base64 = require('base64'),
-        h5_comm = require('h5_comm'),
-        h5_cache = require('h5_cache'),
-        cookie = require('cookie');
+        mtop = require('../common/mtopForAllspark.js')
 
     /**
      * 动态首页
      */
-    var CommentModel = Backbone.Model.extend({
+    return Backbone.Model.extend({
 
         /**
          * 获取回复列表：
@@ -75,5 +71,4 @@ define(function (require, exports, module) {
     }
 
     });
-    return CommentModel;
 });
