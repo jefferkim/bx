@@ -35,6 +35,8 @@ define(function (require, exports, module) {
             that._pageSize=30;
             that.loginFlag=false;
             $('body').unbind();
+            console.log('page');
+            console.log(page);
             $('.view-page.show').removeClass('show iL');
             $('#indexPage').removeClass('iL').addClass('show iC');
 
@@ -77,7 +79,7 @@ define(function (require, exports, module) {
                     //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));
                     if(!that.recommentPage){
                         var pageCount=Math.ceil(result.totalCount/that._pageSize);
-                        that.recommentPage=new pageNav({'id':'#personListPageNav','pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
+                        that.recommentPage=new pageNav({'id':'#personListPageNav','index':page,'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
                         that.recommentPage.pContainer().on('P:switchPage', function(e,page){
                             that.changePage(page.index);
                         });
@@ -99,7 +101,7 @@ define(function (require, exports, module) {
                 }
             },this);
 
-            that.dynIndexModel.getPageData({'curPage':1,'pageSize':that._pageSize});
+            that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});
 
             that.dynIndexModel.on('change',this.render,this);
 
@@ -112,7 +114,7 @@ define(function (require, exports, module) {
             $('body').unbind();
             $('.view-page.show').removeClass('show iL');
             $('#indexPage').removeClass('iL').addClass('show iC');
-            that.dynIndexModel.getPageData({'curPage':1,'pageSize':that._pageSize});
+            that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});
         },
         render:function(){
 
@@ -128,7 +130,8 @@ define(function (require, exports, module) {
         },
         changePage:function(page){
             var that=this;
-            that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});
+            window.location.hash='#index/'+page;
+            //that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});
         },
         add:function(){
             var that=this;
