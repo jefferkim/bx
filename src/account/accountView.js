@@ -9,6 +9,7 @@ define(function (require, exports, module) {
         _ = require('underscore'),
         _model=require('./accountModel'),
         pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
+        h5_comm = require('h5_comm'),
         mtop = require('../common/mtopForAllspark.js');
 
 
@@ -93,24 +94,28 @@ define(function (require, exports, module) {
             var that=this;
             console.log('adddddd');
             var cur=$(e.currentTarget);
-            if(cur.hasClass('followed')){
-                cur.html('取消关注...');
-                mtop.removeAccount(cur.attr('pid'),function(){
-                    cur.html('关注');
-                    cur.removeClass('followed');
-                },function(){
-                    cur.html('已关注');
-                });
-            }else{
-                cur.html('关注中...');
-                cur.addClass('followed');
-                mtop.addAccount(cur.attr('pid'),function(){
-                    cur.html('已关注');
-                },function(){
-                    cur.html('关注');
-                    cur.removeClass('followed');
-                });
+            if(h5_comm.isLogin()){
+                if(cur.hasClass('followed')){
+                    cur.html('取消关注...');
+                    mtop.removeAccount(cur.attr('pid'),function(){
+                        cur.html('关注');
+                        cur.removeClass('followed');
+                    },function(){
+                        cur.html('已关注');
+                    });
+                }else{
+                    cur.html('关注中...');
+                    cur.addClass('followed');
+                    mtop.addAccount(cur.attr('pid'),function(){
+                        cur.html('已关注');
+                    },function(){
+                        cur.html('关注');
+                        cur.removeClass('followed');
+                    });
 
+                }
+            }else{
+                h5_comm.goLogin('h5_allspark');
             }
         },
         changePage:function(page){

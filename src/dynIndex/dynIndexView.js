@@ -32,13 +32,9 @@ define(function (require, exports, module) {
         initialize:function (page) {
             //判断是否登录
             var that=this;
-            that._pageSize=30;
+            that._pageSize=5;
             that.loginFlag=false;
-            $('body').unbind();
-            console.log('page');
-            console.log(page);
-            $('.view-page.show').removeClass('show iL');
-            $('#indexPage').removeClass('iL').addClass('show iC');
+
 
             that.dynIndexModel = new _model();
             that.dynIndexModel.on("change:banner",function(model,result){
@@ -87,42 +83,30 @@ define(function (require, exports, module) {
                 }
                 //ok(result.totalCount > 0, "total count > 0")
             },this);
-            that.dynIndexModel.on("change:loginStatus",function(model,result){
-                console.log('loginStatus');
-                console.log(result);
-                if(result){
-                    //已登录
-                    that.loginFlag=true;
-                }else{
-                    //未登录
-                    that.loginFlag=false;
-                    $('#indexPage .J_status').html($('#loginBar_tpl').html());
-                    //$($('#loginBar_tpl').html()).insertAfter('div.in-slider');
-                }
-            },this);
 
-            that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});
 
-            that.dynIndexModel.on('change',this.render,this);
+//            that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});
+//
+//            that.dynIndexModel.on('change',this.render,this);
 
         },
-        goIndex:function (page) {
+        render:function(page){
+            //$('.tb-h5').html($('#indexPage_tpl').html());
+            console.log('homePage render');
             //判断是否登录
             var that=this;
-            that._pageSize=5;
-            that.loginFlag=false;
             $('body').unbind();
             $('.view-page.show').removeClass('show iL');
             $('#indexPage').removeClass('iL').addClass('show iC');
             that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});
-        },
-        render:function(){
-
-            //$('.tb-h5').html($('#indexPage_tpl').html());
-            console.log('homePage render');
 
             $('header.navbar').html(_.template($('#navBack_tpl').html(),{'backUrl':'http://m.taobao.com','backTitle':'首页'})+$('#homeTitle_tpl').html());
 
+            if(!h5_comm.isLogin()){
+                //未登录
+                $('#indexPage .J_status').html($('#loginBar_tpl').html());
+                //$($('#loginBar_tpl').html()).insertAfter('div.in-slider');
+            }
 
         },
         PageNavRender:function(){
@@ -135,7 +119,7 @@ define(function (require, exports, module) {
         },
         add:function(){
             var that=this;
-            if(that.loginFlag){
+            if(h5_comm.isLogin()){
                 window.location.hash='#accountList/1';
             }else{
                 h5_comm.goLogin('h5_allspark');
@@ -148,7 +132,7 @@ define(function (require, exports, module) {
             e.stopPropagation();
             var that=this;
             var cur=$(e.currentTarget);
-            if(that.loginFlag){
+            if(h5_comm.isLogin()){
                 //已登录
                 console.log('follow');
 

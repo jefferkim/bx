@@ -91,7 +91,7 @@ define(function(require, exports, module) {
     index: function(page) {
         page = page || 1;
          console.log('index'+page);
-        _indexView.goIndex(page);
+        _indexView.render(page);
     },
     account:function(snsId,page){
         console.log('account:snsId'+snsId+"|page:"+page);
