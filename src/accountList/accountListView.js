@@ -30,8 +30,8 @@ define(function (require, exports, module) {
                 if(result.list&&result.list.length>0){
                     $('#accountListPage .person-list').html(_.template($('#personList_tpl').html(),result));
                     //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));
-                    var pageCount=Math.ceil(result.totalCount/_pageSize);
-                    new pageNav({'id':'#accountListPageNav','pageCount':pageCount,'pageSize':_pageSize});
+                    var pageCount=Math.ceil(result.totalCount/that.pageSize);
+                    new pageNav({'id':'#accountListPageNav','pageCount':pageCount,'pageSize':that.pageSize});
                 }
             });
             that.accountListModel.on("change:recommends",function(model,result){
@@ -40,8 +40,8 @@ define(function (require, exports, module) {
                 console.log(result);
                 if(result.list&&result.list.length>0){
                     $('#accountListPage .person-list').html((_.template($('#personList_tpl').html(),result)));
-                    var pageCount=Math.ceil(result.totalCount/_pageSize);
-                    new pageNav({'id':'#accountListPageNav','pageCount':pageCount,'pagesize':_pageSize});
+                    var pageCount=Math.ceil(result.totalCount/that.pageSize);
+                    new pageNav({'id':'#accountListPageNav','pageCount':pageCount,'pagesize':that.pageSize});
                 }
             });
         },
@@ -90,7 +90,7 @@ define(function (require, exports, module) {
             }
         },
         goBack:function(){
-            history.go(-1);
+            history.back();
         },
         changeTab:function(){
             var that=this;
