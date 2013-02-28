@@ -42,7 +42,7 @@ define(function(require, exports, module) {
           // 全局初始化
           //global.init();
 
-          if (h5_comm.isClient()) {
+          if (h5_base.isClient()) {
             $('header.navbar').hide()
           }
 
