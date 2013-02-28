@@ -17,17 +17,10 @@ define(function (require, exports, module) {
          */
         getPageData:function (param) {
             var self = this;
-            if (h5_comm.isLogin()) {
-                //设置登录状态
-                self.set("loginStatus",true);
-
-                mtop.commentList(
-                    param, function (accResult) {
-                        self.set("commentList", accResult);
-                    })
-            } else {
-                self.set("loginStatus",false);
-            }
+            mtop.commentList(param, function (accResult) {
+                    self.set("commentList", accResult);
+                    console.log(accResult);
+             })
         },
 
 
