@@ -17,10 +17,11 @@ define(function (require, exports, module) {
     var accountView = Backbone.View.extend({
         el:'#content',
         events:{
-            'touchend .tb-feed-items li':'goToDetail',
+            'click .tb-feed-items li':'goToDetail',
             'click .navbar .back':'goBack',
             'click .J_info .stats-follow-btn':'follow',
-            'click .navbar .refresh':'refresh'
+            'click .navbar .refresh':'refresh',
+            'click .wwwIco':'goWWW'
 
 
         },
@@ -45,6 +46,7 @@ define(function (require, exports, module) {
                         if(addCount>0){
                             notification.message('更新了 '+addCount+' 条广播');
                         }
+
                     }else{
                         that.oldTotalCount=result.totalCount;
                     }
@@ -81,7 +83,26 @@ define(function (require, exports, module) {
         },
         refresh:function(){
             var that=this;
-            window.location.hash='#account/'+that.snsid+'/1';
+            var _spinner=$('.navbar .refresh div')
+            if(!_spinner.hasClass('spinner')){
+                _spinner.addClass('spinner');
+            }
+            if(that.curPage=='1'){
+                that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':''});
+                setTimeout(function(){
+                    _spinner.removeClass('spinner');
+                },3000);
+
+            }else{
+                window.location.hash='#account/'+that.snsid+'/1';
+            }
+        },
+        goWWW:function(e){
+            var that=this;
+            var cur=$(e.currentTarget);
+            notification.external(cur.attr('url'),function(){
+                window.location.href=cur.attr('url');
+            },null);
         },
         goBack:function(){
             window.history.back();
@@ -100,7 +121,7 @@ define(function (require, exports, module) {
 //            * @param param.pageSize
 //            * @param param.snsId
 //            * @param param.afterTimestamp
-            that.accountModel.getPageData({'snsId':that.snsid,'curPage':page,'pageSize':that._pageSize,'timestamp':''});
+            that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.page,'pageSize':that._pageSize,'timestamp':''});
         },
         follow:function(e){
             var that=this;
