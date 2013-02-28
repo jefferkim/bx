@@ -20,21 +20,18 @@ define(function(require, exports, module) {
       'click .publish-comment.btn': 'publish'
     },
 
-    initialize: function(snsId, feedId) {
-
-
-
-
-      this.$container = $('#newCommentPage');
+    initialize: function() {
+     this.$container = $('#newCommentPage');
       this.$container.html(newCommentInputTemplate({}));
 
       this.$commentArea = $('#comment-area');
       this.$charCount = this.$container.find('.char-count');
     },
-      goNewComment : function(snsId, feedId){
+      goNewComment : function(snsId, feedId,page){
 
-        this.snsId = snsId
-        this.feedId = feedId
+        this.snsId = snsId;
+        this.feedId = feedId;
+        this.curPage = page;
 
           $('header.navbar').html(newCommentHeaderTempalte({}));
           $('.view-page.show').removeClass('show iC').addClass('iL');

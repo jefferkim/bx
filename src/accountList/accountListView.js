@@ -21,19 +21,8 @@ define(function (require, exports, module) {
         },
         initialize:function () {
             var that=this;
+                that.pageSize = 5;
                that.accountListModel = new _model();
-        },
-        render: function(status) {
-            var that=this;
-            this.status=status;
-            $('body').unbind();
-            //$('.tb-h5').html('');
-            var _pageSize=5;
-            var that=this;
-            $('.view-page.show').removeClass('show iC').addClass('iL');
-            $('#accountListPage').removeClass('iL').addClass('show iC');
-            $('header.navbar').html(_.template($('#navBack_tpl').html(),{'backUrl':'','backTitle':'返回'})+$('#accountListTabBar_tpl').html());
-            $('.tab-bar li').eq(that.status-1).addClass('cur');
 
             that.accountListModel.on("change:myAttention",function(model,result){
                 console.log('myAttention');
@@ -55,7 +44,19 @@ define(function (require, exports, module) {
                     new pageNav({'id':'#accountListPageNav','pageCount':pageCount,'pagesize':_pageSize});
                 }
             });
-            that.accountListModel.getPageData({'type':that.status,'curPage':1,'pageSize':_pageSize,"order":"fans"});
+        },
+        render: function(status,page) {
+            var that=this;
+            that.status=status;
+            that.curPage=page;
+            $('body').unbind();
+            //$('.tb-h5').html('');
+            $('.view-page.show').removeClass('show iC').addClass('iL');
+            $('#accountListPage').removeClass('iL').addClass('show iC');
+            $('header.navbar').html(_.template($('#navBack_tpl').html(),{'backUrl':'','backTitle':'返回'})+$('#accountListTabBar_tpl').html());
+            $('.tab-bar li').eq(that.status-1).addClass('cur');
+
+            that.accountListModel.getPageData({'type':that.status,'curPage':that.curPage,'pageSize': that.pageSize,"order":"fans"});
         },
         follow:function(e){
             e.stopPropagation();
