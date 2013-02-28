@@ -7,6 +7,7 @@ define(function(require, exports, module) {
   $longMessage = $notification.find('.long-message'),
   $simpleMessage = $notification.find('.simple-message');
 
+
   return {
     show: function() {
       $notification.fadeIn(100)
@@ -43,7 +44,22 @@ define(function(require, exports, module) {
     },
 
     external: function(url, confirmCallback, cancelCallback) {
-
+      var self = this;
+      $notification.off()
+      $actions.find('.confirm').show()
+      $actions.find('.cancel').show()
+      $actions.find('.retry').hide()
+      $actions.show()
+      $simpleMessage.hide()
+      $longMessage.find('.external').attr('href', url).text(url)
+      $longMessage.show()
+      $notification.on('click', '.confirm', function() { confirmCallback && confirmCallback() })
+      $notification.on('click', '.cancel', function() {
+        self.hide();
+        cancelCallback && cancelCallback()
+      })
+      this.position()
+      $notification.show()
     }
   }
 
