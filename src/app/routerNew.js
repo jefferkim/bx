@@ -34,8 +34,8 @@ define(function(require, exports, module) {
           self.route(/^(detail)\/(\d*)\/(\d*)$/, 'detail', self.filter);
           //#comment/snsId/feedId/page snsid - sns账号Id  feedId - 消息Id page - 页码
           self.route(/^(comment)\/(\d*)\/(\d*)(\/(\d*))?$/, 'commentList', self.filter);
-          //#accountList/status  status - 0 - 未关注列表 1 - 以关注列表 默认 未关注列表
-          self.route(/^(accountList)\/(\d*)(\/(\d*))?$/, 'accountList', self.filter);
+          //#accountList/status/page  status - 0 - 未关注列表 1 - 以关注列表 默认 未关注列表  page - 页码
+          self.route(/^(accountList)(\/(\d*))?(\/(\d*))?$/, 'accountList', self.filter);
           //#newcomment/snsId/feedId/page snsid - sns账号Id  feedId - 消息Id page - 页码
           self.route(/^(newComment)\/(\d*)\/(\d*)(\/(\d*))?$/, 'newComment', self.filter);
           // 全局初始化
@@ -75,7 +75,7 @@ define(function(require, exports, module) {
                   break;
               case 'accountList':
                   _accountListView= _accountListView || new accountListView();
-                  self.accountList(arg0);
+                  self.accountList(arg0,arg1);
                   break;
               case 'newComment':
                   _newCommentView= _newCommentView || new newCommentView();
@@ -98,8 +98,8 @@ define(function(require, exports, module) {
         page = page || 1;
         _accountView.render(snsId,page);
     },
-    accountList:function(status){
-        _accountListView.render(status);
+    accountList:function(status,page){
+        _accountListView.render(status,page);
     },
     detail: function(snsId, feedId) {
         _detailView.goDetail(snsId,feedId);
