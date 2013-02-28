@@ -7,7 +7,10 @@ define(function (require, exports, module) {
     var Backbone = require('backbone'),
         $ = require('zepto'),
         _ = require('underscore'),
-        _model=require('./detailModel');
+        _model=require('./detailModel'),
+        router = require('../app/routerNew.js')
+
+        console.log('router', router)
 
     var CommentListView = require('../comment/commentListView');
 
@@ -20,6 +23,7 @@ define(function (require, exports, module) {
         el: '#content',
         model : new _model(),
         events:{
+          'click .brand': 'account',
           'click .comment-list.btn': 'commentList'
         },
         initialize:function () {
@@ -60,6 +64,10 @@ define(function (require, exports, module) {
 
           var feed = this.model.get('feed');
           console.log('render detail! feed='+JSON.stringify(feed));
+        },
+
+        account: function() {
+          App.navigate('account/' + this.snsId, { trigger: true })
         },
 
         commentList: function() {

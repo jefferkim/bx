@@ -10,42 +10,28 @@ define(function (require, exports, module) {
         _model=require('./accountModel'),
         pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
         h5_comm = require('h5_comm'),
+        notification = require('../ui/notification.js'),
         mtop = require('../common/mtopForAllspark.js');
 
 
     var accountView = Backbone.View.extend({
         el:'#content',
         events:{
-            'touchend .tb-feed-items li':'goToDetail',
+            'click .tb-feed-items li':'goToDetail',
             'click .navbar .back':'goBack',
-            'click .J_info .stats-follow-btn':'follow'
+            'click .J_info .stats-follow-btn':'follow',
+            'click .navbar .refresh':'refresh',
+            'click .wwwIco':'goWWW'
 
 
         },
         initialize:function () {
             var that=this;
             that._pageSize=4;
-            that.accountModel = new _model();
-        },
-        goBack:function(){
-            window.history.back();
-            //history.back();
-            //history.go(-1);
-        },
-        render:function(snsid,page){
-            var that=this;
-            that.snsid=snsid;
-            that.curPage= page;
-            $('body').unbind();
-            //$('.tb-h5').html('');
-            $('.view-page.show').removeClass('show iC').addClass('iL');
-            $('#accountPage').removeClass('iL').addClass('show iC');
             var _back={'backUrl':'','backTitle':'返回'};
-//            if(document.referrer==''){
-//                _back={'backUrl':'#','backTitle':'首页'}
-//            }
             $('header.navbar').html(_.template($('#navBack_tpl').html(),_back)+$('#accountTitle_tpl').html());
 
+            that.accountModel = new _model();
             that.accountModel.on("change:accInfo",function(model,result){
                 console.log('accInfo');
                 console.log(result);
@@ -55,13 +41,23 @@ define(function (require, exports, module) {
             });
             that.accountModel.on("change:accFeeds",function(model,result){
                 if(result.list&&result.list.length>0){
+                    if(that.oldTotalCount){
+                        var addCount=parseInt(result.totalCount)-parseInt(that.oldTotalCount);
+                        if(addCount>0){
+                            notification.message('更新了 '+addCount+' 条广播');
+                        }
+
+                    }else{
+                        that.oldTotalCount=result.totalCount;
+                    }
+
                     console.log('accFeeds');
                     console.log(result);
                     $('#accountPage .J_feed .tb-feed-items').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
 
                     if(!that.pageNav){
                         var pageCount=Math.ceil(result.totalCount/that._pageSize);
-                        that.pageNav=new pageNav({'id':'#feedPageNav','pageCount':pageCount,'pageSize':that._pageSize});
+                        that.pageNav=new pageNav({'id':'#feedPageNav','pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
                         that.pageNav.pContainer().on('P:switchPage', function(e,page){
                             that.changePage(page.index);
                         });
@@ -84,11 +80,48 @@ define(function (require, exports, module) {
                 },5000);
 
             });
+        },
+        refresh:function(){
+            var that=this;
+            var _spinner=$('.navbar .refresh div')
+            if(!_spinner.hasClass('spinner')){
+                _spinner.addClass('spinner');
+            }
+            if(that.curPage=='1'){
+                that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':''});
+                setTimeout(function(){
+                    _spinner.removeClass('spinner');
+                },3000);
+
+            }else{
+                window.location.hash='#account/'+that.snsid+'/1';
+            }
+        },
+        goWWW:function(e){
+            var that=this;
+            var cur=$(e.currentTarget);
+            notification.external(cur.attr('url'),function(){
+                window.location.href=cur.attr('url');
+            },null);
+        },
+        goBack:function(){
+            window.history.back();
+        },
+        render:function(snsid,page){
+            var that=this;
+            that.snsid=snsid;
+            that.curPage= page;
+            $('body').unbind();
+            //$('.tb-h5').html('');
+            $('.view-page.show').removeClass('show iC').addClass('iL');
+            $('#accountPage').removeClass('iL').addClass('show iC');
+
+
 //            * @param param.curPage  页码
 //            * @param param.pageSize
 //            * @param param.snsId
 //            * @param param.afterTimestamp
-            that.accountModel.getPageData({'snsId':that.snsid,'curPage':1,'pageSize':that._pageSize,'timestamp':''});
+            that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.page,'pageSize':that._pageSize,'timestamp':''});
         },
         follow:function(e){
             var that=this;
@@ -121,7 +154,8 @@ define(function (require, exports, module) {
         changePage:function(page){
             var that=this;
             console.log('page:'+page);
-            that.accountModel.getPageData({'snsId':that.snsid,'curPage':page,'pageSize':that._pageSize,'disableHash': 'true'});
+            window.location.hash='#account/'+that.snsid+'/'+page;
+            //that.accountModel.getPageData({'snsId':that.snsid,'curPage':page,'pageSize':that._pageSize,'disableHash': 'true'});
         },
         goToDetail:function(e){
             var cur=$(e.currentTarget);

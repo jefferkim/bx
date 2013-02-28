@@ -3,6 +3,7 @@ define(function(require, exports, module) {
       _ = require('underscore'),
       global = require('../common/global'),
       tbh5 = require('h5_base'),
+      h5_base = require('h5_base'),
       h5_comm = require('h5_comm'),
       Backbone = require('backbone'),
       //view class import
@@ -41,6 +42,9 @@ define(function(require, exports, module) {
           // 全局初始化
           //global.init();
 
+          if (h5_base.isClient()) {
+            $('header.navbar').hide()
+          }
 
       },
       /**
