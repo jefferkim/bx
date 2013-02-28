@@ -117,7 +117,7 @@ define(function (require, exports, module) {
             delete pageParam.type;
 
             //首页
-            pageParam.isIndex() && biz.banner(function (result) {
+            biz.banner(function (result) {
                 (!self.get("banner") || result.lastUpdate != self.get("banner").lastUpdate ) && self.set("banner", result);
             });
 
