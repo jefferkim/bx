@@ -219,6 +219,48 @@ define(function (require, exports) {
         },1000)
     });
 
+    module("backbone 基础");
+    asyncTest("1.backbone listen on change", 1,function () {
+        var accInfo = new AccInfoModel();
+        accInfo.on("change:accInfo",function(model,result){
+            console.log(result);
+            ok(result);
+        },this);
+        var obj = {a:123};
+        accInfo.set("accInfo",obj);
+        obj.b = 24;
+        accInfo.set("accInfo",obj);
+        setTimeout(function(){
+            start();
+        },1000)
+    });
+    asyncTest("1.backbone listen on change", 1,function () {
+        var accInfo = new AccInfoModel();
+        accInfo.on("change:accInfo",function(model,result){
+            console.log(result);
+            ok(result);
+        },this);
+        var obj = {a:123};
+        accInfo.set("accInfo",obj);
+        accInfo.set("accInfo",{a:123});
+        setTimeout(function(){
+            start();
+        },1000)
+    });
+    asyncTest("1.backbone listen on change", 2,function () {
+        var accInfo = new AccInfoModel();
+        accInfo.on("change:accInfo",function(model,result){
+            console.log(result);
+            ok(result);
+        },this);
+        var obj = {a:123};
+        accInfo.set("accInfo",obj);
+        accInfo.set("accInfo",{a:1234});
+        setTimeout(function(){
+            start();
+        },1000)
+    });
+
 
 
 
