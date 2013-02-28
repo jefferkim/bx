@@ -51,6 +51,15 @@ define(function(require, exports, module) {
 
       if (comment.length == 0) {
         notification.message('写点什么吧 ^_^')
+      } else if (comment.length <= 140) {
+        this.model.addComment({
+          snsId: this.snsId,
+          feedId: this.feedId,
+          content: _.escape(comment)
+        }, function(success) {
+
+        });
+        notification.message("发布中请稍候")
       }
     }
 

@@ -131,7 +131,7 @@
             <div class="recommendtip">您还没有关注任何账号哦，看看我们的推荐吧！</div>
         </script>
         <script id="myfeed_tpl" type="text/template">
-            
+
             <div class="myfeed">
                 <ul>
                     <% _.each(list, function(item) { %>
@@ -254,7 +254,7 @@
         </script>
         <script id="detail_accinfo_tpl" type="text/template">
           <a href="#" class="brand">
-            <img class="avatar" src="imgs/avatar.png" alt="">
+            <img class="avatar" src="<% backgroundImg %>" alt="">
             <div class="info">
               <p class="name"><%= nick %></p>
               <p class="follow">
@@ -278,7 +278,12 @@
                 <% } else if (tiles[i].type == "text") { %>
                     <p><%= tiles[i].text %></p>
                 <% } else if (tiles[i].type == "picItem") { %>
-
+                    <div class="media">
+                      <div class="item">
+                        <img src="<%= tiles[i].path %>" alt="">
+                        <div class="price"></div>
+                      </div>
+                    </div>
                 <% } %>
             <% } %>
 
@@ -294,6 +299,27 @@
             </div>
             <div class="title">&nbsp;</div>
             <div class="btn comment write-comment">写评论</div>
+        </script>
+
+        <script id="comment_list_tpl" type="text/template">
+            <ul class="comment-list">
+                <% for (var i = 0; i < list.length; i++) { %>
+                <li>
+                    <div class="user-info">
+                        <img src="<%= list[i].createrPic %>">
+                        <div class="info">
+                          <p class="user-name"><%= list[i].createrName %></p>
+                          <p class="pub-time"><%= timestamps(list[i].time) %></p>
+                        </div>
+                      </div>
+                      <div class="user-comment">
+                        <%= list[i].content %>
+                      </div>
+                      <div class="separator"></div>
+                </li>
+                <% } %>
+            </ul>
+            <div id="commentListPageNav" class="pagenav"></div>
         </script>
 
         <script id="newComment_header_tpl" type="text/template">
