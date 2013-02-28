@@ -99,6 +99,8 @@ define(function(require, exports, module) {
         _accountView.render(snsId,page);
     },
     accountList:function(status,page){
+        status=status||1;
+        page=page||1;
         _accountListView.render(status,page);
     },
     detail: function(snsId, feedId) {
@@ -106,11 +108,13 @@ define(function(require, exports, module) {
     },
 
     commentList: function(snsId, feedId, page) {
+        page=page||1;
         _commentView.goComment(snsId, feedId, page);
       console.log('route into commentList')
     },
 
     newComment: function(snsId, feedId, page) {
+        page=page||1;
         _newCommentView.goNewComment(snsId, feedId, page);
       console.log('route into newComment')
     },

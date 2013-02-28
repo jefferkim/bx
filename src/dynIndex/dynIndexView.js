@@ -86,6 +86,8 @@ define(function (require, exports, module) {
                 //ok(result.totalCount > 0, "total count > 0")
             },this);
             that.dynIndexModel.on("change:loginStatus",function(model,result){
+                console.log('loginStatus');
+                console.log(result);
                 if(result){
                     //已登录
                     that.loginFlag=true;
