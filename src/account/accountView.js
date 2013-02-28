@@ -27,7 +27,8 @@ define(function (require, exports, module) {
             that.accountModel = new _model();
         },
         goBack:function(){
-            history.back();
+            window.history.back();
+            //history.back();
             //history.go(-1);
         },
         render:function(snsid,page){
