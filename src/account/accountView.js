@@ -21,6 +21,7 @@ define(function (require, exports, module) {
             'click .navbar .back':'goBack',
             'click .J_info .stats-follow-btn':'follow',
             'click .navbar .refresh':'refresh',
+
             'click .wwwIco':'goWWW'
 
 
@@ -28,8 +29,6 @@ define(function (require, exports, module) {
         initialize:function () {
             var that=this;
             that._pageSize=4;
-            var _back={'backUrl':'','backTitle':'返回'};
-            $('header.navbar').html(_.template($('#navBack_tpl').html(),_back)+$('#accountTitle_tpl').html());
 
             that.accountModel = new _model();
             that.accountModel.on("change:accInfo",function(model,result){
@@ -41,6 +40,9 @@ define(function (require, exports, module) {
             });
             that.accountModel.on("change:accFeeds",function(model,result){
                 if(result.list&&result.list.length>0){
+                    console.log('change:accFeeds');
+                    console.log(result);
+                    $('.navbar .refresh div').removeClass('spinner');
                     if(that.oldTotalCount){
                         var addCount=parseInt(result.totalCount)-parseInt(that.oldTotalCount);
                         if(addCount>0){
@@ -51,8 +53,7 @@ define(function (require, exports, module) {
                         that.oldTotalCount=result.totalCount;
                     }
 
-                    console.log('accFeeds');
-                    console.log(result);
+
                     $('#accountPage .J_feed .tb-feed-items').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
 
                     if(!that.pageNav){
@@ -68,7 +69,6 @@ define(function (require, exports, module) {
                 console.log('prices');
                 console.log(result);
                 if(result.list&&result.list.length>0){
-
                     //<div class="price">￥102.00</div>
                 }
                 //测试插入效果
@@ -78,19 +78,37 @@ define(function (require, exports, module) {
                         _item.eq(i).append('<div class="price">￥102.00</div>');
                     }
                 },5000);
-
             });
+        },
+        render:function(snsid,page){
+            var that=this;
+            that.snsid=snsid;
+            that.curPage= page;
+            $('body').unbind();
+            //$('.tb-h5').html('');
+            var _back={'backUrl':'','backTitle':'返回'};
+
+            $('.view-page.show').removeClass('show iC').addClass('iL');
+            $('#accountPage').removeClass('iL').addClass('show iC');
+            $('header.navbar').html(_.template($('#navBack_tpl').html(),_back)+$('#accountTitle_tpl').html());
+
+
+//            * @param param.curPage  页码
+//            * @param param.pageSize
+//            * @param param.snsId
+//            * @param param.afterTimestamp
+            that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':''});
         },
         refresh:function(){
             var that=this;
-            var _spinner=$('.navbar .refresh div')
+            var _spinner=$('.navbar .refresh div');
             if(!_spinner.hasClass('spinner')){
                 _spinner.addClass('spinner');
             }
             if(that.curPage=='1'){
-                that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':''});
+                that.accountModel.getPageData({'exCludInfo':true,'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':new Date().getTime()});
                 setTimeout(function(){
-                    _spinner.removeClass('spinner');
+
                 },3000);
 
             }else{
@@ -106,22 +124,6 @@ define(function (require, exports, module) {
         },
         goBack:function(){
             window.history.back();
-        },
-        render:function(snsid,page){
-            var that=this;
-            that.snsid=snsid;
-            that.curPage= page;
-            $('body').unbind();
-            //$('.tb-h5').html('');
-            $('.view-page.show').removeClass('show iC').addClass('iL');
-            $('#accountPage').removeClass('iL').addClass('show iC');
-
-
-//            * @param param.curPage  页码
-//            * @param param.pageSize
-//            * @param param.snsId
-//            * @param param.afterTimestamp
-            that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.page,'pageSize':that._pageSize,'timestamp':''});
         },
         follow:function(e){
             var that=this;
