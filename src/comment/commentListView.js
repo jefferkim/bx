@@ -57,7 +57,7 @@ define(function(require, exports, module) {
         this.pageNav = new pageNav({
           'id': '#commentListPageNav',
           'index': 1,
-          'pageCount': list.totalCount / this.pageSize,
+          'pageCount': Math.ceil(list.totalCount / this.pageSize),
           'pageSize': this.pageSize,'disableHash': 'true'});
 
 
