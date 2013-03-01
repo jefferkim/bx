@@ -142,13 +142,13 @@ define(function (require, exports, module) {
                         cur.html('关注');
                         cur.removeClass('followed');
                     },function(){
-                        cur.html('已关注');
+                        cur.html('取消关注');
                     });
                 }else{
                     cur.html('关注中...');
                     cur.addClass('followed');
                     mtop.addAccount(cur.attr('pid'),function(){
-                        cur.html('已关注');
+                        cur.html('取消关注');
                     },function(){
                         cur.html('关注');
                         cur.removeClass('followed');

@@ -47,10 +47,9 @@ define(function (require, exports, module) {
          */
         getPageData:function (param) {
             var self = this;
-            self._biz.info({snsId:param.snsId,sid:param.sid},function(result){
+            param.exCludInfo||self._biz.info({snsId:param.snsId,sid:param.sid},function(result){
                 console.log('refine accInfo');
                 refine.refinePubAccount(result);
-                console.log(result);
                 self.set("accInfo",result);
             });
             param || (param = {});
@@ -64,6 +63,9 @@ define(function (require, exports, module) {
                 });
                 console.log('refine accFeeds');
                 refine.refineFeed(result);
+                console.log(result);
+                //手动改变数据集，以达到出发change事件
+                result.a=new Date().getTime();
                 self.set("accFeeds",result);
 
                 //获取价格参数

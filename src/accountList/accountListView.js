@@ -17,18 +17,22 @@ define(function (require, exports, module) {
         events:{
             'click .tab-bar li':'changeTab',
             'click .navbar .back':'goBack',
+            'click .person-list li .content':'goToAccount',
             'click .followbtn':'follow'
         },
         initialize:function () {
             var that=this;
-                that.pageSize = 5;
-               that.accountListModel = new _model();
+            that.pageSize = 5;
+
+
+
+            that.accountListModel = new _model();
 
             that.accountListModel.on("change:myAttention",function(model,result){
                 console.log('myAttention');
                 console.log(result);
                 if(result.list&&result.list.length>0){
-                    $('#accountListPage .person-list').html(_.template($('#personList_tpl').html(),result));
+                    $('#accountListPage .person-list').html(_.template($('#myList_tpl').html(),result));
                     //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));
                     var pageCount=Math.ceil(result.totalCount/that.pageSize);
                     new pageNav({'id':'#accountListPageNav','pageCount':pageCount,'pageSize':that.pageSize});
@@ -54,9 +58,18 @@ define(function (require, exports, module) {
             $('.view-page.show').removeClass('show iC').addClass('iL');
             $('#accountListPage').removeClass('iL').addClass('show iC');
             $('header.navbar').html(_.template($('#navBack_tpl').html(),{'backUrl':'','backTitle':'返回'})+$('#accountListTabBar_tpl').html());
-            $('.tab-bar li').eq(that.status-1).addClass('cur');
 
+            $('.tab-bar li.cur').removeClass('cur');
+            $('.tab-bar li').eq(that.status-1).addClass('cur');
+            $('#accountListPage .person-list').html('');
+            $('#accountListPageNav').html('');
             that.accountListModel.getPageData({'type':that.status,'curPage':that.curPage,'pageSize': that.pageSize,"order":"fans"});
+        },
+        goToAccount:function(e){
+            e.stopPropagation();
+            console.log('goToAccount');
+            var cur=$(e.currentTarget);
+            window.location.hash='#account/'+cur.attr('snsid')+'/1';
         },
         follow:function(e){
             e.stopPropagation();
@@ -72,13 +85,13 @@ define(function (require, exports, module) {
                         cur.html('关注');
                         cur.removeClass('followed');
                     },function(){
-                        cur.html('已关注');
+                        cur.html('取消关注');
                     });
                 }else{
                     cur.html('关注中...');
                     cur.addClass('followed');
                     mtop.addAccount(cur.attr('pid'),function(){
-                        cur.html('已关注');
+                        cur.html('取消关注');
                     },function(){
                         cur.html('关注');
                         cur.removeClass('followed');

@@ -6,7 +6,9 @@ define(function (require, exports, module) {
         //base64 = require('base64'),
         h5_comm = require('h5_comm'),
         h5_cache = require('h5_cache'),
-        cookie = require('cookie');
+        cookie = require('cookie'),
+        refine = require('../common/refine.js');
+
 
     /**
      * 个人信息页面
@@ -38,11 +40,17 @@ define(function (require, exports, module) {
             if (2 == type) {
                 mtop.my(
                     pageParam, function (accResult) {
+                        //手动改变数据集，以达到出发change事件
+                        accResult.a=new Date().getTime();
+                        refine.refineRecommend(accResult);
                         self.set("myAttention", accResult);
                     });
 
             } else {
                 mtop.recommends(pageParam, function (recResult) {
+                    //手动改变数据集，以达到出发change事件
+                    recResult.a=new Date().getTime();
+                    refine.refineRecommend(recResult);
                     self.set("recommends", recResult);
                 })
 

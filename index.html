@@ -94,6 +94,20 @@
                 </div>
             </div>
         </script>
+        <script id="myList_tpl" type="text/template">
+            <ul>
+                <% _.each(list, function(item) { %>
+                <li>
+                    <div snsid="<%=item.id%>" class="content">
+                        <div class="title"><%=item.nick%></div>
+                        <div class="info"><%=item.description%></div>
+                        <div class="follows"><span><%=item.fansCount%></span>关注者</div>
+                        <img src="<%=item.logoUrl%>">
+                    </div>
+                </li>
+                <% }); %>
+            </ul>
+        </script>
         <script id="personList_tpl" type="text/template">
 
                 <ul>
@@ -114,7 +128,6 @@
                     </li>
                     <% }); %>
                 </ul>
-            </div>
         </script>
         <script id="recommendtip_tpl" type="text/template">
             <div class="recommendtip">您还没有关注任何账号哦，看看我们的推荐吧！</div>
@@ -138,7 +151,13 @@
                                     <div class="info"><%=item.firstFeed.summary%></div>
                                     <div class="status">
                                         <span class="time"><%=timestamps(item.firstFeed.time)%></span>
-                                        <span class="like"><%=item.account.fansCount%></span>
+                                        <span class="like">
+                                            <%if (item.unreadCount>9){ %>
+                                            9+
+                                            <% }else{ %>
+                                                <%=item.unreadCount%>
+                                            <% } %>
+                                        </span>
                                         <span class="name"><%=item.account.nick%></span>
                                     </div>
                                 </div>
@@ -156,7 +175,7 @@
                 <div class="user-cover" style="background-image: url('<%=backgroundImg%>')">
                 </div>
                 <div class="user-avatar">
-                    <img src="<%=logoUrl%>_60x60.jpg"/>
+                    <img src="<%=logoUrl%>"/>
                 </div>
                 <div class="user-info">
                     <h1><%=nick%></h1>
@@ -197,11 +216,13 @@
                     <li feedId="<%=item.id%>">
                         <div class="title"><%=item.title%></div>
                         <% if(item.coverTile){ %>
-                        <div class="media">
-                            <div class="item">
-                                <img src="<%=item.coverTile.path%>" width="290px" height="120px"/>
+                            <% if(item.coverTile.path){%>
+                            <div class="media">
+                                <div class="item">
+                                    <img src="<%=item.coverTile.path%>" width="100%"/>
+                                </div>
                             </div>
-                        </div>
+                            <% } %>
                         <% } %>
                         <div class="text">
                             <%=item.summary%>
