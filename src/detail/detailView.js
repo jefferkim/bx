@@ -27,14 +27,13 @@ define(function (require, exports, module) {
         },
         initialize:function () {
 
-            var that = this;
-            that.$container = $('#detailPage');
+            this.$container = $('#detailPage');
 
-            that.model.on('change:feed', this.renderDetail, this);
+            this.model.on('change:feed', this.renderDetail, this);
 
-            that.model.on('change:accInfo', this.renderAccInfo, this);
+            this.model.on('change:accInfo', this.renderAccInfo, this);
 
-
+            this.model.on('change:prices', this.renderPrices, this)
         },
        goDetail : function(snsId,feedId){
 
@@ -63,6 +62,22 @@ define(function (require, exports, module) {
 
           var feed = this.model.get('feed');
           console.log('render detail! feed='+JSON.stringify(feed));
+        },
+
+        renderPrices: function() {
+          var $items = this.$container.find('.media .item')
+          var prices = this.model.get('prices')
+          for (var i = 0; i < $items.length; i++) {
+            var $item = $items.eq(i)
+            var id = $item.attr('data-id')
+            for (var j = 0; j < prices.length; j++) {
+              if (id == prices[j].id) {
+                $item.find('.price').text('￥' + prices[j].price)
+                break;
+              }
+            }
+          }
+          console.log('prices', this.model.get('prices'))
         },
 
         commentList: function() {

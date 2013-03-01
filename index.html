@@ -282,7 +282,7 @@
                     <p><%= tiles[i].text %></p>
                 <% } else if (tiles[i].type == "picItem") { %>
                     <div class="media">
-                      <div class="item">
+                      <div class="item" data-id="<%= tiles[i].items[0].id %>">
                         <img src="<%= tiles[i].path %>" alt="">
                         <div class="price"></div>
                       </div>
