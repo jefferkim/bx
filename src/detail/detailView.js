@@ -23,7 +23,6 @@ define(function (require, exports, module) {
         el: '#content',
         model : new _model(),
         events:{
-          'click .brand': 'account',
           'click .comment-list.btn': 'commentList'
         },
         initialize:function () {
@@ -51,8 +50,8 @@ define(function (require, exports, module) {
 
        },
         renderAccInfo: function() {
-          var accInfo = accinfoTemplate(this.model.get('accInfo'));
-          this.$container.prepend(accInfo);
+          var accInfo = accinfoTemplate($.extend(this.model.get('accInfo'), { snsId: this.snsId }))
+          this.$container.find('.account').html(accInfo);
 
           console.log('detail accInfo', JSON.stringify(this.model.get('accInfo')))
         },
@@ -60,14 +59,10 @@ define(function (require, exports, module) {
         //渲染详情页
         renderDetail: function() {
           var content = contentTemplate(this.model.get('feed'));
-          this.$container.append(content);
+          this.$container.find('.main').html(content);
 
           var feed = this.model.get('feed');
           console.log('render detail! feed='+JSON.stringify(feed));
-        },
-
-        account: function() {
-          App.navigate('account/' + this.snsId, { trigger: true })
         },
 
         commentList: function() {

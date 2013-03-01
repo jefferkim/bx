@@ -39,6 +39,8 @@
                     </div>
                 </div>
                 <div id="detailPage" class="view-page iL detail">
+                    <div class="account"></div>
+                    <div class="main"></div>
                 </div>
                 <div id="commentListPage" class="view-page iL comment">
                 </div>
@@ -255,7 +257,7 @@
             </div>
         </script>
         <script id="detail_accinfo_tpl" type="text/template">
-          <a href="#" class="brand">
+          <a href="#account/<%= snsId %>" class="brand">
             <img class="avatar" src="<% backgroundImg %>" alt="">
             <div class="info">
               <p class="name"><%= nick %></p>
@@ -271,7 +273,6 @@
           <div class="separator"></div>
         </script>
         <script id="detail_content_tpl" type="text/template">
-          <div class="main">
             <h1><%= title %></h1>
             <p class="pub-time"><%= timestamps(time) %></p>
             <% for (var i = 0; i < tiles.length; i++) { %>
@@ -292,7 +293,6 @@
             <% if (linkUrl) { %>
                 <a href="<%= linkUrl %>" class="more-content">更多内容</a>
             <% } %>
-          </div>
         </script>
 
         <script id="comment_list_header_tpl" type="text/template">
