@@ -31,15 +31,9 @@ define(function (require, exports, module) {
          */
         getCommentCount:function(param) {
             var self = this;
-            if (h5_comm.isLogin()) {
-                //设置登录状态
-                self.set("loginStatus",true);
-
-                mtop.commentCount(param, function (recResult) {
-                self.set("commentCount", recResult);
-            })}else{
-                self.set("loginStatus",false);
-            }
+             mtop.commentCount(param, function (recResult) {
+             self.set("commentCount", recResult);
+            })
         },
 
         /**

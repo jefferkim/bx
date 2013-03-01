@@ -39,6 +39,8 @@
                     </div>
                 </div>
                 <div id="detailPage" class="view-page iL detail">
+                    <div class="account"></div>
+                    <div class="main"></div>
                 </div>
                 <div id="commentListPage" class="view-page iL comment">
                 </div>
@@ -47,6 +49,8 @@
             </div>
         </div>
         <input type="hidden" id="J_user_nick" value="tbwuzhong000"/>
+        <input type="hidden" id="J_sid" value="6752c8f33e1ed86c2c75115f5b6966bb"/>
+
         <!-- end of #content -->
 
         <!-- Templates -->
@@ -248,13 +252,13 @@
                 <a href="javascript:history.back();">返回</a>
             </div>
             <div class="title">&nbsp;</div>
-            <div class="btn comment comment-list">
-                评论 <span>99+</span>
+            <div class="btn comment">
+                评论 <span></span>
             </div>
         </script>
         <script id="detail_accinfo_tpl" type="text/template">
-          <a href="#" class="brand">
-            <img class="avatar" src="<% backgroundImg %>" alt="">
+          <a href="#account/<%= snsId %>" class="brand">
+            <img class="avatar" src="<%= backgroundImg || 'http://img03.taobaocdn.com/tps/i3/T1KX0vXABeXXc9CzYt-98-98.png' %>" alt="">
             <div class="info">
               <p class="name"><%= nick %></p>
               <p class="follow">
@@ -269,7 +273,6 @@
           <div class="separator"></div>
         </script>
         <script id="detail_content_tpl" type="text/template">
-          <div class="main">
             <h1><%= title %></h1>
             <p class="pub-time"><%= timestamps(time) %></p>
             <% for (var i = 0; i < tiles.length; i++) { %>
@@ -279,7 +282,7 @@
                     <p><%= tiles[i].text %></p>
                 <% } else if (tiles[i].type == "picItem") { %>
                     <div class="media">
-                      <div class="item">
+                      <div class="item" data-id="<%= tiles[i].items[0].id %>">
                         <img src="<%= tiles[i].path %>" alt="">
                         <div class="price"></div>
                       </div>
@@ -290,7 +293,6 @@
             <% if (linkUrl) { %>
                 <a href="<%= linkUrl %>" class="more-content">更多内容</a>
             <% } %>
-          </div>
         </script>
 
         <script id="comment_list_header_tpl" type="text/template">

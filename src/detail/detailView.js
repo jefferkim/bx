@@ -9,8 +9,7 @@ define(function (require, exports, module) {
         _ = require('underscore'),
         _model=require('./detailModel'),
         router = require('../app/routerNew.js')
-
-        console.log('router', router)
+        CommentModel = require('../comment/commentModel.js')
 
     var CommentListView = require('../comment/commentListView');
 
@@ -23,18 +22,21 @@ define(function (require, exports, module) {
         el: '#content',
         model : new _model(),
         events:{
-          'click .brand': 'account',
-          'click .comment-list.btn': 'commentList'
+          'click .comment.btn': 'commentList'
         },
         initialize:function () {
 
-            var that = this;
-            that.$container = $('#detailPage');
+            this.$container = $('#detailPage');
 
-            that.model.on('change:feed', this.renderDetail, this);
+            this.model.on('change:feed', this.renderDetail, this);
 
-            that.model.on('change:accInfo', this.renderAccInfo, this);
+            this.model.on('change:accInfo', this.renderAccInfo, this);
 
+            this.model.on('change:prices', this.renderPrices, this)
+
+            this.commentModel = new CommentModel()
+
+            this.commentModel.on('change:commentCount', this.renderComentCount, this)
 
         },
        goDetail : function(snsId,feedId){
@@ -47,12 +49,12 @@ define(function (require, exports, module) {
            $('.view-page.show').removeClass('show iC').addClass('iL');
            $('#detailPage').removeClass('iL').addClass('show iC');
 
-           that.model.getPageData({'snsId':snsId,'feedId':feedId});
-
+           that.model.getPageData({'snsId':snsId,'feedId':feedId})
+           this.commentModel.getCommentCount({'snsId':snsId,'feedId':feedId})
        },
         renderAccInfo: function() {
-          var accInfo = accinfoTemplate(this.model.get('accInfo'));
-          this.$container.prepend(accInfo);
+          var accInfo = accinfoTemplate($.extend(this.model.get('accInfo'), { snsId: this.snsId }))
+          this.$container.find('.account').html(accInfo);
 
           console.log('detail accInfo', JSON.stringify(this.model.get('accInfo')))
         },
@@ -60,14 +62,35 @@ define(function (require, exports, module) {
         //渲染详情页
         renderDetail: function() {
           var content = contentTemplate(this.model.get('feed'));
-          this.$container.append(content);
+          this.$container.find('.main').html(content);
 
           var feed = this.model.get('feed');
           console.log('render detail! feed='+JSON.stringify(feed));
         },
 
-        account: function() {
-          App.navigate('account/' + this.snsId, { trigger: true })
+       renderComentCount: function() {
+        var count = this.commentModel.get('commentCount').count
+        if (count > 99) count = '99+'
+
+        console.log('comment count', count)
+        $('.comment.btn span').text(count)
+       },
+
+
+        renderPrices: function() {
+          var $items = this.$container.find('.media .item')
+          var prices = this.model.get('prices')
+          for (var i = 0; i < $items.length; i++) {
+            var $item = $items.eq(i)
+            var id = $item.attr('data-id')
+            for (var j = 0; j < prices.length; j++) {
+              if (id == prices[j].id) {
+                $item.find('.price').text('￥' + prices[j].price)
+                break;
+              }
+            }
+          }
+          console.log('prices', this.model.get('prices'))
         },
 
         commentList: function() {
