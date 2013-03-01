@@ -35,7 +35,10 @@ define(function (require, exports, module) {
                     $('#accountListPage .person-list').html(_.template($('#myList_tpl').html(),result));
                     //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));
                     var pageCount=Math.ceil(result.totalCount/that.pageSize);
-                    new pageNav({'id':'#accountListPageNav','pageCount':pageCount,'pageSize':that.pageSize});
+                    that.myPageNav=new pageNav({'id':'#accountListPageNav','curPage':that.curPage,'pageCount':pageCount,'pageSize':that.pageSize,'disableHash': 'true'});
+                    that.myPageNav.pContainer().on('P:switchPage', function(e,page){
+                        that.changePage(page.index);
+                    });
                 }
             });
             that.accountListModel.on("change:recommends",function(model,result){
@@ -45,7 +48,10 @@ define(function (require, exports, module) {
                 if(result.list&&result.list.length>0){
                     $('#accountListPage .person-list').html((_.template($('#personList_tpl').html(),result)));
                     var pageCount=Math.ceil(result.totalCount/that.pageSize);
-                    new pageNav({'id':'#accountListPageNav','pageCount':pageCount,'pagesize':that.pageSize});
+                    that.recPageNav=new pageNav({'id':'#accountListPageNav','curPage':that.curPage,'pageCount':pageCount,'pagesize':that.pageSize,'disableHash': 'true'});
+                    that.recPageNav.pContainer().on('P:switchPage', function(e,page){
+                        that.changePage(page.index);
+                    });
                 }
             });
         },
@@ -64,6 +70,10 @@ define(function (require, exports, module) {
             $('#accountListPage .person-list').html('');
             $('#accountListPageNav').html('');
             that.accountListModel.getPageData({'type':that.status,'curPage':that.curPage,'pageSize': that.pageSize,"order":"fans"});
+        },
+        changePage:function(page){
+            var that=this;
+            window.location.hash='#accountList/'+that.status+'/'+page;
         },
         goToAccount:function(e){
             e.stopPropagation();
@@ -110,9 +120,9 @@ define(function (require, exports, module) {
             console.log('ok');
             if(that.status==1){
 
-                window.location.hash='accountList/2';
+                window.location.hash='accountList/2/1';
             }else{
-                window.location.hash='accountList/1';
+                window.location.hash='accountList/1/1';
             }
         }
 
