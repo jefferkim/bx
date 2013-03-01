@@ -21,6 +21,10 @@ result += "Screen.width:";
 result += window.screen.width;
 
 result += "\n"
-result += $("#ratio").css("height");
+
+a = $("<div style='display: none' id='ratio'>");
+$(document.body).append(a);
+result += a.css("height");
 
 input.innerHTML = result;
+a.remove();
