@@ -140,31 +140,33 @@
                 <ul>
                     <% _.each(list, function(item) { %>
                     <% if(item.firstFeed){ %>
-                        <% if(item.firstFeed.coverTile.path) {%>
-                            <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="multimedia">
-                                <div class="media">
-                                    <img src="<%=item.firstFeed.coverTile.path%>">
-                                </div>
-                            <% }else{ %>
-                            <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>">
-                            <% } %>
-                                <div class="feed">
-                                    <div class="title"><%=item.firstFeed.title%></div>
-                                    <div class="info"><%=item.firstFeed.summary%></div>
-                                    <div class="status">
-                                        <span class="time"><%=timestamps(item.firstFeed.time)%></span>
-                                        <span class="like">
-                                            <%if (item.unreadCount>9){ %>
-                                            9+
-                                            <% }else{ %>
-                                                <%=item.unreadCount%>
-                                            <% } %>
-                                        </span>
-                                        <span class="name"><%=item.account.nick%></span>
+                        <% if(item.firstFeed.coverTile){ %>
+                                <% if(item.firstFeed.coverTile.path) {%>
+                                <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="multimedia">
+                                    <div class="media">
+                                        <img src="<%=item.firstFeed.coverTile.path%>">
                                     </div>
-                                </div>
-                            </li>
-                    <% } %>
+                                <% }else{ %>
+                                <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>">
+                                <% } %>
+                                    <div class="feed">
+                                        <div class="title"><%=item.firstFeed.title%></div>
+                                        <div class="info"><%=item.firstFeed.summary%></div>
+                                        <div class="status">
+                                            <span class="time"><%=timestamps(item.firstFeed.time)%></span>
+                                            <span class="like">
+                                                <%if (item.unreadCount>9){ %>
+                                                9+
+                                                <% }else{ %>
+                                                    <%=item.unreadCount%>
+                                                <% } %>
+                                            </span>
+                                            <span class="name"><%=item.account.nick%></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <% } %>
+                        <% } %>
                     <% }); %>
 
                 </ul>
