@@ -45,7 +45,7 @@ define(function(require, exports, module){
    */
    exports.saveSnsFlag = function(nick)
    {
-      if(!h5_base.isSuppLocalStorage())
+      if(h5_base.isSuppLocalStorage())
       {
 	   h5_cache.pushValue(snsFlagCacheKey,nick,'1',maxCount);
       }
