@@ -46,9 +46,9 @@ define(function (require, exports, module) {
                     if(that.oldTotalCount){
                         var addCount=parseInt(result.totalCount)-parseInt(that.oldTotalCount);
                         if(addCount>0){
+                            that.oldTotalCount=result.totalCount;
                             notification.message('更新了 '+addCount+' 条广播');
                         }
-
                     }else{
                         that.oldTotalCount=result.totalCount;
                     }
