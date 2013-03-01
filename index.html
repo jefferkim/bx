@@ -122,7 +122,7 @@
                             <img src="<%=item.logoUrl%>">
                         </div>
                         <% if(item.followed=='true'){ %>
-                            <button pid="<%=item.id%>" class="followbtn followed">已关注</button>
+                            <button pid="<%=item.id%>" class="followbtn followed">取消关注</button>
 
                         <% }else{ %>
                             <button pid="<%=item.id%>" class="followbtn">关注</button>
@@ -140,31 +140,33 @@
                 <ul>
                     <% _.each(list, function(item) { %>
                     <% if(item.firstFeed){ %>
-                        <% if(item.firstFeed.coverTile.path) {%>
-                            <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="multimedia">
-                                <div class="media">
-                                    <img src="<%=item.firstFeed.coverTile.path%>">
-                                </div>
-                            <% }else{ %>
-                            <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>">
-                            <% } %>
-                                <div class="feed">
-                                    <div class="title"><%=item.firstFeed.title%></div>
-                                    <div class="info"><%=item.firstFeed.summary%></div>
-                                    <div class="status">
-                                        <span class="time"><%=timestamps(item.firstFeed.time)%></span>
-                                        <span class="like">
-                                            <%if (item.unreadCount>9){ %>
-                                            9+
-                                            <% }else{ %>
-                                                <%=item.unreadCount%>
-                                            <% } %>
-                                        </span>
-                                        <span class="name"><%=item.account.nick%></span>
+                        <% if(item.firstFeed.coverTile){ %>
+                                <% if(item.firstFeed.coverTile.path) {%>
+                                <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="multimedia">
+                                    <div class="media">
+                                        <img src="<%=item.firstFeed.coverTile.path%>">
                                     </div>
-                                </div>
-                            </li>
-                    <% } %>
+                                <% }else{ %>
+                                <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>">
+                                <% } %>
+                                    <div class="feed">
+                                        <div class="title"><%=item.firstFeed.title%></div>
+                                        <div class="info"><%=item.firstFeed.summary%></div>
+                                        <div class="status">
+                                            <span class="time"><%=timestamps(item.firstFeed.time)%></span>
+                                            <span class="like">
+                                                <%if (item.unreadCount>9){ %>
+                                                9+
+                                                <% }else{ %>
+                                                    <%=item.unreadCount%>
+                                                <% } %>
+                                            </span>
+                                            <span class="name"><%=item.account.nick%></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <% } %>
+                        <% } %>
                     <% }); %>
 
                 </ul>
@@ -252,13 +254,13 @@
                 <a href="javascript:history.back();">返回</a>
             </div>
             <div class="title">&nbsp;</div>
-            <div class="btn comment comment-list">
-                评论 <span>99+</span>
+            <div class="btn comment">
+                评论 <span></span>
             </div>
         </script>
         <script id="detail_accinfo_tpl" type="text/template">
           <a href="#account/<%= snsId %>" class="brand">
-            <img class="avatar" src="<% backgroundImg %>" alt="">
+            <img class="avatar" src="<%= backgroundImg || 'http://img03.taobaocdn.com/tps/i3/T1KX0vXABeXXc9CzYt-98-98.png' %>" alt="">
             <div class="info">
               <p class="name"><%= nick %></p>
               <p class="follow">
@@ -282,7 +284,7 @@
                     <p><%= tiles[i].text %></p>
                 <% } else if (tiles[i].type == "picItem") { %>
                     <div class="media">
-                      <div class="item">
+                      <div class="item" data-id="<%= tiles[i].items[0].id %>">
                         <img src="<%= tiles[i].path %>" alt="">
                         <div class="price"></div>
                       </div>
