@@ -39,6 +39,8 @@
                     </div>
                 </div>
                 <div id="detailPage" class="view-page iL detail">
+                    <div class="account"></div>
+                    <div class="main"></div>
                 </div>
                 <div id="commentListPage" class="view-page iL comment">
                 </div>
@@ -47,6 +49,7 @@
             </div>
         </div>
         <input type="hidden" id="J_user_nick" value="tbwuzhong000"/>
+        <input type="hidden" id="J_sid" value="6752c8f33e1ed86c2c75115f5b6966bb"/>
 
         <!-- end of #content -->
 
@@ -93,6 +96,20 @@
                 </div>
             </div>
         </script>
+        <script id="myList_tpl" type="text/template">
+            <ul>
+                <% _.each(list, function(item) { %>
+                <li>
+                    <div snsid="<%=item.id%>" class="content">
+                        <div class="title"><%=item.nick%></div>
+                        <div class="info"><%=item.description%></div>
+                        <div class="follows"><span><%=item.fansCount%></span>关注者</div>
+                        <img src="<%=item.logoUrl%>">
+                    </div>
+                </li>
+                <% }); %>
+            </ul>
+        </script>
         <script id="personList_tpl" type="text/template">
 
                 <ul>
@@ -113,13 +130,12 @@
                     </li>
                     <% }); %>
                 </ul>
-            </div>
         </script>
         <script id="recommendtip_tpl" type="text/template">
             <div class="recommendtip">您还没有关注任何账号哦，看看我们的推荐吧！</div>
         </script>
         <script id="myfeed_tpl" type="text/template">
-            
+
             <div class="myfeed">
                 <ul>
                     <% _.each(list, function(item) { %>
@@ -137,7 +153,13 @@
                                     <div class="info"><%=item.firstFeed.summary%></div>
                                     <div class="status">
                                         <span class="time"><%=timestamps(item.firstFeed.time)%></span>
-                                        <span class="like"><%=item.account.fansCount%></span>
+                                        <span class="like">
+                                            <%if (item.unreadCount>9){ %>
+                                            9+
+                                            <% }else{ %>
+                                                <%=item.unreadCount%>
+                                            <% } %>
+                                        </span>
                                         <span class="name"><%=item.account.nick%></span>
                                     </div>
                                 </div>
@@ -155,7 +177,7 @@
                 <div class="user-cover" style="background-image: url('<%=backgroundImg%>')">
                 </div>
                 <div class="user-avatar">
-                    <img src="<%=logoUrl%>_60x60.jpg"/>
+                    <img src="<%=logoUrl%>"/>
                 </div>
                 <div class="user-info">
                     <h1><%=nick%></h1>
@@ -173,7 +195,7 @@
                 </div>
                 <div class="profile-overview">
                     <div url="<%=url%>" class="stats-global wwwIco">
-                        
+
                     </div>
                 </div>
 
@@ -196,11 +218,13 @@
                     <li feedId="<%=item.id%>">
                         <div class="title"><%=item.title%></div>
                         <% if(item.coverTile){ %>
-                        <div class="media">
-                            <div class="item">
-                                <img src="<%=item.coverTile.path%>" width="290px" height="120px"/>
+                            <% if(item.coverTile.path){%>
+                            <div class="media">
+                                <div class="item">
+                                    <img src="<%=item.coverTile.path%>" width="100%"/>
+                                </div>
                             </div>
-                        </div>
+                            <% } %>
                         <% } %>
                         <div class="text">
                             <%=item.summary%>
@@ -233,8 +257,8 @@
             </div>
         </script>
         <script id="detail_accinfo_tpl" type="text/template">
-          <a href="#" class="brand">
-            <img class="avatar" src="imgs/avatar.png" alt="">
+          <a href="#account/<%= snsId %>" class="brand">
+            <img class="avatar" src="<% backgroundImg %>" alt="">
             <div class="info">
               <p class="name"><%= nick %></p>
               <p class="follow">
@@ -249,7 +273,6 @@
           <div class="separator"></div>
         </script>
         <script id="detail_content_tpl" type="text/template">
-          <div class="main">
             <h1><%= title %></h1>
             <p class="pub-time"><%= timestamps(time) %></p>
             <% for (var i = 0; i < tiles.length; i++) { %>
@@ -258,14 +281,18 @@
                 <% } else if (tiles[i].type == "text") { %>
                     <p><%= tiles[i].text %></p>
                 <% } else if (tiles[i].type == "picItem") { %>
-
+                    <div class="media">
+                      <div class="item">
+                        <img src="<%= tiles[i].path %>" alt="">
+                        <div class="price"></div>
+                      </div>
+                    </div>
                 <% } %>
             <% } %>
 
             <% if (linkUrl) { %>
                 <a href="<%= linkUrl %>" class="more-content">更多内容</a>
             <% } %>
-          </div>
         </script>
 
         <script id="comment_list_header_tpl" type="text/template">
@@ -274,6 +301,27 @@
             </div>
             <div class="title">&nbsp;</div>
             <div class="btn comment write-comment">写评论</div>
+        </script>
+
+        <script id="comment_list_tpl" type="text/template">
+            <ul class="comment-list">
+                <% for (var i = 0; i < list.length; i++) { %>
+                <li>
+                    <div class="user-info">
+                        <img src="<%= list[i].createrPic %>">
+                        <div class="info">
+                          <p class="user-name"><%= list[i].createrName %></p>
+                          <p class="pub-time"><%= timestamps(list[i].time) %></p>
+                        </div>
+                      </div>
+                      <div class="user-comment">
+                        <%= list[i].content %>
+                      </div>
+                      <div class="separator"></div>
+                </li>
+                <% } %>
+            </ul>
+            <div id="commentListPageNav" class="pagenav"></div>
         </script>
 
         <script id="newComment_header_tpl" type="text/template">
