@@ -1168,7 +1168,6 @@ window.Zepto = Zepto
         }
       }
     }
-
     var async = 'async' in settings ? settings.async : true
     xhr.open(settings.type, settings.url, async)
 
