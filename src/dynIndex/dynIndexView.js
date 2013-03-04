@@ -96,7 +96,7 @@ define(function (require, exports, module) {
             //判断是否登录
             var that=this;
             $('body').unbind();
-            $('.view-page.show').removeClass('show iL');
+            $('.view-page.show').removeClass('show iC').addClass('iL');
             $('#indexPage').removeClass('iL').addClass('show iC');
             that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});
 
@@ -122,6 +122,7 @@ define(function (require, exports, module) {
             if(h5_comm.isLogin()){
                 window.location.hash='#accountList/1';
             }else{
+                allSpark_hash
                 h5_comm.goLogin('h5_allspark');
             }
         },
@@ -158,6 +159,9 @@ define(function (require, exports, module) {
             }else{
                 h5_comm.goLogin('h5_allspark');
             }
+        },
+        goLogin:function(){
+            allSpark_hash
         },
         goLogin : function(){
             h5_comm.goLogin('h5_allspark');

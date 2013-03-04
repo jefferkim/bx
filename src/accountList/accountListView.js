@@ -63,7 +63,7 @@ define(function (require, exports, module) {
             //$('.tb-h5').html('');
             $('.view-page.show').removeClass('show iC').addClass('iL');
             $('#accountListPage').removeClass('iL').addClass('show iC');
-            $('header.navbar').html(_.template($('#navBack_tpl').html(),{'backUrl':'','backTitle':'返回'})+$('#accountListTabBar_tpl').html());
+            $('header.navbar').html(_.template($('#navBack_tpl').html(),{'backUrl':'','backTitle':''})+$('#accountListTabBar_tpl').html());
 
             $('.tab-bar li.cur').removeClass('cur');
             $('.tab-bar li').eq(that.status-1).addClass('cur');
@@ -113,7 +113,9 @@ define(function (require, exports, module) {
             }
         },
         goBack:function(){
-            history.back();
+            //history.back();
+            bas
+            window.location.hash='';
         },
         changeTab:function(){
             var that=this;
