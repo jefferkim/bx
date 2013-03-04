@@ -18,17 +18,16 @@ define(function (require, exports, module) {
         el:'#content',
         events:{
             'click .tb-feed-items li':'goToDetail',
-            'click .navbar .back':'goBack',
-            'click .J_info .stats-follow-btn':'follow',
-            'click .navbar .refresh':'refresh',
-            'click .wwwIco':'goWWW'
+            //'click .navbar .back':'goBackHome',
+            'click #accountPage .J_info .stats-follow-btn':'follow',
+            'click #accountPage .navbar .refresh':'refresh',
+            'click #accountPage .wwwIco':'goWWW'
 
 
         },
         initialize:function () {
             var that=this;
             that._pageSize=4;
-
             that.accountModel = new _model();
             that.accountModel.on("change:accInfo",function(model,result){
                 console.log('accInfo');
@@ -67,26 +66,42 @@ define(function (require, exports, module) {
             that.accountModel.on("change:prices",function(model,result){
                 console.log('prices');
                 console.log(result);
-                if(result.list&&result.list.length>0){
+                if(result&&result.length>0){
+
+                    for(var i=0;i<result.length;i++){
+                        $('.it'+result[i].id).append('<div class="price">￥'+result[i].price+'</div>')
+                    }
+
+
                     //<div class="price">￥102.00</div>
                 }
                 //测试插入效果
-                setTimeout(function(){
-                    var _item=$('.media .item');
-                    for(var i=0;i<_item.length;i++){
-                        _item.eq(i).append('<div class="price">￥102.00</div>');
-                    }
-                },5000);
+//                setTimeout(function(){
+//                    var _item=$('.media .item');
+//                    for(var i=0;i<_item.length;i++){
+//                        _item.eq(i).append('<div class="price">￥102.00</div>');
+//                    }
+//                },5000);
             });
         },
         render:function(snsid,page){
             var that=this;
             that.snsid=snsid;
             that.curPage= page;
-            $('body').unbind();
+            $('header.navbar').html('');
+            $('.navbar .back').unbind('click');
             //$('.tb-h5').html('');
 
             var _back={'backUrl':'','backTitle':'返回'};
+            if(typeof window.AccountList!='undefined'){
+                window.AccountList.flag=false;
+                //window.location.hash=window.AccountList.hash;
+                _back={'backUrl':'#'+window.AccountList.hash,'backTitle':'返回'};
+                delete window.AccountList;
+            }else{
+                _back={'backUrl':'#index','backTitle':'返回'}
+            }
+
 
             $('.view-page.show').removeClass('show iC').addClass('iL');
             $('#accountPage').removeClass('iL').addClass('show iC');
@@ -122,7 +137,7 @@ define(function (require, exports, module) {
                 window.location.href=cur.attr('url');
             },null);
         },
-        goBack:function(){
+        goBackHome:function(){
             if(typeof window.AccountList!='undefined'){
                 window.AccountList.flag=false;
                 window.location.hash=window.AccountList.hash;

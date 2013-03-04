@@ -71,7 +71,9 @@ define(function (require, exports, module) {
                 //获取价格参数
                 var ids = [];
                 result.totalCount && result.list && result.list.forEach(function(feed){
-                    feed.coverTile && feed.coverTile.item && feed.coverTile.item.id && (ids.push(feed.coverTile.item.id));
+                    feed.coverTile && feed.coverTile.items && feed.coverTile.items.forEach(function(item){
+                        item.id&&ids.push(item.id)
+                    });
                 });
                 mtop.getPrices(_.uniq(ids),function(prices){
                     prices.length && self.set("prices",prices);

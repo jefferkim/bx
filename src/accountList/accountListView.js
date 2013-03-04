@@ -8,6 +8,7 @@ define(function (require, exports, module) {
         $ = require('zepto'),
         _ = require('underscore'),
         _model=require('./accountListModel'),
+        h5_comm = require('h5_comm'),
         pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
         mtop = require('../common/mtopForAllspark.js');
 
@@ -16,9 +17,9 @@ define(function (require, exports, module) {
         el:'#content',
         events:{
             'click .tab-bar li':'changeTab',
-            'click .navbar .back':'goBack',
-            'click .person-list li .content':'goToAccount',
-            'click .followbtn':'follow'
+            //'click .navbar .back':'goBack',
+            'click #accountListPage .person-list li .content':'goToAccount',
+            'click #accountListPage .followbtn':'follow'
         },
         initialize:function () {
             var that=this;
@@ -55,11 +56,11 @@ define(function (require, exports, module) {
             var that=this;
             that.status=status;
             that.curPage=page;
-            $('body').unbind();
             //$('.tb-h5').html('');
+            $('.navbar .back').unbind('click');
             $('.view-page.show').removeClass('show iC').addClass('iL');
             $('#accountListPage').removeClass('iL').addClass('show iC');
-            $('header.navbar').html(_.template($('#navBack_tpl').html(),{'backUrl':'','backTitle':'微淘'})+$('#accountListTabBar_tpl').html());
+            $('header.navbar').html(_.template($('#navBack_tpl').html(),{'backUrl':'#index','backTitle':'微淘'})+$('#accountListTabBar_tpl').html());
 
             $('.tab-bar li.cur').removeClass('cur');
             $('.tab-bar li').eq(that.status-1).addClass('cur');

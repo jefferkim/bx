@@ -25,9 +25,9 @@ define(function (require, exports, module) {
             'click #J_login_btn' : 'goLogin',
             'click .navbar .add':'add',
             'click .navbar .refresh':'refresh',
-            'click .myfeed li':'goToAccount',
-            'click .person-list li .content':'goToAccount',
-            'click .person-list .followbtn':'follow'
+            'click #indexPage .myfeed li':'goToAccount',
+            'click #indexPage .person-list li .content':'goToAccount',
+            'click #indexPage .person-list .followbtn':'follow'
         },
         initialize:function (page) {
             //判断是否登录
@@ -95,7 +95,8 @@ define(function (require, exports, module) {
             console.log('homePage render');
             //判断是否登录
             var that=this;
-            $('body').unbind();
+
+
             $('.view-page.show').removeClass('show iC').addClass('iL');
             $('#indexPage').removeClass('iL').addClass('show iC');
             that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});

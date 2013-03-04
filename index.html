@@ -56,7 +56,7 @@
         <!-- Templates -->
         <script id="navBack_tpl" type="text/template">
             <div class="back">
-                <a><%=backTitle%></a>
+                <a href="<%=backUrl%>"><%=backTitle%></a>
             </div>
 
         </script>
@@ -222,7 +222,11 @@
                         <% if(item.coverTile){ %>
                             <% if(item.coverTile.path){%>
                             <div class="media">
-                                <div class="item">
+                                <div class="item <% if(item.coverTile.items){ %>
+                                    <% if(item.coverTile.items.length>0){ %>
+                                        it<%=item.coverTile.items[0].id%>
+                                    <% } %>
+                                 <% } %>" >
                                     <img src="<%=item.coverTile.path%>" width="100%"/>
                                 </div>
                             </div>
