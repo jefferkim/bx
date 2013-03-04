@@ -122,7 +122,7 @@ define(function (require, exports, module) {
             if(h5_comm.isLogin()){
                 window.location.hash='#accountList/1';
             }else{
-                allSpark_hash
+                //allSpark_hash
                 h5_comm.goLogin('h5_allspark');
             }
         },
@@ -159,9 +159,6 @@ define(function (require, exports, module) {
             }else{
                 h5_comm.goLogin('h5_allspark');
             }
-        },
-        goLogin:function(){
-            allSpark_hash
         },
         goLogin : function(){
             h5_comm.goLogin('h5_allspark');

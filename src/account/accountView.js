@@ -21,7 +21,6 @@ define(function (require, exports, module) {
             'click .navbar .back':'goBack',
             'click .J_info .stats-follow-btn':'follow',
             'click .navbar .refresh':'refresh',
-
             'click .wwwIco':'goWWW'
 
 
@@ -86,6 +85,7 @@ define(function (require, exports, module) {
             that.curPage= page;
             $('body').unbind();
             //$('.tb-h5').html('');
+
             var _back={'backUrl':'','backTitle':'返回'};
 
             $('.view-page.show').removeClass('show iC').addClass('iL');
@@ -123,7 +123,12 @@ define(function (require, exports, module) {
             },null);
         },
         goBack:function(){
-            window.history.back();
+            if(typeof window.AccountList!='undefined'){
+                window.AccountList.flag=false;
+                window.location.hash=window.AccountList.hash;
+            }else{
+                window.history.back();
+            }
         },
         follow:function(e){
             var that=this;

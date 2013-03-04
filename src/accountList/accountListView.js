@@ -23,11 +23,7 @@ define(function (require, exports, module) {
         initialize:function () {
             var that=this;
             that.pageSize = 5;
-
-
-
             that.accountListModel = new _model();
-
             that.accountListModel.on("change:myAttention",function(model,result){
                 console.log('myAttention');
                 console.log(result);
@@ -63,7 +59,7 @@ define(function (require, exports, module) {
             //$('.tb-h5').html('');
             $('.view-page.show').removeClass('show iC').addClass('iL');
             $('#accountListPage').removeClass('iL').addClass('show iC');
-            $('header.navbar').html(_.template($('#navBack_tpl').html(),{'backUrl':'','backTitle':''})+$('#accountListTabBar_tpl').html());
+            $('header.navbar').html(_.template($('#navBack_tpl').html(),{'backUrl':'','backTitle':'微淘'})+$('#accountListTabBar_tpl').html());
 
             $('.tab-bar li.cur').removeClass('cur');
             $('.tab-bar li').eq(that.status-1).addClass('cur');
@@ -76,9 +72,11 @@ define(function (require, exports, module) {
             window.location.hash='#accountList/'+that.status+'/'+page;
         },
         goToAccount:function(e){
+            var that=this;
             e.stopPropagation();
             console.log('goToAccount');
             var cur=$(e.currentTarget);
+            window.AccountList={'hash':'#accountList/'+that.status+'/'+that.curPage,'flag':true}
             window.location.hash='#account/'+cur.attr('snsid')+'/1';
         },
         follow:function(e){
@@ -88,7 +86,6 @@ define(function (require, exports, module) {
             if(that.loginFlag){
                 //已登录
                 console.log('follow');
-
                 if(cur.hasClass('followed')){
                     cur.html('取消关注...');
                     mtop.removeAccount(cur.attr('pid'),function(){
@@ -114,14 +111,13 @@ define(function (require, exports, module) {
         },
         goBack:function(){
             //history.back();
-            bas
-            window.location.hash='';
+            console.log('go index');
+            window.location.hash='index/';
         },
         changeTab:function(){
             var that=this;
             console.log('ok');
             if(that.status==1){
-
                 window.location.hash='accountList/2/1';
             }else{
                 window.location.hash='accountList/1/1';
