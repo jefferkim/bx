@@ -16,6 +16,7 @@ define(function(require, exports, module) {
     model: new CommentModel(),
 
     events: {
+      'click .navbar .back a': 'back',
       'keyup #comment-area': 'typing',
       'click .publish-comment.btn': 'publish'
     },
@@ -37,6 +38,11 @@ define(function(require, exports, module) {
           $('.view-page.show').removeClass('show iC').addClass('iL');
           $('#newCommentPage').removeClass('iL').addClass('show iC');
       },
+
+    back: function() {
+      App.navigate('comment/' + this.snsId + '/' + this.feedId + '/' + this.curPage, { trigger: true, replace: true })
+    },
+
     typing: function() {
       var length = this.$commentArea.val().length
       this.$charCount.text(length)
@@ -46,6 +52,7 @@ define(function(require, exports, module) {
     },
 
     publish: function() {
+      var self = this
       var comment = this.$commentArea.val()
       console.log('comment length is', comment.length)
 
@@ -57,9 +64,16 @@ define(function(require, exports, module) {
           feedId: this.feedId,
           content: _.escape(comment)
         }, function(success) {
+          if (success) {
+            notification.message('发布成功！')
+            self.$commentArea.val('')
+            self.back()
+          } else {
+            notification.message('发布失败，请重试')
+          }
 
         });
-        notification.message("发布中请稍候")
+        notification.message("发布中，请稍候...", true)
       }
     }
 

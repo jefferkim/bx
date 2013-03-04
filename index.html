@@ -279,13 +279,13 @@
             <p class="pub-time"><%= timestamps(time) %></p>
             <% for (var i = 0; i < tiles.length; i++) { %>
                 <% if (tiles[i].type == "pic") { %>
-                    <div class="media"><img src="<%= tiles[i].path %>" style="max-width: <%= window.innerWidth - 30 %>px;"></div>
+                    <div class="media"><img src="<%= tiles[i].path %>" style="width: 100%;"></div>
                 <% } else if (tiles[i].type == "text") { %>
                     <p><%= tiles[i].text %></p>
                 <% } else if (tiles[i].type == "picItem") { %>
                     <div class="media">
                       <div class="item" data-id="<%= tiles[i].items[0].id %>">
-                        <img src="<%= tiles[i].path %>" alt="" style="max-width: <%= window.innerWidth - 30 %>px;">
+                        <img src="<%= tiles[i].path %>" alt="" style="width: 100%;">
                         <div class="price"></div>
                       </div>
                     </div>
@@ -328,7 +328,7 @@
 
         <script id="newComment_header_tpl" type="text/template">
             <div class="back">
-                <a href="javascript:history.back();">返回</a>
+                <a href="#">返回</a>
             </div>
             <div class="title">&nbsp;</div>
             <div class="btn comment green publish-comment">发布</div>

@@ -21,7 +21,9 @@ define(function(require, exports, module) {
       $notification.css('top', window.innerHeight / 2 - $notification.height() / 2)
     },
 
-    message: function(message) {
+
+
+    message: function(message, stay) {
       $notification.off()
       $actions.hide()
       $longMessage.hide()
@@ -29,7 +31,7 @@ define(function(require, exports, module) {
       this.position()
       this.show()
       var self = this
-      setTimeout(function() { self.hide() }, 1200)
+      if (!stay) setTimeout(function() { self.hide() }, 1200)
     },
 
     alert: function(message, callback) {
