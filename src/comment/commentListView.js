@@ -36,7 +36,7 @@ define(function(require, exports, module) {
          this.feedId = feedId
          this.page = page
 
-         $('header.navbar').html(commentListHeaderTemplate({}));
+         $('header.navbar').html(commentListHeaderTemplate({ href: '#detail/' + this.snsId + '/' + this.feedId }));
 
          $('.view-page.show').removeClass('show iC').addClass('iL');
          $('#commentListPage').removeClass('iL').addClass('show iC');
