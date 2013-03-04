@@ -52,6 +52,7 @@ define(function(require, exports, module) {
     },
 
     publish: function() {
+      var self = this
       var comment = this.$commentArea.val()
       console.log('comment length is', comment.length)
 
@@ -63,9 +64,16 @@ define(function(require, exports, module) {
           feedId: this.feedId,
           content: _.escape(comment)
         }, function(success) {
+          if (success) {
+            notification.message('发布成功！')
+            self.$commentArea.val('')
+            self.back()
+          } else {
+            notification.message('发布失败，请重试')
+          }
 
         });
-        notification.message("发布中请稍候")
+        notification.message("发布中，请稍候...", true)
       }
     }
 
