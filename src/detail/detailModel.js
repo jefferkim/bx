@@ -44,10 +44,6 @@ define(function (require, exports, module) {
                 //获取实时优惠价格
                 getPrices(result);
 
-                //获取评论数
-                var commentModel = new CommentModel();
-                commentModel.getCommentCount(param);
-
                 //获取卖家信息
                 var accountModel = new AccountModel();
                 var pageParam = _.clone(mtop.pageParam);

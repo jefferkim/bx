@@ -114,7 +114,7 @@ define(function(require, exports, module) {
     },
 
     commentList: function(snsId, feedId, page) {
-        page=page||1;
+        page=page|| _commentView.page || 1;
         _commentView.goComment(snsId, feedId, page);
       console.log('route into commentList')
     },

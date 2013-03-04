@@ -22,7 +22,8 @@ define(function (require, exports, module) {
         el: '#content',
         model : new _model(),
         events:{
-          'click .comment.btn': 'commentList'
+          'click .comment.btn': 'commentList',
+          'click #detailPage .brand': 'naviForAndroid'
         },
         initialize:function () {
 
@@ -76,6 +77,9 @@ define(function (require, exports, module) {
         $('.comment.btn span').text(count)
        },
 
+       naviForAndroid: function() {
+        window.allspark && window.allspark.skipToHome && window.allspark.skipToHome(this.snsId, 1)
+       },
 
         renderPrices: function() {
           var $items = this.$container.find('.media .item')
