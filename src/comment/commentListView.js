@@ -34,6 +34,7 @@ define(function(require, exports, module) {
 
          this.snsId = snsId
          this.feedId = feedId
+         this.page = page
 
          $('header.navbar').html(commentListHeaderTemplate({}));
 
@@ -77,7 +78,7 @@ define(function(require, exports, module) {
     newComment: function() {
       //if (h5_comm.isLogin())
       if (true)
-        location.hash = 'newComment/' + this.snsId + '/' + this.feedId ;
+        location.hash = 'newComment/' + this.snsId + '/' + this.feedId + '/' + this.page;
       else
         h5_comm.goLogin('h5_allspark');
     }

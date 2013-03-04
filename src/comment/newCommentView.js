@@ -40,7 +40,10 @@ define(function(require, exports, module) {
       },
 
     back: function() {
-      App.navigate('comment/' + this.snsId + '/' + this.feedId + '/' + this.curPage, { trigger: true, replace: true })
+      if (location.hash.indexOf('newComment') == 1) {
+        console.log('###', 'comment/' + this.snsId + '/' + this.feedId + '/' + this.curPage)
+        App.navigate('comment/' + this.snsId + '/' + this.feedId + '/' + this.curPage, { trigger: true, replace: true })
+      }
     },
 
     typing: function() {
