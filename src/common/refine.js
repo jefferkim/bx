@@ -98,6 +98,7 @@ define(function(require){
         refineDetail: function(data) {
             data.title = data.title || ''
             data.linkUrl = data.linkUrl || ''
+            data.tiles = data.tiles || ''
         }
     };
 });
