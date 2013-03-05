@@ -50,7 +50,7 @@ define(function(require, exports, module) {
       var list = this.model.get('commentList');
 
       if (list.totalCount == 0) {
-        this.$container.html('<p class="no-comment">暂时没有评论</p>')
+        this.$container.html('<p class="no-comment">还没有评论，快抢沙发吧。</p>')
       } else {
         var commentList = commentListTemlate(this.model.get('commentList'))
         this.$container.html(commentList)
