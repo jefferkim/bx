@@ -48,7 +48,7 @@ define(function (require, exports, module) {
                     //获取实时优惠价格
                     getPrices(result);
                     //获取账号信息
-                    var cacheAccount = cache.getAccountyId(result.creatorId);
+                    var cacheAccount = cache.getAccountById(result.creatorId);
                     if (cacheAccount){
                          self.set("accInfo",cacheAccount);
                     }else{
