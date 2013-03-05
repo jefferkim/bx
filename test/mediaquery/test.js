@@ -1,16 +1,21 @@
-var input = document.getElementById("log");
+function calSizeRatio(){
+    var style = document.createElement("style");
+    style.type = "text/css";
+    style.textContent = "@media screen and (-webkit-device-pixel-ratio:1) {#ratio{height:1px;}}"
+        +"@media screen and (-webkit-device-pixel-ratio:1.5) {#ratio{height:1.5px;}}"
+        + "@media screen and (-webkit-device-pixel-ratio:2) {#ratio{height:2px;}}";
+    $('head').append(style);
 
-function getStyle(obj, attr)
-{
-    if(obj.currentStyle)
-    {
-        return obj.currentStyle[attr];
-    }
-    else
-    {
-        return getComputedStyle(obj,false)[attr];
-    }
+    var ratioTag = $("<div style='display: none' id='ratio'>");
+    $(document.body).append(ratioTag);
+    var result = ratioTag.css("height");
+
+    ratioTag.remove();
+    $(style).remove();
+    return result;
 }
+
+var input = document.getElementById("log");
 
 var result = '';
 
@@ -20,11 +25,7 @@ result += window.innerWidth
 result += "Screen.width:";
 result += window.screen.width;
 
-result += "\n"
-
-a = $("<div style='display: none' id='ratio'>");
-$(document.body).append(a);
-result += a.css("height");
+result += calSizeRatio() + "\n";
 
 input.innerHTML = result;
-a.remove();
+
