@@ -47,6 +47,7 @@ define(function (require, exports, module) {
            that.snsId = snsId;
            that.feedId = feedId;
            $('header.navbar').html(headerTemplate({ href: '#account/' + this.snsId }));
+           this.commentModel && this.commentModel.get('commentCount') && this.commentModel.trigger('change:commentCount')
 
            $('.view-page.show').removeClass('show iC').addClass('iL');
            $('#detailPage').removeClass('iL').addClass('show iC');
