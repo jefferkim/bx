@@ -76,8 +76,7 @@ define(function(require, exports, module) {
     },
 
     newComment: function() {
-      //if (h5_comm.isLogin())
-      if (true)
+      if (h5_comm.isLogin())
         location.hash = 'newComment/' + this.snsId + '/' + this.feedId + '/' + this.page;
       else
         h5_comm.goLogin('h5_allspark');
