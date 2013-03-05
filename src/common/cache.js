@@ -140,7 +140,7 @@ define(function(require, exports, module){
      * @param id
      * @return {*}
      */
-    exports.getAccountyId = function (id)
+    exports.getAccountById = function (id)
     {
         if(h5_base.isClient())
         {
