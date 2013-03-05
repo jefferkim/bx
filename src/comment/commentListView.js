@@ -50,14 +50,14 @@ define(function(require, exports, module) {
       var list = this.model.get('commentList');
 
       if (list.totalCount == 0) {
-        this.$container.html('<p class="no-comment">暂时没有评论</p>')
+        this.$container.html('<p class="no-comment">还没有评论，快抢沙发吧。</p>')
       } else {
         var commentList = commentListTemlate(this.model.get('commentList'))
         this.$container.html(commentList)
 
         this.pageNav = new pageNav({
           'id': '#commentListPageNav',
-          'index': 1,
+          'index': this.page,
           'pageCount': Math.ceil(list.totalCount / this.pageSize),
           'pageSize': this.pageSize,'disableHash': 'true'});
 
@@ -76,8 +76,7 @@ define(function(require, exports, module) {
     },
 
     newComment: function() {
-      //if (h5_comm.isLogin())
-      if (true)
+      if (h5_comm.isLogin())
         location.hash = 'newComment/' + this.snsId + '/' + this.feedId + '/' + this.page;
       else
         h5_comm.goLogin('h5_allspark');

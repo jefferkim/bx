@@ -8,6 +8,7 @@ define(function (require, exports, module) {
         $ = require('zepto'),
         _ = require('underscore'),
         _model=require('./detailModel'),
+        h5_base = require('h5_base'),
         router = require('../app/routerNew.js')
         CommentModel = require('../comment/commentModel.js')
 
@@ -35,17 +36,18 @@ define(function (require, exports, module) {
 
             this.model.on('change:prices', this.renderPrices, this)
 
-            this.commentModel = new CommentModel()
-
-            this.commentModel.on('change:commentCount', this.renderComentCount, this)
-
+            if (!h5_base.isClient()) {
+              this.commentModel = new CommentModel()
+              this.commentModel.on('change:commentCount', this.renderComentCount, this)
+            }
         },
        goDetail : function(snsId,feedId){
 
            var that = this;
            that.snsId = snsId;
            that.feedId = feedId;
-           $('header.navbar').html(headerTemplate({}));
+           $('header.navbar').html(headerTemplate({ href: '#account/' + this.snsId }));
+           this.commentModel && this.commentModel.get('commentCount') && this.commentModel.trigger('change:commentCount')
 
            $('.view-page.show').removeClass('show iC').addClass('iL');
            $('#detailPage').removeClass('iL').addClass('show iC');
