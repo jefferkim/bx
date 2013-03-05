@@ -7,16 +7,18 @@
 define(function(require, exports, module){
   //存储数量10条
   var maxCount = 10,
-      
-	itemCacheKey = 'allspark_item_key',
-	
-	snsFlagCacheKey = 'allspark_sns_flag_key',
+
+     itemCacheKey = 'allspark_item_key',
+
+     accountCacheKey= 'allspark_account_key',
+
+     snsFlagCacheKey = 'allspark_sns_flag_key',
 
      indexTmsCacheKey = 'allspark_index_tms_key',
 	
 	 h5_base = require('h5_base'),
 
-      cookie = require('cookie'),
+     cookie = require('cookie'),
 	
      h5_cache = require('h5_cache');
 
@@ -74,18 +76,43 @@ define(function(require, exports, module){
       }
       return false;
    }
-   /***
+
+
+    //定义队列缓存对象
+   var queryCache = function (len) {
+        this.capacity = len;        //队列最大容量
+        this.kv = {};
+        this.data = new Array();    //队列数据
+        this.put = function(key,value){
+            this.kv[key] = value;
+            this.data.push(this.kv);
+        };
+        this.get = function(key){
+            for(var i=0;i<this.data.length;i++){
+                 if(typeof (this.data[i][key] ) != 'undefined'){
+                     return this.data[i][key];
+                 }
+            }
+        };
+    }
+   //初始化详情缓存队列
+    var itemQueue = new queryCache(50);
+  //初始化账号缓存队列
+    var accountQuery = new queryCache(100);
+
+    /***
    * 通过id从cache获取item数据
    * 目前只对客户端缓存，非客户端直接返回null
    * 如果不存在返回 null
    **/   
    exports.getItemById = function (id)
    {
-	   if(!h5_base.isClient())  
-	   {
-	   return null;
-	   }
-	  return  h5_cache.getValue(itemCacheKey,id);	   
+       if(h5_base.isClient())
+       {
+           return  h5_cache.getValue(itemCacheKey,id);
+       }else{
+           return  itemQueue.get(id);
+       }
    }
    /***
    * 缓存详情数据
@@ -96,11 +123,51 @@ define(function(require, exports, module){
    **/ 
     exports.saveItem = function (id,jsonData)
    {
-	   if(!h5_base.isClient())  
-	   {
-	   return false;
-	   }
-	  return  h5_cache.pushValue(itemCacheKey,id,jsonData,maxCount);   
+    if(h5_base.isClient())
+	 {
+           return  h5_cache.pushValue(itemCacheKey,id,jsonData,maxCount);
+     }else{
+        if(itemQueue.data.length>=itemQueue.capacity)
+        {
+            itemQueue.data.shift(0);
+        }
+        itemQueue.put(id,jsonData);
+     }
    }
+
+    /**
+     *从缓存中获取账号信息
+     * @param id
+     * @return {*}
+     */
+    exports.getAccountyId = function (id)
+    {
+        if(h5_base.isClient())
+        {
+            return  h5_cache.getValue(accountCacheKey,id);
+        }else{
+            return  accountQuery.get(id);
+        }
+    }
+
+    /**
+     *保存账号信息至缓存
+     * @param id
+     * @param jsonData
+     * @return {*}
+     */
+    exports.saveAccount = function (id,jsonData)
+    {
+        if(h5_base.isClient())
+        {
+            return  h5_cache.pushValue(accountCacheKey,id,jsonData,maxCount);
+        }else{
+            if(accountQuery.data.length>=accountQuery.capacity)
+            {
+                accountQuery.data.shift(0);
+            }
+            accountQuery.put(id,jsonData);
+        }
+    }
 	  
 });
