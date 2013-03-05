@@ -3,8 +3,6 @@ define(function(require, exports, module) {
       _ = require('underscore'),
       global = require('../common/global'),
       tbh5 = require('h5_base'),
-      h5_base = require('h5_base'),
-      h5_comm = require('h5_comm'),
       Backbone = require('backbone'),
       //view class import
       indexView =  require('../dynIndex/dynIndexView'),
@@ -40,13 +38,8 @@ define(function(require, exports, module) {
           //#newcomment/snsId/feedId/page snsid - sns账号Id  feedId - 消息Id page - 页码
           self.route(/^(newComment)\/(\d*)\/(\d*)\/?(\d*)?$/, 'newComment', self.filter);
           // 全局初始化
-          //global.init();
-
-          if (h5_base.isClient()) {
-            $('header.navbar').hide()
-          }
-
-      },
+         global.init();
+               },
       /**
        * 统一入口
        *
