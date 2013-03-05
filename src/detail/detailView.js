@@ -46,7 +46,7 @@ define(function (require, exports, module) {
            var that = this;
            that.snsId = snsId;
            that.feedId = feedId;
-           $('header.navbar').html(headerTemplate({}));
+           $('header.navbar').html(headerTemplate({ href: '#account/' + this.snsId }));
 
            $('.view-page.show').removeClass('show iC').addClass('iL');
            $('#detailPage').removeClass('iL').addClass('show iC');
