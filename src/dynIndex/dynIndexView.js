@@ -97,9 +97,8 @@ define(function (require, exports, module) {
             var that=this;
 
 
-            $('.view-page.show').removeClass('show iC').addClass('iL');
-            $('#indexPage').removeClass('iL').addClass('show iC');
-            that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});
+
+            //
 
             $('header.navbar').html(_.template($('#navBack_tpl').html(),{'backUrl':'http://m.taobao.com','backTitle':'首页'})+$('#homeTitle_tpl').html());
 
@@ -108,6 +107,20 @@ define(function (require, exports, module) {
                 $('#indexPage .J_status').html($('#loginBar_tpl').html());
                 //$($('#loginBar_tpl').html()).insertAfter('div.in-slider');
             }
+            window.setTimeout(function(){
+                window.scrollTo(0,1);
+
+                if($('#indexPage').hasClass('iT')){
+                    //页面第一次加载的时候动画
+                    $('#indexPage').removeClass('iT').addClass('show iC');
+                }else{
+                    $('.view-page.show').removeClass('show iC').addClass('iL');
+                    $('#indexPage').removeClass('iL').addClass('show iC');
+                }
+
+
+                that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});
+            },0);
 
         },
         PageNavRender:function(){
