@@ -2,9 +2,8 @@ define(function(require){
 	var $ = require('zepto'),
 		h5_utils = require('h5_utils'),
         h5_base = require('h5_base'),
-		cookie = require('cookie'),
-        h5_mtop = require('h5_mtop');
-
+		cookie = require('cookie');
+       
 	
 	return h5_utils.wrapColsure({		
 		init : function() {
@@ -21,7 +20,7 @@ define(function(require){
            //hash check
 			this.hashCheck();
             //set dif time
-            h5_mtop.saveBetTieme();
+        //    h5_mtop.saveBetTieme();
 		},		
 		/**
 		 * 检测hash

@@ -88,6 +88,12 @@ define(function (require, exports, module) {
             var that=this;
             that.snsid=snsid;
             that.curPage= page;
+            if(snsid!=$('#accountPage').attr('snsid')){
+                $('#accountPage').attr('snsid',snsid);
+                $('#accountPage .J_info').html('');
+                $('#accountPage .J_feed .tb-feed-items').html('');
+
+            }
             $('header.navbar').html('');
             $('.navbar .back').unbind('click');
             //$('.tb-h5').html('');
@@ -113,6 +119,7 @@ define(function (require, exports, module) {
 //            * @param param.snsId
 //            * @param param.afterTimestamp
             that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':''});
+            window.setTimeout(function(){window.scrollTo(0,1);},0);
         },
         refresh:function(){
             var that=this;

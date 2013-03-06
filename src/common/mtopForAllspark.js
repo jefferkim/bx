@@ -33,6 +33,13 @@ define(function (require, exports, module) {
             });
     };
 
+    function invokeApi(apiName, param, fun) {
+        getData(apiName, param || {}, function (result) {
+            fun && fun.call(arguments.callee, result.data);
+        }, function (result) {
+            fun && fun.call(arguments.callee, {fail:result});
+        });
+    }
 
     function convertIds(ids) {
         if (ids.join) {
@@ -40,6 +47,16 @@ define(function (require, exports, module) {
         }
         return {snsIds:ids};
     }
+
+    //TODO get form cookie
+    exports.userNick =h5_comm.getNickFromHidden();
+    exports.pageParam = {
+        curPage:1,
+        pageSize:3,
+        isIndex:function () {
+            return  1 == this.curPage;
+        }
+    };
 
     /**
      * mtop.sns.follow.pubAccount.add 关注账号
@@ -72,23 +89,17 @@ define(function (require, exports, module) {
         this.getData("mtop.sns.follow.pubAccount.remove", convertIds(ids), successF, failF)
     }
 
-    //TODO get form cookie
-    exports.userNick =h5_comm.getNickFromHidden();
-    exports.pageParam = {
-        curPage:1,
-        pageSize:3,
-        isIndex:function () {
-            return  1 == this.curPage;
-        }
+    exports.info  = function (param, fun) {
+        invokeApi("mtop.sns.pubAccount.info", param, fun);
     };
 
-    function invokeApi(apiName, param, fun) {
-        getData(apiName, param || {}, function (result) {
-            fun && fun.call(arguments.callee, result.data);
-        }, function (result) {
-            fun && fun.call(arguments.callee, {fail:result});
-        });
-    }
+    exports.listBefor  = function (param, fun) {
+        invokeApi("mtop.sns.feed.listBefor", param, fun);
+    };
+
+    exports.readAndListAfter  = function (param, fun) {
+        invokeApi("mtop.sns.feed.readAndListAfter", param, fun);
+    };
 
     exports.recommends = function (param, fun) {
         invokeApi("mtop.transformer.pubAccount.recommends", param, fun);
@@ -102,7 +113,6 @@ define(function (require, exports, module) {
         invokeApi("mtop.sns.pubAccount.listWithFirstFeed", param, fun);
     };
 
-
     /**----------------------评论相关---------------------------------------*/
     exports.commentCount  = function (param, fun) {
         invokeApi("mtop.sns.comment.count", param, fun);
@@ -114,6 +124,11 @@ define(function (require, exports, module) {
 
     exports.commentList  = function (param, fun) {
         invokeApi("mtop.sns.comment.list", param, fun);
+    };
+
+    /**----------------------详情相关---------------------------------------*/
+    exports.detail  = function (param, fun) {
+        invokeApi("mtop.sns.feed.detail", param, fun);
     };
 
 
@@ -156,6 +171,5 @@ define(function (require, exports, module) {
             fun && fun.call(arguments.callee, result);
         }
     }
-
 })
 ;

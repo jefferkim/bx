@@ -168,6 +168,9 @@ img{background-color: #eee;}
     background-position: center;
 
   }
+  .add:active{
+    width: 40px;
+  }
   .stats-global{
 
   }
@@ -187,18 +190,37 @@ img{background-color: #eee;}
     -webkit-transform: translateZ(0);
   }
   & >div.view-page{
-      opacity: 0;
-      -webkit-transition: all .4s;
-      -moz-transition: all .4s;
-      -o-transition: all .4s;
-      transition: all .4s;
+    opacity: 0;
+    -webkit-transition: all .4s;
+    -moz-transition: all .4s;
+    -o-transition: all .4s;
+    transition: all .4s;
+    position: absolute;
+    width: 100%;
+    min-height: 500px;
+    //background: #ccc;
   }
   /*.view-page{display: none}
   */
-  .view-page.show{opacity: 1}
+  .view-page.show{opacity: 1;display: block}
+  .view-page.hide{display: none;}
   .J_info{
     height: 190px;
   }
+}
+
+/* animation */
+
+.iL{-webkit-transform: translate3d(-100%, 0px, 0px);position: absolute; -webkit-transition: -webkit-transform 200ms ease-out;}
+.iC{-webkit-transform: translate3d(0px, 0px, 0px); -webkit-transition: -webkit-transform 200ms ease-in}
+.iR{-webkit-transform: translate3d(100%, 0px, 0px); -webkit-transition: -webkit-transform 200ms ease-out}
+.iB{-webkit-transform: translate3d(0px, 100%, 0px); -webkit-transition: -webkit-transform 200ms ease-in}
+.iT{-webkit-transform: translate3d(0px, -100%, 0px); -webkit-transition: -webkit-transform 200ms ease-in}
+@-webkit-keyframes spin{from{-webkit-transform:rotate(0deg)} to{-webkit-transform:rotate(360deg)} }
+@-ms-keyframes spin{from{-ms-transform:rotate(0deg)} to{-ms-transform:rotate(360deg)} }
+.spinner{
+  -webkit-animation:spin 1s linear infinite;
+  -ms-animation:spin 1s linear infinite;
 }
 
 
@@ -213,6 +235,7 @@ img{background-color: #eee;}
     width: 100%;
     text-align: center;
   }
+
   .c-p-pre,.c-p-next{
     display: inline-block;
     width: 100px;
@@ -230,6 +253,11 @@ img{background-color: #eee;}
     color:rgb(51,51,51);
     text-align:center;
     text-shadow:0px 1px 0px rgb(255,255,255);
+  }
+  .c-p-grey{
+    color: #ccc;
+    text-shadow:0px 0px 0px #ccc;
+
   }
   .c-p-cur{
     display: inline-block;
@@ -271,17 +299,7 @@ img{background-color: #eee;}
 
 }
 
-/* animation */
 
-.iL{-webkit-transform: translate3d(-100%, 0px, 0px);position: absolute; -webkit-transition: -webkit-transform 200ms ease-out;}
-.iC{-webkit-transform: translate3d(0px, 0px, 0px); -webkit-transition: -webkit-transform 200ms ease-in}
-.iR{-webkit-transform: translate3d(100%, 0px, 0px); -webkit-transition: -webkit-transform 200ms ease-out}
-@-webkit-keyframes spin{from{-webkit-transform:rotate(0deg)} to{-webkit-transform:rotate(360deg)} }
-@-ms-keyframes spin{from{-ms-transform:rotate(0deg)} to{-ms-transform:rotate(360deg)} }
-.spinner{
-  -webkit-animation:spin 1s linear infinite;
-  -ms-animation:spin 1s linear infinite;
-}
 
 
 //  .back1{

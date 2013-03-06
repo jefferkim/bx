@@ -16,7 +16,7 @@
         <div id="content">
             <header class="navbar"></header>
             <div class="tb-h5">
-                <div id="indexPage" class="view-page iL">
+                <div id="indexPage" class="view-page iT">
                     <div class="J_slider"></div>
                     <div class="J_status"></div>
                     <div class="J_list">
@@ -246,7 +246,7 @@
                 </ul>
 
         </script>
-        <script id="loginBar_tpl" type="text/template">
+        <script id="loginBar_tpl" type="text/template" disable>
             <div class="login-bar">
                 <span>登录后就能关注您喜欢的账号了</span>
                 <a class="login-btn" id="J_login_btn">登陆</a>
@@ -411,6 +411,8 @@
 
                 return ret;
             }
+            window.setTimeout(function(){
+                window.scrollTo(0,1);});
             seajs.use('./src/app/app.js', function(app){
                 //new app();
             });

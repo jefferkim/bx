@@ -66,20 +66,6 @@ define(function (require, exports, module) {
                     }
                 }
 
-
-                /**
-                 * 获取详情数据
-                 * @param param
-                 * @param fun
-                 */
-                function detail(param, fun) {
-                    mtop.getData("mtop.sns.feed.detail", param || {}, function (result) {
-                        fun && fun.call(arguments.callee, result.data);
-                    }, function (result) {
-                        fun && fun.call(arguments.callee, {fail:result});
-                    });
-                }
-
                 //获取详情
                 var cacheFeed = cache.getItemById(param.feedId);
                 if (cacheFeed) {
@@ -88,7 +74,7 @@ define(function (require, exports, module) {
                     setPageData(cacheFeed,param);
                      return;
                 }else {
-                     detail(param || {},function(result){
+                    mtop.detail(param || {},function(result){
                          console.log('refine detail');
                          refine.refineDetail(result);
                          console.log(result);
