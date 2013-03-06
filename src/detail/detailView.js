@@ -48,11 +48,38 @@ define(function (require, exports, module) {
            var that = this;
            that.snsId = snsId;
            that.feedId = feedId;
-           $('header.navbar').html(headerTemplate({ href: '#account/' + this.snsId }));
+
+           var _navbar=$('header.navbar');
+           var _detailPage=$('#detailPage');
+           _navbar.html(headerTemplate({ href: '#account/' + this.snsId }));
            this.commentModel && this.commentModel.get('commentCount') && this.commentModel.trigger('change:commentCount')
 
-           $('.view-page.show').removeClass('show iC').addClass('iL');
-           $('#detailPage').removeClass('iL').addClass('show iC');
+           //判断导航是否已经载入
+           if(_navbar.hasClass('iT')){
+               _navbar.removeClass('iT').addClass('iC');
+           }
+           var _show=$('.view-page.show');
+
+           //判断先后关系
+           var _commentListPage= $('#commentListPage');
+
+           if(_commentListPage.hasClass('show')){
+               _detailPage.removeClass(' iR iL').addClass('iL');
+               _show.removeClass('show iC').addClass('iR').wAE(function(){
+                   _show.addClass('hide');
+               });
+           }else{
+               _show.removeClass('show iC').addClass('iL').wAE(function(){
+                   _show.addClass('hide');
+               });
+           }
+
+
+           _detailPage.removeClass('hide');
+           setTimeout(function(){
+               _detailPage.removeClass(' iR iL').addClass('show iC');
+           },0);
+
 
            that.model.getPageData({'snsId':snsId,'feedId':feedId})
            this.commentModel.getCommentCount({'snsId':snsId,'feedId':feedId})

@@ -61,7 +61,7 @@ define(function (require, exports, module) {
 
                 $('#indexPage .J_slider').html(_.template($('#slider_tpl').html(),d));
 
-                new slider(".in-slider", {wrap: ".in-slider-cont",trigger: ".in-slider-status",useTransform: !0,interval: 3e3,play: !0,loop: !0});
+                new slider(".in-slider", {wrap: ".in-slider-cont",trigger: ".in-slider-status",useTransform: !0,interval: 5000,play: !0,loop: !0});
 
 
                 //equal(3, result.list.length, "We expect banner not empty");
@@ -70,12 +70,16 @@ define(function (require, exports, module) {
                 console.log('accWithFeed');
                 console.log(result);
                 if(result.list&&result.list.length>0){
-                    console.log();
                     if(result.list.length==1){
                         $('#indexPage .J_status').html(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result));
                         //$(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result)).insertAfter('div.in-slider');
                     }else{
-                        $('#indexPage .J_status').html(_.template($('#myfeed_tpl').html(),result));
+                        $('#indexPage .J_status').html('<div class="account-title"><span>账号动态</span></div>'+_.template($('#myfeed_tpl').html(),result));
+                        var pageCount=Math.ceil(result.totalCount/that._pageSize);
+                        that.myfeedPage=new pageNav({'id':'#personListPageNav','index':that.curPage,'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
+                        that.myfeedPage.pContainer().on('P:switchPage', function(e,page){
+                            that.changePage(page.index);
+                        });
                         //$(_.template($('#myfeed_tpl').html(),result)).insertAfter('div.in-slider');
                     }
                 }
@@ -91,7 +95,7 @@ define(function (require, exports, module) {
                     //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));
                     if(!that.recommentPage){
                         var pageCount=Math.ceil(result.totalCount/that._pageSize);
-                        that.recommentPage=new pageNav({'id':'#personListPageNav','index':page,'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
+                        that.recommentPage=new pageNav({'id':'#personListPageNav','index':that.curPage,'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
                         that.recommentPage.pContainer().on('P:switchPage', function(e,page){
                             that.changePage(page.index);
                         });
@@ -111,36 +115,57 @@ define(function (require, exports, module) {
             console.log('homePage render');
             //判断是否登录
             var that=this;
+            that.curPage=page;
 
 
+            window.scrollTo(0,1);
 
-            //
+            that.dynIndexModel.getPageData({'curPage':that.curPage,'pageSize':that._pageSize});
 
-            $('header.navbar').html(_.template($('#navBack_tpl').html(),{'backUrl':'http://m.taobao.com','backTitle':'首页'})+$('#homeTitle_tpl').html());
+            var _navbar=$('header.navbar');
+
+            _navbar.html(_.template($('#navBack_tpl').html(),{'backUrl':'http://m.taobao.com','backTitle':'首页'})+$('#homeTitle_tpl').html());
+
+
+            if(_navbar.hasClass('iT')){
+                _navbar.removeClass('iT').addClass('iC');
+            }
 
             if(!h5_comm.isLogin()){
                 //未登录
                 $('#indexPage .J_status').html($('#loginBar_tpl').html());
                 //$($('#loginBar_tpl').html()).insertAfter('div.in-slider');
             }
-            window.setTimeout(function(){
-                window.scrollTo(0,1);
 
-                if($('#indexPage').hasClass('iT')){
-                    //页面第一次加载的时候动画
-                    $('#indexPage').removeClass('iT hide').addClass('show iC');
-                }else{
-                    var _show=$('.view-page.show');
+            if($('#indexPage').hasClass('show')){
+                //判断是否分页
+            }else{
+                var _show=$('.view-page.show');
+                var _index=$('#indexPage');
+                if(_show.length>0){
+                    if(_index.hasClass('iB')){
+                        _index.removeClass('iB').addClass('iL');
+                    }
                     _show.removeClass('show iC').addClass('iR').wAE(function(){
                         _show.addClass('hide');
                     });
-                    $('#indexPage').removeClass('iL').addClass('show iC');
+                    _index.removeClass('hide iL').addClass('show iC');
+                }else{
+                    //页面第一次加载的时候动画
+                    _index.removeClass('hide');
+                    setTimeout(function(){
+                        _index.removeClass('iB').addClass('show iC');
+                    },0);
+                    //当不是从首页进入,返回首页
                 }
+            }
 
+            if(!h5_comm.isLogin()){
+                //未登录
 
-                that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});
-            },0);
-
+                $('#indexPage .J_status').html($('#loginBar_tpl').html());
+                //$($('#loginBar_tpl').html()).insertAfter('div.in-slider');
+            }
         },
         PageNavRender:function(){
 
@@ -156,11 +181,22 @@ define(function (require, exports, module) {
                 window.location.hash='#accountList/1';
             }else{
                 //allSpark_hash
-                h5_comm.goLogin('h5_allspark');
+                that.goLogin();
+                //h5_comm.goLogin('h5_allspark');
             }
         },
         refresh:function(){
             console.log('refresh');
+            var that=this;
+            var _spinner=$('.navbar .refresh div');
+            if(!_spinner.hasClass('spinner')){
+                _spinner.addClass('spinner');
+            }
+            if(that.curPage=='1'){
+                that.dynIndexModel.getPageData({'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':new Date().getTime()});
+            }else{
+                window.location.hash='#index/1';
+            }
         },
         follow:function(e){
             e.stopPropagation();
@@ -190,10 +226,13 @@ define(function (require, exports, module) {
 
                 }
             }else{
-                h5_comm.goLogin('h5_allspark');
+                that.goLogin();
+                //h5_comm.goLogin('h5_allspark');
             }
         },
         goLogin : function(){
+            tbh5.removeValue('allSpark_hash');
+            tbh5.removeValue('allSpark_lastHash')
             h5_comm.goLogin('h5_allspark');
         },
         goToAccount:function(e){
