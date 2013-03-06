@@ -14,9 +14,9 @@
     </head>
     <body style="background: #f8f8f8">
         <div id="content">
-            <header class="navbar"></header>
+            <header class="navbar iT"></header>
             <div class="tb-h5">
-                <div id="indexPage" class="view-page iT">
+                <div id="indexPage" class="view-page hide iB">
                     <div class="J_slider"></div>
                     <div class="J_status"></div>
                     <div class="J_list">
@@ -24,11 +24,11 @@
                         <div id="personListPageNav" class="pagenav c-pnav-con"></div>
                     </div>
                 </div>
-                <div id="accountListPage" class="view-page iL">
+                <div id="accountListPage" class="view-page hide  iR">
                     <div class="person-list"></div>
                     <div id="accountListPageNav" class="pagenav c-pnav-con"></div>
                 </div>
-                <div id="accountPage" class="view-page iL">
+                <div id="accountPage" class="view-page hide iR">
                     <div class="J_info"></div>
                     <div class="J_feed">
                         <div class="tb-feed">
@@ -38,13 +38,13 @@
                         </div>
                     </div>
                 </div>
-                <div id="detailPage" class="view-page iL detail">
+                <div id="detailPage" class="view-page hide  iR detail">
                     <div class="account"></div>
                     <div class="main"></div>
                 </div>
-                <div id="commentListPage" class="view-page iL comment">
+                <div id="commentListPage" class="view-page hide  iR comment">
                 </div>
-                <div id="newCommentPage" class="view-page iL new-comment">
+                <div id="newCommentPage" class="view-page hide iR new-comment">
                 </div>
             </div>
         </div>
@@ -61,12 +61,12 @@
 
         </script>
         <script id="homeTitle_tpl" type="text/template">
-            <div class="title">变形金刚</div>
+            <div class="title"></div>
             <div class="btn add"></div>
             <div class="btn refresh"><div></div></div>
         </script>
         <script id="accountTitle_tpl" type="text/template">
-            <div class="title">变形金刚</div>
+            <div class="title"></div>
             <div class="btn refresh"><div></div></div>
         </script>
         <script id="accountListTabBar_tpl" type="text/template">
@@ -140,8 +140,8 @@
                 <ul>
                     <% _.each(list, function(item) { %>
                     <% if(item.firstFeed){ %>
-                        <% if(item.firstFeed.coverTile){ %>
-                                <% if(item.firstFeed.coverTile.path) {%>
+
+                                <% if(item.firstFeed.coverTile&&item.firstFeed.coverTile.path) {%>
                                 <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="multimedia">
                                     <div class="media">
                                         <img src="<%=item.firstFeed.coverTile.path%>">
@@ -166,7 +166,7 @@
                                     </div>
                                 </li>
                                 <% } %>
-                        <% } %>
+
                     <% }); %>
 
                 </ul>
@@ -415,13 +415,13 @@
 
                 return ret;
             }
-            window.setTimeout(function(){
-                window.scrollTo(0,1);});
+
             seajs.use('./src/app/app.js', function(app){
                 //new app();
             });
             console.log(document.referrer);
         </script>
+
 
         <div id="notification" class="notification" style="display: none;">
           <div class="panel">

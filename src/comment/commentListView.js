@@ -35,11 +35,37 @@ define(function(require, exports, module) {
          this.snsId = snsId
          this.feedId = feedId
          this.page = page
-
+         var _navbar=$('header.navbar');
+         var _commentListPage= $('#commentListPage');
          $('header.navbar').html(commentListHeaderTemplate({ href: '#detail/' + this.snsId + '/' + this.feedId }));
 
-         $('.view-page.show').removeClass('show iC').addClass('iL');
-         $('#commentListPage').removeClass('iL').addClass('show iC');
+         //判断导航是否已经载入
+         if(_navbar.hasClass('iT')){
+             _navbar.removeClass('iT').addClass('iC');
+         }
+
+         var _show=$('.view-page.show');
+         //判断动画先后顺序
+         var _newCommentPage=$('#newCommentPage');
+         if(_newCommentPage.hasClass('show')){
+             _commentListPage.removeClass(' iR iL').addClass('iL');
+             _show.removeClass('show iC').addClass('iR').wAE(function(){
+                 _show.addClass('hide');
+             });
+         }else{
+             if(!_commentListPage.hasClass('show')){
+                 _show.removeClass('show iC').addClass('iL').wAE(function(){
+                     _show.addClass('hide');
+                 });
+             }
+         }
+
+         _commentListPage.removeClass('hide');
+         setTimeout(function(){
+             _commentListPage.removeClass('iR iL').addClass('show iC');
+         },0);
+
+
 
          this.model.getPageData({'snsId':snsId,'feedId':feedId,'curPage':page, 'pageSize': this.pageSize });
      },

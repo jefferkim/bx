@@ -32,8 +32,29 @@ define(function(require, exports, module) {
         this.snsId = snsId;
         this.feedId = feedId;
         this.curPage = page;
+        var _navbar=$('header.navbar');
+          _navbar.html(newCommentHeaderTempalte({ href: '#comment/' + this.snsId + '/' + this.feedId + '/' + this.curPage }));
+          //判断导航是否已经载入
+          if(_navbar.hasClass('iT')){
+              _navbar.removeClass('iT').addClass('iC');
+          }
+          var _show=$('.view-page.show');
+          var _newCommentPage=$('#newCommentPage');
+          //判断先后关系
+          var _commentListPage= $('#commentListPage');
 
-          $('header.navbar').html(newCommentHeaderTempalte({ href: '#comment/' + this.snsId + '/' + this.feedId + '/' + this.curPage }));
+          _show.removeClass('show iC').addClass('iL').wAE(function(){
+              _show.addClass('hide');
+          });
+
+
+          _newCommentPage.removeClass('hide');
+          setTimeout(function(){
+              _newCommentPage.removeClass(' iR iL').addClass('show iC');
+          },0);
+
+
+
           $('.view-page.show').removeClass('show iC').addClass('iL');
           $('#newCommentPage').removeClass('iL').addClass('show iC');
       },

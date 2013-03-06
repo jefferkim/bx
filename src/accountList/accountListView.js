@@ -59,15 +59,42 @@ define(function (require, exports, module) {
             that.curPage=page;
             //$('.tb-h5').html('');
             $('.navbar .back').unbind('click');
-            $('.view-page.show').removeClass('show iC').addClass('iL');
-            $('#accountListPage').removeClass('iL').addClass('show iC');
-            $('header.navbar').html(_.template($('#navBack_tpl').html(),{'backUrl':'#index','backTitle':'微淘'})+$('#accountListTabBar_tpl').html());
+            var _navbar=$('header.navbar');
+//            $('.view-page.show').removeClass('show iC').addClass('iL');
+//            $('#accountListPage').removeClass('iL').addClass('show iC');
+            _navbar.html(_.template($('#navBack_tpl').html(),{'backUrl':'#index','backTitle':'微淘'})+$('#accountListTabBar_tpl').html());
+
+
 
             $('.tab-bar li.cur').removeClass('cur');
             $('.tab-bar li').eq(that.status-1).addClass('cur');
             $('#accountListPage .person-list').html('');
             $('#accountListPageNav').html('');
             that.accountListModel.getPageData({'type':that.status,'curPage':that.curPage,'pageSize': that.pageSize,"order":"fans"});
+
+            //判断导航是否已经载入
+            if(_navbar.hasClass('iT')){
+                _navbar.removeClass('iT').addClass('iC');
+            }
+
+            var _show=$('.view-page.show');
+            var _accountListPage=$('#accountListPage');
+            //判断动画先后顺序
+            var _indexPage=$('#indexPage');
+
+            if(!_accountListPage.hasClass('show')){
+                _show.removeClass('show iC').addClass('iL').wAE(function(){
+                    _show.addClass('hide');
+                });
+            }
+
+            _accountListPage.removeClass('hide');
+            setTimeout(function(){
+                _accountListPage.removeClass('iR iL').addClass('show iC');
+            },0);
+
+
+
         },
         changePage:function(page){
             var that=this;

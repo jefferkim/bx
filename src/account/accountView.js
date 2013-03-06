@@ -20,11 +20,12 @@ define(function (require, exports, module) {
             'click .tb-feed-items li':'goToDetail',
             //'click .navbar .back':'goBackHome',
             'click #accountPage .J_info .stats-follow-btn':'follow',
-            'click #accountPage .navbar .refresh':'refresh',
+            'click .navbar .refresh':'refresh',
             'click #accountPage .wwwIco':'goWWW'
 
 
         },
+        backURL:'',
         initialize:function () {
             var that=this;
             that._pageSize=4;
@@ -51,16 +52,15 @@ define(function (require, exports, module) {
                         that.oldTotalCount=result.totalCount;
                     }
 
-
                     $('#accountPage .J_feed .tb-feed-items').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
 
-                    if(!that.pageNav){
+                    //if(!that.pageNav){
                         var pageCount=Math.ceil(result.totalCount/that._pageSize);
-                        that.pageNav=new pageNav({'id':'#feedPageNav','pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
+                        that.pageNav=new pageNav({'id':'#feedPageNav','index':that.curPage, 'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
                         that.pageNav.pContainer().on('P:switchPage', function(e,page){
                             that.changePage(page.index);
                         });
-                    }
+                    //}
                 }
             });
             that.accountModel.on("change:prices",function(model,result){
@@ -95,23 +95,54 @@ define(function (require, exports, module) {
 
             }
             $('header.navbar').html('');
-            $('.navbar .back').unbind('click');
-            //$('.tb-h5').html('');
-
+            var _navbar=$('header.navbar');
+            var _accountPage=$('#accountPage');
+            window.scrollTo(0,1);
             var _back={'backUrl':'','backTitle':'返回'};
             if(typeof window.AccountList!='undefined'){
-                window.AccountList.flag=false;
                 //window.location.hash=window.AccountList.hash;
                 _back={'backUrl':'#'+window.AccountList.hash,'backTitle':'返回'};
+                window.AccountList.flag=false;
                 delete window.AccountList;
             }else{
-                _back={'backUrl':'#index','backTitle':'返回'}
+                if(that.backURL!=''){
+                    _back={'backUrl':that.backURL,'backTitle':'返回'}
+                }else{
+                    _back={'backUrl':'#index','backTitle':'返回'}
+                }
+
             }
 
 
-            $('.view-page.show').removeClass('show iC').addClass('iL');
-            $('#accountPage').removeClass('iL').addClass('show iC');
-            $('header.navbar').html(_.template($('#navBack_tpl').html(),_back)+$('#accountTitle_tpl').html());
+
+
+            _navbar.html(_.template($('#navBack_tpl').html(),_back)+$('#accountTitle_tpl').html());
+
+            //判断导航是否已经载入
+            if(_navbar.hasClass('iT')){
+                _navbar.removeClass('iT').addClass('iC');
+            }
+            var _show=$('.view-page.show');
+            if($('#detailPage').hasClass('show')){
+                _accountPage.removeClass(' iR iL').addClass('iL');
+                _show.removeClass('show iC').addClass('iR').wAE(function(){
+                    _show.addClass('hide');
+                });
+            }else{
+                if(!_accountPage.hasClass('show')){
+                    _show.removeClass('show iC').addClass('iL').wAE(function(){
+                        _show.addClass('hide');
+                    });
+                }
+            }
+
+            _accountPage.removeClass('hide');
+            setTimeout(function(){
+                _accountPage.removeClass(' iR iL').addClass('show iC');
+            },0);
+
+
+
 
 
 //            * @param param.curPage  页码
@@ -119,7 +150,7 @@ define(function (require, exports, module) {
 //            * @param param.snsId
 //            * @param param.afterTimestamp
             that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':''});
-            window.setTimeout(function(){window.scrollTo(0,1);},0);
+
         },
         refresh:function(){
             var that=this;
@@ -129,10 +160,6 @@ define(function (require, exports, module) {
             }
             if(that.curPage=='1'){
                 that.accountModel.getPageData({'exCludInfo':true,'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':new Date().getTime()});
-                setTimeout(function(){
-
-                },3000);
-
             }else{
                 window.location.hash='#account/'+that.snsid+'/1';
             }
@@ -184,6 +211,9 @@ define(function (require, exports, module) {
             var that=this;
             console.log('page:'+page);
             window.location.hash='#account/'+that.snsid+'/'+page;
+            //判断是否为分页，如果是分页返回还是账号列表
+            that.backURL=$('.navbar .back a').attr('href');
+
             //that.accountModel.getPageData({'snsId':that.snsid,'curPage':page,'pageSize':that._pageSize,'disableHash': 'true'});
         },
         goToDetail:function(e){
