@@ -68,7 +68,7 @@ define(function (require, exports, module) {
                 var cacheFeed = cache.getItemById(param.feedId);
                 if (cacheFeed) {
                     //保存详情信息
-                    self.set( "feed", result);
+                    self.set( "feed", cacheFeed);
                     setPageData(cacheFeed,param);
                      return;
                 }else {
