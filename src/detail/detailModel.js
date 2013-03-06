@@ -29,11 +29,9 @@ define(function (require, exports, module) {
                       //获取价格参数
                     var ids = [];
 
-                    result.tiles &&  result.tiles.forEach(function(tile){tile.items   && tile.items.length &&
-                            tile.items.forEach(function(item){
-                                  ids.push(item.id); }
-                            )
-                      });
+                    result.tiles &&  result.tiles.forEach(function(tile){
+                            tile.item &&  ids.push(tile.item.id); }
+                            );
                       mtop.getPrices(_.uniq(ids),function(prices){
                           prices.length && self.set("prices",prices);
                       })
@@ -66,29 +64,15 @@ define(function (require, exports, module) {
                     }
                 }
 
-
-                /**
-                 * 获取详情数据
-                 * @param param
-                 * @param fun
-                 */
-                function detail(param, fun) {
-                    mtop.getData("mtop.sns.feed.detail", param || {}, function (result) {
-                        fun && fun.call(arguments.callee, result.data);
-                    }, function (result) {
-                        fun && fun.call(arguments.callee, {fail:result});
-                    });
-                }
-
                 //获取详情
                 var cacheFeed = cache.getItemById(param.feedId);
                 if (cacheFeed) {
                     //保存详情信息
-                    self.set( "feed", result);
+                    self.set( "feed", cacheFeed);
                     setPageData(cacheFeed,param);
                      return;
                 }else {
-                     detail(param || {},function(result){
+                    mtop.detail(param || {},function(result){
                          console.log('refine detail');
                          refine.refineDetail(result);
                          console.log(result);

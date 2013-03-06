@@ -83,7 +83,7 @@ define(function(require, exports, module) {
           if (success) {
             notification.message('发布成功！')
             self.$commentArea.val('')
-            self.back()
+            setTimeout(function() { self.back() }, 500)
           } else {
             notification.message('发布失败，请重试')
           }

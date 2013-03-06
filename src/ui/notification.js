@@ -18,10 +18,10 @@ define(function(require, exports, module) {
     },
 
     position: function() {
+      $notification.css('opacity', '0').show()
       $notification.css('top', window.innerHeight / 2 - $notification.height() / 2)
+      $notification.hide()
     },
-
-
 
     message: function(message, stay) {
       $notification.off()
@@ -35,10 +35,19 @@ define(function(require, exports, module) {
     },
 
     alert: function(message, callback) {
+      var self = this
       $notification.off()
-      $actions.hide()
+      $actions.show()
       $longMessage.hide()
       $simpleMessage.html(message).show()
+      $actions.find('.btn-wrap').hide()
+      $actions.find('.btn-wrap').last().show()
+      $notification.on('click', '.retry', function() {
+        self.hide()
+        callback && callback()
+      })
+      this.position()
+      this.show()
     },
 
     confirm: function(message, confirmCallback, cancelCallback) {
@@ -48,9 +57,8 @@ define(function(require, exports, module) {
     external: function(url, confirmCallback, cancelCallback) {
       var self = this;
       $notification.off()
-      $actions.find('.confirm').show()
-      $actions.find('.cancel').show()
-      $actions.find('.retry').hide()
+      $actions.find('.btn-wrap').show()
+      $actions.find('.btn-wrap').last().hide()
       $actions.show()
       $simpleMessage.hide()
       $longMessage.find('.external').attr('href', url).text(url)
@@ -64,7 +72,7 @@ define(function(require, exports, module) {
         cancelCallback && cancelCallback()
       })
       this.position()
-      $notification.show()
+      this.show()
     }
   }
 

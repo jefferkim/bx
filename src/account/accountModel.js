@@ -12,11 +12,7 @@ define(function (require, exports, module) {
         //snsId:long
         _biz:{
             info:function (param, fun) {
-                mtop.getData("mtop.sns.pubAccount.info", param || {}, function (result) {
-                    fun && fun.call(arguments.callee, result.data);
-                }, function (result) {
-                    fun && fun.call(arguments.callee, {fail:result});
-                });
+                mtop.info(param,fun);
             },
             /**
              * 入参：sid, snsId, afterTimestamp(可选时传入空值，表示取在该时间之后的Feed)，获取数量（totalCount：int）
@@ -28,13 +24,8 @@ define(function (require, exports, module) {
              * @param fun
              */
             feeds:function(param, fun){
-                var apiName = param.before ?  "mtop.sns.feed.listBefor" : "mtop.sns.feed.readAndListAfter";
+                param.before ? mtop.listBefor(param, fun) : mtop.readAndListAfter(param, fun);
                 delete param.before;
-                mtop.getData(apiName, param || {}, function (result) {
-                    fun && fun.call(arguments.callee, result.data);
-                }, function (result) {
-                    fun && fun.call(arguments.callee, {fail:result});
-                });
             }
         },
 

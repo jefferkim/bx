@@ -264,7 +264,7 @@
         </script>
         <script id="detail_accinfo_tpl" type="text/template">
           <a href="#account/<%= snsId %>" class="brand">
-            <img class="avatar" src="<%= backgroundImg || 'http://img03.taobaocdn.com/tps/i3/T1KX0vXABeXXc9CzYt-98-98.png' %>" alt="">
+            <img class="avatar" src="<%= logoUrl || 'http://img03.taobaocdn.com/tps/i3/T1KX0vXABeXXc9CzYt-98-98.png' %>" alt="">
             <div class="info">
               <p class="name"><%= nick %></p>
               <p class="follow">
@@ -280,7 +280,9 @@
         </script>
         <script id="detail_content_tpl" type="text/template">
             <h1><%= title %></h1>
+            <% if (time) { %>
             <p class="pub-time"><%= timestamps(time) %></p>
+            <% } %>
             <% for (var i = 0; i < tiles.length; i++) { %>
                 <% if (tiles[i].type == "pic") { %>
                     <div class="media"><img src="<%= tiles[i].path %>" style="width: 100%;"></div>
@@ -297,7 +299,7 @@
             <% } %>
 
             <% if (linkUrl) { %>
-                <a href="<%= linkUrl %>" class="more-content">更多内容</a>
+                <a href="<%= linkUrl %>" class="more-content"><span></span><%= linkTitle || '更多内容' %></a>
             <% } %>
         </script>
 
@@ -418,7 +420,8 @@
             console.log(document.referrer);
         </script>
 
-        <div id="notification" class="notification" style="opacity: 0;display: none;">
+
+        <div id="notification" class="notification" style="display: none;">
           <div class="panel">
             <div class="long-message" style="display: none;">
               即将前往外部页面，页面地址是：
@@ -429,7 +432,7 @@
             <div class="actions" style="display: none;">
               <div class="btn-wrap"><button class="confirm">确定</button></div>
               <div class="btn-wrap"><button class="cancel">取消</button></div>
-              <div class="btn-wrap"><button class="retry" style="display: none;">重试</button></div>
+              <div class="btn-wrap" style="display: none;"><button class="retry">重试</button></div>
             </div>
           </div>
         </div>
