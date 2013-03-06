@@ -9,7 +9,8 @@ define(function (require, exports, module) {
         _ = require('underscore'),
         _model=require('./detailModel'),
         h5_base = require('h5_base'),
-        router = require('../app/routerNew.js')
+        router = require('../app/routerNew.js'),
+        notification = require('../ui/notification.js')
         CommentModel = require('../comment/commentModel.js')
 
     var CommentListView = require('../comment/commentListView');
@@ -24,6 +25,7 @@ define(function (require, exports, module) {
         model : new _model(),
         events:{
           'click .comment.btn': 'commentList',
+          'click .more-content': 'more',
           'click #detailPage .brand': 'naviForAndroid'
         },
         initialize:function () {
@@ -77,6 +79,20 @@ define(function (require, exports, module) {
 
         console.log('comment count', count)
         $('.comment.btn span').text(count)
+       },
+
+       more: function(e) {
+        e.preventDefault()
+        if (h5_base.isClient()) return;
+
+        var feed = this.model.get('feed')
+        var url = feed.linkUrl
+        var isExternal = feed.linkUrlIsExt
+        if (isExternal == 'true') {
+          notification.external(url, function() { window.location = url })
+        } else {
+          window.location = url
+        }
        },
 
        naviForAndroid: function() {

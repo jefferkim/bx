@@ -55,7 +55,10 @@ define(function(require, exports, module) {
       $simpleMessage.hide()
       $longMessage.find('.external').attr('href', url).text(url)
       $longMessage.show()
-      $notification.on('click', '.confirm', function() { confirmCallback && confirmCallback() })
+      $notification.on('click', '.confirm', function() {
+        self.hide()
+        confirmCallback && confirmCallback()
+      })
       $notification.on('click', '.cancel', function() {
         self.hide();
         cancelCallback && cancelCallback()
