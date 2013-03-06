@@ -29,11 +29,9 @@ define(function (require, exports, module) {
                       //获取价格参数
                     var ids = [];
 
-                    result.tiles &&  result.tiles.forEach(function(tile){tile.items   && tile.items.length &&
-                            tile.items.forEach(function(item){
-                                  ids.push(item.id); }
-                            )
-                      });
+                    result.tiles &&  result.tiles.forEach(function(tile){
+                            tile.item &&  ids.push(tile.item.id); }
+                            );
                       mtop.getPrices(_.uniq(ids),function(prices){
                           prices.length && self.set("prices",prices);
                       })
