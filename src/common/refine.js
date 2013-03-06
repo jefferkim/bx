@@ -99,6 +99,7 @@ define(function(require){
             data.title = data.title || ''
             data.linkUrl = data.linkUrl || ''
             data.tiles = data.tiles || []
+            data.time = data.time || ''
         }
     };
 });
