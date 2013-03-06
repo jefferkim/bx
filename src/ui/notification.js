@@ -18,10 +18,10 @@ define(function(require, exports, module) {
     },
 
     position: function() {
+      $notification.css('opacity', '0').show()
       $notification.css('top', window.innerHeight / 2 - $notification.height() / 2)
+      $notification.hide()
     },
-
-
 
     message: function(message, stay) {
       $notification.off()
@@ -64,7 +64,7 @@ define(function(require, exports, module) {
         cancelCallback && cancelCallback()
       })
       this.position()
-      $notification.show()
+      this.show()
     }
   }
 
