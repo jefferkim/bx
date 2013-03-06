@@ -48,6 +48,7 @@ define(function (require, exports, module) {
            var that = this;
            that.snsId = snsId;
            that.feedId = feedId;
+
            $('header.navbar').html(headerTemplate({ href: '#account/' + this.snsId }));
            this.commentModel && this.commentModel.get('commentCount') && this.commentModel.trigger('change:commentCount')
 
@@ -56,6 +57,7 @@ define(function (require, exports, module) {
 
            that.model.getPageData({'snsId':snsId,'feedId':feedId})
            this.commentModel.getCommentCount({'snsId':snsId,'feedId':feedId})
+
        },
         renderAccInfo: function() {
           var accInfo = accinfoTemplate($.extend(this.model.get('accInfo'), { snsId: this.snsId }))
@@ -66,10 +68,18 @@ define(function (require, exports, module) {
 
         //渲染详情页
         renderDetail: function() {
-          var content = contentTemplate(this.model.get('feed'));
+          var self = this
+          var feed = this.model.get('feed')
+
+          if (feed.fail) {
+            this.model.set('feed', {}, { silent: true })
+            notification.message("网络错误，请刷新重试")
+            return
+          }
+
+          var content = contentTemplate(feed);
           this.$container.find('.main').html(content);
 
-          var feed = this.model.get('feed');
           console.log('render detail! feed='+JSON.stringify(feed));
         },
 
