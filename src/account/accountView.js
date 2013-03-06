@@ -108,9 +108,14 @@ define(function (require, exports, module) {
                 _back={'backUrl':'#index','backTitle':'返回'}
             }
 
+            var _show=$('.view-page.show');
+            _show.removeClass('show iC').addClass('iL').wAE(function(){
+                _show.addClass('hide');
+            });
+            $('#accountPage').removeClass('hide').removeClass(' iR iL').addClass('show iC');
 
-            $('.view-page.show').removeClass('show iC').addClass('iL');
-            $('#accountPage').removeClass('iL').addClass('show iC');
+
+
             $('header.navbar').html(_.template($('#navBack_tpl').html(),_back)+$('#accountTitle_tpl').html());
 
 

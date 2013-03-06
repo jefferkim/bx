@@ -17,6 +17,22 @@ define(function (require, exports, module) {
         pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
         mtop = require('../common/mtopForAllspark.js');
 
+    $.extend($.fn, {
+        // 扩展动画结束事件
+        wAE: function (c,n) {
+            var that = this;
+            var flag = true;
+            var listener = function(e){
+                if (n && e.propertyName != n ) { return };
+                if (typeof c == 'function' && flag) {
+                    c();
+                    flag = false;
+                }
+            }
+            that.unbind('webkitAnimationEnd').bind('webkitAnimationEnd', listener)
+            that.unbind('webkitTransitionEnd').bind('webkitTransitionEnd', listener)
+        }
+    });
 
     var dynIndexView = Backbone.View.extend({
         el: '#content',
@@ -112,9 +128,12 @@ define(function (require, exports, module) {
 
                 if($('#indexPage').hasClass('iT')){
                     //页面第一次加载的时候动画
-                    $('#indexPage').removeClass('iT').addClass('show iC');
+                    $('#indexPage').removeClass('iT hide').addClass('show iC');
                 }else{
-                    $('.view-page.show').removeClass('show iC').addClass('iL');
+                    var _show=$('.view-page.show');
+                    _show.removeClass('show iC').addClass('iR').wAE(function(){
+                        _show.addClass('hide');
+                    });
                     $('#indexPage').removeClass('iL').addClass('show iC');
                 }
 
