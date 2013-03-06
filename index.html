@@ -288,10 +288,10 @@
                     <p><%= tiles[i].text %></p>
                 <% } else if (tiles[i].type == "picItem") { %>
                     <div class="media">
-                      <div class="item" data-id="<%= tiles[i].item.id %>">
+                      <a style="display: block" href="http://a.m.taobao.com/i<%= tiles[i].item.id %>.htm" class="item" data-id="<%= tiles[i].item.id %>">
                         <img src="<%= tiles[i].path %>" alt="" style="width: 100%;">
                         <div class="price"></div>
-                      </div>
+                      </a>
                     </div>
                 <% } %>
             <% } %>
