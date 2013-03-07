@@ -42,7 +42,7 @@ define(function (require, exports, module) {
                 });
 
                 //step2: 获取详情
-                var cacheFeed = cache.getItemById(param.feedId);
+                var cacheFeed = cache.getItemById(param.snsId+"_"+param.feedId);
                 if (cacheFeed) {
                     //保存详情信息
                     self.set( "feed", cacheFeed);
@@ -54,7 +54,7 @@ define(function (require, exports, module) {
                          refine.refineDetail(result);
                          console.log(result);
                          self.set("feed",result);
-                         cache.saveItem(param.feedId,result);
+                         cache.saveItem(param.snsId+"_"+param.feedId,result);
                         getPrices(result,param);
                     });
                 }
