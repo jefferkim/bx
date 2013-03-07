@@ -2,8 +2,7 @@ define(function (require, exports, module) {
     var Backbone = require('backbone'),
         _ = require('underscore'),
         mtop = require('../common/mtopForAllspark.js'),
-        refine = require('../common/refine.js'),
-        cache = require('../common/cache.js');
+        refine = require('../common/refine.js');
 
     /**
      * 公共帐号信息页面
@@ -51,10 +50,10 @@ define(function (require, exports, module) {
 
             console.log(pageParam);
             self._biz.feeds(pageParam,function(result){
-                result.totalCount && result.list && result.list.forEach(function(feed){
+               /* result.totalCount && result.list && result.list.forEach(function(feed){
                     //feed.coverTile.item={'id':'1500020722928'};
                     cache.saveItem(feed.id,feed);
-                });
+                });*/
                 console.log('refine accFeeds');
                 refine.refineFeed(result);
                 console.log(result);

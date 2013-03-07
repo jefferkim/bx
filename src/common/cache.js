@@ -76,42 +76,106 @@ define(function(require, exports, module){
       }
       return false;
    }
+    //内存缓存介质
+    var baseCache = {};
+    var defaultMaxCount = 30;
 
+    exports.pushValue = function(key,jsonkey,jsonvalue,maxCount)
+    {
+        try
+        {
+            if(!key || !jsonkey || !jsonvalue) return false;
 
-    //定义队列缓存对象
-   var queryCache = function (len) {
-        this.capacity = len;        //队列最大容量
-        this.kv = {};
-        this.data = new Array();    //队列数据
-        this.put = function(key,value){
-            this.kv[key] = value;
-            this.data.push(this.kv);
-        };
-        this.get = function(key){
-            for(var i=0;i<this.data.length;i++){
-                 if(typeof (this.data[i][key] ) != 'undefined'){
-                     return this.data[i][key];
-                 }
+            maxCount = maxCount ||  defaultMaxCount ;
+            if(maxCount <1) return false;
+            //获取cache中的value
+            var cacheValue = baseCache[key];
+            var jsonObj={} ;
+            jsonObj[jsonkey]=jsonvalue;
+            if(!cacheValue)
+            {
+                baseCache[key] = "["+JSON.stringify(jsonObj)+"]";
+                return true;
             }
-        };
+            cacheValue = JSON.parse(cacheValue);
+            var cacheValueLen =  cacheValue.length;
+            var isReplaced =false;
+            //先执行替换操作
+            for(var i=0; i<cacheValueLen ;i++)
+            {
+                var temp= cacheValue[i][jsonkey] ;
+                if(temp)
+                {
+                    cacheValue[i]= jsonObj;
+                    isReplaced =true;
+                    break;
+                }
+            }
+            if(!isReplaced)
+            {
+                //如果没的替换则在尾部增加
+                var start = cacheValueLen - maxCount +1;
+                //如果超长了截取
+                if(start > 0)
+                {
+                    cacheValue = cacheValue.slice(start,cacheValueLen);
+                }
+                cacheValue.push(jsonObj);
+            }
+            baseCache[key] = JSON.stringify(cacheValue);
+        }
+        catch(e)
+        {
+            return false;
+        }
+        return true;
     }
-   //初始化详情缓存队列
-    var itemQueue = new queryCache(50);
-  //初始化账号缓存队列
-    var accountQuery = new queryCache(100);
+    /**
+     * 获取存储数组对象中的json元素的value
+     *
+     *
+     */
+    exports.getValue = function(key,jsonkey)
+    {
+        try
+        {
+            var  cacheValue = baseCache[key];
+            if(!cacheValue) return null;
 
-    /***
+            cacheValue = JSON.parse(cacheValue);
+            var cacheValueLen =  cacheValue.length;
+            //先执行替换操作
+            for(var i=0; i<cacheValueLen ;i++)
+            {
+                var temp= cacheValue[i][jsonkey] ;
+                if(temp)
+                {
+                    return  temp;
+                }
+            }
+
+        }
+        catch(e)
+        {
+            return null;
+        }
+        return null;
+    }
+
+   /***
    * 通过id从cache获取item数据
    * 目前只对客户端缓存，非客户端直接返回null
    * 如果不存在返回 null
    **/   
    exports.getItemById = function (id)
    {
-       if(h5_base.isClient())
+       if(!h5_base.isClient())
        {
-           return  h5_cache.getValue(itemCacheKey,id);
-       }else{
-           return  itemQueue.get(id);
+       return this.getValue(itemCacheKey,id);
+       }
+       else
+       {
+        return h5_cache.getValue(itemCacheKey,id);
        }
    }
    /***
@@ -123,16 +187,14 @@ define(function(require, exports, module){
    **/ 
     exports.saveItem = function (id,jsonData)
    {
-    if(h5_base.isClient())
-	 {
-           return  h5_cache.pushValue(itemCacheKey,id,jsonData,maxCount);
-     }else{
-        if(itemQueue.data.length>=itemQueue.capacity)
-        {
-            itemQueue.data.shift(0);
-        }
-        itemQueue.put(id,jsonData);
-     }
+       if(!h5_base.isClient())
+       {
+       return this.pushValue(itemCacheKey,id,jsonData,maxCount);
+       }
+       else
+       {
+       return h5_cache.pushValue(itemCacheKey,id,jsonData,maxCount);
+       }
    }
 
     /**
@@ -142,13 +204,16 @@ define(function(require, exports, module){
      */
     exports.getAccountById = function (id)
     {
-        if(h5_base.isClient())
+        if(!h5_base.isClient())
         {
-            return  h5_cache.getValue(accountCacheKey,id);
-        }else{
-            return  accountQuery.get(id);
+       return this.getValue(accountCacheKey,id);
+        }else
+        {
+       return h5_cache.getValue(accountCacheKey,id);
         }
     }
+
+
 
     /**
      *保存账号信息至缓存
@@ -158,16 +223,15 @@ define(function(require, exports, module){
      */
     exports.saveAccount = function (id,jsonData)
     {
-        if(h5_base.isClient())
+        if(!h5_base.isClient())
         {
-            return  h5_cache.pushValue(accountCacheKey,id,jsonData,maxCount);
-        }else{
-            if(accountQuery.data.length>=accountQuery.capacity)
-            {
-                accountQuery.data.shift(0);
-            }
-            accountQuery.put(id,jsonData);
+        return this.pushValue(accountCacheKey,id,jsonData,maxCount);
+        }
+        else
+        {
+        return h5_cache.pushValue(accountCacheKey,id,jsonData,maxCount);
         }
     }
+
 	  
 });
