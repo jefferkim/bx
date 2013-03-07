@@ -84,9 +84,8 @@ define(function (require, exports, module) {
                _detailPage.removeClass(' iR iL').addClass('show iC');
            },0);
 
-
            that.model.getPageData({'snsId':snsId,'feedId':feedId})
-           this.commentModel.getCommentCount({'snsId':snsId,'feedId':feedId})
+           this.commentModel &&  this.commentModel.getCommentCount({'snsId':snsId,'feedId':feedId})
 
        },
         renderAccInfo: function() {
@@ -100,17 +99,16 @@ define(function (require, exports, module) {
         renderDetail: function() {
           var self = this
           var feed = this.model.get('feed')
-
           if (feed.fail) {
             this.model.set('feed', {}, { silent: true })
             notification.message("网络错误，请刷新重试")
             return
           }
-
+            console.log('render detail! feed='+JSON.stringify(feed));
           var content = contentTemplate(feed);
           this.$container.find('.main').html(content);
 
-          console.log('render detail! feed='+JSON.stringify(feed));
+
         },
 
        renderComentCount: function() {
