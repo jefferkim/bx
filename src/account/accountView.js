@@ -98,6 +98,7 @@ define(function (require, exports, module) {
 
             }
             $('header.navbar').html('');
+            $('#feedPageNav').html('');
             var _navbar=$('header.navbar');
             var _accountPage=$('#accountPage');
             window.scrollTo(0,1);
