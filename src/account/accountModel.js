@@ -35,7 +35,8 @@ define(function (require, exports, module) {
          * @param param.curPage  页码
          * @param param.pageSize
          * @param param.snsId
-         * @param param.afterTimestamp  可选时传入空值，表示取在该时间之后的Feed
+         * @param param.afterTimestamp  进入首页的时侯或者刷新的时侯取当前时间点,翻页时可以不传
+         * @param param.before  下一页的时侯置为true,上一页不用传递
          */
         getPageData:function (param) {
             var self = this;
