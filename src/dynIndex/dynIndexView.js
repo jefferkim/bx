@@ -50,7 +50,7 @@ define(function (require, exports, module) {
             var that=this;
             that._pageSize=5;
             that.loginFlag=false;
-
+            that.timestamp=new Date().getTime();
 
             that.dynIndexModel = new _model();
             that.dynIndexModel.on("change:banner",function(model,result){
@@ -120,7 +120,7 @@ define(function (require, exports, module) {
 
             window.scrollTo(0,1);
 
-            that.dynIndexModel.getPageData({'curPage':that.curPage,'pageSize':that._pageSize});
+            that.dynIndexModel.getPageData({'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':that.timestamp});
 
             var _navbar=$('header.navbar');
 
@@ -188,12 +188,13 @@ define(function (require, exports, module) {
         refresh:function(){
             console.log('refresh');
             var that=this;
+            that.timestamp=new Date().getTime();
             var _spinner=$('.navbar .refresh div');
             if(!_spinner.hasClass('spinner')){
                 _spinner.addClass('spinner');
             }
             if(that.curPage=='1'){
-                that.dynIndexModel.getPageData({'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':new Date().getTime()});
+                that.dynIndexModel.getPageData({'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':that.timestamp});
             }else{
                 window.location.hash='#index/1';
             }

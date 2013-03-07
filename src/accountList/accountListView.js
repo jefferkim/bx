@@ -143,8 +143,11 @@ define(function (require, exports, module) {
             console.log('go index');
             window.location.hash='index/';
         },
-        changeTab:function(){
+        changeTab:function(e){
             var that=this;
+            var cur=$(e.currentTarget);
+            $('.tab-bar li.cur').removeClass('cur');
+            cur.addClass('cur');
             console.log('ok');
             if(that.status==1){
                 window.location.hash='accountList/2/1';
