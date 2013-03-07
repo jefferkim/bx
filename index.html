@@ -286,13 +286,13 @@
             <% } %>
             <% for (var i = 0; i < tiles.length; i++) { %>
                 <% if (tiles[i].type == "pic") { %>
-                    <div class="media"><img src="<%= tiles[i].path %>" style="width: 100%;"></div>
+                    <div class="media"><img src="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>" style="width: 100%;"></div>
                 <% } else if (tiles[i].type == "text") { %>
                     <p><%= tiles[i].text %></p>
                 <% } else if (tiles[i].type == "picItem") { %>
                     <div class="media">
                       <a style="display: block" href="http://a.m.taobao.com/i<%= tiles[i].item.id %>.htm" class="item" data-id="<%= tiles[i].item.id %>">
-                        <img src="<%= tiles[i].path %>" alt="" style="width: 100%;">
+                        <img src="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>" alt="" style="width: 100%;">
                         <div class="price" style="display: none;"></div>
                       </a>
                     </div>
