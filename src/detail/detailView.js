@@ -59,6 +59,10 @@ define(function (require, exports, module) {
                _navbar.removeClass('iT').addClass('iC');
            }
            var _show=$('.view-page.show');
+           //客户端 去掉动画
+           if(_show.length==0){
+               _detailPage.removeClass(' iR iL');
+           }
 
            //判断先后关系
            var _commentListPage= $('#commentListPage');

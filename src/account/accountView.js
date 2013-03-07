@@ -26,9 +26,12 @@ define(function (require, exports, module) {
 
         },
         backURL:'',
+        afterTimestamp:'',
+        before:false,
         initialize:function () {
             var that=this;
             that._pageSize=4;
+            that.afterTimestamp=new Date().getTime();
             that.accountModel = new _model();
             that.accountModel.on("change:accInfo",function(model,result){
                 console.log('accInfo');
@@ -149,7 +152,7 @@ define(function (require, exports, module) {
 //            * @param param.pageSize
 //            * @param param.snsId
 //            * @param param.afterTimestamp
-            that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':''});
+            that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':'','afterTimestamp':that.afterTimestamp,'before':that.before});
 
         },
         refresh:function(){
@@ -158,6 +161,7 @@ define(function (require, exports, module) {
             if(!_spinner.hasClass('spinner')){
                 _spinner.addClass('spinner');
             }
+            that.afterTimestamp=new Date().getTime();
             if(that.curPage=='1'){
                 that.accountModel.getPageData({'exCludInfo':true,'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':new Date().getTime()});
             }else{
@@ -210,6 +214,13 @@ define(function (require, exports, module) {
         changePage:function(page){
             var that=this;
             console.log('page:'+page);
+
+            if(parseInt(that.curPage)<parseInt(page)){
+                that.before=true;
+            }else{
+                that.before=false;
+            }
+
             window.location.hash='#account/'+that.snsid+'/'+page;
             //判断是否为分页，如果是分页返回还是账号列表
             that.backURL=$('.navbar .back a').attr('href');
