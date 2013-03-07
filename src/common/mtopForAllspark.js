@@ -92,6 +92,7 @@ define(function (require, exports, module) {
 
     exports.info = function (param, fun) {
         var cacheAccount = cache.getAccountById(param.snsId);
+        //cacheAccount=false;
         if (cacheAccount) {
             fun && fun.call(arguments.callee, cacheAccount);
         } else {
@@ -102,8 +103,8 @@ define(function (require, exports, module) {
         }
     };
 
-    exports.listBefor = function (param, fun) {
-        invokeApi("mtop.sns.feed.listBefor", param, fun);
+    exports.listBefore = function (param, fun) {
+        invokeApi("mtop.sns.feed.listBefore", param, fun);
     };
 
     exports.readAndListAfter = function (param, fun) {
