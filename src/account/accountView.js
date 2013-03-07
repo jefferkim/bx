@@ -171,9 +171,17 @@ define(function (require, exports, module) {
         goWWW:function(e){
             var that=this;
             var cur=$(e.currentTarget);
-            notification.external(cur.attr('url'),function(){
-                window.location.href=cur.attr('url');
-            },null);
+            if (cur.attr('linkUrlIsExt') == 'true') {
+                notification.external(cur.attr('url'),function(){
+                    window.location.href=cur.attr('url');
+                },null);
+            } else {
+                if(cur.attr('url')!=''){
+                    window.location.href = cur.attr('url');
+                }
+            }
+
+
         },
         goBackHome:function(){
             if(typeof window.AccountList!='undefined'){
