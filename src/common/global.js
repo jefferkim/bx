@@ -3,7 +3,7 @@ define(function(require){
 		h5_utils = require('h5_utils'),
         h5_base = require('h5_base'),
 		cookie = require('cookie');
-       
+
 	
 	return h5_utils.wrapColsure({		
 		init : function() {
