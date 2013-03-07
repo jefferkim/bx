@@ -59,6 +59,10 @@ define(function(require, exports, module) {
           $('#newCommentPage').removeClass('iL').addClass('show iC');
       },
 
+    back: function() {
+      $('.navbar .back a').trigger('click')
+    },
+
     typing: function() {
       var length = this.$commentArea.val().length
       this.$charCount.text(length)
