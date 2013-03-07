@@ -5,8 +5,6 @@ define(function (require, exports, module) {
         h5_cache = require('h5_cache'),
         uriBroker = require('uriBroker'),
         $ = require('zepto'),
-//        _ = require('underscore'),
-        tbh5 = require('h5_base'),
         cookie = require('cookie'),
         cache = require('../common/cache.js');
 

@@ -17,6 +17,8 @@ define(function(require, exports, module) {
 
     events: {
       'keyup #comment-area': 'typing',
+      'focusin #comment-area': 'focus',
+      'focusout #comment-area': 'blur',
       'click .publish-comment.btn': 'publish'
     },
 
@@ -58,6 +60,19 @@ define(function(require, exports, module) {
           $('.view-page.show').removeClass('show iC').addClass('iL');
           $('#newCommentPage').removeClass('iL').addClass('show iC');
       },
+
+    back: function() {
+      $('.navbar .back a').trigger('click')
+    },
+
+    focus: function() {
+      $('.navbar').hide()
+    },
+
+    blur: function() {
+      $('.navbar').show()
+      window.scroll(0, 1)
+    },
 
     typing: function() {
       var length = this.$commentArea.val().length
