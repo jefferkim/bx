@@ -48,9 +48,6 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" id="J_user_nick" value="tbwuzhong000"/>
-        <input type="hidden" id="J_sid" value="6752c8f33e1ed86c2c75115f5b6966bb"/>
-
         <!-- end of #content -->
 
         <!-- Templates -->
@@ -355,10 +352,11 @@
         <!-- Templates -->
 
         <input type="hidden" id="J_app_key" value="4272">
-
-
         <script src="http://a.tbcdn.cn/mw/base/libs/seajs/1.2.0/sea.js"></script>
         <script>
+            seajs.use('./src/app/allspark.js', function(app){
+                //new app();
+            });
             function timestamps(time){
 
                 if(typeof time == 'string'){
@@ -419,10 +417,6 @@
                 return ret;
             }
 
-            seajs.use('./src/app/app.js', function(app){
-                //new app();
-            });
-            console.log(document.referrer);
         </script>
 
 

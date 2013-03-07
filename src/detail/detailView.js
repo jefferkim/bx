@@ -10,11 +10,8 @@ define(function (require, exports, module) {
         _model=require('./detailModel'),
         cdn = require('cdn'),
         h5_base = require('h5_base'),
-        router = require('../app/routerNew.js'),
         notification = require('../ui/notification.js')
         CommentModel = require('../comment/commentModel.js')
-
-    var CommentListView = require('../comment/commentListView');
 
     var headerTemplate  = _.template($('#detail_header_tpl').html());
     var accinfoTemplate = _.template($('#detail_accinfo_tpl').html());
