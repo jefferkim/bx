@@ -23,7 +23,7 @@ define(function (require, exports, module) {
              * @param fun
              */
             feeds:function(param, fun){
-                param.before ? mtop.listBefor(param, fun) : mtop.readAndListAfter(param, fun);
+                param.before ? mtop.listBefore(param, fun) : mtop.readAndListAfter(param, fun);
                 delete param.before;
             }
         },
@@ -39,6 +39,7 @@ define(function (require, exports, module) {
          */
         getPageData:function (param) {
             var self = this;
+
             param.exCludInfo||self._biz.info({snsId:param.snsId,sid:param.sid},function(result){
                 console.log('refine accInfo');
                 refine.refinePubAccount(result);
@@ -47,6 +48,8 @@ define(function (require, exports, module) {
             param || (param = {});
             var pageParam = _.clone(mtop.pageParam);
             _.extend(pageParam, param);
+
+            pageParam.before || (pageParam.before = pageParam.isIndex());
 
             console.log(pageParam);
             self._biz.feeds(pageParam,function(result){
