@@ -44,7 +44,6 @@ define(function (require, exports, module) {
                 console.log('refine accInfo');
                 refine.refinePubAccount(result);
                 self.set("accInfo",result);
-                cache.saveAccount(snsId,result);
         });
             param || (param = {});
             var pageParam = _.clone(mtop.pageParam);
@@ -54,7 +53,7 @@ define(function (require, exports, module) {
             self._biz.feeds(pageParam,function(result){
                 result.totalCount && result.list && result.list.forEach(function(feed){
                     //feed.coverTile.item={'id':'1500020722928'};
-                    cache.saveItem(feed.feedId,feed);
+                    cache.saveItem(feed.id,feed);
                 });
                 console.log('refine accFeeds');
                 refine.refineFeed(result);

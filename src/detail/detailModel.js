@@ -4,9 +4,7 @@ define(function (require, exports, module) {
         mtop = require('../common/mtopForAllspark.js'),
         cache = require('../common/cache.js'),
         h5_comm = require('h5_comm'),
-        AccountModel = require('../account/accountModel.js');
-
-        var refine = require('../common/refine.js')
+        refine = require('../common/refine.js');
 
     /**
      * 详情页面
@@ -37,39 +35,18 @@ define(function (require, exports, module) {
                       })
                  }
 
-                /**
-                 * 获取页面其他绑定数据
-                 * @param result
-                 * @param param
-                 */
-                function setPageData(result,param) {
-                    //获取实时优惠价格
-                    getPrices(result);
-                    //获取账号信息
-                    var cacheAccount = cache.getAccountById(result.creatorId);
-                    if (cacheAccount){
-                         self.set("accInfo",cacheAccount);
-                    }else{
-                            //获取卖家信息
-                            var pageParam = _.clone(mtop.pageParam);
-                            _.extend(pageParam, param);
-                            pageParam.snsId = result.creatorId;
-                            delete pageParam.feedId;
-                            var accountModel = new AccountModel();
-                            accountModel._biz.info(pageParam,function(result){
-                            refine.refinePubAccount(result);
-                            self.set("accInfo",result);
-                            cache.saveAccount(pageParam.snsId,result);
-                           });
-                    }
-                }
+                //step1: 获取帐号信息
+                mtop.info({snsId:param.snsId},function(result){
+                    refine.refinePubAccount(result);
+                    self.set("accInfo",result);
+                });
 
-                //获取详情
+                //step2: 获取详情
                 var cacheFeed = cache.getItemById(param.feedId);
                 if (cacheFeed) {
                     //保存详情信息
                     self.set( "feed", cacheFeed);
-                    setPageData(cacheFeed,param);
+                    getPrices(cacheFeed,param);
                      return;
                 }else {
                     mtop.detail(param || {},function(result){
@@ -78,7 +55,7 @@ define(function (require, exports, module) {
                          console.log(result);
                          self.set("feed",result);
                          cache.saveItem(param.feedId,result);
-                         setPageData(result,param);
+                        getPrices(result,param);
                     });
                 }
         }
