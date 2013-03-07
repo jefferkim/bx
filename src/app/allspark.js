@@ -6,7 +6,6 @@ seajs.config({
         'mustache': 'http://a.tbcdn.cn/mw/base/libs/mustache/0.5.0/mustache',
         'linkfocus' : '../../../../base/modules/linkfocus/linkfocus',
         'uriBroker' : '../../../../base/utils/server/uriBroker',
-       // 'h5_mtop': '../../../../base/utils/server/mtop_h5_test',
         'h5_mtop': '../../../../base/utils/server/mtop_h5api',
         'h5_events' : '../../../../base/utils/server/h5_events',
         'h5_comm' : '../../../../base/utils/server/h5_common',
@@ -23,5 +22,5 @@ seajs.config({
 
 
 define(function(require, exports){
-    require('./routerNew').start();
+    require('./router').start();
 })
