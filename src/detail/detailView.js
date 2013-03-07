@@ -48,7 +48,7 @@ define(function (require, exports, module) {
            var that = this;
            that.snsId = snsId;
            that.feedId = feedId;
-
+           window.scrollTo(0,1);
            var _navbar=$('header.navbar');
            var _detailPage=$('#detailPage');
            _navbar.html(headerTemplate({ href: '#account/' + this.snsId }));

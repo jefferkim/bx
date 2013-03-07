@@ -38,7 +38,7 @@ define(function(require, exports, module) {
          var _navbar=$('header.navbar');
          var _commentListPage= $('#commentListPage');
          $('header.navbar').html(commentListHeaderTemplate({ href: '#detail/' + this.snsId + '/' + this.feedId }));
-
+         window.scrollTo(0,1);
          //判断导航是否已经载入
          if(_navbar.hasClass('iT')){
              _navbar.removeClass('iT').addClass('iC');

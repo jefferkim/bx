@@ -36,6 +36,7 @@ define(function(require, exports, module) {
         this.curPage = page;
         var _navbar=$('header.navbar');
           _navbar.html(newCommentHeaderTempalte({ href: '#comment/' + this.snsId + '/' + this.feedId + '/' + this.curPage }));
+          window.scrollTo(0,1);
           //判断导航是否已经载入
           if(_navbar.hasClass('iT')){
               _navbar.removeClass('iT').addClass('iC');
@@ -54,9 +55,6 @@ define(function(require, exports, module) {
           setTimeout(function(){
               _newCommentPage.removeClass(' iR iL').addClass('show iC');
           },0);
-
-
-
           $('.view-page.show').removeClass('show iC').addClass('iL');
           $('#newCommentPage').removeClass('iL').addClass('show iC');
       },
