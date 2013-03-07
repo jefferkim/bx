@@ -43,15 +43,16 @@ define(function (require, exports, module) {
               this.commentModel.on('change:commentCount', this.renderComentCount, this)
             }
         },
-       goDetail : function(snsId,feedId){
+       goDetail : function(snsId,feedId,page){
 
            var that = this;
            that.snsId = snsId;
            that.feedId = feedId;
+           that.page=page;
            window.scrollTo(0,1);
            var _navbar=$('header.navbar');
            var _detailPage=$('#detailPage');
-           _navbar.html(headerTemplate({ href: '#account/' + this.snsId }));
+           _navbar.html(headerTemplate({ href: '#account/' + this.snsId+'/'+this.page }));
            this.commentModel && this.commentModel.get('commentCount') && this.commentModel.trigger('change:commentCount')
 
            //判断导航是否已经载入

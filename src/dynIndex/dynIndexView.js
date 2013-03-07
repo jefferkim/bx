@@ -119,6 +119,8 @@ define(function (require, exports, module) {
 
 
             window.scrollTo(0,1);
+            $('#indexPage .J_list .person-list').html('');
+            $('#personListPageNav').html('');
 
             that.dynIndexModel.getPageData({'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':that.timestamp});
 

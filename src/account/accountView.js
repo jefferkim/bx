@@ -44,15 +44,19 @@ define(function (require, exports, module) {
                 if(result.list&&result.list.length>0){
                     console.log('change:accFeeds');
                     console.log(result);
-                    $('.navbar .refresh div').removeClass('spinner');
+                    setTimeout(function(){
+                        $('.navbar .refresh div').removeClass('spinner');
+                    },2000)
                     if(that.oldTotalCount){
-                        var addCount=parseInt(result.totalCount)-parseInt(that.oldTotalCount);
-                        if(addCount>0){
-                            that.oldTotalCount=result.totalCount;
-                            notification.message('更新了 '+addCount+' 条广播');
+                        if(that.oldTotalCount.snsid==that.snsid){
+                            var addCount=parseInt(result.totalCount)-parseInt(that.oldTotalCount.count);
+                            if(addCount>0){
+                                that.oldTotalCount.count=result.totalCount;
+                                notification.message('更新了 '+addCount+' 条广播');
+                            }
                         }
                     }else{
-                        that.oldTotalCount=result.totalCount;
+                        that.oldTotalCount={'snsid':that.snsid,'count':result.totalCount};
                     }
 
                     $('#accountPage .J_feed .tb-feed-items').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
@@ -69,12 +73,11 @@ define(function (require, exports, module) {
             that.accountModel.on("change:prices",function(model,result){
                 console.log('prices');
                 console.log(result);
-                if(result&&result.length>0){
+                if(result&&result.prices.length>0){
 
-                    for(var i=0;i<result.length;i++){
-                        $('.it'+result[i].id).append('<div class="price">￥'+result[i].price+'</div>')
+                    for(var i=0;i<result.prices.length;i++){
+                        $('.it'+result.prices[i].id).append('<div class="price">￥'+result.prices[i].price+'</div>');
                     }
-
 
                     //<div class="price">￥102.00</div>
                 }
@@ -99,6 +102,7 @@ define(function (require, exports, module) {
             }
             $('header.navbar').html('');
             $('#feedPageNav').html('');
+
             var _navbar=$('header.navbar');
             var _accountPage=$('#accountPage');
             window.scrollTo(0,1);
@@ -202,6 +206,7 @@ define(function (require, exports, module) {
                     mtop.removeAccount(cur.attr('pid'),function(){
                         cur.html('关注');
                         cur.removeClass('followed');
+                        $('.stats-count').text(parseInt($('.stats-count').text())-1);
                     },function(){
                         cur.html('已关注');
                     });
@@ -210,6 +215,7 @@ define(function (require, exports, module) {
                     cur.addClass('followed');
                     mtop.addAccount(cur.attr('pid'),function(){
                         cur.html('已关注');
+                        $('.stats-count').text(parseInt($('.stats-count').text())+1);
                     },function(){
                         cur.html('关注');
                         cur.removeClass('followed');
@@ -238,7 +244,8 @@ define(function (require, exports, module) {
         },
         goToDetail:function(e){
             var cur=$(e.currentTarget);
-            window.location.hash='#detail/'+$('.tb-profile').attr('snsid')+'/'+cur.attr('feedid');
+            var that=this;
+            window.location.hash='#detail/'+$('.tb-profile').attr('snsid')+'/'+cur.attr('feedid')+'/'+that.curPage;
         },
 
         /**
