@@ -112,7 +112,7 @@ define(function (require, exports, module) {
             e.stopPropagation();
             var that=this;
             var cur=$(e.currentTarget);
-            if(that.loginFlag){
+            if(h5_comm.isLogin()){
                 //已登录
                 console.log('follow');
                 if(cur.hasClass('followed')){
@@ -127,7 +127,7 @@ define(function (require, exports, module) {
                     cur.html('关注中...');
                     cur.addClass('followed');
                     mtop.addAccount(cur.attr('pid'),function(){
-                        cur.html('取消关注');
+                        cur.html('已关注');
                     },function(){
                         cur.html('关注');
                         cur.removeClass('followed');

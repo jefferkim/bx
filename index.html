@@ -85,7 +85,7 @@
                         <% _.each(list, function(item) { %>
                         <li style="-webkit-transform: translate3d(0px, 0px, 0px);" l="1">
                             <a href="<%=item.href %>">
-                                <img height="150" width="320" src="<%=item.img %>">
+                                <img class="" height="150" width="320" src="<%=item.img %>">
                             </a>
                         </li>
                         <% }); %>
@@ -119,7 +119,7 @@
                             <div class="title"><%=item.nick%></div>
                             <div class="info"><%=item.description%></div>
                             <div class="follows"><span><%=item.fansCount%></span>关注者</div>
-                            <img src="<%=item.logoUrl%>">
+                            <img class="default" src="<%=item.logoUrl%>">
                         </div>
                         <% if(item.followed=='true'){ %>
                             <button pid="<%=item.id%>" class="followbtn followed">取消关注</button>
@@ -144,7 +144,7 @@
                                 <% if(item.firstFeed.coverTile&&item.firstFeed.coverTile.path) {%>
                                 <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="multimedia">
                                     <div class="media">
-                                        <img src="<%=item.firstFeed.coverTile.path%>">
+                                        <img class="default" src="<%=item.firstFeed.coverTile.path%>">
                                     </div>
                                 <% }else{ %>
                                 <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>">
@@ -179,7 +179,7 @@
                 <div class="user-cover" style="background-image: url('<%=backgroundImg%>')">
                 </div>
                 <div class="user-avatar">
-                    <img src="<%=logoUrl%>"/>
+                    <img class="default" src="<%=logoUrl%>"/>
                 </div>
                 <div class="user-info">
                     <h1><%=nick%></h1>
@@ -204,7 +204,7 @@
                 <div class="profile-overview">
                     <% if(followed=='true'){ %>
                     <button pid="<%=id%>" class="stats-follow-btn followed">
-                        已关注
+                        取消关注
                     </button>
                      <% }else{ %>
                     <button pid="<%=id%>" class="stats-follow-btn">
@@ -222,9 +222,9 @@
                         <% if(item.coverTile){ %>
                             <% if(item.coverTile.path){%>
                             <div class="media">
-                                <div class="item <% if(item.coverTile.items){ %>
-                                    <% if(item.coverTile.items.length>0){ %>
-                                        it<%=item.coverTile.items[0].id%>
+                                <div class="item <% if(item.coverTile.item){ %>
+                                    <% if(item.coverTile.item){ %>
+                                        it<%=item.coverTile.item.id%>
                                     <% } %>
                                  <% } %>" >
                                     <img src="<%=item.coverTile.path%>" width="100%"/>
@@ -265,7 +265,7 @@
         </script>
         <script id="detail_accinfo_tpl" type="text/template">
           <a href="#account/<%= snsId %>" class="brand">
-            <img class="avatar" src="<%= logoUrl || 'http://img03.taobaocdn.com/tps/i3/T1KX0vXABeXXc9CzYt-98-98.png' %>" alt="">
+            <img class="default" class="avatar" src="<%= logoUrl || 'http://img03.taobaocdn.com/tps/i3/T1KX0vXABeXXc9CzYt-98-98.png' %>" alt="">
             <div class="info">
               <p class="name"><%= nick %></p>
               <p class="follow">
