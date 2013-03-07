@@ -80,6 +80,9 @@ define(function(require, exports, module) {
 
       if (length) this.$charCount.addClass('typing')
       else this.$charCount.removeClass('typing')
+
+      var self = this
+      setTimeout(function() { self.typing() }, 200)
     },
 
     publish: function() {
@@ -98,7 +101,7 @@ define(function(require, exports, module) {
           if (success) {
             notification.message('发布成功！')
             self.$commentArea.val('')
-            setTimeout(function() { self.back() }, 500)
+            setTimeout(function() { self.back() }, 1500)
           } else {
             notification.message('发布失败，请重试')
           }
