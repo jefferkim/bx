@@ -65,7 +65,7 @@ define(function (require, exports, module) {
             _navbar.html(_.template($('#navBack_tpl').html(),{'backUrl':'#index','backTitle':'微淘'})+$('#accountListTabBar_tpl').html());
 
 
-
+            window.scrollTo(0,1);
             $('.tab-bar li.cur').removeClass('cur');
             $('.tab-bar li').eq(that.status-1).addClass('cur');
             $('#accountListPage .person-list').html('');
