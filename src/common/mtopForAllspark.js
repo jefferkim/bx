@@ -1,13 +1,14 @@
 define(function (require, exports, module) {
     var h5_mtop = require('h5_mtop'),
         h5_comm = require("h5_comm"),
-        //base64 = require('base64'),
+    //base64 = require('base64'),
         h5_cache = require('h5_cache'),
         uriBroker = require('uriBroker'),
         $ = require('zepto'),
 //        _ = require('underscore'),
         tbh5 = require('h5_base'),
-        cookie = require('cookie');
+        cookie = require('cookie'),
+        cache = require('../common/cache.js');
 
     /**
      * motp api简单的封装
@@ -49,7 +50,7 @@ define(function (require, exports, module) {
     }
 
     //TODO get form cookie
-    exports.userNick =h5_comm.getNickFromHidden();
+    exports.userNick = h5_comm.getNickFromHidden();
     exports.pageParam = {
         curPage:1,
         pageSize:3,
@@ -89,15 +90,23 @@ define(function (require, exports, module) {
         this.getData("mtop.sns.follow.pubAccount.remove", convertIds(ids), successF, failF)
     }
 
-    exports.info  = function (param, fun) {
-        invokeApi("mtop.sns.pubAccount.info", param, fun);
+    exports.info = function (param, fun) {
+        var cacheAccount = cache.getAccountById(param.snsId);
+        if (cacheAccount) {
+            fun && fun.call(arguments.callee, cacheAccount);
+        } else {
+            invokeApi("mtop.sns.pubAccount.info", param, function (result) {
+                result.fail || cache.saveAccount(param.snsId, result);
+                fun && fun.call(arguments.callee, result);
+            });
+        }
     };
 
-    exports.listBefor  = function (param, fun) {
+    exports.listBefor = function (param, fun) {
         invokeApi("mtop.sns.feed.listBefor", param, fun);
     };
 
-    exports.readAndListAfter  = function (param, fun) {
+    exports.readAndListAfter = function (param, fun) {
         invokeApi("mtop.sns.feed.readAndListAfter", param, fun);
     };
 
@@ -114,7 +123,7 @@ define(function (require, exports, module) {
     };
 
     /**----------------------评论相关---------------------------------------*/
-    exports.commentCount  = function (param, fun) {
+    exports.commentCount = function (param, fun) {
         invokeApi("mtop.sns.comment.count", param, fun);
     };
 
@@ -122,12 +131,12 @@ define(function (require, exports, module) {
         invokeApi("mtop.sns.comment.new", param, fun);
     };
 
-    exports.commentList  = function (param, fun) {
+    exports.commentList = function (param, fun) {
         invokeApi("mtop.sns.comment.list", param, fun);
     };
 
     /**----------------------详情相关---------------------------------------*/
-    exports.detail  = function (param, fun) {
+    exports.detail = function (param, fun) {
         invokeApi("mtop.sns.feed.detail", param, fun);
     };
 
