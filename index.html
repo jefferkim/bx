@@ -101,14 +101,13 @@
                         <div class="title"><%=item.nick%></div>
                         <div class="info"><%=item.description%></div>
                         <div class="follows"><span><%=item.fansCount%></span>关注者</div>
-                        <img src="<%=item.logoUrl%>">
+                        <img class="default" src="<%=item.logoUrl%>">
                     </div>
                 </li>
                 <% }); %>
             </ul>
         </script>
         <script id="personList_tpl" type="text/template">
-
                 <ul>
                     <% _.each(list, function(item) { %>
                     <li>
@@ -120,7 +119,6 @@
                         </div>
                         <% if(item.followed=='true'){ %>
                             <button pid="<%=item.id%>" class="followbtn followed">取消关注</button>
-
                         <% }else{ %>
                             <button pid="<%=item.id%>" class="followbtn">关注</button>
                         <% }%>

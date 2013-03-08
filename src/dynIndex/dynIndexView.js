@@ -93,13 +93,13 @@ define(function (require, exports, module) {
                     $('#indexPage .J_list .person-list').html(_.template($('#personList_tpl').html(),result));
 
                     //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));
-                    if(!that.recommentPage){
+                    //if(!that.recommentPage){
                         var pageCount=Math.ceil(result.totalCount/that._pageSize);
                         that.recommentPage=new pageNav({'id':'#personListPageNav','index':that.curPage,'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
                         that.recommentPage.pContainer().on('P:switchPage', function(e,page){
                             that.changePage(page.index);
                         });
-                    }
+                    //}
                 }
                 //ok(result.totalCount > 0, "total count > 0")
             },this);

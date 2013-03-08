@@ -202,7 +202,7 @@ define(function (require, exports, module) {
             var cur=$(e.currentTarget);
             if(h5_comm.isLogin()){
                 if(cur.hasClass('followed')){
-                    cur.html('取消关注...');
+                    cur.html('取消关注.');
                     mtop.removeAccount(cur.attr('pid'),function(){
                         cur.html('关注');
                         cur.removeClass('followed');

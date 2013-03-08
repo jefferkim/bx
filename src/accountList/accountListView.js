@@ -112,6 +112,7 @@ define(function (require, exports, module) {
             e.stopPropagation();
             var that=this;
             var cur=$(e.currentTarget);
+            var _numObj=cur.parent().find('.follows span');
             if(h5_comm.isLogin()){
                 //已登录
                 console.log('follow');
@@ -119,6 +120,7 @@ define(function (require, exports, module) {
                     cur.html('取消关注...');
                     mtop.removeAccount(cur.attr('pid'),function(){
                         cur.html('关注');
+                        _numObj.text(parseInt(_numObj.text())-1);
                         cur.removeClass('followed');
                     },function(){
                         cur.html('取消关注');
@@ -128,11 +130,11 @@ define(function (require, exports, module) {
                     cur.addClass('followed');
                     mtop.addAccount(cur.attr('pid'),function(){
                         cur.html('已关注');
+                        _numObj.text(parseInt(_numObj.text())+1);
                     },function(){
                         cur.html('关注');
                         cur.removeClass('followed');
                     });
-
                 }
             }else{
                 h5_comm.goLogin('h5_allspark');
