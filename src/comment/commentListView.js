@@ -37,7 +37,7 @@ define(function(require, exports, module) {
          this.page = page
          var _navbar=$('header.navbar');
          var _commentListPage= $('#commentListPage');
-         $('header.navbar').html(commentListHeaderTemplate({ href: '#detail/' + this.snsId + '/' + this.feedId +'/'+that.page}));
+         $('header.navbar').html(commentListHeaderTemplate({ href: '#detail/' + this.snsId + '/' + this.feedId +'/'+this.page}));
          window.scrollTo(0,1);
          //判断导航是否已经载入
          if(_navbar.hasClass('iT')){
