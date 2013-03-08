@@ -8,16 +8,16 @@ define(function (require, exports, module) {
         $ = require('zepto'),
         _ = require('underscore'),
         _model=require('./detailModel'),
+        cdn = require('cdn'),
         h5_base = require('h5_base'),
-        router = require('../app/routerNew.js'),
         notification = require('../ui/notification.js')
         CommentModel = require('../comment/commentModel.js')
-
-    var CommentListView = require('../comment/commentListView');
 
     var headerTemplate  = _.template($('#detail_header_tpl').html());
     var accinfoTemplate = _.template($('#detail_accinfo_tpl').html());
     var contentTemplate = _.template($('#detail_content_tpl').html());
+
+    getBetterImg = cdn.getBetterImg // make it global for convenience use in templates
 
    var detailView = Backbone.View.extend({
 
@@ -43,15 +43,16 @@ define(function (require, exports, module) {
               this.commentModel.on('change:commentCount', this.renderComentCount, this)
             }
         },
-       goDetail : function(snsId,feedId){
+       goDetail : function(snsId,feedId,page){
 
            var that = this;
            that.snsId = snsId;
            that.feedId = feedId;
-
+           that.page=page;
+           window.scrollTo(0,1);
            var _navbar=$('header.navbar');
            var _detailPage=$('#detailPage');
-           _navbar.html(headerTemplate({ href: '#account/' + this.snsId }));
+           _navbar.html(headerTemplate({ href: '#account/' + this.snsId+'/'+this.page }));
            this.commentModel && this.commentModel.get('commentCount') && this.commentModel.trigger('change:commentCount')
 
            //判断导航是否已经载入
