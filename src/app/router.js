@@ -12,6 +12,7 @@ define(function(require, exports, module) {
       commentView = require('../comment/commentListView'),
       newCommentView = require('../comment/newCommentView'),
       back = require('./../common/back'),
+      cdn = require('cdn'),
       //缓存实例变量view
       _indexView,_accountView,_detailView,_accountListView,_commentView,_newCommentView ;
 
@@ -22,6 +23,9 @@ define(function(require, exports, module) {
       initialize : function() {
           //test
           //   localStorage.clear();
+          //cdn 获取最佳图片尺寸
+          getBetterImg = cdn.getBetterImg; // make it global for convenience use in templates
+
           //去首次加载动画
           window.MH5slogan && window.MH5slogan.hideFunc && window.MH5slogan.hideFunc();
           var self = this;

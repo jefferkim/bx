@@ -10,7 +10,7 @@ define(function(require){
             //如果是客户端隐藏bar
             if (h5_base.isClient()) {
                 $('header.navbar').hide();
-                $('.tb-h5').addClass('webview')
+                $('body').addClass('webview')
             }
 		    //判断是否支持cookie
 		   if(!cookie.isCookieEnable())

@@ -84,6 +84,8 @@ define(function (require, exports, module) {
             function getrecommends(param) {
                 mtop.recommends(param, function (recResult) {
                     refine.refineRecommend(recResult);
+
+                    recResult.t=new Date().getTime();
                     self.set("recommends", recResult);
                 })
             }

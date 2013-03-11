@@ -8,7 +8,8 @@ define(function(require){
     return {
         refinePubAccount:function (data){
             data.id = data.id===undefined?0:data.id;
-            data.logoUrl = cdn.getImg(data.logoUrl,60,60) || "";
+            //getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth))
+            data.logoUrl = cdn.getBetterImg(data.logoUrl,60,60) || "";
             data.nick = data.nick || "";
             data.description = data.description || "";
             data.url = data.url || "";

@@ -36,6 +36,8 @@ define(function (require, exports, module) {
                     that.myPageNav.pContainer().on('P:switchPage', function(e,page){
                         that.changePage(page.index);
                     });
+                }else{
+                    $('#accountListPage .person-list').html('<div class="empty">你还没有关注任何账号</div>');
                 }
             });
             that.accountListModel.on("change:recommends",function(model,result){

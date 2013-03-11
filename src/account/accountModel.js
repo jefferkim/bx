@@ -48,8 +48,8 @@ define(function (require, exports, module) {
             param || (param = {});
             var pageParam = _.clone(mtop.pageParam);
             _.extend(pageParam, param);
-
-            pageParam.before || (pageParam.before = pageParam.isIndex());
+            //判断是否第一页
+            //pageParam.before || (pageParam.before = pageParam.isIndex());
 
             console.log(pageParam);
             self._biz.feeds(pageParam,function(result){

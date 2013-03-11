@@ -81,10 +81,13 @@ define(function (require, exports, module) {
                     }else{
                         $('#indexPage .J_status').html('<div class="account-title"><span>账号动态</span></div>'+_.template($('#myfeed_tpl').html(),result));
                         var pageCount=Math.ceil(result.totalCount/that._pageSize);
-                        that.myfeedPage=new pageNav({'id':'#personListPageNav','index':that.curPage,'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
-                        that.myfeedPage.pContainer().on('P:switchPage', function(e,page){
-                            that.changePage(page.index);
-                        });
+                        //页数大于1的时候显示分页组件
+                        if(pageCount>1){
+                            that.myfeedPage=new pageNav({'id':'#personListPageNav','index':that.curPage,'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
+                            that.myfeedPage.pContainer().on('P:switchPage', function(e,page){
+                                that.changePage(page.index);
+                            });
+                        }
                         //$(_.template($('#myfeed_tpl').html(),result)).insertAfter('div.in-slider');
                     }
                 }
@@ -100,10 +103,13 @@ define(function (require, exports, module) {
                     //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));
                     //if(!that.recommentPage){
                         var pageCount=Math.ceil(result.totalCount/that._pageSize);
-                        that.recommentPage=new pageNav({'id':'#personListPageNav','index':that.curPage,'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
-                        that.recommentPage.pContainer().on('P:switchPage', function(e,page){
-                            that.changePage(page.index);
-                        });
+                        //页数大于1的时候显示分页组件
+                        if(pageCount>1){
+                            that.recommentPage=new pageNav({'id':'#personListPageNav','index':that.curPage,'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
+                            that.recommentPage.pContainer().on('P:switchPage', function(e,page){
+                                that.changePage(page.index);
+                            });
+                        }
                     //}
                 }
                 //ok(result.totalCount > 0, "total count > 0")

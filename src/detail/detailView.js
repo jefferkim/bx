@@ -24,7 +24,7 @@ define(function (require, exports, module) {
         el: '#content',
         model : new _model(),
         events:{
-          'click .comment.btn': 'commentList',
+          'click .to-comment-list.btn': 'commentList',
           'click .more-content': 'more',
           'click #detailPage .brand': 'toAccountPage'
         },
