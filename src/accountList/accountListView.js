@@ -37,7 +37,7 @@ define(function (require, exports, module) {
                         that.changePage(page.index);
                     });
                 }else{
-                    $('#accountListPage .person-list').html('<div class="empty">你还没有关注任何账号</div>');
+                    $('#accountListPage .person-list').html('<div class="empty">还没有关注任何帐号哦</div>');
                 }
             });
             that.accountListModel.on("change:recommends",function(model,result){
@@ -52,6 +52,8 @@ define(function (require, exports, module) {
                     that.recPageNav.pContainer().on('P:switchPage', function(e,page){
                         that.changePage(page.index);
                     });
+                }else{
+                    $('#accountListPage .person-list').html('<div class="empty">您已经关注所有帐号了</div>');
                 }
             });
         },

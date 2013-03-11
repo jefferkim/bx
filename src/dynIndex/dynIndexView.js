@@ -74,6 +74,11 @@ define(function (require, exports, module) {
             that.dynIndexModel.on("change:accWithFeed",function(model,result){
                 console.log('accWithFeed');
                 console.log(result);
+                //取消刷新按钮动画
+                setTimeout(function(){
+                    $('.navbar .refresh div').removeClass('spinner');
+                },2000);
+
                 if(result.list&&result.list.length>0){
                     if(result.list.length==1){
                         $('#indexPage .J_status').html(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result));
@@ -97,6 +102,11 @@ define(function (require, exports, module) {
                 //推荐列表
                 console.log('recommends');
                 console.log(result);
+                //取消刷新按钮动画
+                setTimeout(function(){
+                    $('.navbar .refresh div').removeClass('spinner');
+                },2000);
+
                 if(result.list&&result.list.length>0){
                     $('#indexPage .J_list .person-list').html(_.template($('#personList_tpl').html(),result));
 
