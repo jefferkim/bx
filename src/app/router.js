@@ -101,6 +101,8 @@ define(function(require, exports, module) {
         _accountListView.render(status,page);
     },
     detail: function(snsId, feedId,page) {
+
+      page = page || 1
         //详情需要置顶
         window.scrollTo(0,0);
         _detailView.goDetail(snsId,feedId,page);
