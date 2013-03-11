@@ -135,7 +135,6 @@
                 <ul>
                     <% _.each(list, function(item) { %>
                     <% if(item.firstFeed){ %>
-
                                 <% if(item.firstFeed.coverTile&&item.firstFeed.coverTile.path) {%>
                                 <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="multimedia">
                                     <div class="media">
@@ -156,7 +155,9 @@
                                                     <%=item.unreadCount%>
                                                 <% } %>
                                             </span>
+                                            <% if(item.account){ %>
                                             <span class="name"><%=item.account.nick%></span>
+                                            <% } %>
                                         </div>
                                     </div>
                                 </li>
