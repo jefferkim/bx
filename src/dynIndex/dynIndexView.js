@@ -15,6 +15,7 @@ define(function (require, exports, module) {
         cache = require('../common/cache'),
         slider= require('../../../../base/styles/component/slider/js/slider.js'),
         pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
+        back = require('../common/back.js');
         mtop = require('../common/mtopForAllspark.js');
 
     $.extend($.fn, {
@@ -43,7 +44,11 @@ define(function (require, exports, module) {
             'click .navbar .refresh':'refresh',
             'click #indexPage .myfeed li':'goToAccount',
             'click #indexPage .person-list li .content':'goToAccount',
-            'click #indexPage .person-list .followbtn':'follow'
+            'click #indexPage .person-list .followbtn':'follow',
+            //ADD BY WUZHONG(只能经过首页的才起效果)
+            'click header .back' : function(e){
+                return back.exec();
+            }
         },
         initialize:function (page) {
             //判断是否登录

@@ -42,8 +42,8 @@ define(function (require, exports, module) {
             });
             that.accountListModel.on("change:recommends",function(model,result){
 
-                console.log('recommends');
-                console.log(result);
+//                console.log('recommends');
+//                console.log(result);
                 if(result.list&&result.list.length>0){
                     $('#accountListPage .person-list').html((_.template($('#personList_tpl').html(),result)));
                     $('#accountListPageNav').html('');
