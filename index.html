@@ -286,7 +286,7 @@
                 <% if (tiles[i].type == "pic") { %>
                     <div class="media"><img src="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>" style="width: 100%;"></div>
                 <% } else if (tiles[i].type == "text") { %>
-                    <p class="text"><%= tiles[i].text %></p>
+                    <p class="text"><%= tiles[i].text.replace(/(\n)+/g, '<br />') %></p>
                 <% } else if (tiles[i].type == "picItem") { %>
                     <div class="media">
                       <a style="display: block" href="http://a.m.taobao.com/i<%= tiles[i].item.id %>.htm" class="item" data-id="<%= tiles[i].item.id %>">
