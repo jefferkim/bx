@@ -94,6 +94,7 @@ define(function(require, exports, module) {
 
       if (comment.length == 0) {
         notification.message('写点什么吧 ^_^')
+        return
       } else if (comment.length <= 140) {
         this.model.addComment({
           snsId: this.snsId,
