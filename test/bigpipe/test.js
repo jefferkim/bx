@@ -6,7 +6,7 @@ seajs.config({
         'mustache':'http://a.tbcdn.cn/mw/base/libs/mustache/0.5.0/mustache',
         'linkfocus':'../../../../../base/modules/linkfocus/linkfocus',
         'uriBroker':'../../../../../base/utils/server/uriBroker',
-        'h5_mtop':'../../../../base/utils/server/mtop_h5',
+        'h5_mtop':'../../../../base/utils/server/mtop_h5api',
         'h5_events':'../../../../../base/utils/server/h5_events',
         'h5_comm':'../../../../../base/utils/server/h5_common',
         'mtop_h5_chunk':'../../../../base/utils/server/mtop_h5_chunk',
@@ -21,7 +21,7 @@ seajs.config({
 
 define(function (require, exports) {
 
-    var mtopchunk = require("mtop_h5_chunk");
+//    var mtopchunk = require("mtop_h5_chunk");
     var h5mtop = require("h5_mtop");
 
 //    asyncTest("1.没有token,直接abort", 1, function () {
@@ -88,19 +88,19 @@ define(function (require, exports) {
 //        }).execute();
 
     //调用mtop 接口
-    h5mtop.addApi("mtop.transformer.account.autoCreate","2.0",
-        {},
+    h5mtop.addApi("mtop.wdetail.getItemDetail","3.0",
+        {'itemNumId':1500018674236},
         {}, function(result){
             console.log(result);
         },function(result){
             console.log(result);
-        }).addApi("mtop.transformer.pubAccount.recommends","2.0",
-        {curPage:1,pageSize:3},
+        }).addApi("mtop.wdetail.getItemDetail","3.0",
+        {'itemNumId':123456789},
         {}, function(result){
             console.log(result);
         },function(result){
             console.log(result);
-        }).execute();
+        }).execute(true);
 
 
     //调用mtop 接口
