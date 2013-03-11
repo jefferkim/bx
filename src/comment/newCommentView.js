@@ -60,7 +60,7 @@ define(function(require, exports, module) {
       },
 
     back: function() {
-      $('.navbar .back a').trigger('click')
+      location.hash = '#comment/' + this.snsId + '/' + this.feedId + '/' + this.curPage
     },
 
     focus: function() {
@@ -79,6 +79,10 @@ define(function(require, exports, module) {
       if (length) this.$charCount.addClass('typing')
       else this.$charCount.removeClass('typing')
 
+      if (length > 140) {
+        this.$commentArea.val(this.$commentArea.val().substr(0, 140))
+      }
+
       var self = this
       setTimeout(function() { self.typing() }, 200)
     },
@@ -90,6 +94,7 @@ define(function(require, exports, module) {
 
       if (comment.length == 0) {
         notification.message('写点什么吧 ^_^')
+        return
       } else if (comment.length <= 140) {
         this.model.addComment({
           snsId: this.snsId,
