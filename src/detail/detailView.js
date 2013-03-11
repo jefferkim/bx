@@ -26,7 +26,7 @@ define(function (require, exports, module) {
         events:{
           'click .comment.btn': 'commentList',
           'click .more-content': 'more',
-          'click #detailPage .brand': 'naviForAndroid'
+          'click #detailPage .brand': 'toAccountPage'
         },
         initialize:function () {
 
@@ -139,11 +139,17 @@ define(function (require, exports, module) {
         }
        },
 
-       naviForAndroid: function(e) {
-        if (h5_base.isClient() && window.allspark) {
+       toAccountPage: function(e) {
+
+        if (h5_base.isClient()) {
           e.preventDefault()
-          window.allspark.skipToHome && window.allspark.skipToHome(this.snsId, 1)
+          location.href = location.origin + location.pathname + '#account/' + this.snsId + '/' + this.page
         }
+
+        // if (h5_base.isClient() && window.allspark) {
+        //   e.preventDefault()
+        //   window.allspark.skipToHome && window.allspark.skipToHome(this.snsId, 1)
+        // }
        },
 
         renderPrices: function() {
