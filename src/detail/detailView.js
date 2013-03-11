@@ -134,8 +134,11 @@ define(function (require, exports, module) {
         }
        },
 
-       naviForAndroid: function() {
-        window.allspark && window.allspark.skipToHome && window.allspark.skipToHome(this.snsId, 1)
+       naviForAndroid: function(e) {
+        if (h5_base.isClient() && window.allspark) {
+          e.preventDefault()
+          window.allspark.skipToHome && window.allspark.skipToHome(this.snsId, 1)
+        }
        },
 
         renderPrices: function() {

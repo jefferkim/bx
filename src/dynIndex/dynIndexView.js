@@ -122,7 +122,11 @@ define(function (require, exports, module) {
             $('#indexPage .J_list .person-list').html('');
             $('#personListPageNav').html('');
 
-            that.dynIndexModel.getPageData({'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':that.timestamp});
+            //
+            var param = {'curPage':that.curPage,'pageSize':that._pageSize};
+            h5_comm.isLogin() && that.dynIndexModel.get("recommends") &&  (param.type = "rec");
+
+            that.dynIndexModel.getPageData(param);
 
             var _navbar=$('header.navbar');
 
