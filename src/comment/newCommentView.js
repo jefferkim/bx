@@ -60,7 +60,7 @@ define(function(require, exports, module) {
       },
 
     back: function() {
-      $('.navbar .back a').trigger('click')
+      location.hash = '#comment/' + this.snsId + '/' + this.feedId + '/' + this.curPage
     },
 
     focus: function() {
