@@ -27,7 +27,7 @@
 body {
   background: #f8f8f8;margin: 0;padding: 0;
   min-height: 640px;
-  //-webkit-tap-highlight-color:rgba(0,0,0,0);
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
 }
 img{background-color: #eee;}
 
@@ -192,7 +192,7 @@ header.navbar{
   .refresh:active,.add:active{
     .background-image-linear(-90deg,rgb(252,252,252) 0%,rgb(237,237,237) 100%);
     background-image:-webkit-gradient(linear,50% -1%,50% 99%,color-stop(0, rgb(252,252,252)),color-stop(1, rgb(237,237,237)));
-    border-color:rgb(203,203,203);
+    border:rgb(203,203,203) 1px solid;
     .box-shadow("0px 1px 0px rgba(255,255,255,0.65) ,inset 0px 2px 4px rgba(0,0,0,0.2)");
   }
   .stats-global{
@@ -278,7 +278,7 @@ header.navbar{
     -webkit-border-radius:4px;
     border-radius:4px;
     .box-shadow("0px 0px 1px rgba(0,0,0,0.8) ,0px 1px 0px rgba(255,255,255,0.65) ,inset 0px 1px 0px rgba(255,255,255,0.65)");
-    border:1px solid transparent;
+    //border:1px solid transparent;
     font-size:14px;
     line-height:35px;
     color:rgb(51,51,51);
@@ -286,18 +286,33 @@ header.navbar{
     text-shadow:0px 1px 0px rgb(255,255,255);
   }
   .c-p-pre:active,.c-p-next:active{
+
     .background-image-linear(-90deg,rgb(252,252,252) 0%,rgb(237,237,237) 100%);
     background-image:-webkit-gradient(linear,50% -1%,50% 99%,color-stop(0, rgb(252,252,252)),color-stop(1, rgb(237,237,237)));
-    border-color:rgb(203,203,203);
-    border-width:1px;
-    border-style:solid;
+    border:rgb(203,203,203) 1px solid;
     .box-shadow("0px 1px 0px rgba(255,255,255,0.65) ,inset 0px 2px 4px rgba(0,0,0,0.2)");
+    width: 98px;
+    height: 33px;
 }
   .c-p-pre a,.c-p-next a{
     display: inline-block;
     width: 100%;
+    .user-select(none);
   }
   .c-p-grey{
+    width: 100px;
+    height: 35px;
+    border: 0;
+    color: #ccc;
+    text-shadow:0px 0px 0px #ccc;
+  }
+  .c-p-grey:active{
+    width: 100px;
+    height: 35px;
+    border: 0;
+    .background-image-linear(-90deg,rgb(255,255,255) 0%,rgb(237,237,237) 100%);
+    .box-shadow("0px 0px 1px rgba(0,0,0,0.8) ,0px 1px 0px rgba(255,255,255,0.65) ,inset 0px 1px 0px rgba(255,255,255,0.65)");
+    background-image:-webkit-gradient(linear,50% 0%,50% 100%,color-stop(0, rgb(255,255,255)),color-stop(1, rgb(237,237,237)));
     color: #ccc;
     text-shadow:0px 0px 0px #ccc;
 
