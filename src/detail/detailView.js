@@ -122,11 +122,16 @@ define(function (require, exports, module) {
 
        more: function(e) {
         e.preventDefault()
-        if (h5_base.isClient()) return;
 
         var feed = this.model.get('feed')
         var url = feed.linkUrl
         var isExternal = feed.linkUrlIsExt
+
+        if (h5_base.isClient()) {
+          window.location = url
+          return
+        }
+
         if (isExternal == 'true') {
           notification.external(url, function() { window.location = url })
         } else {
