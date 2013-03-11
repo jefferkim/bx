@@ -133,7 +133,7 @@ define(function (require, exports, module) {
                 if (result.succ && 1 == type) {
 
                     getPubAccounts(pageParam, pageParam.isIndex() ? function (accResult) {
-                        if ( accResult.list.length <= 1) {
+                        if (  !accResult.list || accResult.list.length <= 1) {
                             getrecommends(pageParam);
                         }
                     } : null);
