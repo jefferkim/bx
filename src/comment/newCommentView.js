@@ -79,6 +79,10 @@ define(function(require, exports, module) {
       if (length) this.$charCount.addClass('typing')
       else this.$charCount.removeClass('typing')
 
+      if (length > 140) {
+        this.$commentArea.val(this.$commentArea.val().substr(0, 140))
+      }
+
       var self = this
       setTimeout(function() { self.typing() }, 200)
     },
