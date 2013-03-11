@@ -225,7 +225,7 @@
                                         it<%=item.coverTile.item.id%>
                                     <% } %>
                                  <% } %>" >
-                                    <img src="<%=item.coverTile.path%>" width="100%"/>
+                                <img src="<%=getBetterImg(item.coverTile.path, window.innerWidth, parseInt(item.coverTile.picWidth))%>" width="100%"/>
                                 </div>
                             </div>
                             <% } %>
@@ -403,10 +403,10 @@
                 } else if( iTrueTime > iNow - ONE_HOUR){
                     // e.g. 3分钟前
                     ret = parseInt((iNow - iTrueTime) / ONE_MINUTE) + "分钟前";
-                } else if( iTrueTime > iNow - ONE_DAY){
+                } else if( dTrueTime.getDate() ==dNow.getDate()){
                     // e.g. 今天11:39
                     ret = "今天" + dTrueTime.getHours() + ":" + minutes;
-                } else if(iTrueTime > iNow - ONE_DAY){
+                } else if(dTrueTime.getDate()-dNow.getDate()==1){
                     ret = "昨天" + dTrueTime.getHours() + ":" + minutes;
                 } else{
                     if(dTrueTime.getYear() == dNow.getYear()){
