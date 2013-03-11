@@ -11,6 +11,7 @@ define(function(require, exports, module) {
       accountListView = require('../accountList/accountListView'),
       commentView = require('../comment/commentListView'),
       newCommentView = require('../comment/newCommentView'),
+      back = require('./../common/back'),
       //缓存实例变量view
       _indexView,_accountView,_detailView,_accountListView,_commentView,_newCommentView ;
 
@@ -40,6 +41,7 @@ define(function(require, exports, module) {
           // 全局初始化
          global.init();
                },
+
       /**
        * 统一入口
        *
@@ -50,9 +52,13 @@ define(function(require, exports, module) {
           if (tbh5.userCacheHash('allSpark')) {
               return;
           }
-          console.log('divName=' + divName + "|arg0=" + arg0 + "|arg1=" + arg1 + "|arg2=" + arg2);
+//          console.log('divName=' + divName + "|arg0=" + arg0 + "|arg1=" + arg1 + "|arg2=" + arg2);
           //默认divName
           divName = divName || 'index';
+
+          //
+         back.add(divName);
+
           switch (divName) {
               case 'index':
                   _indexView= _indexView || new indexView();
