@@ -182,7 +182,7 @@
                     <h3><%=description%></h3>
                 </div>
             </div>
-            <% if(accountType!='8'){ %>
+            <% if(numToBinary(accountType).substring(numToBinary(accountType).length-4,1)!='1'){ %>
             <div class="tb-counts">
                 <div class="profile-overview">
                     <div class="stats-count">
@@ -420,7 +420,17 @@
 
                 return ret;
             }
-
+            function numToBinary(num){
+                var str = "";
+                var next = num;
+                var result ;
+                do{
+                    result = next % 2;
+                    str = result + str ;
+                    next = Math.floor(next / 2)
+                }while(next != 0)
+                return str;
+            }
         </script>
 
 
