@@ -220,7 +220,6 @@ define(function (require, exports, module) {
                         cur.html('关注');
                         cur.removeClass('followed');
                     });
-
                 }
             }else{
                 h5_comm.goLogin('h5_allspark');
@@ -235,7 +234,6 @@ define(function (require, exports, module) {
             }else{
                 that.before=false;
             }
-
             window.location.hash='#account/'+that.snsid+'/'+page;
             //判断是否为分页，如果是分页返回还是账号列表
             that.backURL=$('.navbar .back a').attr('href');
@@ -247,7 +245,6 @@ define(function (require, exports, module) {
             var that=this;
             window.location.hash='#detail/'+$('.tb-profile').attr('snsid')+'/'+cur.attr('feedid')+'/'+that.curPage;
         },
-
         /**
          * 重构数据集
          * @param data
