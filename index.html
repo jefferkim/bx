@@ -101,7 +101,11 @@
                         <div class="title"><%=item.nick%></div>
                         <div class="info"><%=item.description%></div>
                         <div class="follows"><span><%=item.fansCount%></span>关注者</div>
-                        <img class="default" src="<%=item.logoUrl%>">
+                        <div class="default">
+                            <% if(item.logoUrl){ %>
+                            <img src="<%=item.logoUrl%>">
+                            <% } %>
+                        </div>
                     </div>
                 </li>
                 <% }); %>
@@ -115,7 +119,11 @@
                             <div class="title"><%=item.nick%></div>
                             <div class="info"><%=item.description%></div>
                             <div class="follows"><span><%=item.fansCount%></span>关注者</div>
-                            <img class="default" src="<%=item.logoUrl%>">
+                            <div class="default">
+                                <% if(item.logoUrl){ %>
+                                <img src="<%=item.logoUrl%>">
+                                <% } %>
+                            </div>
                         </div>
                         <% if(item.followed=='true'){ %>
                             <button pid="<%=item.id%>" class="followbtn followed">取消关注</button>
@@ -138,7 +146,11 @@
                                 <% if(item.firstFeed.coverTile&&item.firstFeed.coverTile.path) {%>
                                 <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="multimedia">
                                     <div class="media">
-                                        <img class="default" src="<%=item.firstFeed.coverTile.path%>">
+                                        <div class="default">
+                                            <% if(item.firstFeed.coverTile.path){ %>
+                                            <img src="<%=item.firstFeed.coverTile.path%>">
+                                            <% } %>
+                                        </div>
                                     </div>
                                 <% }else{ %>
                                 <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>">
@@ -175,7 +187,11 @@
                 <div class="user-cover" style="background-image: url('<%=backgroundImg%>')">
                 </div>
                 <div class="user-avatar">
-                    <img class="default" src="<%=logoUrl%>"/>
+                    <div class="default">
+                        <% if(logoUrl){ %>
+                        <img src="<%=logoUrl%>"/>
+                        <% } %>
+                    </div>
                 </div>
                 <div class="user-info">
                     <h1><%=nick%></h1>
@@ -263,7 +279,11 @@
         </script>
         <script id="detail_accinfo_tpl" type="text/template">
           <a href="#account/<%= snsId %>" class="brand">
-            <img class="avatar default" src="<%= logoUrl %>" alt="">
+              <div class="default">
+                <% if(logoUrl){ %>
+                <img class="avatar" src="<%= logoUrl %>"/>
+                <% } %>
+              </div>
             <div class="info">
               <p class="name"><%= nick %></p>
               <% if(noHelper(accountType)){ %>
@@ -319,7 +339,11 @@
                 <% for (var i = 0; i < list.length; i++) { %>
                 <li>
                     <div class="user-info">
-                        <img class="default" src="<%= list[i].createrPic %>">
+                        <div class="default">
+                            <%if(list[i].createrPic){%>
+                            <img  src="<%= list[i].createrPic %>">
+                            <% } %>
+                        </div>
                         <div class="info">
                           <p class="user-name"><%= list[i].createrName %></p>
                           <p class="pub-time"><%= timestamps(list[i].time) %></p>
