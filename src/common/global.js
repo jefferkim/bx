@@ -8,14 +8,13 @@ define(function(require){
 	return h5_utils.wrapColsure({
 		init : function() {
             //如果是客户端隐藏bar
-            if (!h5_base.isClient()) {
-                $('header.navbar').show();
-                $('body').removeClass('webview');
-            }
+            if (h5_base.isClient()) {
+                $('header.navbar').hide();
+                $('body').addClass('webview');            }
             else
             {
-                $('header.navbar').hide();
-                $('body').addClass('webview');
+                $('header.navbar').show();
+                $('body').removeClass('webview');
             }
 		    //判断是否支持cookie
 		   if(!cookie.isCookieEnable())
