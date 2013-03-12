@@ -99,7 +99,7 @@ define(function(require, exports, module) {
         this.model.addComment({
           snsId: this.snsId,
           feedId: this.feedId,
-          content: _.escape(comment)
+          content: comment
         }, function(success) {
           if (success) {
             notification.message('发布成功！')
