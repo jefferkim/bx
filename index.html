@@ -266,7 +266,7 @@
             <img class="avatar default" src="<%= logoUrl %>" alt="">
             <div class="info">
               <p class="name"><%= nick %></p>
-              <% if(numToBinary(accountType).substring(numToBinary(accountType).length-4,1)!='1'){ %>
+              <% if(noHelper(accountType)){ %>
                   <p class="follow">
                   <% if (fansCount == 0) { %>
                     还没有人关注
