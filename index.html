@@ -14,7 +14,7 @@
     </head>
     <body style="background: #f8f8f8">
         <div id="content">
-            <header class="navbar iT"></header>
+            <header class="navbar iT" style="display: none"></header>
             <div class="tb-h5">
                 <div id="indexPage" class="view-page hide iB">
                     <div class="J_slider"></div>
@@ -266,7 +266,7 @@
             <img class="avatar default" src="<%= logoUrl %>" alt="">
             <div class="info">
               <p class="name"><%= nick %></p>
-              <% if(numToBinary(accountType).substring(numToBinary(accountType).length-4,1)!='1'){ %>
+              <% if(noHelper(accountType)){ %>
                   <p class="follow">
                   <% if (fansCount == 0) { %>
                     还没有人关注
