@@ -266,13 +266,15 @@
             <img class="avatar default" src="<%= logoUrl %>" alt="">
             <div class="info">
               <p class="name"><%= nick %></p>
-              <p class="follow">
-              <% if (fansCount == 0) { %>
-                还没有人关注
-              <% } else { %>
-                <span class="count"><%= fansCount %></span> 关注者
-              <% } %>
-              </p>
+              <% if(numToBinary(accountType).substring(numToBinary(accountType).length-4,1)!='1'){ %>
+                  <p class="follow">
+                  <% if (fansCount == 0) { %>
+                    还没有人关注
+                  <% } else { %>
+                    <span class="count"><%= fansCount %></span> 关注者
+                  <% } %>
+                  </p>
+               <% } %>
             </div>
           </a>
           <div class="separator"></div>
