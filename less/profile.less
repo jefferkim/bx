@@ -20,7 +20,7 @@
     .user-avatar{
       position: absolute;
       z-index: 11;
-      margin-top: 70px;
+      margin-top: 65px;
       left: 20px;
       background-color:rgb(255,255,255);
       width:49px;
@@ -42,8 +42,8 @@
     }
     .user-info{
       position: absolute;
-      left: 90px;
-      bottom: 20px;
+      left: 85px;
+      bottom: 21px;
       text-shadow: 0 1px 1px #000;
       z-index: 11;
     }
@@ -55,7 +55,7 @@
       line-height:120%;
       color:rgb(255,255,255);
       text-align:left;
-      text-shadow:2px 2px 2px rgba(0, 0, 0, 0.65);
+      text-shadow:0 1px 0 rgba(0, 0, 0, 0.3);
 
     }
     .user-info h3{
@@ -80,11 +80,11 @@
     box-shadow:0px 0px 1px rgba(0,0,0,0.8) ,0px 2px 0px rgba(255,255,255,0.65);
     height: 50px;
     .profile-overview{
-      padding: 5px 12px;
+      padding: 0 12px;
       overflow: hidden;
       display: block;
       float: left;
-      height: 40px;
+      height: 50px;
       a{
         display: block;
       }
@@ -98,13 +98,13 @@
     }
     .stats-count{
       font-family:"Arial Black", Gadget, sans-serif;
-      font-size:14px;
+      font-size:16px;
       font-weight:900;
       line-height:120%;
       color:rgb(68,68,68);
       text-align:center;
       width: 65px;
-      padding-top: 6px;
+      padding-top: 8px;
     }
 
     .stats-global{
@@ -112,8 +112,8 @@
       background-repeat:  no-repeat;
       background-size: 22px 22.5px;
       background-position: center;
-      width: 22px;
-      height: 40px;
+      width: 55px;
+      height: 100%;
     }
     .stats-global-disable{
       background-image: url(data:image/png;base64,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);
@@ -124,7 +124,7 @@
       background-size: 22px 22.5px;
       background-position: center;
       width: 22px;
-      height: 40px;
+      height:1005;
     }
     .stats-name{
       font-size:10px;

@@ -70,7 +70,7 @@ function timestamps(time){
     } else if( dTrueTime.getDate() ==dNow.getDate()){
         // e.g. 今天11:39
         ret = "今天" + dTrueTime.getHours() + ":" + minutes;
-    } else if(dTrueTime.getDate()-dNow.getDate()==1){
+    } else if(dNow.getDate()-dTrueTime.getDate()==1){
         ret = "昨天" + dTrueTime.getHours() + ":" + minutes;
     } else{
         if(dTrueTime.getYear() == dNow.getYear()){
