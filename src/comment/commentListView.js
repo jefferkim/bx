@@ -81,17 +81,19 @@ define(function(require, exports, module) {
         var commentList = commentListTemlate(this.model.get('commentList'))
         this.$container.html(commentList)
 
-        this.pageNav = new pageNav({
+        var pageCount = Math.ceil(list.totalCount / this.pageSize);
+        if (pageCount > 1) {
+         this.pageNav = new pageNav({
           'id': '#commentListPageNav',
           'index': this.page,
-          'pageCount': Math.ceil(list.totalCount / this.pageSize),
+          'pageCount': pageCount,
           'pageSize': this.pageSize,'disableHash': 'true'});
 
 
-        this.pageNav.pContainer().on('P:switchPage', function(e,page){
+          this.pageNav.pContainer().on('P:switchPage', function(e,page){
             self.changePage(page.index);
-        });
-
+          });
+        }
       }
 
       console.log('comment list', this.model.get('commentList'))
