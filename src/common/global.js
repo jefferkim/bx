@@ -2,7 +2,7 @@ define(function(require){
 	var $ = require('zepto'),
 		h5_utils = require('h5_utils'),
         h5_base = require('h5_base'),
-		cookie = require('cookie');
+  		cookie = require('cookie');
 
 
 	return h5_utils.wrapColsure({
@@ -10,7 +10,11 @@ define(function(require){
             //如果是客户端隐藏bar
             if (h5_base.isClient()) {
                 $('header.navbar').hide();
-                $('body').addClass('webview')
+                $('body').addClass('webview');            }
+            else
+            {
+                $('header.navbar').show();
+                $('body').removeClass('webview');
             }
 		    //判断是否支持cookie
 		   if(!cookie.isCookieEnable())
