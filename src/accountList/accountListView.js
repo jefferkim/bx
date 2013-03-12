@@ -122,19 +122,41 @@ define(function (require, exports, module) {
                 console.log('follow');
                 if(cur.hasClass('followed')){
                     cur.html('取消关注...');
-                    mtop.removeAccount(cur.attr('pid'),function(){
-                        cur.html('关注');
-                        _numObj.text(parseInt(_numObj.text())-1);
-                        cur.removeClass('followed');
+                    mtop.removeAccount(cur.attr('pid'),function(d){
+
+                        if(d.data.result){
+                            for(var len=d.data.result.length,i=0;i<len;i++){
+                                if(cur.attr('pid')==d.data.result[i].id){
+                                    if(d.data.result[i].isSuccess=='true'){
+                                        cur.html('关注');
+                                        _numObj.text(parseInt(_numObj.text())-1);
+                                        cur.removeClass('followed');
+                                    }else{
+                                        cur.html('取消关注');
+                                    }
+                                }
+                            }
+                        }
                     },function(){
                         cur.html('取消关注');
                     });
                 }else{
                     cur.html('关注中...');
                     cur.addClass('followed');
-                    mtop.addAccount(cur.attr('pid'),function(){
-                        cur.html('已关注');
-                        _numObj.text(parseInt(_numObj.text())+1);
+                    mtop.addAccount(cur.attr('pid'),function(d){
+                        if(d.data.result){
+                            for(var len=d.data.result.length,i=0;i<len;i++){
+                                if(cur.attr('pid')==d.data.result[i].id){
+                                    if(d.data.result[i].isSuccess=='true'){
+                                        cur.html('已关注');
+                                        _numObj.text(parseInt(_numObj.text())+1);
+                                    }else{
+                                        cur.html('关注');
+                                        cur.removeClass('followed');
+                                    }
+                                }
+                            }
+                        }
                     },function(){
                         cur.html('关注');
                         cur.removeClass('followed');

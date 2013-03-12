@@ -204,20 +204,45 @@ define(function (require, exports, module) {
             if(h5_comm.isLogin()){
                 if(cur.hasClass('followed')){
                     cur.html('取消关注');
-                    mtop.removeAccount(cur.attr('pid'),function(){
-                        cur.html('关注');
-                        cur.removeClass('followed');
-                        $('.stats-count').text(parseInt($('.stats-count').text())-1);
+                    mtop.removeAccount(cur.attr('pid'),function(d){
+                        if(d.data.result){
+                            for(var len=d.data.result.length,i=0;i<len;i++){
+                                if(cur.attr('pid')==d.data.result[i].id){
+                                    if(d.data.result[i].isSuccess=='true'){
+                                        cur.html('关注');
+                                        cur.removeClass('followed');
+                                        $('.stats-count').text(parseInt($('.stats-count').text())-1);
+                                    }else{
+                                        cur.html('取消关注');
+                                    }
+                                }
+
+                            }
+                        }
                     },function(){
                         cur.html('取消关注');
                     });
                 }else{
                     cur.html('关注中...');
 
-                    mtop.addAccount(cur.attr('pid'),function(){
-                        cur.addClass('followed');
-                        cur.html('取消关注');
-                        $('.stats-count').text(parseInt($('.stats-count').text())+1);
+                    mtop.addAccount(cur.attr('pid'),function(d){
+                        if(d.data.result){
+                            for(var len=d.data.result.length,i=0;i<len;i++){
+                                if(cur.attr('pid')==d.data.result[i].id){
+                                    if(d.data.result[i].isSuccess=='true'){
+                                        console.log(d);
+                                        cur.addClass('followed');
+                                        cur.html('取消关注');
+                                        $('.stats-count').text(parseInt($('.stats-count').text())+1);
+                                    }else{
+                                        cur.html('关注');
+                                        cur.removeClass('followed');
+                                    }
+                                }
+                            }
+                        }
+
+
                     },function(){
                         cur.html('关注');
                         cur.removeClass('followed');
