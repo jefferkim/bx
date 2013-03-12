@@ -200,23 +200,23 @@ define(function (require, exports, module) {
         },
         follow:function(e){
             var that=this;
-            console.log('adddddd');
             var cur=$(e.currentTarget);
             if(h5_comm.isLogin()){
                 if(cur.hasClass('followed')){
-                    cur.html('取消关注.');
+                    cur.html('取消关注');
                     mtop.removeAccount(cur.attr('pid'),function(){
                         cur.html('关注');
                         cur.removeClass('followed');
                         $('.stats-count').text(parseInt($('.stats-count').text())-1);
                     },function(){
-                        cur.html('已关注');
+                        cur.html('取消关注');
                     });
                 }else{
                     cur.html('关注中...');
-                    cur.addClass('followed');
+
                     mtop.addAccount(cur.attr('pid'),function(){
-                        cur.html('已关注');
+                        cur.addClass('followed');
+                        cur.html('取消关注');
                         $('.stats-count').text(parseInt($('.stats-count').text())+1);
                     },function(){
                         cur.html('关注');
