@@ -76,8 +76,6 @@ define(function (require, exports, module) {
             var biz = this._biz;
             var self = this;
 
-
-
             /**
              * 更新推荐排序规则
              * @param param.order

@@ -35,7 +35,7 @@ define(function (require, exports, module) {
 
             delete pageParam.type;
 
-            console.log(pageParam);
+//            console.log(pageParam);
 
             if (2 == type) {
                 mtop.my(

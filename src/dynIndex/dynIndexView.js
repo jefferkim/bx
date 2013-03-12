@@ -15,6 +15,7 @@ define(function (require, exports, module) {
         cache = require('../common/cache'),
         slider= require('../../../../base/styles/component/slider/js/slider.js'),
         pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
+        back = require('../common/back.js');
         mtop = require('../common/mtopForAllspark.js');
 
     $.extend($.fn, {
@@ -43,7 +44,11 @@ define(function (require, exports, module) {
             'click .navbar .refresh':'refresh',
             'click #indexPage .myfeed li':'goToAccount',
             'click #indexPage .person-list li .content':'goToAccount',
-            'click #indexPage .person-list .followbtn':'follow'
+            'click #indexPage .person-list .followbtn':'follow',
+            //ADD BY WUZHONG(只能经过首页的才起效果)
+            'click header .back' : function(e){
+                return back.exec();
+            }
         },
         initialize:function (page) {
             //判断是否登录
@@ -69,6 +74,11 @@ define(function (require, exports, module) {
             that.dynIndexModel.on("change:accWithFeed",function(model,result){
                 console.log('accWithFeed');
                 console.log(result);
+                //取消刷新按钮动画
+                setTimeout(function(){
+                    $('.navbar .refresh div').removeClass('spinner');
+                },2000);
+
                 if(result.list&&result.list.length>0){
                     if(result.list.length==1){
                         $('#indexPage .J_status').html(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result));
@@ -92,6 +102,11 @@ define(function (require, exports, module) {
                 //推荐列表
                 console.log('recommends');
                 console.log(result);
+                //取消刷新按钮动画
+                setTimeout(function(){
+                    $('.navbar .refresh div').removeClass('spinner');
+                },2000);
+
                 if(result.list&&result.list.length>0){
                     $('#indexPage .J_list .person-list').html(_.template($('#personList_tpl').html(),result));
 

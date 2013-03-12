@@ -41,23 +41,25 @@ define(function (require, exports, module) {
                 }
             });
             that.accountModel.on("change:accFeeds",function(model,result){
+                if(that.oldTotalCount){
+                    if(that.oldTotalCount.snsid==that.snsid){
+                        var addCount=parseInt(result.totalCount)-parseInt(that.oldTotalCount.count);
+                        if(addCount>0){
+                            that.oldTotalCount.count=result.totalCount;
+                            notification.message('更新了 '+addCount+' 条广播');
+                        }
+                    }
+                }else{
+                    that.oldTotalCount={'snsid':that.snsid,'count':result.totalCount};
+                }
+                //取消刷新按钮动画
+                setTimeout(function(){
+                    $('.navbar .refresh div').removeClass('spinner');
+                },2000);
+
                 if(result.list&&result.list.length>0){
                     console.log('change:accFeeds');
                     console.log(result);
-                    setTimeout(function(){
-                        $('.navbar .refresh div').removeClass('spinner');
-                    },2000)
-                    if(that.oldTotalCount){
-                        if(that.oldTotalCount.snsid==that.snsid){
-                            var addCount=parseInt(result.totalCount)-parseInt(that.oldTotalCount.count);
-                            if(addCount>0){
-                                that.oldTotalCount.count=result.totalCount;
-                                notification.message('更新了 '+addCount+' 条广播');
-                            }
-                        }
-                    }else{
-                        that.oldTotalCount={'snsid':that.snsid,'count':result.totalCount};
-                    }
 
                     $('#accountPage .J_feed .tb-feed-items').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
 
