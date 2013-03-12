@@ -2289,6 +2289,7 @@ header.navbar .add:active {
   margin: 20px auto;
 }
 .comment .comment-list {
+  word-break: break-all;
   margin: 0;
 }
 .comment .comment-list > li {
@@ -2324,6 +2325,7 @@ header.navbar .add:active {
 .comment .user-comment {
   color: #666;
   font-size: 14px;
+  line-height: 140%;
   margin: 3px 10px 9px 10px;
 }
 .comment .separator {
