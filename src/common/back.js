@@ -3,11 +3,24 @@ define(function(require, exports, module) {
     var hashStack = [];
 
     exports.add = function(hash){
+        if("newComment" == hash){return};
+        var tmpStack = [];
+        var i = 0;
+        while(i<hashStack.length){
+            if(hashStack[i].hash == hash){
+                break;
+            }else{
+                tmpStack.push(hashStack[i])
+            }
+            i++;
+        }
+        hashStack = tmpStack;
         hashStack.push({hash:hash,hisLen:history.length,orignHash:location.hash});
         console.log(hashStack);
     }
 
-    exports.exec = window.smartBack = function(){
+    // = window.smartBack
+    exports.exec = function(){
         var curHash = location.hash;
         if(!curHash){
             window.location.href = "#index";
