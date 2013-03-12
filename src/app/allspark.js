@@ -94,7 +94,7 @@ function numToBinary(num){
     }while(next != 0)
     return str;
 }
-function isHelper(type){
+function noHelper(type){
     var v=numToBinary(type),r=false;
     v='0000'+v;
     return v.substring(v.length-4,1)!='1';
