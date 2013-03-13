@@ -14,8 +14,8 @@ seajs.config({
         'h5_cache' : '../../../../base/utils/server/h5_cache',
         'h5_token' : '../../../../base/utils/server/h5_token',
         'cookie' : '../../../../base/utils/server/cookie',
-        'cdn' : '../../../../base/utils/server/cdn'
-
+        'cdn' : '../../../../base/utils/server/cdn',
+        'aplus': '../../../../base/modules/aplus/aplus'
     },
     debug: 1
 });
