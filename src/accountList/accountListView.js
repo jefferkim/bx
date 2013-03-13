@@ -10,6 +10,7 @@ define(function (require, exports, module) {
         _model=require('./accountListModel'),
         h5_comm = require('h5_comm'),
         pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
+        notification = require('../ui/notification.js'),
         mtop = require('../common/mtopForAllspark.js');
 
 
@@ -120,46 +121,26 @@ define(function (require, exports, module) {
             if(h5_comm.isLogin()){
                 //已登录
                 console.log('follow');
-                if(cur.hasClass('followed')){
-                    cur.html('取消关注...');
-                    mtop.removeAccount(cur.attr('pid'),function(d){
-
-                        if(d.data.result){
-                            for(var len=d.data.result.length,i=0;i<len;i++){
-                                if(cur.attr('pid')==d.data.result[i].id){
-                                    if(d.data.result[i].isSuccess=='true'){
-                                        cur.html('关注');
-                                        _numObj.text(parseInt(_numObj.text())-1);
-                                        cur.removeClass('followed');
-                                    }else{
-                                        cur.html('取消关注');
-                                    }
-                                }
-                            }
-                        }
-                    },function(){
-                        cur.html('取消关注');
-                    });
-                }else{
+                if(!cur.hasClass('followed')){
                     cur.html('关注中...');
-                    cur.addClass('followed');
                     mtop.addAccount(cur.attr('pid'),function(d){
                         if(d.data.result){
                             for(var len=d.data.result.length,i=0;i<len;i++){
                                 if(cur.attr('pid')==d.data.result[i].id){
                                     if(d.data.result[i].isSuccess=='true'){
+                                        cur.addClass('followed');
                                         cur.html('已关注');
                                         _numObj.text(parseInt(_numObj.text())+1);
                                     }else{
+                                        notification.message('关注失败！');
                                         cur.html('关注');
-                                        cur.removeClass('followed');
                                     }
                                 }
                             }
                         }
                     },function(){
+                        notification.message('关注失败！');
                         cur.html('关注');
-                        cur.removeClass('followed');
                     });
                 }
             }else{

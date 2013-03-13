@@ -15,7 +15,8 @@ define(function (require, exports, module) {
         cache = require('../common/cache'),
         slider= require('../../../../base/styles/component/slider/js/slider.js'),
         pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
-        back = require('../common/back.js');
+        notification = require('../ui/notification.js'),
+        back = require('../common/back.js'),
         mtop = require('../common/mtopForAllspark.js');
 
     $.extend($.fn, {
@@ -74,6 +75,16 @@ define(function (require, exports, module) {
             that.dynIndexModel.on("change:accWithFeed",function(model,result){
                 console.log('accWithFeed');
                 console.log(result);
+                //提醒更新记录数
+                if(that.oldTotalCount){
+                    if(parseInt(that.oldTotalCount)<parseInt(result.totalCount)){
+                        notification.message('更新了 '+parseInt(result.totalCount)-parseInt(that.oldTotalCount)+' 条广播');
+                        that.oldTotalCount.count=result.totalCount;
+                    }
+                }else{
+                    that.oldTotalCount=result.totalCount;
+                }
+
                 //取消刷新按钮动画
                 setTimeout(function(){
                     $('.navbar .refresh div').removeClass('spinner');
@@ -234,46 +245,72 @@ define(function (require, exports, module) {
                 //已登录
                 console.log('follow');
 
-                if(cur.hasClass('followed')){
-                    cur.html('取消关注...');
-                    mtop.removeAccount(cur.attr('pid'),function(d){
-                        if(d.data.result){
-                            for(var len=d.data.result.length,i=0;i<len;i++){
-                                if(cur.attr('pid')==d.data.result[i].id){
-                                    if(d.data.result[i].isSuccess=='true'){
-                                        cur.html('关注');
-                                        cur.removeClass('followed');
-                                    }else{
-                                        cur.html('取消关注');
-                                    }
-                                }
-                            }
-                        }
-                    },function(){
-                        cur.html('取消关注');
-                    });
-                }else{
+                if(!cur.hasClass('followed')){
                     cur.html('关注中...');
-                    cur.addClass('followed');
+
                     mtop.addAccount(cur.attr('pid'),function(){
                         if(d.data.result){
                             for(var len=d.data.result.length,i=0;i<len;i++){
                                 if(cur.attr('pid')==d.data.result[i].id){
                                     if(d.data.result[i].isSuccess=='true'){
-                                        cur.html('取消关注');
+                                        cur.addClass('followed');
+                                        cur.html('已关注');
                                     }else{
+                                        notification.message('关注失败！');
                                         cur.html('关注');
-                                        cur.removeClass('followed');
                                     }
                                 }
                             }
                         }
                     },function(){
+                        notification.message('关注失败！');
                         cur.html('关注');
-                        cur.removeClass('followed');
-                    });
 
+                    });
                 }
+
+
+
+//                if(cur.hasClass('followed')){
+//                    cur.html('取消关注...');
+//                    mtop.removeAccount(cur.attr('pid'),function(d){
+//                        if(d.data.result){
+//                            for(var len=d.data.result.length,i=0;i<len;i++){
+//                                if(cur.attr('pid')==d.data.result[i].id){
+//                                    if(d.data.result[i].isSuccess=='true'){
+//                                        cur.html('关注');
+//                                        cur.removeClass('followed');
+//                                    }else{
+//                                        cur.html('取消关注');
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    },function(){
+//                        cur.html('取消关注');
+//                    });
+//                }else{
+//                    cur.html('关注中...');
+//                    cur.addClass('followed');
+//                    mtop.addAccount(cur.attr('pid'),function(){
+//                        if(d.data.result){
+//                            for(var len=d.data.result.length,i=0;i<len;i++){
+//                                if(cur.attr('pid')==d.data.result[i].id){
+//                                    if(d.data.result[i].isSuccess=='true'){
+//                                        cur.html('取消关注');
+//                                    }else{
+//                                        cur.html('关注');
+//                                        cur.removeClass('followed');
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    },function(){
+//                        cur.html('关注');
+//                        cur.removeClass('followed');
+//                    });
+//
+//                }
             }else{
                 that.goLogin();
                 //h5_comm.goLogin('h5_allspark');
