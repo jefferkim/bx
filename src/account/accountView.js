@@ -278,9 +278,9 @@ define(function (require, exports, module) {
         reconAccInfoData:function(data){
             var d=data;
             console.log(!!d.logoUrl);
-            if(!d.logoUrl){d.logoUrl='imgs/avatar.png'}
-            if(!d.description){d.description='亲，欢迎光临！'}
-            if(!d.backgroundImg){d.backgroundImg='imgs/cover.png'}
+            //if(!d.logoUrl){d.logoUrl='imgs/avatar.png'}
+            //if(!d.description){d.description='亲，欢迎光临！'}
+            //if(!d.backgroundImg){d.backgroundImg='imgs/cover.png'}
             return d;
         },
         /**

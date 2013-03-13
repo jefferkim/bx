@@ -9,7 +9,9 @@ define(function(require){
         refinePubAccount:function (data){
             data.id = data.id===undefined?0:data.id;
             //getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth))
+           if(data.logoUrl){
             data.logoUrl = cdn.getBetterImg(data.logoUrl,60,60) || "";
+           }
             data.nick = data.nick || "";
             data.description = data.description || "";
             data.url = data.url || "";
