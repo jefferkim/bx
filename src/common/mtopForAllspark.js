@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
     var h5_mtop = require('h5_mtop'),
         h5_comm = require("h5_comm"),
-    //base64 = require('base64'),
+        //base64 = require('base64'),
         h5_cache = require('h5_cache'),
         uriBroker = require('uriBroker'),
         $ = require('zepto'),
@@ -49,7 +49,7 @@ define(function (require, exports, module) {
     }
 
     //TODO get form cookie
-    exports.userNick = (h5_comm.getNickFromCookie() || h5_comm.getNickFromHidden());
+    var userNick = exports.userNick = (h5_comm.getNickFromCookie() || h5_comm.getNickFromHidden());
     exports.pageParam = {
         curPage:1,
         pageSize:3,
@@ -179,6 +179,16 @@ define(function (require, exports, module) {
             });
         } else {
             fun && fun.call(arguments.callee, result);
+        }
+    }
+
+    exports.autoCreate = function(){
+        var nick = this.userNick;
+        if(this.userNick && !cache.isCreateSns(this.userNick)){
+            exports.getData("mtop.transformer.account.autoCreate", {}, function (result) {
+                cache.saveSnsFlag(nick);
+            }, function (result) {
+            });
         }
     }
 })

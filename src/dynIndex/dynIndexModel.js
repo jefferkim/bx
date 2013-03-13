@@ -41,24 +41,6 @@ define(function (require, exports, module) {
                         }
                     });
                 }
-            },
-            autocreate:function (fun, param) {
-                if (mtop.userNick && cache.isCreateSns(mtop.userNick)) {
-                    fun && fun.call(arguments.callee, {succ:true});
-                    return true;
-                } else if(h5_comm.isLogin()){
-                    mtop.getData("mtop.transformer.account.autoCreate", param || {}, function (result) {
-                        cache.saveSnsFlag(mtop.userNick);
-                        fun && fun.call(arguments.callee, {succ:true});
-
-                    }, function (result) {
-                        fun && fun.call(arguments.callee, {fail:result});
-                    });
-                }
-                else
-                {
-                       fun && fun.call(arguments.callee, {fail:'未登录'});
-                }
             }
         },
 
@@ -122,28 +104,20 @@ define(function (require, exports, module) {
             });
 
 
-
             //自动创建账号
-            biz.autocreate(function (result) {
-                //设置用户登录状态
+            var loginStatus = h5_comm.isLogin();
+            self.set("loginStatus",loginStatus);
+            if(loginStatus){
 
-                self.set("loginStatus",result.succ);
-
-                //登录状态有关注账号列表或者推荐列表的
-                if (result.succ && 1 == type) {
-
-                    getPubAccounts(pageParam, pageParam.isIndex() ? function (accResult) {
-                        if (  !accResult.list || accResult.list.length <= 1) {
-                            getrecommends(pageParam);
-                        }
-                    } : null);
-                } else {
-                    //未登录只有推荐列表了
-                    getrecommends(pageParam);
-                }
-                //TODO 处理sid的问题,方便单元测试
-            }, pageParam && pageParam.sid ? {sid:pageParam.sid} : null);
-
+                getPubAccounts(pageParam, pageParam.isIndex() ? function (accResult) {
+                    if (  !accResult.list || accResult.list.length <= 1) {
+                        getrecommends(pageParam);
+                    }
+                } : null);
+            }else{
+                //未登录只有推荐列表了
+                getrecommends(pageParam);
+            }
 
         }
 
