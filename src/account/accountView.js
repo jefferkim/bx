@@ -170,7 +170,7 @@ define(function (require, exports, module) {
             }
             that.afterTimestamp=new Date().getTime();
             if(that.curPage=='1'){
-                that.accountModel.getPageData({'exCludInfo':true,'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':new Date().getTime()});
+                that.accountModel.getPageData({'exCludInfo':true,'snsId':that.snsid,'curPage':that.curPage,"before":false,'pageSize':that._pageSize,'afterTimestamp':new Date().getTime()});
             }else{
                 window.location.hash='#account/'+that.snsid+'/1';
             }
