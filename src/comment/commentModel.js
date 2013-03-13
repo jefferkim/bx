@@ -49,7 +49,7 @@ define(function (require, exports, module) {
                 //设置登录状态
                 self.set("loginStatus",true);
                 mtop.addComment(param, function (result) {
-                    fun && fun(true,result.fail);
+                    fun && fun(true,result.fail && result.fail.split("::")[1]);
                 },function(){
                     fun && fun(false);
                 })

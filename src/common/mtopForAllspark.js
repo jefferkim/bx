@@ -185,10 +185,17 @@ define(function (require, exports, module) {
     exports.autoCreate = function(){
         var nick = this.userNick;
         if(this.userNick && !cache.isCreateSns(this.userNick)){
-            exports.getData("mtop.transformer.account.autoCreate", {}, function (result) {
-                cache.saveSnsFlag(nick);
-            }, function (result) {
-            });
+            h5_mtop.getApi("mtop.transformer.account.autoCreate", '2.0', param, {},
+                function (result) {
+                    //处理正常的返回
+                    var ret = result.ret.toString().toUpperCase();
+                    if(ret.indexOf('SUCCESS::') > -1)
+                    {
+                    cache.saveSnsFlag(nick);
+                    }
+                }, function (result) {
+
+                });
         }
     }
 })
