@@ -100,8 +100,12 @@ define(function(require, exports, module) {
           snsId: this.snsId,
           feedId: this.feedId,
           content: comment
-        }, function(success) {
+        }, function(success, message) {
           if (success) {
+            if (message) {
+              notification.message(message)
+              return
+            }
             notification.message('发布成功！')
             self.$commentArea.val('')
             setTimeout(function() { self.back(1) }, 1500)
