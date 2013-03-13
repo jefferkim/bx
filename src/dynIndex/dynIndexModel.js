@@ -78,7 +78,7 @@ define(function (require, exports, module) {
             function getPubAccounts(param, fun) {
                 mtop.listWithFirstFeed(
                     param, function (accResult) {
-
+                        accResult.t=new Date().getTime();
                         self.set("accWithFeed", accResult);
                         fun && fun.call(arguments.callee, accResult);
                     })

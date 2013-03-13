@@ -184,7 +184,7 @@
         <script id="accountinfo_tpl" type="text/template">
             <div snsid="<%=id%>" class="tb-profile">
                 <div class="user-mark"></div>
-                <div class="user-cover" style="background-image: url('<%=backgroundImg%>')">
+                <div class="user-cover" style="<% if(backgroundImg){ %>background-image: url('<%=backgroundImg%>')<% } %>">
                 </div>
                 <div class="user-avatar">
                     <div class="default">
