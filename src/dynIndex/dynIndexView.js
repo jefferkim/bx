@@ -78,7 +78,7 @@ define(function (require, exports, module) {
                 //提醒更新记录数
                 if(that.oldTotalCount){
                     if(parseInt(that.oldTotalCount)<parseInt(result.totalCount)){
-                        notification.message('更新了 '+parseInt(result.totalCount)-parseInt(that.oldTotalCount)+' 条广播');
+                        notification.message('更新了 '+(parseInt(result.totalCount)-parseInt(that.oldTotalCount))+' 条广播');
                         that.oldTotalCount.count=result.totalCount;
                     }
                 }else{
@@ -106,6 +106,8 @@ define(function (require, exports, module) {
                         }
                         //$(_.template($('#myfeed_tpl').html(),result)).insertAfter('div.in-slider');
                     }
+                }else{
+                    $('#indexPage .J_status').html('');
                 }
                 //ok(result.totalCount > 0, "total count == 0")
             },this);
