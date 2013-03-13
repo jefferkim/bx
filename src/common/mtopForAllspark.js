@@ -185,7 +185,7 @@ define(function (require, exports, module) {
     exports.autoCreate = function(){
         var nick = this.userNick;
         if(this.userNick && !cache.isCreateSns(this.userNick)){
-            h5_mtop.getApi("mtop.transformer.account.autoCreate", '2.0', param, {},
+            h5_mtop.getApi("mtop.transformer.account.autoCreate", '2.0', {}, {},
                 function (result) {
                     //处理正常的返回
                     var ret = result.ret.toString().toUpperCase();

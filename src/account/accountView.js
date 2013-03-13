@@ -65,10 +65,12 @@ define(function (require, exports, module) {
 
                     //if(!that.pageNav){
                         var pageCount=Math.ceil(result.totalCount/that._pageSize);
-                        that.pageNav=new pageNav({'id':'#feedPageNav','index':that.curPage, 'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
-                        that.pageNav.pContainer().on('P:switchPage', function(e,page){
-                            that.changePage(page.index);
-                        });
+                        if(pageCount>1){
+                            that.pageNav=new pageNav({'id':'#feedPageNav','index':that.curPage, 'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
+                            that.pageNav.pContainer().on('P:switchPage', function(e,page){
+                                that.changePage(page.index);
+                            });
+                        }
                     //}
                 }
             });
