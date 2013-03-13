@@ -1,42 +1,11 @@
 define(function (require, exports, module) {
 
     var log = require("./log.js"),
-        hashStack = [];
-
-//    var fromBack = false;
+        hashStack = [],
+        times = 0;
 
     exports.add = function (hash) {
-
-        //DO IT
-        if (hashStack.length) {
-            var lastHash = hashStack[hashStack.length - 1], logAction;
-            switch (hash) {
-                case 'accountList':
-                    if (('index' == lastHash.hash) && (1 >= history.length - lastHash.hisLen)) {
-                        logAction = 'AddAccount';
-                    }
-                    break;
-                case 'account':
-                    if (('index' == lastHash.hash) && (1 >= history.length - lastHash.hisLen)) {
-                        logAction = 'AccountList';
-                    }
-                    break;
-                case 'detail':
-                    if (('account' == lastHash.hash) && (1 >= history.length - lastHash.hisLen)) {
-                        logAction = 'DetailList';
-                    }
-                    break;
-                case 'comment':
-                    if (('detail' == lastHash.hash) && (1 >= history.length - lastHash.hisLen)) {
-                        logAction = 'Comment';
-                    }
-                    break;
-            }
-            logAction && log.log(logAction);
-        }
-
-
-//        if("newComment" == hash){return};
+//      if("newComment" == hash){return};
         var tmpStack = [];
         var i = 0;
         while (i < hashStack.length) {
@@ -48,8 +17,38 @@ define(function (require, exports, module) {
             i++;
         }
         hashStack = tmpStack;
-        hashStack.push({hash: hash, hisLen: history.length, orignHash: location.hash});
+        hashStack.push({hash: hash, hisLen: ++times, orignHash: location.hash, isFromBack: function () {
+            return  times - this.hisLen != 1;
+        }});
         console.log(hashStack);
+
+        if (hashStack.length < 2) {
+            return;
+        }
+        var lastHash = hashStack[hashStack.length - 2], logAction;
+        switch (hash) {
+            case 'accountList':
+                if (('index' == lastHash.hash) && !lastHash.isFromBack()) {
+                    logAction = 'AddAccount';
+                }
+                break;
+            case 'account':
+                if (('index' == lastHash.hash) && !lastHash.isFromBack()) {
+                    logAction = 'AccountList';
+                }
+                break;
+            case 'detail':
+                if (('account' == lastHash.hash) && !lastHash.isFromBack()) {
+                    logAction = 'DetailList';
+                }
+                break;
+            case 'comment':
+                if (('detail' == lastHash.hash) && !lastHash.isFromBack()) {
+                    logAction = 'Comment';
+                }
+                break;
+        }
+        logAction && log.log(logAction);
     }
 
     // = window.smartBack
@@ -76,7 +75,7 @@ define(function (require, exports, module) {
         if (hashObj) {
             console.log(hashObj);
             console.log(JSON.stringify(hashStack));
-            if (-1 == (hashObj.hisLen - history.length)) {
+            if (!hashObj.isFromBack()) {
                 history.go(-1);
             } else {
                 window.location.href = hashObj.orignHash;

@@ -49,12 +49,12 @@ define(function (require, exports, module) {
                 //设置登录状态
                 self.set("loginStatus",true);
                 mtop.addComment(param, function (result) {
-                    fun && fun(true);
+                    fun && fun(true,result.fail);
                 },function(){
                     fun && fun(false);
                 })
             } else {
-                self.set("loginStatus",false);
+               self.set("loginStatus",false);
             }
         }
     });

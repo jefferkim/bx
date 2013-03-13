@@ -17,8 +17,6 @@ define(function(require, exports, module) {
 
     events: {
       'keyup #comment-area': 'typing',
-      'focusin #comment-area': 'focus',
-      'focusout #comment-area': 'blur',
       'click .publish-comment.btn': 'publish'
     },
 
@@ -28,6 +26,10 @@ define(function(require, exports, module) {
 
       this.$commentArea = $('#comment-area');
       this.$charCount = this.$container.find('.char-count');
+
+      if (navigator.standalone != undefined) {
+        this.$commentArea.on('focus', this.focus).on('blur', this.blur)
+      }
     },
       goNewComment : function(snsId, feedId,page){
 
@@ -100,8 +102,12 @@ define(function(require, exports, module) {
           snsId: this.snsId,
           feedId: this.feedId,
           content: comment
-        }, function(success) {
+        }, function(success, message) {
           if (success) {
+            if (message) {
+              notification.message(message)
+              return
+            }
             notification.message('发布成功！')
             self.$commentArea.val('')
             setTimeout(function() { self.back(1) }, 1500)

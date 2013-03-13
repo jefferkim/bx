@@ -13,6 +13,7 @@ define(function(require, exports, module) {
       newCommentView = require('../comment/newCommentView'),
       back = require('./../common/back'),
       cdn = require('cdn'),
+      mtop = require('../common/mtopForAllspark.js'),
       //缓存实例变量view
       _indexView,_accountView,_detailView,_accountListView,_commentView,_newCommentView ;
 
@@ -28,6 +29,10 @@ define(function(require, exports, module) {
 
           //去首次加载动画
           window.MH5slogan && window.MH5slogan.hideFunc && window.MH5slogan.hideFunc();
+
+          //autocreate
+          mtop.autoCreate();
+
           var self = this;
           //#index
           self.route('', 'index', self.filter);
@@ -43,7 +48,7 @@ define(function(require, exports, module) {
           //#newcomment/snsId/feedId/page snsid - sns账号Id  feedId - 消息Id page - 页码
           self.route(/^(newComment)\/(\d*)\/(\d*)\/?(\d*)?$/, 'newComment', self.filter);
           // 全局初始化
-         global.init();
+          global.init();
                },
 
       /**
