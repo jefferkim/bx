@@ -107,7 +107,7 @@ define(function (require, exports, module) {
             //自动创建账号
             var loginStatus = h5_comm.isLogin();
             self.set("loginStatus",loginStatus);
-            if(loginStatus){
+            if( 1 == type && loginStatus){
 
                 getPubAccounts(pageParam, pageParam.isIndex() ? function (accResult) {
                     if (  !accResult.list || accResult.list.length <= 1) {

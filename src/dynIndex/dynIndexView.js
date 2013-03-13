@@ -158,7 +158,7 @@ define(function (require, exports, module) {
 
             //
             var param = {'curPage':that.curPage,'pageSize':that._pageSize};
-            h5_comm.isLogin() && that.dynIndexModel.get("recommends") &&  (param.type = "rec");
+            h5_comm.isLogin() && that.dynIndexModel.get("recommends") &&  (param.type = 2);
 
             that.dynIndexModel.getPageData(param);
 
