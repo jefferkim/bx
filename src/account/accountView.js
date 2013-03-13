@@ -241,8 +241,6 @@ define(function (require, exports, module) {
                                 }
                             }
                         }
-
-
                     },function(){
                         cur.html('关注');
                         cur.removeClass('followed');

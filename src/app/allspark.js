@@ -97,7 +97,7 @@ function numToBinary(num){
 function noHelper(type){
     var v=numToBinary(type),r=false;
     v='0000'+v;
-    return v.substring(v.length-4,1)!='1';
+    return v.substring(v.length-4,v.length-3)!='1';
 }
 
 define(function(require, exports){
