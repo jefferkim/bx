@@ -59,8 +59,8 @@ define(function(require, exports, module) {
           $('#newCommentPage').removeClass('iL').addClass('show iC');
       },
 
-    back: function() {
-      location.hash = '#comment/' + this.snsId + '/' + this.feedId + '/' + this.curPage
+    back: function(page) {
+      location.hash = '#comment/' + this.snsId + '/' + this.feedId + '/' + (page || this.curPage)
     },
 
     focus: function() {
@@ -104,7 +104,7 @@ define(function(require, exports, module) {
           if (success) {
             notification.message('发布成功！')
             self.$commentArea.val('')
-            setTimeout(function() { self.back() }, 1500)
+            setTimeout(function() { self.back(1) }, 1500)
           } else {
             notification.message('发布失败，请重试')
           }
