@@ -10,6 +10,7 @@ define(function (require, exports, module) {
         _model=require('./detailModel'),
         cdn = require('cdn'),
         h5_base = require('h5_base'),
+        uriBroker = require('uriBroker'),
         notification = require('../ui/notification.js')
         CommentModel = require('../comment/commentModel.js')
 
@@ -18,6 +19,7 @@ define(function (require, exports, module) {
     var contentTemplate = _.template($('#detail_content_tpl').html());
 
     getBetterImg = cdn.getBetterImg // make it global for convenience use in templates
+    getItemDetailUrl = uriBroker.getUrl
 
    var detailView = Backbone.View.extend({
 
