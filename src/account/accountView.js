@@ -41,19 +41,25 @@ define(function (require, exports, module) {
                 }
             });
             that.accountModel.on("change:accFeeds",function(model,result){
+                if(that.oldTotalCount){
+                    if(that.oldTotalCount.snsid==that.snsid){
+                        var addCount=parseInt(result.totalCount)-parseInt(that.oldTotalCount.count);
+                        if(addCount>0){
+                            that.oldTotalCount.count=result.totalCount;
+                            notification.message('更新了 '+addCount+' 条广播');
+                        }
+                    }
+                }else{
+                    that.oldTotalCount={'snsid':that.snsid,'count':result.totalCount};
+                }
+                //取消刷新按钮动画
+                setTimeout(function(){
+                    $('.navbar .refresh div').removeClass('spinner');
+                },2000);
+
                 if(result.list&&result.list.length>0){
                     console.log('change:accFeeds');
                     console.log(result);
-                    $('.navbar .refresh div').removeClass('spinner');
-                    if(that.oldTotalCount){
-                        var addCount=parseInt(result.totalCount)-parseInt(that.oldTotalCount);
-                        if(addCount>0){
-                            that.oldTotalCount=result.totalCount;
-                            notification.message('更新了 '+addCount+' 条广播');
-                        }
-                    }else{
-                        that.oldTotalCount=result.totalCount;
-                    }
 
                     $('#accountPage .J_feed .tb-feed-items').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
 
@@ -69,12 +75,11 @@ define(function (require, exports, module) {
             that.accountModel.on("change:prices",function(model,result){
                 console.log('prices');
                 console.log(result);
-                if(result&&result.length>0){
+                if(result&&result.prices.length>0){
 
-                    for(var i=0;i<result.length;i++){
-                        $('.it'+result[i].id).append('<div class="price">￥'+result[i].price+'</div>')
+                    for(var i=0;i<result.prices.length;i++){
+                        $('.it'+result.prices[i].id).append('<div class="price">￥'+result.prices[i].price+'</div>');
                     }
-
 
                     //<div class="price">￥102.00</div>
                 }
@@ -99,6 +104,7 @@ define(function (require, exports, module) {
             }
             $('header.navbar').html('');
             $('#feedPageNav').html('');
+
             var _navbar=$('header.navbar');
             var _accountPage=$('#accountPage');
             window.scrollTo(0,1);
@@ -194,27 +200,51 @@ define(function (require, exports, module) {
         },
         follow:function(e){
             var that=this;
-            console.log('adddddd');
             var cur=$(e.currentTarget);
             if(h5_comm.isLogin()){
                 if(cur.hasClass('followed')){
-                    cur.html('取消关注...');
-                    mtop.removeAccount(cur.attr('pid'),function(){
-                        cur.html('关注');
-                        cur.removeClass('followed');
+                    cur.html('取消关注');
+                    mtop.removeAccount(cur.attr('pid'),function(d){
+                        if(d.data.result){
+                            for(var len=d.data.result.length,i=0;i<len;i++){
+                                if(cur.attr('pid')==d.data.result[i].id){
+                                    if(d.data.result[i].isSuccess=='true'){
+                                        cur.html('关注');
+                                        cur.removeClass('followed');
+                                        $('.stats-count').text(parseInt($('.stats-count').text())-1);
+                                    }else{
+                                        cur.html('取消关注');
+                                    }
+                                }
+
+                            }
+                        }
                     },function(){
-                        cur.html('已关注');
+                        cur.html('取消关注');
                     });
                 }else{
                     cur.html('关注中...');
-                    cur.addClass('followed');
-                    mtop.addAccount(cur.attr('pid'),function(){
-                        cur.html('已关注');
+
+                    mtop.addAccount(cur.attr('pid'),function(d){
+                        if(d.data.result){
+                            for(var len=d.data.result.length,i=0;i<len;i++){
+                                if(cur.attr('pid')==d.data.result[i].id){
+                                    if(d.data.result[i].isSuccess=='true'){
+                                        console.log(d);
+                                        cur.addClass('followed');
+                                        cur.html('取消关注');
+                                        $('.stats-count').text(parseInt($('.stats-count').text())+1);
+                                    }else{
+                                        cur.html('关注');
+                                        cur.removeClass('followed');
+                                    }
+                                }
+                            }
+                        }
                     },function(){
                         cur.html('关注');
                         cur.removeClass('followed');
                     });
-
                 }
             }else{
                 h5_comm.goLogin('h5_allspark');
@@ -229,7 +259,6 @@ define(function (require, exports, module) {
             }else{
                 that.before=false;
             }
-
             window.location.hash='#account/'+that.snsid+'/'+page;
             //判断是否为分页，如果是分页返回还是账号列表
             that.backURL=$('.navbar .back a').attr('href');
@@ -238,9 +267,9 @@ define(function (require, exports, module) {
         },
         goToDetail:function(e){
             var cur=$(e.currentTarget);
-            window.location.hash='#detail/'+$('.tb-profile').attr('snsid')+'/'+cur.attr('feedid');
+            var that=this;
+            window.location.hash='#detail/'+$('.tb-profile').attr('snsid')+'/'+cur.attr('feedid')+'/'+that.curPage;
         },
-
         /**
          * 重构数据集
          * @param data

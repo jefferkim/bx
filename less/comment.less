@@ -9,17 +9,26 @@
   }
 
   .comment-list {
+    word-break: break-all;
     margin: 0;
     > li {
       margin: 11px 0;
       &:last-child { margin-bottom: 0; }
     }
+
   }
 
   .user-info {
     height: 40px;
     margin: 0 10px;
     position: relative;
+    .default {
+      width: 35px;
+      height: 35px;
+      -webkit-background-size: 35px;
+      background-repeat: no-repeat;
+    }
+
     img {
       width: 35px;
       height: 35px;
@@ -44,6 +53,7 @@
   .user-comment {
     color: #666;
     font-size: 14px;
+    line-height: 140%;
     margin: 3px 10px 9px 10px;
   }
 
@@ -75,7 +85,7 @@
   #comment-area {
     border: 0;
     width: 100%;
-    height: 145px;
+    height: 100px;
     display: block;
     font-size: 14px;
   }

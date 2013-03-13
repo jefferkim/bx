@@ -59,8 +59,8 @@ define(function(require, exports, module) {
           $('#newCommentPage').removeClass('iL').addClass('show iC');
       },
 
-    back: function() {
-      $('.navbar .back a').trigger('click')
+    back: function(page) {
+      location.hash = '#comment/' + this.snsId + '/' + this.feedId + '/' + (page || this.curPage)
     },
 
     focus: function() {
@@ -79,6 +79,10 @@ define(function(require, exports, module) {
       if (length) this.$charCount.addClass('typing')
       else this.$charCount.removeClass('typing')
 
+      if (length > 140) {
+        this.$commentArea.val(this.$commentArea.val().substr(0, 140))
+      }
+
       var self = this
       setTimeout(function() { self.typing() }, 200)
     },
@@ -90,16 +94,17 @@ define(function(require, exports, module) {
 
       if (comment.length == 0) {
         notification.message('写点什么吧 ^_^')
+        return
       } else if (comment.length <= 140) {
         this.model.addComment({
           snsId: this.snsId,
           feedId: this.feedId,
-          content: _.escape(comment)
+          content: comment
         }, function(success) {
           if (success) {
             notification.message('发布成功！')
             self.$commentArea.val('')
-            setTimeout(function() { self.back() }, 1500)
+            setTimeout(function() { self.back(1) }, 1500)
           } else {
             notification.message('发布失败，请重试')
           }

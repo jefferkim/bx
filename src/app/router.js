@@ -11,6 +11,8 @@ define(function(require, exports, module) {
       accountListView = require('../accountList/accountListView'),
       commentView = require('../comment/commentListView'),
       newCommentView = require('../comment/newCommentView'),
+      back = require('./../common/back'),
+      cdn = require('cdn'),
       //缓存实例变量view
       _indexView,_accountView,_detailView,_accountListView,_commentView,_newCommentView ;
 
@@ -21,6 +23,9 @@ define(function(require, exports, module) {
       initialize : function() {
           //test
           //   localStorage.clear();
+          //cdn 获取最佳图片尺寸
+          getBetterImg = cdn.getBetterImg; // make it global for convenience use in templates
+
           //去首次加载动画
           window.MH5slogan && window.MH5slogan.hideFunc && window.MH5slogan.hideFunc();
           var self = this;
@@ -30,7 +35,7 @@ define(function(require, exports, module) {
           //#account/snsid/page  snsid - sns账号Id  page - 页码
           self.route(/^(account)\/(\d*)\/?(\d*)?$/, 'account', self.filter);
           //#detail/snsId/feedId snsid - sns账号Id  feedId - 消息Id
-          self.route(/^(detail)\/(\d*)\/(\d*)$/, 'detail', self.filter);
+          self.route(/^(detail)\/(\d*)\/(\d*)\/?(\d*)?$/, 'detail', self.filter);
           //#comment/snsId/feedId/page snsid - sns账号Id  feedId - 消息Id page - 页码
           self.route(/^(comment)\/(\d*)\/(\d*)\/?(\d*)?$/, 'commentList', self.filter);
           //#accountList/status/page  status - 0 - 未关注列表 1 - 以关注列表 默认 未关注列表  page - 页码
@@ -40,6 +45,7 @@ define(function(require, exports, module) {
           // 全局初始化
          global.init();
                },
+
       /**
        * 统一入口
        *
@@ -50,9 +56,13 @@ define(function(require, exports, module) {
           if (tbh5.userCacheHash('allSpark')) {
               return;
           }
-          console.log('divName=' + divName + "|arg0=" + arg0 + "|arg1=" + arg1 + "|arg2=" + arg2);
+//          console.log('divName=' + divName + "|arg0=" + arg0 + "|arg1=" + arg1 + "|arg2=" + arg2);
           //默认divName
           divName = divName || 'index';
+
+          //
+         back.add(divName);
+
           switch (divName) {
               case 'index':
                   _indexView= _indexView || new indexView();
@@ -64,7 +74,7 @@ define(function(require, exports, module) {
                   break;
               case 'detail':
                   _detailView= _detailView || new detailView();
-                  self.detail(arg0,arg1);
+                  self.detail(arg0,arg1,arg2);
                   break;
               case 'comment':
                   _commentView= _commentView || new commentView();
@@ -100,10 +110,12 @@ define(function(require, exports, module) {
         page=page||1;
         _accountListView.render(status,page);
     },
-    detail: function(snsId, feedId) {
+    detail: function(snsId, feedId,page) {
+
+      page = page || 1
         //详情需要置顶
         window.scrollTo(0,0);
-        _detailView.goDetail(snsId,feedId);
+        _detailView.goDetail(snsId,feedId,page);
     },
 
     commentList: function(snsId, feedId, page) {

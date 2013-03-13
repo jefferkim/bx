@@ -15,6 +15,7 @@ define(function (require, exports, module) {
         cache = require('../common/cache'),
         slider= require('../../../../base/styles/component/slider/js/slider.js'),
         pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
+        back = require('../common/back.js');
         mtop = require('../common/mtopForAllspark.js');
 
     $.extend($.fn, {
@@ -43,7 +44,11 @@ define(function (require, exports, module) {
             'click .navbar .refresh':'refresh',
             'click #indexPage .myfeed li':'goToAccount',
             'click #indexPage .person-list li .content':'goToAccount',
-            'click #indexPage .person-list .followbtn':'follow'
+            'click #indexPage .person-list .followbtn':'follow',
+            //ADD BY WUZHONG(只能经过首页的才起效果)
+            'click header .back' : function(e){
+                return back.exec();
+            }
         },
         initialize:function (page) {
             //判断是否登录
@@ -69,6 +74,11 @@ define(function (require, exports, module) {
             that.dynIndexModel.on("change:accWithFeed",function(model,result){
                 console.log('accWithFeed');
                 console.log(result);
+                //取消刷新按钮动画
+                setTimeout(function(){
+                    $('.navbar .refresh div').removeClass('spinner');
+                },2000);
+
                 if(result.list&&result.list.length>0){
                     if(result.list.length==1){
                         $('#indexPage .J_status').html(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result));
@@ -76,10 +86,13 @@ define(function (require, exports, module) {
                     }else{
                         $('#indexPage .J_status').html('<div class="account-title"><span>账号动态</span></div>'+_.template($('#myfeed_tpl').html(),result));
                         var pageCount=Math.ceil(result.totalCount/that._pageSize);
-                        that.myfeedPage=new pageNav({'id':'#personListPageNav','index':that.curPage,'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
-                        that.myfeedPage.pContainer().on('P:switchPage', function(e,page){
-                            that.changePage(page.index);
-                        });
+                        //页数大于1的时候显示分页组件
+                        if(pageCount>1){
+                            that.myfeedPage=new pageNav({'id':'#personListPageNav','index':that.curPage,'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
+                            that.myfeedPage.pContainer().on('P:switchPage', function(e,page){
+                                that.changePage(page.index);
+                            });
+                        }
                         //$(_.template($('#myfeed_tpl').html(),result)).insertAfter('div.in-slider');
                     }
                 }
@@ -89,17 +102,25 @@ define(function (require, exports, module) {
                 //推荐列表
                 console.log('recommends');
                 console.log(result);
+                //取消刷新按钮动画
+                setTimeout(function(){
+                    $('.navbar .refresh div').removeClass('spinner');
+                },2000);
+
                 if(result.list&&result.list.length>0){
                     $('#indexPage .J_list .person-list').html(_.template($('#personList_tpl').html(),result));
 
                     //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));
-                    if(!that.recommentPage){
+                    //if(!that.recommentPage){
                         var pageCount=Math.ceil(result.totalCount/that._pageSize);
-                        that.recommentPage=new pageNav({'id':'#personListPageNav','index':that.curPage,'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
-                        that.recommentPage.pContainer().on('P:switchPage', function(e,page){
-                            that.changePage(page.index);
-                        });
-                    }
+                        //页数大于1的时候显示分页组件
+                        if(pageCount>1){
+                            that.recommentPage=new pageNav({'id':'#personListPageNav','index':that.curPage,'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
+                            that.recommentPage.pContainer().on('P:switchPage', function(e,page){
+                                that.changePage(page.index);
+                            });
+                        }
+                    //}
                 }
                 //ok(result.totalCount > 0, "total count > 0")
             },this);
@@ -119,8 +140,14 @@ define(function (require, exports, module) {
 
 
             window.scrollTo(0,1);
+            $('#indexPage .J_list .person-list').html('');
+            $('#personListPageNav').html('');
 
-            that.dynIndexModel.getPageData({'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':that.timestamp});
+            //
+            var param = {'curPage':that.curPage,'pageSize':that._pageSize};
+            h5_comm.isLogin() && that.dynIndexModel.get("recommends") &&  (param.type = "rec");
+
+            that.dynIndexModel.getPageData(param);
 
             var _navbar=$('header.navbar');
 
@@ -209,9 +236,19 @@ define(function (require, exports, module) {
 
                 if(cur.hasClass('followed')){
                     cur.html('取消关注...');
-                    mtop.removeAccount(cur.attr('pid'),function(){
-                        cur.html('关注');
-                        cur.removeClass('followed');
+                    mtop.removeAccount(cur.attr('pid'),function(d){
+                        if(d.data.result){
+                            for(var len=d.data.result.length,i=0;i<len;i++){
+                                if(cur.attr('pid')==d.data.result[i].id){
+                                    if(d.data.result[i].isSuccess=='true'){
+                                        cur.html('关注');
+                                        cur.removeClass('followed');
+                                    }else{
+                                        cur.html('取消关注');
+                                    }
+                                }
+                            }
+                        }
                     },function(){
                         cur.html('取消关注');
                     });
@@ -219,7 +256,18 @@ define(function (require, exports, module) {
                     cur.html('关注中...');
                     cur.addClass('followed');
                     mtop.addAccount(cur.attr('pid'),function(){
-                        cur.html('取消关注');
+                        if(d.data.result){
+                            for(var len=d.data.result.length,i=0;i<len;i++){
+                                if(cur.attr('pid')==d.data.result[i].id){
+                                    if(d.data.result[i].isSuccess=='true'){
+                                        cur.html('取消关注');
+                                    }else{
+                                        cur.html('关注');
+                                        cur.removeClass('followed');
+                                    }
+                                }
+                            }
+                        }
                     },function(){
                         cur.html('关注');
                         cur.removeClass('followed');

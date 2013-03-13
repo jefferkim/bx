@@ -6,6 +6,7 @@ define(function (require, exports, module) {
         uriBroker = require('uriBroker'),
         $ = require('zepto'),
         cookie = require('cookie'),
+        log = require('./log.js'),
         cache = require('../common/cache.js');
 
     /**
@@ -48,7 +49,7 @@ define(function (require, exports, module) {
     }
 
     //TODO get form cookie
-    exports.userNick = h5_comm.getNickFromHidden();
+    exports.userNick = (h5_comm.getNickFromCookie() || h5_comm.getNickFromHidden());
     exports.pageParam = {
         curPage:1,
         pageSize:3,
@@ -82,7 +83,8 @@ define(function (require, exports, module) {
      * @param failF
      */
     exports.addAccount = function (ids, successF, failF) {
-        this.getData("mtop.sns.follow.pubAccount.add", convertIds(ids), successF, failF)
+        this.getData("mtop.sns.follow.pubAccount.add", convertIds(ids), successF, failF);
+        log.log("Attention");
     }
     exports.removeAccount = function (ids, successF, failF) {
         this.getData("mtop.sns.follow.pubAccount.remove", convertIds(ids), successF, failF)

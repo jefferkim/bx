@@ -36,12 +36,14 @@ define(function (require, exports, module) {
                     that.myPageNav.pContainer().on('P:switchPage', function(e,page){
                         that.changePage(page.index);
                     });
+                }else{
+                    $('#accountListPage .person-list').html('<div class="empty">还没有关注任何帐号哦</div>');
                 }
             });
             that.accountListModel.on("change:recommends",function(model,result){
 
-                console.log('recommends');
-                console.log(result);
+//                console.log('recommends');
+//                console.log(result);
                 if(result.list&&result.list.length>0){
                     $('#accountListPage .person-list').html((_.template($('#personList_tpl').html(),result)));
                     $('#accountListPageNav').html('');
@@ -50,6 +52,8 @@ define(function (require, exports, module) {
                     that.recPageNav.pContainer().on('P:switchPage', function(e,page){
                         that.changePage(page.index);
                     });
+                }else{
+                    $('#accountListPage .person-list').html('<div class="empty">您已经关注所有帐号了</div>');
                 }
             });
         },
@@ -112,27 +116,51 @@ define(function (require, exports, module) {
             e.stopPropagation();
             var that=this;
             var cur=$(e.currentTarget);
+            var _numObj=cur.parent().find('.follows span');
             if(h5_comm.isLogin()){
                 //已登录
                 console.log('follow');
                 if(cur.hasClass('followed')){
                     cur.html('取消关注...');
-                    mtop.removeAccount(cur.attr('pid'),function(){
-                        cur.html('关注');
-                        cur.removeClass('followed');
+                    mtop.removeAccount(cur.attr('pid'),function(d){
+
+                        if(d.data.result){
+                            for(var len=d.data.result.length,i=0;i<len;i++){
+                                if(cur.attr('pid')==d.data.result[i].id){
+                                    if(d.data.result[i].isSuccess=='true'){
+                                        cur.html('关注');
+                                        _numObj.text(parseInt(_numObj.text())-1);
+                                        cur.removeClass('followed');
+                                    }else{
+                                        cur.html('取消关注');
+                                    }
+                                }
+                            }
+                        }
                     },function(){
                         cur.html('取消关注');
                     });
                 }else{
                     cur.html('关注中...');
                     cur.addClass('followed');
-                    mtop.addAccount(cur.attr('pid'),function(){
-                        cur.html('已关注');
+                    mtop.addAccount(cur.attr('pid'),function(d){
+                        if(d.data.result){
+                            for(var len=d.data.result.length,i=0;i<len;i++){
+                                if(cur.attr('pid')==d.data.result[i].id){
+                                    if(d.data.result[i].isSuccess=='true'){
+                                        cur.html('已关注');
+                                        _numObj.text(parseInt(_numObj.text())+1);
+                                    }else{
+                                        cur.html('关注');
+                                        cur.removeClass('followed');
+                                    }
+                                }
+                            }
+                        }
                     },function(){
                         cur.html('关注');
                         cur.removeClass('followed');
                     });
-
                 }
             }else{
                 h5_comm.goLogin('h5_allspark');

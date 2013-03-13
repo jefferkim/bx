@@ -24,9 +24,9 @@ define(function (require, exports, module) {
         el: '#content',
         model : new _model(),
         events:{
-          'click .comment.btn': 'commentList',
+          'click .to-comment-list.btn': 'commentList',
           'click .more-content': 'more',
-          'click #detailPage .brand': 'naviForAndroid'
+          'click #detailPage .brand': 'toAccountPage'
         },
         initialize:function () {
 
@@ -43,15 +43,16 @@ define(function (require, exports, module) {
               this.commentModel.on('change:commentCount', this.renderComentCount, this)
             }
         },
-       goDetail : function(snsId,feedId){
+       goDetail : function(snsId,feedId,page){
 
            var that = this;
            that.snsId = snsId;
            that.feedId = feedId;
+           that.page=page;
            window.scrollTo(0,1);
            var _navbar=$('header.navbar');
            var _detailPage=$('#detailPage');
-           _navbar.html(headerTemplate({ href: '#account/' + this.snsId }));
+           _navbar.html(headerTemplate({ href: '#account/' + this.snsId+'/'+this.page }));
            this.commentModel && this.commentModel.get('commentCount') && this.commentModel.trigger('change:commentCount')
 
            //判断导航是否已经载入
@@ -121,11 +122,16 @@ define(function (require, exports, module) {
 
        more: function(e) {
         e.preventDefault()
-        if (h5_base.isClient()) return;
 
         var feed = this.model.get('feed')
         var url = feed.linkUrl
         var isExternal = feed.linkUrlIsExt
+
+        if (h5_base.isClient()) {
+          window.location = url
+          return
+        }
+
         if (isExternal == 'true') {
           notification.external(url, function() { window.location = url })
         } else {
@@ -133,8 +139,17 @@ define(function (require, exports, module) {
         }
        },
 
-       naviForAndroid: function() {
-        window.allspark && window.allspark.skipToHome && window.allspark.skipToHome(this.snsId, 1)
+       toAccountPage: function(e) {
+
+        if (h5_base.isClient()) {
+          e.preventDefault()
+          location.href = location.origin + location.pathname + '#account/' + this.snsId + '/' + this.page
+        }
+
+        // if (h5_base.isClient() && window.allspark) {
+        //   e.preventDefault()
+        //   window.allspark.skipToHome && window.allspark.skipToHome(this.snsId, 1)
+        // }
        },
 
         renderPrices: function() {

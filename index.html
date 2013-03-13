@@ -14,7 +14,7 @@
     </head>
     <body style="background: #f8f8f8">
         <div id="content">
-            <header class="navbar iT"></header>
+            <header class="navbar iT" style="display: none"></header>
             <div class="tb-h5">
                 <div id="indexPage" class="view-page hide iB">
                     <div class="J_slider"></div>
@@ -101,14 +101,17 @@
                         <div class="title"><%=item.nick%></div>
                         <div class="info"><%=item.description%></div>
                         <div class="follows"><span><%=item.fansCount%></span>关注者</div>
-                        <img src="<%=item.logoUrl%>">
+                        <div class="default">
+                            <% if(item.logoUrl){ %>
+                            <img src="<%=item.logoUrl%>">
+                            <% } %>
+                        </div>
                     </div>
                 </li>
                 <% }); %>
             </ul>
         </script>
         <script id="personList_tpl" type="text/template">
-
                 <ul>
                     <% _.each(list, function(item) { %>
                     <li>
@@ -116,11 +119,14 @@
                             <div class="title"><%=item.nick%></div>
                             <div class="info"><%=item.description%></div>
                             <div class="follows"><span><%=item.fansCount%></span>关注者</div>
-                            <img class="default" src="<%=item.logoUrl%>">
+                            <div class="default">
+                                <% if(item.logoUrl){ %>
+                                <img src="<%=item.logoUrl%>">
+                                <% } %>
+                            </div>
                         </div>
                         <% if(item.followed=='true'){ %>
                             <button pid="<%=item.id%>" class="followbtn followed">取消关注</button>
-
                         <% }else{ %>
                             <button pid="<%=item.id%>" class="followbtn">关注</button>
                         <% }%>
@@ -137,11 +143,14 @@
                 <ul>
                     <% _.each(list, function(item) { %>
                     <% if(item.firstFeed){ %>
-
                                 <% if(item.firstFeed.coverTile&&item.firstFeed.coverTile.path) {%>
                                 <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="multimedia">
                                     <div class="media">
-                                        <img class="default" src="<%=item.firstFeed.coverTile.path%>">
+                                        <div class="default">
+                                            <% if(item.firstFeed.coverTile.path){ %>
+                                            <img src="<%=item.firstFeed.coverTile.path%>_100x100.jpg">
+                                            <% } %>
+                                        </div>
                                     </div>
                                 <% }else{ %>
                                 <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>">
@@ -158,7 +167,9 @@
                                                     <%=item.unreadCount%>
                                                 <% } %>
                                             </span>
+                                            <% if(item.account){ %>
                                             <span class="name"><%=item.account.nick%></span>
+                                            <% } %>
                                         </div>
                                     </div>
                                 </li>
@@ -176,14 +187,18 @@
                 <div class="user-cover" style="background-image: url('<%=backgroundImg%>')">
                 </div>
                 <div class="user-avatar">
-                    <img class="default" src="<%=logoUrl%>"/>
+                    <div class="default">
+                        <% if(logoUrl){ %>
+                        <img src="<%=logoUrl%>"/>
+                        <% } %>
+                    </div>
                 </div>
                 <div class="user-info">
                     <h1><%=nick%></h1>
                     <h3><%=description%></h3>
                 </div>
             </div>
-            <% if(accountType!='8'){ %>
+            <% if(noHelper(accountType)){ %>
             <div class="tb-counts">
                 <div class="profile-overview">
                     <div class="stats-count">
@@ -226,7 +241,7 @@
                                         it<%=item.coverTile.item.id%>
                                     <% } %>
                                  <% } %>" >
-                                    <img src="<%=item.coverTile.path%>" width="100%"/>
+                                <img src="<%=getBetterImg(item.coverTile.path, window.innerWidth, parseInt(item.coverTile.picWidth))%>" width="100%"/>
                                 </div>
                             </div>
                             <% } %>
@@ -259,21 +274,27 @@
                 <a href="<%= href %>">返回</a>
             </div>
             <div class="title">&nbsp;</div>
-            <div class="btn comment"> 评论 <span></span>
+            <div class="btn comment to-comment-list"> 评论 <span></span>
             </div>
         </script>
         <script id="detail_accinfo_tpl" type="text/template">
           <a href="#account/<%= snsId %>" class="brand">
-            <img class="avatar default" src="<%= logoUrl %>" alt="">
+              <div class="default">
+                <% if(logoUrl){ %>
+                <img class="avatar" src="<%= logoUrl %>"/>
+                <% } %>
+              </div>
             <div class="info">
               <p class="name"><%= nick %></p>
-              <p class="follow">
-              <% if (fansCount == 0) { %>
-                还没有人关注
-              <% } else { %>
-                <span class="count"><%= fansCount %></span> 关注者
-              <% } %>
-              </p>
+              <% if(noHelper(accountType)){ %>
+                  <p class="follow">
+                  <% if (fansCount == 0) { %>
+                    还没有人关注
+                  <% } else { %>
+                    <span class="count"><%= fansCount %></span> 关注者
+                  <% } %>
+                  </p>
+               <% } %>
             </div>
           </a>
           <div class="separator"></div>
@@ -287,7 +308,7 @@
                 <% if (tiles[i].type == "pic") { %>
                     <div class="media"><img src="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>" style="width: 100%;"></div>
                 <% } else if (tiles[i].type == "text") { %>
-                    <p><%= tiles[i].text %></p>
+                    <p class="text"><%= tiles[i].text.replace(/(\n)+/g, '<br />') %></p>
                 <% } else if (tiles[i].type == "picItem") { %>
                     <div class="media">
                       <a style="display: block" href="http://a.m.taobao.com/i<%= tiles[i].item.id %>.htm" class="item" data-id="<%= tiles[i].item.id %>">
@@ -318,14 +339,18 @@
                 <% for (var i = 0; i < list.length; i++) { %>
                 <li>
                     <div class="user-info">
-                        <img class="default" src="<%= list[i].createrPic %>">
+                        <div class="default">
+                            <%if(list[i].createrPic){%>
+                            <img  src="<%= list[i].createrPic %>">
+                            <% } %>
+                        </div>
                         <div class="info">
                           <p class="user-name"><%= list[i].createrName %></p>
                           <p class="pub-time"><%= timestamps(list[i].time) %></p>
                         </div>
                       </div>
                       <div class="user-comment">
-                        <%= list[i].content %>
+                        <%- list[i].content %>
                       </div>
                       <div class="separator"></div>
                 </li>
@@ -357,65 +382,6 @@
             seajs.use('./src/app/allspark.js', function(app){
                 //new app();
             });
-            function timestamps(time){
-
-                if(typeof time == 'string'){
-                    time = parseInt(time);
-                }
-
-                var ONE_SECOND = 1000,
-                        ONE_MINUTE = ONE_SECOND * 60,
-                        ONE_HOUR   = ONE_MINUTE * 60,
-                        ONE_DAY    = ONE_HOUR   * 24;
-
-                var iTrueTime = null,
-                        dNow = new Date(),
-                        iNow = dNow.getTime(),
-                        ret = "";
-
-                if(typeof time == 'number'){
-
-                    iTrueTime = time;
-                } else if(typeof time == 'object'){
-
-                    if(time.getTime){// an object of Date
-                        iTrueTime = time.getTime();
-                    }
-                }
-
-
-                if( iTrueTime != NaN){
-                    var dTrueTime = new Date();
-                    dTrueTime.setTime(iTrueTime);
-                }
-
-                if(iTrueTime == NaN){
-                    ret = "-";
-                }else if(iTrueTime > iNow){
-                    ret = "您穿越了";
-                } else if( iTrueTime > iNow - ONE_SECOND * 10){
-                    ret = "刚刚";
-                } else if( iTrueTime > iNow - ONE_MINUTE){
-                    // e.g. 30秒前
-                    ret = parseInt((iNow - iTrueTime) / ONE_SECOND / 10).toString() + "0秒前";
-                } else if( iTrueTime > iNow - ONE_HOUR){
-                    // e.g. 3分钟前
-                    ret = parseInt((iNow - iTrueTime) / ONE_MINUTE) + "分钟前";
-                } else if( iTrueTime > iNow - ONE_DAY){
-                    // e.g. 今天11:39
-                    ret = "今天" + dTrueTime.getHours() + ":" + dTrueTime.getMinutes();
-                } else{
-                    if(dTrueTime.getYear() == dNow.getYear()){
-                        // e.g. 9月10日 07:50
-                        ret = dTrueTime.getMonth() + "月" + dTrueTime.getDate() + "日 " + dTrueTime.getHours() + ":" + dTrueTime.getMinutes();
-                    }else{
-                        // e.g. 2011年2月3日 12:39
-                        ret = dTrueTime.getFullYear() + "年" + dTrueTime.getMonth() + "月" + dTrueTime.getDate() + "日 " + dTrueTime.getHours() + ":" + dTrueTime.getMinutes();
-                    }
-                }
-
-                return ret;
-            }
 
         </script>
 

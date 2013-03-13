@@ -88,19 +88,19 @@ define(function (require, exports) {
 //        }).execute();
 
     //调用mtop 接口
-//    h5mtop.addApi("mtop.wdetail.getItemDetail","3.0",
-//        {'itemNumId':1500018674236},
-//        {}, function(result){
-//            console.log(result);
-//        },function(result){
-//            console.log(result);
-//        }).addApi("mtop.wdetail.getItemDetail","3.0",
-//        {'itemNumId':123456789},
-//        {}, function(result){
-//            console.log(result);
-//        },function(result){
-//            console.log(result);
-//        }).execute(true);
+    h5mtop.addApi("mtop.wdetail.getItemDetail","3.0",
+        {'itemNumId':1500018674236},
+        {}, function(result){
+            console.log(result);
+        },function(result){
+            console.log(result);
+        }).addApi("mtop.wdetail.getItemDetail","3.0",
+        {'itemNumId':123456789},
+        {}, function(result){
+            console.log(result);
+        },function(result){
+            console.log(result);
+        }).execute(true);
 
 
     //调用mtop 接口
@@ -125,12 +125,6 @@ define(function (require, exports) {
 //    delete sets[i++];
 //})
 //console.log(sets);
-
-document.domain="taobao.com";
-var xhr = new XMLHttpRequest();
-xhr.withCredentials=true;
-xhr.open("get","http://tom.waptest.taobao.com/tomcat/test.jsp?username=12345678",true);
-xhr.send();
 
 
 
