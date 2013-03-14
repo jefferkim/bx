@@ -1,11 +1,23 @@
 define(function (require, exports, module) {
 
     var log = require("./log.js"),
+        Backbone = require('backbone'),
         hashStack = [],
         times = 0;
 
+    var BackgroudView = Backbone.View.extend({
+        el: '#content',
+        events:{
+            'click header .back' : function(e){
+                return exports.exec();
+            }
+        }
+    });
+
+    var bgView;
+
     exports.add = function (hash) {
-//      if("newComment" == hash){return};
+        bgView || (bgView = new BackgroudView);
         var tmpStack = [];
         var i = 0;
         while (i < hashStack.length) {

@@ -48,10 +48,10 @@ define(function (require, exports, module) {
             param || (param = {});
             var pageParam = _.clone(mtop.pageParam);
             _.extend(pageParam, param);
-            //判断是否第一页
-            //pageParam.before || (pageParam.before = pageParam.isIndex());
 
-            console.log(pageParam);
+            //判断是否第一页
+            pageParam.isIndex() && (pageParam.before = false);
+
             self._biz.feeds(pageParam,function(result){
                /* result.totalCount && result.list && result.list.forEach(function(feed){
                     //feed.coverTile.item={'id':'1500020722928'};

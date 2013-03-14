@@ -109,6 +109,20 @@ define(function (require, exports, module) {
             self.set("loginStatus",loginStatus);
             if( 1 == type && loginStatus){
 
+                //TODO
+                mtop.allFeedCount(function(result){
+                    //比较
+                    if(!result.data){return};
+                    var lastCounts = parseInt(cache.getPersistent("feedCountsKey","counts"));
+                    var nowCounts = parseInt(result.data.count);
+                    if(!!lastCounts && !!nowCounts ){
+                        self.set("newFeedCounts",{count: nowCounts - lastCounts,t:new Date().getTime()})
+                    }
+                    nowCounts && (cache.savePersistent("feedCountsKey","counts",nowCounts));
+                })
+
+
+
                 getPubAccounts(pageParam, pageParam.isIndex() ? function (accResult) {
                     if (  !accResult.list || accResult.list.length <= 1) {
                         getrecommends(pageParam);

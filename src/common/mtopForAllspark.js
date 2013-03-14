@@ -103,6 +103,17 @@ define(function (require, exports, module) {
         }
     };
 
+    /**
+     * mtop.sns.pubAccount.allFeedCount 我订阅的公共账号所有消息数
+        需用户登录
+        出参：所有消息数:long
+     * @param param
+     * @param fun
+     */
+    exports.allFeedCount = function(successF, failF){
+        this.getData("mtop.sns.pubAccount.allFeedCount", {}, successF, failF)
+    };
+
     exports.listBefore = function (param, fun) {
         invokeApi("mtop.sns.feed.listBefore", param, fun);
     };
