@@ -96,8 +96,12 @@ define(function (require, exports, module) {
         },
         render:function(snsid,page){
             var that=this;
+
             that.snsid=snsid;
             that.curPage= page;
+            if(page==1){
+                that.before=false;
+            }
             if(snsid!=$('#accountPage').attr('snsid')){
                 $('#accountPage').attr('snsid',snsid);
                 $('#accountPage .J_info').html('');
