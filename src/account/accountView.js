@@ -215,6 +215,7 @@ define(function (require, exports, module) {
                                         cur.removeClass('followed');
                                         $('.stats-count').text(parseInt($('.stats-count').text())-1);
                                     }else{
+                                        notification.message('取消关注失败！');
                                         cur.html('取消关注');
                                     }
                                 }
@@ -222,6 +223,7 @@ define(function (require, exports, module) {
                             }
                         }
                     },function(){
+                        notification.message('取消关注失败！');
                         cur.html('取消关注');
                     });
                 }else{
@@ -237,15 +239,15 @@ define(function (require, exports, module) {
                                         cur.html('取消关注');
                                         $('.stats-count').text(parseInt($('.stats-count').text())+1);
                                     }else{
+                                        notification.message('关注失败！');
                                         cur.html('关注');
-                                        cur.removeClass('followed');
                                     }
                                 }
                             }
                         }
                     },function(){
+                        notification.message('关注失败！');
                         cur.html('关注');
-                        cur.removeClass('followed');
                     });
                 }
             }else{
