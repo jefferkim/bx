@@ -59,6 +59,10 @@ define(function (require, exports, module) {
             that.timestamp=new Date().getTime();
 
             that.dynIndexModel = new _model();
+            that.dynIndexModel.on("change:newFeedCounts",function(model,result){
+                //提醒更新记录数
+                notification.message('更新了 '+result.count+' 条广播');
+            });
             that.dynIndexModel.on("change:banner",function(model,result){
                 console.log('banner');
                 console.log(result);
@@ -75,15 +79,7 @@ define(function (require, exports, module) {
             that.dynIndexModel.on("change:accWithFeed",function(model,result){
                 console.log('accWithFeed');
                 console.log(result);
-                //提醒更新记录数
-                if(that.oldTotalCount){
-                    if(parseInt(that.oldTotalCount)<parseInt(result.totalCount)){
-                        notification.message('更新了 '+(parseInt(result.totalCount)-parseInt(that.oldTotalCount))+' 条广播');
-                        that.oldTotalCount.count=result.totalCount;
-                    }
-                }else{
-                    that.oldTotalCount=result.totalCount;
-                }
+
 
                 //取消刷新按钮动画
                 setTimeout(function(){
