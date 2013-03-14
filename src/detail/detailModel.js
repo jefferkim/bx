@@ -10,6 +10,22 @@ define(function (require, exports, module) {
      * 详情页面
      */
         return Backbone.Model.extend({
+
+            linkUrlFormat:function(linkUrl){
+                if(linkUrl)
+                {
+                    if(linkUrl.indexOf('detail.tmall.com')!=-1)
+                    {
+                        var id=linkUrl.match(/id=[\d]+/);
+                        id = id && id.split('=');
+                        if(id.length > 1)
+                        {
+                            return "http://a.m.tmall.com/i"+id[1]+".htm";
+                        }
+                    }
+                }
+                return linkUrl;
+            },
             /**
              * mtop.sns.feed.detail Feed详情
              用户登录可选
@@ -54,6 +70,8 @@ define(function (require, exports, module) {
                          refine.refineDetail(result);
                          console.log(result);
                          self.set("feed",result);
+                        //linkUrlFormat
+                         result.linkUrl = linkUrlFormat(result.linkUrl);
                          cache.saveItem(param.snsId+"_"+param.feedId,result);
                         getPrices(result,param);
                     });
