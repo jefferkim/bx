@@ -2,6 +2,7 @@ define(function(require, exports, module) {
   var Backbone = require('backbone'),
       $ = require('zepto'),
       _ = require('underscore'),
+      h5_comm = require('h5_comm'),
       notification = require('../ui/notification.js');
 
   var CommentModel = require('./commentModel')
@@ -90,6 +91,12 @@ define(function(require, exports, module) {
     },
 
     publish: function() {
+
+      if (!h5_comm.isLogin()) {
+        h5_comm.goLogin('h5_allspark')
+        return
+      }
+
       var self = this
       var comment = this.$commentArea.val()
       console.log('comment length is', comment.length)
