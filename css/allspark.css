@@ -2257,6 +2257,7 @@ header.navbar .add:active {
   display: block;
   position: relative;
   text-decoration: none;
+  margin-right: 50px;
 }
 .tb-h5 .detail .brand .default {
   width: 50px;
