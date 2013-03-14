@@ -32,6 +32,9 @@ define(function(require, exports, module) {
     },
      goComment:function(snsId, feedId, page){
 
+
+        this.$container.empty()
+
          this.snsId = snsId
          this.feedId = feedId
          this.page = page

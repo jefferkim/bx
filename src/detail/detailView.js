@@ -47,6 +47,9 @@ define(function (require, exports, module) {
         },
        goDetail : function(snsId,feedId,page){
 
+          this.$container.find('.account').empty()
+          this.$container.find('.main').empty()
+
            var that = this;
            that.snsId = snsId;
            that.feedId = feedId;
