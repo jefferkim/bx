@@ -66,14 +66,18 @@ define(function (require, exports, module) {
                      return;
                 }else {
                     mtop.detail(param || {},function(result){
-                         console.log('refine detail');
+
                          refine.refineDetail(result);
+
                          console.log(result);
+
+                         //linkUrlFormat
+                         result.linkUrl = self.linkUrlFormat(result.linkUrl);
+
                          self.set("feed",result);
-                        //linkUrlFormat
-                         result.linkUrl = linkUrlFormat(result.linkUrl);
+
                          cache.saveItem(param.snsId+"_"+param.feedId,result);
-                        getPrices(result,param);
+                         getPrices(result,param);
                     });
                 }
         }
