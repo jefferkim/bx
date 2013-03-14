@@ -84,7 +84,7 @@ define(function (require, exports, module) {
                 },2000);
 
                 if(result.list&&result.list.length>0){
-                    if(result.list.length==1){
+                    if((result.list.length==1)&&(that.curPage==1)){
                         $('#indexPage .J_status').html(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result));
                         //$(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result)).insertAfter('div.in-slider');
                     }else{

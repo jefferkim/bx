@@ -18,7 +18,7 @@ define(function (require, exports, module) {
                     {
                         var id=linkUrl.match(/id=[\d]+/);
                         id = id && id[0].split('=');
-                        if(id.length > 1)
+                        if(id && id.length > 1)
                         {
                             return "http://a.m.tmall.com/i"+id[1]+".htm";
                         }

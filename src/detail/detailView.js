@@ -79,9 +79,11 @@ define(function (require, exports, module) {
                    _show.addClass('hide');
                });
            }else{
-               _show.removeClass('show iC').addClass('iL').wAE(function(){
-                   _show.addClass('hide');
-               });
+               if(_show.attr('id')!='detailPage'){
+                   _show.removeClass('show iC').addClass('iL').wAE(function(){
+                       _show.addClass('hide');
+                   });
+               }
            }
 
 
