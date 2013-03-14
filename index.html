@@ -103,7 +103,7 @@
                         <div class="follows"><span><%=item.fansCount%></span>关注者</div>
                         <div class="default">
                             <% if(item.logoUrl){ %>
-                            <img src="<%=item.logoUrl%>">
+                            <img src="<%=item.logoUrl%>_100x100.jpg">
                             <% } %>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                             <div class="follows"><span><%=item.fansCount%></span>关注者</div>
                             <div class="default">
                                 <% if(item.logoUrl){ %>
-                                <img src="<%=item.logoUrl%>">
+                                <img src="<%=item.logoUrl%>_100x100.jpg">
                                 <% } %>
                             </div>
                         </div>
@@ -189,7 +189,7 @@
                 <div class="user-avatar">
                     <div class="default">
                         <% if(logoUrl){ %>
-                        <img src="<%=logoUrl%>"/>
+                        <img src="<%=logoUrl%>_100x100.jpg"/>
                         <% } %>
                     </div>
                 </div>
@@ -281,7 +281,7 @@
           <a href="#account/<%= snsId %>" class="brand">
               <div class="default">
                 <% if(logoUrl){ %>
-                <img class="avatar" src="<%= logoUrl %>"/>
+                <img class="avatar" src="<%= logoUrl %>_100x100.jpg"/>
                 <% } %>
               </div>
             <div class="info">
