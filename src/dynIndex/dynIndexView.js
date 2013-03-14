@@ -56,7 +56,9 @@ define(function (require, exports, module) {
             that.dynIndexModel = new _model();
             that.dynIndexModel.on("change:newFeedCounts",function(model,result){
                 //提醒更新记录数
-                notification.message('更新了 '+result.count+' 条广播');
+                if(result.count>0){
+                    notification.message('更新了 '+result.count+' 条广播');
+                }
             });
             that.dynIndexModel.on("change:banner",function(model,result){
                 console.log('banner');
