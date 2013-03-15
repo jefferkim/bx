@@ -239,20 +239,21 @@ define(function (require, exports, module) {
             if(h5_comm.isLogin()){
                 //已登录
                 console.log('follow');
-
                 if(!cur.hasClass('followed')){
                     cur.html('关注中...');
-
-                    mtop.addAccount(cur.attr('pid'),function(){
+                    cur.addClass('min');
+                    mtop.addAccount(cur.attr('pid'),function(d){
                         if(d.data.result){
                             for(var len=d.data.result.length,i=0;i<len;i++){
                                 if(cur.attr('pid')==d.data.result[i].id){
                                     if(d.data.result[i].isSuccess=='true'){
                                         cur.addClass('followed');
+                                        cur.removeClass('min');
                                         cur.html('已关注');
                                     }else{
                                         notification.message('关注失败！');
                                         cur.html('关注');
+                                        cur.removeClass('min');
                                     }
                                 }
                             }
@@ -260,7 +261,7 @@ define(function (require, exports, module) {
                     },function(){
                         notification.message('关注失败！');
                         cur.html('关注');
-
+                        cur.removeClass('min');
                     });
                 }
 

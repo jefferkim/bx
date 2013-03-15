@@ -22,8 +22,6 @@ define(function (require, exports, module) {
             'click #accountPage .J_info .stats-follow-btn':'follow',
             'click .navbar .refresh':'refresh',
             'click #accountPage .wwwIco':'goWWW'
-
-
         },
         backURL:'',
         afterTimestamp:'',
