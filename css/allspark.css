@@ -935,6 +935,19 @@ header.navbar .add:active {
   -ms-transform: rotate(-135deg);
   margin-bottom: 2px;
 }
+#loading {
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+}
+#loading > span {
+  width: 30px;
+  height: 12px;
+  display: block;
+  margin: auto;
+  background: url(http://a.tbcdn.cn/mw/base/styles/component/more/images/loading.gif) no-repeat;
+  background-size: 30px 12px;
+}
 /*! normalize.css v2.1.0 | MIT License | git.io/normalize */
 /* ==========================================================================
    HTML5 display definitions
@@ -1872,6 +1885,19 @@ header.navbar .add:active {
   -ms-transform: rotate(-135deg);
   margin-bottom: 2px;
 }
+#loading {
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+}
+#loading > span {
+  width: 30px;
+  height: 12px;
+  display: block;
+  margin: auto;
+  background: url(http://a.tbcdn.cn/mw/base/styles/component/more/images/loading.gif) no-repeat;
+  background-size: 30px 12px;
+}
 .tb-h5 {
   /* */
 
@@ -2104,6 +2130,9 @@ header.navbar .add:active {
   text-align: center;
   text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.3);
   min-width: 60px;
+}
+.tb-h5 .person-list li .followbtn.min {
+  font-size: 12px;
 }
 .tb-h5 .person-list li .followbtn:active {
   background-image: -webkit-linear-gradient(-90deg, #90c023 0%, #70a924 100%);
