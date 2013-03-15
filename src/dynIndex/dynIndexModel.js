@@ -115,13 +115,12 @@ define(function (require, exports, module) {
                     if(!result.data){return};
                     var lastCounts = parseInt(cache.getPersistent("feedCountsKey","counts"));
                     var nowCounts = parseInt(result.data.count);
-                    if(!!lastCounts && !!nowCounts ){
-                        self.set("newFeedCounts",{count: nowCounts - lastCounts,t:new Date().getTime()})
+                    var updateCounts = nowCounts - lastCounts;
+                    if(!!lastCounts && !!nowCounts && updateCounts ){
+                        self.set("newFeedCounts",{count: updateCounts,t:new Date().getTime()})
                     }
-                    nowCounts && (cache.savePersistent("feedCountsKey","counts",nowCounts));
-                })
-
-
+                    nowCounts && updateCounts && (cache.savePersistent("feedCountsKey","counts",nowCounts));
+                });
 
                 getPubAccounts(pageParam, pageParam.isIndex() ? function (accResult) {
                     if (  !accResult.list || accResult.list.length <= 1) {

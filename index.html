@@ -59,7 +59,7 @@
         </script>
         <script id="homeTitle_tpl" type="text/template">
             <div class="title"></div>
-            <div class="btn add"><div></div></div>
+            <div class="btn add log" data-log="event_2001"><div></div></div>
             <div class="btn refresh"><div></div></div>
         </script>
         <script id="accountTitle_tpl" type="text/template">
@@ -241,7 +241,7 @@
                                         it<%=item.coverTile.item.id%>
                                     <% } %>
                                  <% } %>" >
-                                <img src="<%=getBetterImg(item.coverTile.path, window.innerWidth, parseInt(item.coverTile.picWidth))%>" width="100%"/>
+                                <img src="<%=getBetterImg(item.coverTile.path, window.innerWidth, parseInt(item.coverTile.picWidth),true)%>" width="100%"/>
                                 </div>
                             </div>
                             <% } %>

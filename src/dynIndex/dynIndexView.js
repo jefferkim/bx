@@ -210,6 +210,7 @@ define(function (require, exports, module) {
         },
         add:function(){
             var that=this;
+            console.log(123456);
             if(h5_comm.isLogin()){
                 window.location.hash='#accountList/1';
             }else{
