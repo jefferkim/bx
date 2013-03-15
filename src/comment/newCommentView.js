@@ -28,9 +28,9 @@ define(function(require, exports, module) {
       this.$commentArea = $('#comment-area');
       this.$charCount = this.$container.find('.char-count');
 
-      if (navigator.standalone != undefined) {
-        this.$commentArea.on('focus', this.focus).on('blur', this.blur)
-      }
+      // if (navigator.standalone != undefined) {
+      //   this.$commentArea.on('focus', this.focus).on('blur', this.blur)
+      // }
     },
       goNewComment : function(snsId, feedId,page){
 
