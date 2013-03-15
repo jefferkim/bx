@@ -11,7 +11,8 @@ define(function (require, exports, module) {
         cdn = require('cdn'),
         h5_base = require('h5_base'),
         uriBroker = require('uriBroker'),
-        notification = require('../ui/notification.js')
+        loading = require('../ui/loading'),
+        notification = require('../ui/notification.js'),
         CommentModel = require('../comment/commentModel.js')
 
     var headerTemplate  = _.template($('#detail_header_tpl').html());
@@ -49,6 +50,8 @@ define(function (require, exports, module) {
 
           this.$container.find('.account').empty()
           this.$container.find('.main').empty()
+
+          loading.show()
 
            var that = this;
            that.snsId = snsId;
@@ -107,6 +110,9 @@ define(function (require, exports, module) {
         renderDetail: function() {
           var self = this
           var feed = this.model.get('feed')
+
+          loading.hide()
+
           if (feed.fail) {
             this.model.set('feed', {}, { silent: true })
             notification.message("网络错误，请刷新重试")
@@ -167,7 +173,7 @@ define(function (require, exports, module) {
             var id = $item.attr('data-id')
             for (var j = 0; j < prices.length; j++) {
               if (id == prices[j].id) {
-                $item.find('.price').text('￥' + prices[j].price).show()
+                $item.find('.price').text(prices[j].price + '元').show()
                 break;
               }
             }

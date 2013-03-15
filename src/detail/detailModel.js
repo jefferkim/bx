@@ -47,7 +47,8 @@ define(function (require, exports, module) {
                             tile.item &&  ids.push(tile.item.id); }
                             );
                       mtop.getPrices(_.uniq(ids),function(prices){
-                          prices.length && self.set("prices",prices);
+                          prices.length && self.set({"prices":prices},{silent:true});
+                          self.trigger('change:prices');
                       })
                  }
 
@@ -62,7 +63,7 @@ define(function (require, exports, module) {
                 if (cacheFeed) {
                     //保存详情信息
                     self.set( "feed", cacheFeed);
-                    self.trigger('change:feed')
+                    self.trigger('change:feed');
                     getPrices(cacheFeed,param);
                      return;
                 }else {
