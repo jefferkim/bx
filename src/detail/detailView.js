@@ -167,7 +167,7 @@ define(function (require, exports, module) {
             var id = $item.attr('data-id')
             for (var j = 0; j < prices.length; j++) {
               if (id == prices[j].id) {
-                $item.find('.price').text('￥' + prices[j].price).show()
+                $item.find('.price').text(prices[j].price + '元').show()
                 break;
               }
             }
