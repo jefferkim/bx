@@ -10,6 +10,22 @@ define(function (require, exports, module) {
      * 详情页面
      */
         return Backbone.Model.extend({
+
+            linkUrlFormat:function(linkUrl){
+                if(linkUrl)
+                {
+                    if(linkUrl.indexOf('detail.tmall.com')!=-1)
+                    {
+                        var id=linkUrl.match(/id=[\d]+/);
+                        id = id && id[0].split('=');
+                        if(id && id.length > 1)
+                        {
+                            return "http://a.m.tmall.com/i"+id[1]+".htm";
+                        }
+                    }
+                }
+                return linkUrl;
+            },
             /**
              * mtop.sns.feed.detail Feed详情
              用户登录可选
@@ -32,6 +48,7 @@ define(function (require, exports, module) {
                             );
                       mtop.getPrices(_.uniq(ids),function(prices){
                           prices.length && self.set("prices",prices);
+                          self.trigger('change:prices');
                       })
                  }
 
@@ -46,16 +63,23 @@ define(function (require, exports, module) {
                 if (cacheFeed) {
                     //保存详情信息
                     self.set( "feed", cacheFeed);
+                    self.trigger('change:feed');
                     getPrices(cacheFeed,param);
                      return;
                 }else {
                     mtop.detail(param || {},function(result){
-                         console.log('refine detail');
+
                          refine.refineDetail(result);
+
                          console.log(result);
+
+                         //linkUrlFormat
+                         result.linkUrl = self.linkUrlFormat(result.linkUrl);
+
                          self.set("feed",result);
+
                          cache.saveItem(param.snsId+"_"+param.feedId,result);
-                        getPrices(result,param);
+                         getPrices(result,param);
                     });
                 }
         }

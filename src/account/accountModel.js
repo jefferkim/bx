@@ -44,6 +44,7 @@ define(function (require, exports, module) {
                 console.log('refine accInfo');
                 refine.refinePubAccount(result);
                 self.set("accInfo",result);
+                self.trigger('change:accInfo');
         });
             param || (param = {});
             var pageParam = _.clone(mtop.pageParam);
@@ -74,6 +75,7 @@ define(function (require, exports, module) {
                 });
                 mtop.getPrices(_.uniq(ids),function(prices){
                     prices.length && self.set("prices",{'prices':prices,'t':new Date().getTime()});
+                    self.trigger('change:prices');
                 })
             })
         }

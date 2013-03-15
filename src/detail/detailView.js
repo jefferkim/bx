@@ -47,6 +47,9 @@ define(function (require, exports, module) {
         },
        goDetail : function(snsId,feedId,page){
 
+          this.$container.find('.account').empty()
+          this.$container.find('.main').empty()
+
            var that = this;
            that.snsId = snsId;
            that.feedId = feedId;
@@ -76,9 +79,11 @@ define(function (require, exports, module) {
                    _show.addClass('hide');
                });
            }else{
-               _show.removeClass('show iC').addClass('iL').wAE(function(){
-                   _show.addClass('hide');
-               });
+               if(_show.attr('id')!='detailPage'){
+                   _show.removeClass('show iC').addClass('iL').wAE(function(){
+                       _show.addClass('hide');
+                   });
+               }
            }
 
 
@@ -162,7 +167,7 @@ define(function (require, exports, module) {
             var id = $item.attr('data-id')
             for (var j = 0; j < prices.length; j++) {
               if (id == prices[j].id) {
-                $item.find('.price').text('￥' + prices[j].price).show()
+                $item.find('.price').text(prices[j].price + '元').show()
                 break;
               }
             }
