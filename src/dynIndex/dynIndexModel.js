@@ -107,7 +107,7 @@ define(function (require, exports, module) {
             //自动创建账号
             var loginStatus = h5_comm.isLogin();
             self.set("loginStatus",loginStatus);
-            if( 1 == type && loginStatus){
+            if( (1 == type || pageParam.isIndex()) && loginStatus){
 
                 //TODO
                 mtop.allFeedCount(function(result){

@@ -49,7 +49,7 @@ define(function (require, exports, module) {
     }
 
     //TODO get form cookie
-    var userNick = exports.userNick = (h5_comm.getNickFromCookie() || h5_comm.getNickFromHidden());
+    var userNick = exports.userNick = (h5_comm.getNickFromCookie() || h5_comm.getNickFromHidden() || h5_comm.isLogin() ? "test":"") ;
     exports.pageParam = {
         curPage:1,
         pageSize:3,
@@ -194,6 +194,7 @@ define(function (require, exports, module) {
     }
 
     exports.autoCreate = function(){
+//        this.userNick = "test";
         var nick = this.userNick;
         if(this.userNick && !cache.isCreateSns(this.userNick)){
             h5_mtop.getApi("mtop.transformer.account.autoCreate", '2.0', {}, {},

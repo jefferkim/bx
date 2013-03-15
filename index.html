@@ -59,7 +59,7 @@
         </script>
         <script id="homeTitle_tpl" type="text/template">
             <div class="title"></div>
-            <div class="btn add log" data-log="event_2001"><div></div></div>
+            <div class="btn add log" data-log="addaccount"><div></div></div>
             <div class="btn refresh"><div></div></div>
         </script>
         <script id="accountTitle_tpl" type="text/template">
@@ -128,7 +128,7 @@
                         <% if(item.followed=='true'){ %>
                             <button pid="<%=item.id%>" class="followbtn followed">取消关注</button>
                         <% }else{ %>
-                            <button pid="<%=item.id%>" class="followbtn">关注</button>
+                            <button pid="<%=item.id%>" class="followbtn log" data-log="attention">关注</button>
                         <% }%>
                     </li>
                     <% }); %>
@@ -216,11 +216,11 @@
 
                 <div class="profile-overview">
                     <% if(followed=='true'){ %>
-                    <button pid="<%=id%>" class="stats-follow-btn followed">
+                    <button pid="<%=id%>" class="stats-follow-btn followed log" data-log="accattention">
                         取消关注
                     </button>
                      <% }else{ %>
-                    <button pid="<%=id%>" class="stats-follow-btn">
+                    <button pid="<%=id%>" class="stats-follow-btn log" data-log="accattention">
                         关注
                     </button>
                     <% } %>
@@ -265,7 +265,7 @@
         <script id="loginBar_tpl" type="text/template" disable>
             <div class="login-bar">
                 <span>登录后就能关注您喜欢的账号了</span>
-                <a class="login-btn" id="J_login_btn">登录</a>
+                <a class="login-btn log" data-log="login" id="J_login_btn">登录</a>
             </div>
         </script>
 

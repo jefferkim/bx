@@ -1,6 +1,22 @@
 define(function (require, exports, module) {
 
-    var aplus = require('aplus');
+    var aplus = require('aplus'),
+        ap = {
+          enter:2001,
+          click:2101,
+          data:{
+              index: '_index_',
+              login: '_login_',
+              accountlist: '_accountlist_',
+              addaccount: '_addaccount'
+          },
+          uri:{
+              index:'_index'
+          }
+
+        };
+
+
 
     var params = {
         'AddAccount': {
