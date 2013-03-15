@@ -93,14 +93,14 @@ define(function (require, exports, module) {
     exports.info = function (param, fun) {
         var cacheAccount = cache.getAccountById(param.snsId);
         //cacheAccount=false;
-        if (cacheAccount) {
-            fun && fun.call(arguments.callee, cacheAccount);
-        } else {
+        // if (cacheAccount) {
+        //  fun && fun.call(arguments.callee, cacheAccount);
+        //} else {
             invokeApi("mtop.sns.pubAccount.info", param, function (result) {
                 result.fail || cache.saveAccount(param.snsId, result);
                 fun && fun.call(arguments.callee, result);
             });
-        }
+        //}
     };
 
     /**

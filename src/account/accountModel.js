@@ -43,7 +43,7 @@ define(function (require, exports, module) {
             param.exCludInfo||self._biz.info({snsId:param.snsId,sid:param.sid},function(result){
                 console.log('refine accInfo');
                 refine.refinePubAccount(result);
-                self.set("accInfo",result);
+                self.set({"accInfo":result},{silent:true});
                 self.trigger('change:accInfo');
         });
             param || (param = {});
@@ -74,7 +74,7 @@ define(function (require, exports, module) {
 //                    });
                 });
                 mtop.getPrices(_.uniq(ids),function(prices){
-                    prices.length && self.set("prices",{'prices':prices,'t':new Date().getTime()});
+                    prices.length && self.set({ "prices":{'prices':prices,'t':new Date().getTime()}},{silent:true});
                     self.trigger('change:prices');
                 })
             })

@@ -47,7 +47,7 @@ define(function (require, exports, module) {
                             tile.item &&  ids.push(tile.item.id); }
                             );
                       mtop.getPrices(_.uniq(ids),function(prices){
-                          prices.length && self.set("prices",prices);
+                          prices.length && self.set({"prices":prices},{silent:true});
                           self.trigger('change:prices');
                       })
                  }

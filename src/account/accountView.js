@@ -78,7 +78,7 @@ define(function (require, exports, module) {
                 if(result&&result.prices.length>0){
 
                     for(var i=0;i<result.prices.length;i++){
-                        $('.it'+result.prices[i].id).append('<div class="price">￥'+result.prices[i].price+'</div>');
+                        $('.it'+result.prices[i].id).append('<div class="price">'+result.prices[i].price+'元</div>');
                     }
 
                     //<div class="price">￥102.00</div>
@@ -174,7 +174,7 @@ define(function (require, exports, module) {
             }
             that.afterTimestamp=new Date().getTime();
             if(that.curPage=='1'){
-                that.accountModel.getPageData({'exCludInfo':true,'snsId':that.snsid,'curPage':that.curPage,"before":false,'pageSize':that._pageSize,'afterTimestamp':new Date().getTime()});
+                that.accountModel.getPageData({'exCludInfo':false,'snsId':that.snsid,'curPage':that.curPage,"before":false,'pageSize':that._pageSize,'afterTimestamp':new Date().getTime()});
             }else{
                 window.location.hash='#account/'+that.snsid+'/1';
             }

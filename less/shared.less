@@ -162,11 +162,25 @@ header.navbar{
     z-index: 25;
   }
   .btn.green{
+    .user-select(none);
+    .box-shadow("0px 0px 0px rgba(255,255,255,0.65)");
+//    .box-shadow("0px 0px 1px rgba(0,0,0,0.8) ,0px 0px 0px rgba(255,255,255,0.65) ,inset 0px 0px 0px rgba(255,255,255,0.65)");
+    .background-image-linear(-90deg,rgb(144,192,35) 0%,rgb(112,169,36) 100%);
+    background-image:-webkit-gradient(linear,102% 0%,102% 98%,color-stop(0, rgb(144,192,35)),color-stop(1, rgb(112,169,36)));
+    border:rgb(105,140,0) 1px solid;
+    -webkit-border-radius:4px;
+    border-radius:4px;
+    font-size:14px;
+    color:rgb(255,255,255);
+    text-align:center;
+    text-shadow:0px 1px 0px rgba(0,0,0,0.3);
+    width: 50px;
+  }
+  .btn.green:active{
     .background-image-linear(-90deg,rgb(144,192,35) 0%,rgb(112,169,36) 100%);
     background-image:-webkit-gradient(linear,61% 0%,61% 98%,color-stop(0, rgb(144,192,35)),color-stop(1, rgb(112,169,36)));
-    color: #fff;
-    text-align: center;
-    text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.3);
+    border:rgb(105,140,0) 1px solid;
+    .box-shadow("0px 1px 0px rgba(255,255,255,0.65) ,inset 0px 2px 4px rgba(0,0,0,0.2)");
   }
   .comment{
     padding: 0 8px;
@@ -386,7 +400,19 @@ header.navbar{
 
 }
 
-
+#loading {
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+  > span {
+    width:30px;
+    height:12px;
+    display: block;
+    margin: auto;
+    background:url(http://a.tbcdn.cn/mw/base/styles/component/more/images/loading.gif) no-repeat;
+    background-size:30px 12px;
+  }
+}
 
 
 //  .back1{

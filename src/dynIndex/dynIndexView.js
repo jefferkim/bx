@@ -88,6 +88,9 @@ define(function (require, exports, module) {
                         $('#indexPage .J_status').html(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result));
                         //$(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result)).insertAfter('div.in-slider');
                     }else{
+                        //当关注了多个账号 删除推荐列表
+                        $('#indexPage .J_list .person-list').html('');
+                        $('#personListPageNav').html('');
                         $('#indexPage .J_status').html('<div class="account-title"><span>账号动态</span></div>'+_.template($('#myfeed_tpl').html(),result));
                         var pageCount=Math.ceil(result.totalCount/that._pageSize);
                         //页数大于1的时候显示分页组件
