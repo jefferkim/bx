@@ -24,7 +24,7 @@ define(function(require, exports, module) {
 
     initialize: function() {
 
-      this.pageSize = 3
+      this.pageSize = 10
 
       this.$container = $('#commentListPage');
       this.model.on('change:commentList', this.renderCommentList, this);
