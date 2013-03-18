@@ -44,6 +44,8 @@ define(function (require, exports, module) {
                         accResult.a=new Date().getTime();
                         refine.refineRecommend(accResult);
                         self.set("myAttention", accResult);
+
+                        self.set("loaded","1");
                     });
 
             } else {
@@ -52,6 +54,8 @@ define(function (require, exports, module) {
                     recResult.a=new Date().getTime();
                     refine.refineRecommend(recResult);
                     self.set("recommends", recResult);
+
+                    self.set("loaded","1");
                 })
 
             }
