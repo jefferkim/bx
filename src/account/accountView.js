@@ -11,6 +11,7 @@ define(function (require, exports, module) {
         pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
         h5_comm = require('h5_comm'),
         notification = require('../ui/notification.js'),
+        loading = require('../ui/loading'),
         mtop = require('../common/mtopForAllspark.js');
 
 
@@ -31,6 +32,7 @@ define(function (require, exports, module) {
             that._pageSize=4;
             that.afterTimestamp=new Date().getTime();
             that.accountModel = new _model();
+
             that.accountModel.on("change:accInfo",function(model,result){
                 console.log('accInfo');
                 console.log(result);
@@ -91,9 +93,16 @@ define(function (require, exports, module) {
 //                    }
 //                },5000);
             });
+            //监听数据加载是否完毕
+            that.accountModel.on("change:loaded",function(model,result){
+                loading.hide();
+                model.set("loaded","0");
+            })
         },
         render:function(snsid,page){
             var that=this;
+
+            loading.show();
 
             that.snsid=snsid;
             that.curPage= page;
@@ -154,10 +163,6 @@ define(function (require, exports, module) {
             setTimeout(function(){
                 _accountPage.removeClass(' iR iL').addClass('show iC');
             },0);
-
-
-
-
 
 //            * @param param.curPage  页码
 //            * @param param.pageSize
