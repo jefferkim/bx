@@ -77,8 +77,8 @@
         <script id="accountListTabBar_tpl" type="text/template">
             <div class="tab-bar">
                 <ul>
-                    <li>未关注</li>
-                    <li>已关注</li>
+                    <li class="log" data-log="notfoucus">未关注</li>
+                    <li class="log" data-log="foucus">已关注</li>
                 </ul>
             </div>
         </script>
@@ -123,7 +123,7 @@
                 <ul>
                     <% _.each(list, function(item) { %>
                     <li>
-                        <div snsid="<%=item.id%>" class="content">
+                        <div snsid="<%=item.id%>" class="content log" data-log="account">
                             <div class="title"><%=item.nick%></div>
                             <div class="info"><%=item.description%></div>
                             <div class="follows"><span><%=item.fansCount%></span>关注者</div>
@@ -134,7 +134,7 @@
                             </div>
                         </div>
                         <% if(item.followed=='true'){ %>
-                            <button pid="<%=item.id%>" class="followbtn followed">取消关注</button>
+                            <button pid="<%=item.id%>" class="followbtn followed log" data-log="cancelattention">取消关注</button>
                         <% }else{ %>
                             <button pid="<%=item.id%>" class="followbtn log" data-log="attention">关注</button>
                         <% }%>
@@ -152,7 +152,7 @@
                     <% _.each(list, function(item) { %>
                     <% if(item.firstFeed){ %>
                                 <% if(item.firstFeed.coverTile&&item.firstFeed.coverTile.path) {%>
-                                <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="multimedia">
+                                <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="multimedia log" data-log="account">
                                     <div class="media">
                                         <div class="default">
                                             <% if(item.firstFeed.coverTile.path){ %>
@@ -161,7 +161,7 @@
                                         </div>
                                     </div>
                                 <% }else{ %>
-                                <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>">
+                                <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="log" data-log="account">
                                 <% } %>
                                     <div class="feed">
                                         <div class="title"><%=item.firstFeed.title%></div>
@@ -224,11 +224,11 @@
 
                 <div class="profile-overview">
                     <% if(followed=='true'){ %>
-                    <button pid="<%=id%>" class="stats-follow-btn followed log" data-log="accattention">
+                    <button pid="<%=id%>" class="stats-follow-btn followed log" data-log="cancelattention">
                         取消关注
                     </button>
                      <% }else{ %>
-                    <button pid="<%=id%>" class="stats-follow-btn log" data-log="accattention">
+                    <button pid="<%=id%>" class="stats-follow-btn log" data-log="attention">
                         关注
                     </button>
                     <% } %>
@@ -282,7 +282,7 @@
                 <a href="<%= href %>">返回</a>
             </div>
             <div class="title">&nbsp;</div>
-            <div class="btn comment to-comment-list"> 评论 <span></span>
+            <div class="btn comment to-comment-list log" data-log="commentlist"> 评论 <span></span>
             </div>
         </script>
         <script id="detail_accinfo_tpl" type="text/template">
@@ -316,7 +316,7 @@
                 <% if (tiles[i].type == "pic") { %>
                     <div class="media"><img src="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>" style="width: 100%;"></div>
                 <% } else if (tiles[i].type == "text") { %>
-                    <p class="text"><%= tiles[i].text.replace(/(\n)+/g, '<br />') %></p>
+                    <p class="text"><%= tiles[i].text.replace(/(\n)+/g, '<br /><br />') %></p>
                 <% } else if (tiles[i].type == "picItem") { %>
                     <div class="media">
                       <a style="display: block" href="<%= getItemDetailUrl('a', { itemId: tiles[i].item.id }) %>" class="item" data-id="<%= tiles[i].item.id %>">
@@ -339,7 +339,7 @@
                 <a href="<%= href %>">返回</a>
             </div>
             <div class="title">&nbsp;</div>
-            <div class="btn comment write-comment">写评论</div>
+            <div class="btn comment write-comment log" data-log="addcomment">写评论</div>
         </script>
 
         <script id="comment_list_tpl" type="text/template">

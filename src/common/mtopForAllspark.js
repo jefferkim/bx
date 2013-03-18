@@ -6,7 +6,6 @@ define(function (require, exports, module) {
         uriBroker = require('uriBroker'),
         $ = require('zepto'),
         cookie = require('cookie'),
-        log = require('./log.js'),
         cache = require('../common/cache.js');
 
     /**
@@ -84,7 +83,6 @@ define(function (require, exports, module) {
      */
     exports.addAccount = function (ids, successF, failF) {
         this.getData("mtop.sns.follow.pubAccount.add", convertIds(ids), successF, failF);
-        log.log("Attention");
     }
     exports.removeAccount = function (ids, successF, failF) {
         this.getData("mtop.sns.follow.pubAccount.remove", convertIds(ids), successF, failF)

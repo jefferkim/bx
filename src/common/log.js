@@ -5,49 +5,40 @@ define(function (require, exports, module) {
           enter:2001,
           click:2101,
           data:{
-              index: '_index_',
-              login: '_login_',
-              accountlist: '_accountlist_',
-              addaccount: '_addaccount'
+              index: '_index',
+              login: '_login',
+              accountList: '_accountlist',
+              account : '_account',
+              detail : '_detail',
+              comment : '_comment'
           },
           uri:{
-              index:'_index'
+              index:'_index',
+              login:'_login'
           }
-
         };
 
-
-
-    var params = {
-        'AddAccount': {
-            apuri: 'Allspark',
-            apdata: 'AddAccount'
-        },
-        'AccountList': {
-            apuri: 'Allspark',
-            apdata: 'AccountList'
-        },
-        'DetailList': {
-            apuri: 'AllsparkAccount',
-            apdata: 'DetailList'
-        },
-        'Comment': {
-            apuri: 'AllsparkDetail',
-            apdata: 'Comment'
-        },
-        'Attention': {
-            apuri: 'AllsparkList',
-            apdata: 'Attention'
+    exports.logEnter = function (data,uri) {
+        var data = ap.data[data];
+        if (data) {
+            var param = {aplus:true};
+            param.apdata  = "allspark" + data + "_" + ap.enter;
+            ap.uri[uri] && (param.apuri = "allspark" + ap.uri[uri]);
+            aplus.ajax(param);
         }
     }
 
-    exports.log = function (logAction) {
-        var param = params[logAction];
-        if (param) {
-            param.aplus = true;
-            //set apuri & apdata
+    exports.logClick = function(data,uri){
+        if (data) {
+            var param = {aplus:true};
+            param.apdata  = "allspark_" + data + "_" + ap.click;
+            ap.data[uri] && (param.apuri = "allspark" + ap.data[uri]);
             aplus.ajax(param);
         }
+    }
+
+    exports.logToLogin = function(){
+
     }
 
 
