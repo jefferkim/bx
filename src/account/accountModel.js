@@ -74,8 +74,7 @@ define(function (require, exports, module) {
 //                    });
                 });
                 mtop.getPrices(_.uniq(ids),function(prices){
-                    prices.length && self.set({ "prices":{'prices':prices,'t':new Date().getTime()}},{silent:true});
-                    self.trigger('change:prices');
+                    prices.length && self.set(prices,{'prices':prices,'t':new Date().getTime()});
                 })
             })
         }
