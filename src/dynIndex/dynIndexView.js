@@ -171,6 +171,9 @@ define(function (require, exports, module) {
                 //未登录
                 $('#indexPage .J_status').html($('#loginBar_tpl').html());
                 //$($('#loginBar_tpl').html()).insertAfter('div.in-slider');
+            }else{
+                $('footer .nick').html(mtop.userNick);
+                $('footer').css('display','block');
             }
 
             if($('#indexPage').hasClass('show')){
@@ -198,7 +201,6 @@ define(function (require, exports, module) {
 
             if(!h5_comm.isLogin()){
                 //未登录
-
                 $('#indexPage .J_status').html($('#loginBar_tpl').html());
                 //$($('#loginBar_tpl').html()).insertAfter('div.in-slider');
             }
