@@ -35,9 +35,9 @@ define(function(require, exports, module) {
 
         this.$container.empty()
 
-         this.snsId = snsId
-         this.feedId = feedId
-         this.page = page
+         this.snsId = snsId;
+         this.feedId = feedId;
+         this.page = parseInt(page);
          var _navbar=$('header.navbar');
          var _commentListPage= $('#commentListPage');
          $('header.navbar').html(commentListHeaderTemplate({ href: '#detail/' + this.snsId + '/' + this.feedId +'/'+this.page}));
@@ -70,7 +70,7 @@ define(function(require, exports, module) {
 
 
 
-         this.model.getPageData({'snsId':snsId,'feedId':feedId,'curPage':page, 'pageSize': this.pageSize });
+         this.model.getPageData({'snsId':this.snsId,'feedId':this.feedId,'curPage':this.page, 'pageSize': this.pageSize });
      },
 
     renderCommentList: function() {

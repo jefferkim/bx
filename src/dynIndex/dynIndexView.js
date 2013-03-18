@@ -145,7 +145,7 @@ define(function (require, exports, module) {
             console.log('homePage render');
             //判断是否登录
             var that=this;
-            that.curPage=page;
+            that.curPage=parseInt(page);
 
 
             window.scrollTo(0,1);
