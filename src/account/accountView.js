@@ -20,7 +20,7 @@ define(function (require, exports, module) {
             'click .tb-feed-items li':'goToDetail',
             //'click .navbar .back':'goBackHome',
             'click #accountPage .J_info .stats-follow-btn':'follow',
-            'click .navbar .refresh':'refresh',
+            'click .navbar .refresh.account':'refresh',
             'click #accountPage .wwwIco':'goWWW'
         },
         backURL:'',
@@ -28,9 +28,11 @@ define(function (require, exports, module) {
         before:false,
         initialize:function () {
             var that=this;
+
             that._pageSize=4;
             that.afterTimestamp=new Date().getTime();
             that.accountModel = new _model();
+
             that.accountModel.on("change:accInfo",function(model,result){
                 console.log('accInfo');
                 console.log(result);
@@ -94,7 +96,6 @@ define(function (require, exports, module) {
         },
         render:function(snsid,page){
             var that=this;
-
             that.snsid=snsid;
             that.curPage= parseInt(page);
             if(page==1){

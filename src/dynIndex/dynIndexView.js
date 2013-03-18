@@ -41,7 +41,7 @@ define(function (require, exports, module) {
             //绑定登录链接
             'click #J_login_btn' : 'goLogin',
             'click .navbar .add':'add',
-            'click .navbar .refresh':'refresh',
+            'click .navbar .refresh.index':'refresh',
             'click #indexPage .myfeed li':'goToAccount',
             'click #indexPage .person-list li .content':'goToAccount',
             'click #indexPage .person-list .followbtn':'follow'
