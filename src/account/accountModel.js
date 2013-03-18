@@ -43,9 +43,11 @@ define(function (require, exports, module) {
             param.exCludInfo||self._biz.info({snsId:param.snsId,sid:param.sid},function(result){
                 console.log('refine accInfo');
                 refine.refinePubAccount(result);
-                self.set({"accInfo":result},{silent:true});
+                //FIXME 这这应该写错了吧. wuzhong
+                self.set({"accInfo":result,silent:true});
                 self.trigger('change:accInfo');
-        });
+            });
+
             param || (param = {});
             var pageParam = _.clone(mtop.pageParam);
             _.extend(pageParam, param);

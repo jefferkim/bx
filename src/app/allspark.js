@@ -100,6 +100,24 @@ function noHelper(type){
     return v.substring(v.length-4,v.length-3)!='1';
 }
 
+function detailImageSizeStyle(actualWidth, actualHeight) {
+
+    var width = parseInt(actualWidth)
+    var height = parseInt(actualHeight)
+
+    var expectWidth = window.innerWidth - 30
+    var expectHeight = 0;
+
+    if (width < expectWidth) {
+        expectHeight = (expectWidth / width) * height
+    } else {
+        expectHeight = height / (width / expectWidth)
+    }
+
+    if (!expectHeight) return "width: 100%"
+    else return "width: " + expectWidth + 'px; ' + 'height: ' + expectHeight + 'px;'
+}
+
 define(function(require, exports){
     require('./router').start();
 

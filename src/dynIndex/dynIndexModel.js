@@ -111,7 +111,7 @@ define(function (require, exports, module) {
             if( (1 == type || pageParam.isIndex()) && loginStatus){
 
                 //TODO
-                mtop.allFeedCount(function(result){
+                pageParam.isIndex() && mtop.allFeedCount(function(result){
                     //比较
                     if(!result.data){return};
                     var lastCounts = parseInt(cache.getPersistent("feedCountsKey","counts"));

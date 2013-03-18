@@ -11,7 +11,7 @@ define(function(require, exports, module) {
       accountListView = require('../accountList/accountListView'),
       commentView = require('../comment/commentListView'),
       newCommentView = require('../comment/newCommentView'),
-      back = require('./../common/back'),
+      background = require('./../common/background.js'),
       cdn = require('cdn'),
       mtop = require('../common/mtopForAllspark.js'),
       //缓存实例变量view
@@ -66,7 +66,7 @@ define(function(require, exports, module) {
           divName = divName || 'index';
 
           //
-         back.add(divName);
+          background.enter(divName);
 
           switch (divName) {
               case 'index':

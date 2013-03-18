@@ -34,6 +34,9 @@ define(function (require, exports, module) {
                     $('#accountListPage .person-list').html(_.template($('#myList_tpl').html(),result));
                     //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));
                     var pageCount=Math.ceil(result.totalCount/that.pageSize);
+                    if(pageCount<that.page){
+                        that.changePage(pageCount);
+                    }
                     if(pageCount>1){
                         that.myPageNav=new pageNav({'id':'#accountListPageNav','index':that.curPage,'pageCount':pageCount,'pageSize':that.pageSize,'disableHash': 'true'});
                         that.myPageNav.pContainer().on('P:switchPage', function(e,page){
@@ -75,7 +78,7 @@ define(function (require, exports, module) {
             loading.show();
 
             that.status=status;
-            that.curPage=page;
+            that.curPage=parseInt(page);
             //$('.tb-h5').html('');
             $('.navbar .back').unbind('click');
             var _navbar=$('header.navbar');

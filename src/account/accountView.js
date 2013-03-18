@@ -105,7 +105,7 @@ define(function (require, exports, module) {
             loading.show();
 
             that.snsid=snsid;
-            that.curPage= page;
+            that.curPage= parseInt(page);
             if(page==1){
                 that.before=false;
             }
@@ -168,7 +168,7 @@ define(function (require, exports, module) {
 //            * @param param.pageSize
 //            * @param param.snsId
 //            * @param param.afterTimestamp
-            that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':'','afterTimestamp':that.afterTimestamp,'before':that.before});
+            that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'afterTimestamp':that.afterTimestamp,'before':that.before});
 
         },
         refresh:function(){
