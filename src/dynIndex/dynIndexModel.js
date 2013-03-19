@@ -16,7 +16,7 @@ define(function (require, exports, module) {
          * 私有对象，封装了简单的业务逻辑
          */
         _biz:{
-            bannerUrl:"http://wapa.taobao.com/channel/rgn/mobile/h5-home.html?callback=?",
+            bannerUrl:"http://m.taobao.com/channel/rgn/weitao/banner.htm?callback=?",
             banner:function (fun) {
                 var banner = cache.getIndexTms();
                 //banner有效

@@ -55,6 +55,9 @@ define(function (require, exports, module) {
                     $('#accountListPage .person-list').html((_.template($('#personList_tpl').html(),result)));
                     $('#accountListPageNav').html('');
                     var pageCount=Math.ceil(result.totalCount/that.pageSize);
+                    if(pageCount<that.page){
+                        that.changePage(pageCount);
+                    }
                     if(pageCount>1){
                         that.recPageNav=new pageNav({'id':'#accountListPageNav','index':that.curPage,'pageCount':pageCount,'pagesize':that.pageSize,'disableHash': 'true'});
                         that.recPageNav.pContainer().on('P:switchPage', function(e,page){

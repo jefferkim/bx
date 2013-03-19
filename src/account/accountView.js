@@ -11,7 +11,6 @@ define(function (require, exports, module) {
         pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
         h5_comm = require('h5_comm'),
         notification = require('../ui/notification.js'),
-        loading = require('../ui/loading'),
         mtop = require('../common/mtopForAllspark.js');
 
 
@@ -21,7 +20,7 @@ define(function (require, exports, module) {
             'click .tb-feed-items li':'goToDetail',
             //'click .navbar .back':'goBackHome',
             'click #accountPage .J_info .stats-follow-btn':'follow',
-            'click .navbar .refresh':'refresh',
+            'click .navbar .refresh.account':'refresh',
             'click #accountPage .wwwIco':'goWWW'
         },
         backURL:'',
@@ -29,41 +28,51 @@ define(function (require, exports, module) {
         before:false,
         initialize:function () {
             var that=this;
-            that._pageSize=4;
+
+            that._pageSize=10;
             that.afterTimestamp=new Date().getTime();
             that.accountModel = new _model();
 
             that.accountModel.on("change:accInfo",function(model,result){
                 console.log('accInfo');
                 console.log(result);
-                if(result){
+                if(result&&($('#accountPage .J_info').html()=='')){
+                    console.log('dom info');
                     $('#accountPage .J_info').html(_.template($('#accountinfo_tpl').html(),that.reconAccInfoData(result)));
                 }
             });
             that.accountModel.on("change:accFeeds",function(model,result){
-                if(that.oldTotalCount){
-                    if(that.oldTotalCount.snsid==that.snsid){
-                        var addCount=parseInt(result.totalCount)-parseInt(that.oldTotalCount.count);
-                        if(addCount>0){
-                            that.oldTotalCount.count=result.totalCount;
-                            notification.message('更新了 '+addCount+' 条广播');
-                        }
-                    }
-                }else{
-                    that.oldTotalCount={'snsid':that.snsid,'count':result.totalCount};
-                }
                 //取消刷新按钮动画
                 setTimeout(function(){
                     $('.navbar .refresh div').removeClass('spinner');
                 },2000);
+                var _upDomFlag=true;
+                if(that.oldTotalCount){
+                    if(that.oldTotalCount.snsid==that.snsid){
+                        var addCount=parseInt(result.totalCount)-parseInt(that.oldTotalCount.count);
+                        if(addCount>0 && (that.curPage==1)){//有更新
+
+                            notification.message('更新了 '+addCount+' 条广播');
+                        }else{
+                            if(that.oldTotalCount.curPage==that.curPage){
+                                _upDomFlag=false;
+                            }
+                        }
+                        that.oldTotalCount.count=result.totalCount;
+                        that.oldTotalCount.curPage=that.curPage;
+                    }
+                }else{
+                    that.oldTotalCount={'snsid':that.snsid,'count':result.totalCount,'curPage':that.curPage};
+                }
+
 
                 if(result.list&&result.list.length>0){
                     console.log('change:accFeeds');
                     console.log(result);
-
-                    $('#accountPage .J_feed .tb-feed-items').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
-
-                    //if(!that.pageNav){
+                    console.log('dom:'+_upDomFlag);
+                    if(_upDomFlag){
+                        console.log('dom')
+                        $('#accountPage .J_feed .tb-feed-items').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
                         var pageCount=Math.ceil(result.totalCount/that._pageSize);
                         if(pageCount>1){
                             that.pageNav=new pageNav({'id':'#feedPageNav','index':that.curPage, 'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
@@ -71,7 +80,7 @@ define(function (require, exports, module) {
                                 that.changePage(page.index);
                             });
                         }
-                    //}
+                    }
                 }
             });
             that.accountModel.on("change:prices",function(model,result){
@@ -80,7 +89,7 @@ define(function (require, exports, module) {
                 if(result&&result.prices.length>0){
 
                     for(var i=0;i<result.prices.length;i++){
-                        $('.it'+result.prices[i].id).append('<div class="price">'+result.prices[i].price+'元</div>');
+                        //$('.it'+result.prices[i].id).append('<div class="price">'+result.prices[i].price+'元</div>');
                     }
 
                     //<div class="price">￥102.00</div>
@@ -93,6 +102,7 @@ define(function (require, exports, module) {
 //                    }
 //                },5000);
             });
+
             //监听数据加载是否完毕
             that.accountModel.on("change:loaded",function(model,result){
                 loading.hide();
@@ -104,6 +114,9 @@ define(function (require, exports, module) {
 
             loading.show();
 
+            console.log('account render');
+
+
             that.snsid=snsid;
             that.curPage= parseInt(page);
             if(page==1){
@@ -113,10 +126,10 @@ define(function (require, exports, module) {
                 $('#accountPage').attr('snsid',snsid);
                 $('#accountPage .J_info').html('');
                 $('#accountPage .J_feed .tb-feed-items').html('');
-
+                console.log('clear tb-feed-items');
             }
-            $('header.navbar').html('');
-            $('#feedPageNav').html('');
+//            $('header.navbar').html('');
+//            $('#feedPageNav').html('');
 
             var _navbar=$('header.navbar');
             var _accountPage=$('#accountPage');
@@ -141,12 +154,14 @@ define(function (require, exports, module) {
 
             _navbar.html(_.template($('#navBack_tpl').html(),_back)+$('#accountTitle_tpl').html());
 
-            //判断导航是否已经载入
+//            判断导航是否已经载入
             if(_navbar.hasClass('iT')){
                 _navbar.removeClass('iT').addClass('iC');
             }
+
             var _show=$('.view-page.show');
             if($('#detailPage').hasClass('show')){
+                console.log('detailPage show');
                 _accountPage.removeClass(' iR iL').addClass('iL');
                 _show.removeClass('show iC').addClass('iR').wAE(function(){
                     _show.addClass('hide');
@@ -164,12 +179,15 @@ define(function (require, exports, module) {
                 _accountPage.removeClass(' iR iL').addClass('show iC');
             },0);
 
+
+
+
+
 //            * @param param.curPage  页码
 //            * @param param.pageSize
 //            * @param param.snsId
 //            * @param param.afterTimestamp
-            that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'afterTimestamp':that.afterTimestamp,'before':that.before});
-
+                that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'afterTimestamp':that.afterTimestamp,'before':that.before});
         },
         refresh:function(){
             var that=this;

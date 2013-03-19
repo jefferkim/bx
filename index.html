@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>淘宝网</title>
+        <title>微淘</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
         <meta charset="utf-8" />
         <meta content="yes" name="apple-mobile-web-app-capable" />
         <meta content="black" name="apple-mobile-web-app-status-bar-style" />
         <meta content="telephone=no" name="format-detection" />
         <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-        <link href="http://a.tbcdn.cn/mw/s/hi/tbtouch/images/touch-icon.png" rel="apple-touch-icon-precomposed" />
+        <!--<link href="http://img03.taobaocdn.com/tps/i3/T1tv8NXCNXXXa.JOZB-114-114.png" rel="apple-touch-icon-precomposed" />-->
+
+        <link href="http://img04.taobaocdn.com/tps/i4/T1DKVMXtBcXXa.JOZB-114-114.png" rel="apple-touch-icon-precomposed" />
         <link rel="stylesheet/less" type="text/css" href="less/transformer.less">
         <script src="less.js" type="text/javascript"></script>
     </head>
@@ -23,6 +25,10 @@
                         <div class="person-list"></div>
                         <div id="personListPageNav" class="pagenav c-pnav-con"></div>
                     </div>
+                    <footer>
+                        <span class="nick">晓田</span><a href="http://login.m.taobao.com/logout.htm">退出</a> <span class="gotop">Top <b></b></span>
+                    </footer>
+
                 </div>
                 <div id="accountListPage" class="view-page hide  iR">
                     <div class="person-list"></div>
@@ -46,7 +52,9 @@
                 </div>
                 <div id="newCommentPage" class="view-page hide iR new-comment">
                 </div>
+
             </div>
+
         </div>
         <!-- end of #content -->
 
@@ -60,11 +68,11 @@
         <script id="homeTitle_tpl" type="text/template">
             <div class="title"></div>
             <div class="btn add log" data-log="addaccount"><div></div></div>
-            <div class="btn refresh"><div></div></div>
+            <div class="btn refresh index"><div></div></div>
         </script>
         <script id="accountTitle_tpl" type="text/template">
             <div class="title"></div>
-            <div class="btn refresh"><div></div></div>
+            <div class="btn refresh account"><div></div></div>
         </script>
         <script id="accountListTabBar_tpl" type="text/template">
             <div class="tab-bar">
@@ -81,8 +89,8 @@
                     <ul id="inslist" style="-webkit-transform: translate3d(0px, 0px, 0px); -webkit-backface-visibility: hidden; width: <%=width %>px; -webkit-transition: 0ms;">
                         <% _.each(list, function(item) { %>
                         <li style="-webkit-transform: translate3d(0px, 0px, 0px);" l="1">
-                            <a href="<%=item.href %>">
-                                <img class="" height="150" width="320" src="<%=item.img %>">
+                            <a href="<%=item.url %>">
+                                <img class="" height="150" width="320" src="<%=item.picture %>">
                             </a>
                         </li>
                         <% }); %>
@@ -148,7 +156,7 @@
                                     <div class="media">
                                         <div class="default">
                                             <% if(item.firstFeed.coverTile.path){ %>
-                                            <img src="<%=item.firstFeed.coverTile.path%>_170x170.jpg">
+                                            <img src="<%=item.firstFeed.coverTile.path%>_170x170xz.jpg">
                                             <% } %>
                                         </div>
                                     </div>
@@ -160,6 +168,7 @@
                                         <div class="info"><%=item.firstFeed.summary%></div>
                                         <div class="status">
                                             <span class="time"><%=timestamps(item.firstFeed.time)%></span>
+                                            <%if (item.unreadCount>0){ %>
                                             <span class="like">
                                                 <%if (item.unreadCount>9){ %>
                                                 9+
@@ -167,6 +176,7 @@
                                                     <%=item.unreadCount%>
                                                 <% } %>
                                             </span>
+                                            <% } %>
                                             <% if(item.account){ %>
                                             <span class="name"><%=item.account.nick%></span>
                                             <% } %>
@@ -241,7 +251,7 @@
                                         it<%=item.coverTile.item.id%>
                                     <% } %>
                                  <% } %>" >
-                                <img src="<%=getBetterImg(item.coverTile.path, window.innerWidth, parseInt(item.coverTile.picWidth),true)%>" width="100%"/>
+                                <img style="<%=feedImageSizeStyle(parseInt(item.coverTile.picWidth), parseInt(item.coverTile.picHeight)) %>"  src="<%=getBetterImg(item.coverTile.path, window.innerWidth, parseInt(item.coverTile.picWidth),true)%>"/>
                                 </div>
                             </div>
                             <% } %>
