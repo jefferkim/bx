@@ -46,6 +46,8 @@ define(function (require, exports, module) {
                 //FIXME 这这应该写错了吧. wuzhong
                 self.set({"accInfo":result,silent:true});
                 self.trigger('change:accInfo');
+
+                self.set("loaded","1");
             });
 
             param || (param = {});

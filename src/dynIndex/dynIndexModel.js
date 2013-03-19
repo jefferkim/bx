@@ -83,6 +83,8 @@ define(function (require, exports, module) {
                         accResult.t=new Date().getTime();
                         self.set("accWithFeed", accResult);
                         fun && fun.call(arguments.callee, accResult);
+
+                        self.set("loaded","1");
                     })
             }
 
