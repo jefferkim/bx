@@ -21,9 +21,9 @@ define(function (require, exports, module) {
             function (result) {
                 //处理正常的返回
                 h5_comm.dealResponse(result, function (result) {
-                        successF.call(this, result);
+                        successF && successF.call(this, result);
                     }, function (result) {
-                        failF.call(this, result);
+                        failF &&  failF.call(this, result);
                     },
                     "h5_allspark"
                 );
