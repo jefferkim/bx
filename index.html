@@ -249,7 +249,7 @@
                                         it<%=item.coverTile.item.id%>
                                     <% } %>
                                  <% } %>" >
-                                <img src="<%=getBetterImg(item.coverTile.path, window.innerWidth, parseInt(item.coverTile.picWidth),true)%>" width="100%"/>
+                                <img style="<%=feedImageSizeStyle(parseInt(item.coverTile.picWidth), parseInt(item.coverTile.picHeight)) %>"  src="<%=getBetterImg(item.coverTile.path, window.innerWidth, parseInt(item.coverTile.picWidth),true)%>"/>
                                 </div>
                             </div>
                             <% } %>
