@@ -51,7 +51,9 @@ define(function (require, exports, module) {
           this.$container.find('.account').empty()
           this.$container.find('.main').empty()
 
-          loading.show()
+           if(!h5_base.isClient() ) {
+               loading.show();
+           }
 
            var that = this;
            that.snsId = snsId;
@@ -109,9 +111,11 @@ define(function (require, exports, module) {
         //渲染详情页
         renderDetail: function() {
           var self = this
-          var feed = this.model.get('feed')
+          var feed = this.model.get('feed');
 
-          loading.hide()
+            if(!h5_base.isClient() ) {
+                loading.hide();
+            }
 
           if (feed.fail) {
             this.model.set('feed', {}, { silent: true })
