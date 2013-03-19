@@ -50,19 +50,19 @@ define(function (require, exports, module) {
                 if(that.oldTotalCount){
                     if(that.oldTotalCount.snsid==that.snsid){
                         var addCount=parseInt(result.totalCount)-parseInt(that.oldTotalCount.count);
-                        if(addCount>0 && (that.page==1)){//有更新
+                        if(addCount>0 && (that.curPage==1)){//有更新
 
                             notification.message('更新了 '+addCount+' 条广播');
                         }else{
-                            if(that.oldTotalCount.page==that.page){
+                            if(that.oldTotalCount.curPage==that.curPage){
                                 _upDomFlag=false;
                             }
                         }
                         that.oldTotalCount.count=result.totalCount;
-                        that.oldTotalCount.page=that.page;
+                        that.oldTotalCount.curPage=that.curPage;
                     }
                 }else{
-                    that.oldTotalCount={'snsid':that.snsid,'count':result.totalCount,'page':that.page};
+                    that.oldTotalCount={'snsid':that.snsid,'count':result.totalCount,'curPage':that.curPage};
                 }
 
 
