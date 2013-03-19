@@ -10,6 +10,7 @@ define(function (require, exports, module) {
         _model=require('./accountModel'),
         pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
         h5_comm = require('h5_comm'),
+        loading = require('../ui/loading'),
         notification = require('../ui/notification.js'),
         mtop = require('../common/mtopForAllspark.js');
 
