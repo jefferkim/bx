@@ -29,7 +29,7 @@ define(function (require, exports, module) {
         initialize:function () {
             var that=this;
 
-            that._pageSize=3;
+            that._pageSize=10;
             that.afterTimestamp=new Date().getTime();
             that.accountModel = new _model();
 
@@ -50,15 +50,19 @@ define(function (require, exports, module) {
                 if(that.oldTotalCount){
                     if(that.oldTotalCount.snsid==that.snsid){
                         var addCount=parseInt(result.totalCount)-parseInt(that.oldTotalCount.count);
-                        if(addCount>0){//有更新
-                            that.oldTotalCount.count=result.totalCount;
+                        if(addCount>0 && (that.page==1)){//有更新
+
                             notification.message('更新了 '+addCount+' 条广播');
                         }else{
-                            _upDomFlag=false;
+                            if(that.oldTotalCount.page==that.page){
+                                _upDomFlag=false;
+                            }
                         }
+                        that.oldTotalCount.count=result.totalCount;
+                        that.oldTotalCount.page=that.page;
                     }
                 }else{
-                    that.oldTotalCount={'snsid':that.snsid,'count':result.totalCount};
+                    that.oldTotalCount={'snsid':that.snsid,'count':result.totalCount,'page':that.page};
                 }
 
 
@@ -121,7 +125,7 @@ define(function (require, exports, module) {
 
             var _navbar=$('header.navbar');
             var _accountPage=$('#accountPage');
-            //window.scrollTo(0,1);
+            window.scrollTo(0,1);
             var _back={'backUrl':'','backTitle':'返回'};
             if(typeof window.AccountList!='undefined'){
                 //window.location.hash=window.AccountList.hash;

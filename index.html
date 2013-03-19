@@ -168,6 +168,7 @@
                                         <div class="info"><%=item.firstFeed.summary%></div>
                                         <div class="status">
                                             <span class="time"><%=timestamps(item.firstFeed.time)%></span>
+                                            <%if (item.unreadCount>0){ %>
                                             <span class="like">
                                                 <%if (item.unreadCount>9){ %>
                                                 9+
@@ -175,6 +176,7 @@
                                                     <%=item.unreadCount%>
                                                 <% } %>
                                             </span>
+                                            <% } %>
                                             <% if(item.account){ %>
                                             <span class="name"><%=item.account.nick%></span>
                                             <% } %>
