@@ -78,6 +78,7 @@ define(function (require, exports, module) {
                 mtop.getPrices(_.uniq(ids),function(prices){
                     prices.length && self.set(prices,{'prices':prices,'t':new Date().getTime()});
                 })
+                self.set("loaded","1");
             })
         }
 

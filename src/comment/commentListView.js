@@ -3,6 +3,7 @@ define(function(require, exports, module) {
       $ = require('zepto'),
       _ = require('underscore'),
       h5_comm = require('h5_comm'),
+      loading = require('../ui/loading'),
       pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js');
 
   var notification = require('../ui/notification.js')
@@ -32,6 +33,7 @@ define(function(require, exports, module) {
     },
      goComment:function(snsId, feedId, page){
 
+        loading.show();
 
         this.$container.empty()
 
@@ -74,6 +76,8 @@ define(function(require, exports, module) {
      },
 
     renderCommentList: function() {
+
+      loading.hide();
 
       var self = this
       var list = this.model.get('commentList');

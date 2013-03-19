@@ -16,6 +16,7 @@ define(function (require, exports, module) {
         slider= require('../../../../base/styles/component/slider/js/slider.js'),
         pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
         notification = require('../ui/notification.js'),
+        loading = require('../ui/loading'),
         mtop = require('../common/mtopForAllspark.js');
 
     $.extend($.fn, {
@@ -134,6 +135,11 @@ define(function (require, exports, module) {
                 //ok(result.totalCount > 0, "total count > 0")
             },this);
 
+            //监听数据加载是否完毕
+            that.dynIndexModel.on("change:loaded",function(model,result){
+                loading.hide();
+                model.set("loaded","0");
+            })
 
 //            that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});
 //
@@ -147,6 +153,7 @@ define(function (require, exports, module) {
             var that=this;
             that.curPage=parseInt(page);
 
+            loading.show();
 
             window.scrollTo(0,1);
             $('#indexPage .J_list .person-list').html('');
@@ -155,6 +162,9 @@ define(function (require, exports, module) {
             //
             var param = {'curPage':that.curPage,'pageSize':that._pageSize};
             h5_comm.isLogin() && that.dynIndexModel.get("recommends") &&  (param.type = 2);
+
+
+            // loading.show()
 
             that.dynIndexModel.getPageData(param);
 

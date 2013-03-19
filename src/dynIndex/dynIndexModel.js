@@ -69,6 +69,8 @@ define(function (require, exports, module) {
 
                     recResult.t=new Date().getTime();
                     self.set("recommends", recResult);
+
+                    self.set("loaded","1");
                 })
             }
             /**
@@ -102,7 +104,6 @@ define(function (require, exports, module) {
             biz.banner(function (result) {
                 (!self.get("banner") || result.lastUpdate != self.get("banner").lastUpdate ) && self.set("banner", result);
             });
-
 
             //自动创建账号
             var loginStatus = h5_comm.isLogin();

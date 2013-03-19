@@ -102,11 +102,19 @@ define(function (require, exports, module) {
 //                    }
 //                },5000);
             });
+
+            //监听数据加载是否完毕
+            that.accountModel.on("change:loaded",function(model,result){
+                loading.hide();
+                model.set("loaded","0");
+            })
         },
         render:function(snsid,page){
             var that=this;
 
-            console.log('account render');;
+            loading.show();
+
+            console.log('account render');
 
 
             that.snsid=snsid;

@@ -11,6 +11,7 @@ define(function (require, exports, module) {
         h5_comm = require('h5_comm'),
         pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
         notification = require('../ui/notification.js'),
+        loading = require('../ui/loading'),
         mtop = require('../common/mtopForAllspark.js');
 
 
@@ -67,9 +68,18 @@ define(function (require, exports, module) {
                     $('#accountListPage .person-list').html('<div class="empty">您已经关注所有帐号了</div>');
                 }
             });
+
+            //监听数据加载是否完毕
+            that.accountListModel.on("change:loaded",function(model,result){
+                loading.hide();
+                model.set("loaded","0");
+            })
         },
         render: function(status,page) {
             var that=this;
+
+            loading.show();
+
             that.status=status;
             that.curPage=parseInt(page);
             //$('.tb-h5').html('');
