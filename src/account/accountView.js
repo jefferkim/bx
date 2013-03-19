@@ -120,8 +120,8 @@ define(function (require, exports, module) {
                 $('#accountPage .J_feed .tb-feed-items').html('');
                 console.log('clear tb-feed-items');
             }
-//            $('header.navbar').html('');
-//            $('#feedPageNav').html('');
+            $('header.navbar').html('');
+            $('#feedPageNav').html('');
 
             var _navbar=$('header.navbar');
             var _accountPage=$('#accountPage');

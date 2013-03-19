@@ -26,6 +26,7 @@ define(function(require, exports, module) {
           //   localStorage.clear();
           //cdn 获取最佳图片尺寸
           getBetterImg = cdn.getBetterImg; // make it global for convenience use in templates
+          resizeImg=cdn.resizeImg;
 
           //去首次加载动画
           window.MH5slogan && window.MH5slogan.hideFunc && window.MH5slogan.hideFunc();
