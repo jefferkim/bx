@@ -62,9 +62,8 @@ define(function (require, exports, module) {
                         that.oldTotalCount.count=result.totalCount;
                         that.oldTotalCount.curPage=that.curPage;
                     }
-                }else{
-                    that.oldTotalCount={'snsid':that.snsid,'count':result.totalCount,'curPage':that.curPage};
                 }
+                that.oldTotalCount={'snsid':that.snsid,'count':result.totalCount,'curPage':that.curPage};
 
 
                 if(result.list&&result.list.length>0){
@@ -90,7 +89,7 @@ define(function (require, exports, module) {
                 if(result&&result.prices.length>0){
 
                     for(var i=0;i<result.prices.length;i++){
-                        //$('.it'+result.prices[i].id).append('<div class="price">'+result.prices[i].price+'元</div>');
+                        $('.it'+result.prices[i].id).append('<div class="price">'+result.prices[i].price+'元</div>');
                     }
 
                     //<div class="price">￥102.00</div>
