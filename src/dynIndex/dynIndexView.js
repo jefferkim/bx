@@ -49,7 +49,7 @@ define(function (require, exports, module) {
         initialize:function (page) {
             //判断是否登录
             var that=this;
-            that._pageSize=5;
+            that._pageSize=15;
             that.loginFlag=false;
             that.timestamp=new Date().getTime();
 

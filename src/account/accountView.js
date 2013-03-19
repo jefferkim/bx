@@ -29,7 +29,7 @@ define(function (require, exports, module) {
         initialize:function () {
             var that=this;
 
-            that._pageSize=10;
+            that._pageSize=5;
             that.afterTimestamp=new Date().getTime();
             that.accountModel = new _model();
 
