@@ -122,6 +122,10 @@ define(function (require, exports, module) {
             notification.message("网络错误，请刷新重试")
             return
           }
+
+          // this is for Android
+          $('#content')[0].style.minHeight = '360px'
+
             console.log('render detail! feed='+JSON.stringify(feed));
           var content = contentTemplate(feed);
           this.$container.find('.main').html(content);
