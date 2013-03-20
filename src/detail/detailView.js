@@ -150,7 +150,7 @@ define(function (require, exports, module) {
         }
 
         if (isExternal == 'true') {
-          notification.external(url, function() { window.location = url })
+          notification.external(url, function() { window.open(url, '_blank') })
         } else {
           window.location = url
         }
