@@ -60,7 +60,7 @@ define(function (require, exports, module) {
 
                 //step2: 获取详情
                 var cacheFeed = cache.getItemById(param.snsId+"_"+param.feedId);
-                if (cacheFeed  && cacheFeed.tiles) {
+                if (cacheFeed  && cacheFeed.tiles && cacheFeed.tiles.length>0) {
                     //保存详情信息
                     self.set( "feed", cacheFeed);
                     self.trigger('change:feed');
@@ -76,7 +76,7 @@ define(function (require, exports, module) {
                          //linkUrlFormat
                          result.linkUrl = self.linkUrlFormat(result.linkUrl);
 
-                        if (result  && result.tiles) {
+                        if (result  && result.tiles && result.tiles.length>0) {
                             self.set("feed",result);
                             cache.saveItem(param.snsId+"_"+param.feedId,result);
                             getPrices(result,param);
