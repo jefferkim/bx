@@ -74,12 +74,13 @@ define(function (require, exports, module) {
                         console.log('dom')
                         $('#accountPage .J_feed .tb-feed-items').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
                         var pageCount=Math.ceil(result.totalCount/that._pageSize);
-                        if(pageCount>1){
-                            that.pageNav=new pageNav({'id':'#feedPageNav','index':that.curPage, 'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
-                            that.pageNav.pContainer().on('P:switchPage', function(e,page){
-                                that.changePage(page.index);
-                            });
-                        }
+
+                    }
+                    if(pageCount>1){
+                        that.pageNav=new pageNav({'id':'#feedPageNav','index':that.curPage, 'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
+                        that.pageNav.pContainer().on('P:switchPage', function(e,page){
+                            that.changePage(page.index);
+                        });
                     }
                 }
             });
@@ -129,7 +130,7 @@ define(function (require, exports, module) {
                 console.log('clear tb-feed-items');
             }
             $('header.navbar').html('');
-            $('#feedPageNav').html('');
+
 
             var _navbar=$('header.navbar');
             var _accountPage=$('#accountPage');
