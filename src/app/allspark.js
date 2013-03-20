@@ -109,7 +109,14 @@ function feedImageSizeStyle(actualWidth, actualHeight){
     if(width<height){
         //高度大于宽度的时候裁剪图像
         if (width < expectWidth) {
-            expectHeight = (expectWidth / width) * height
+            //屏幕宽度大于图像原尺寸进行等比放大
+            expectHeight = (expectWidth / width) * height;
+
+            //放大后高度大于屏幕宽度 则 高度为屏幕宽度
+            if(expectHeight>expectWidth){
+                expectHeight=expectWidth;
+            }
+
         }else{
             expectHeight = expectWidth;
         }
