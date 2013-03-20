@@ -60,7 +60,7 @@ define(function (require, exports, module) {
 
                 //step2: 获取详情
                 var cacheFeed = cache.getItemById(param.snsId+"_"+param.feedId);
-                if (cacheFeed && cacheFeed!= undefined) {
+                if (cacheFeed  && cacheFeed.tiles) {
                     //保存详情信息
                     self.set( "feed", cacheFeed);
                     self.trigger('change:feed');
@@ -76,11 +76,11 @@ define(function (require, exports, module) {
                          //linkUrlFormat
                          result.linkUrl = self.linkUrlFormat(result.linkUrl);
 
-                         self.set("feed",result);
-
-                         cache.saveItem(param.snsId+"_"+param.feedId,result);
-
-                         getPrices(result,param);
+                        if (result  && result.tiles) {
+                            self.set("feed",result);
+                            cache.saveItem(param.snsId+"_"+param.feedId,result);
+                            getPrices(result,param);
+                        }
                     });
                 }
         }

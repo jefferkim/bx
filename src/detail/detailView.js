@@ -119,7 +119,7 @@ define(function (require, exports, module) {
 
           if (feed.fail) {
             this.model.set('feed', {}, { silent: true })
-            notification.message("网络错误，请刷新重试")
+            notification.message("请稍后重试");
             return
           }
             console.log('render detail! feed='+JSON.stringify(feed));

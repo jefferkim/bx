@@ -156,7 +156,7 @@ define(function (require, exports, module) {
      */
     exports.saveMemData = function (_key, id, data) {
         var key = keys[_key];
-        if(!key || data == undefined){return null};
+        if(!key){return null};
         return h5_base.isClient() ?
             h5_cache.pushValue(key, id, data, maxCount)
             : this.pushValue(key, id, data, maxCount);
