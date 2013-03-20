@@ -208,7 +208,8 @@ define(function (require, exports, module) {
             var cur=$(e.currentTarget);
             if (cur.attr('linkUrlIsExt') == 'true') {
                 notification.external(cur.attr('url'),function(){
-                    window.location.href=cur.attr('url');
+                    window.open(cur.attr('url'), '_blank')
+                    //window.location.href=cur.attr('url');
                 },null);
             } else {
                 if(cur.attr('url')!=''){
