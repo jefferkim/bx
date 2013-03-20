@@ -30,13 +30,14 @@ define(function (require, exports, module) {
             that.accountListModel.on("change:myAttention",function(model,result){
                 console.log('myAttention');
                 console.log(result);
+                var pageCount=Math.ceil(result.totalCount/that.pageSize);
+                if(pageCount<that.curPage){
+                    that.changePage(pageCount);
+                }
                 if(result.list&&result.list.length>0){
                     $('#accountListPage .person-list').html(_.template($('#myList_tpl').html(),result));
                     //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));
-                    var pageCount=Math.ceil(result.totalCount/that.pageSize);
-                    if(pageCount<that.page){
-                        that.changePage(pageCount);
-                    }
+
                     if(pageCount>1){
                         that.myPageNav=new pageNav({'id':'#accountListPageNav','index':that.curPage,'pageCount':pageCount,'pageSize':that.pageSize,'disableHash': 'true'});
                         that.myPageNav.pContainer().on('P:switchPage', function(e,page){
@@ -51,13 +52,14 @@ define(function (require, exports, module) {
 
 //                console.log('recommends');
 //                console.log(result);
+                var pageCount=Math.ceil(result.totalCount/that.pageSize);
+                if(pageCount<that.curPage){
+                    that.changePage(pageCount);
+                }
                 if(result.list&&result.list.length>0){
                     $('#accountListPage .person-list').html((_.template($('#personList_tpl').html(),result)));
                     $('#accountListPageNav').html('');
-                    var pageCount=Math.ceil(result.totalCount/that.pageSize);
-                    if(pageCount<that.page){
-                        that.changePage(pageCount);
-                    }
+
                     if(pageCount>1){
                         that.recPageNav=new pageNav({'id':'#accountListPageNav','index':that.curPage,'pageCount':pageCount,'pagesize':that.pageSize,'disableHash': 'true'});
                         that.recPageNav.pContainer().on('P:switchPage', function(e,page){

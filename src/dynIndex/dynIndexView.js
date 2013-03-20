@@ -45,7 +45,8 @@ define(function (require, exports, module) {
             'click .navbar .refresh.index':'refresh',
             'click #indexPage .myfeed li':'goToAccount',
             'click #indexPage .person-list li .content':'goToAccount',
-            'click #indexPage .person-list .followbtn':'follow'
+            'click #indexPage .person-list .followbtn':'follow',
+            'click .gotop':'goTop'
         },
         initialize:function (page) {
             //判断是否登录
@@ -145,6 +146,9 @@ define(function (require, exports, module) {
 //
 //            that.dynIndexModel.on('change',this.render,this);
 
+        },
+        goTop:function(){
+            window.scrollTo(0,1);
         },
         render:function(page){
             //$('.tb-h5').html($('#indexPage_tpl').html());

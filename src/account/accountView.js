@@ -30,7 +30,7 @@ define(function (require, exports, module) {
         initialize:function () {
             var that=this;
 
-            that._pageSize=5;
+            that._pageSize=15;
             that.afterTimestamp=new Date().getTime();
             that.accountModel = new _model();
 
@@ -62,9 +62,8 @@ define(function (require, exports, module) {
                         that.oldTotalCount.count=result.totalCount;
                         that.oldTotalCount.curPage=that.curPage;
                     }
-                }else{
-                    that.oldTotalCount={'snsid':that.snsid,'count':result.totalCount,'curPage':that.curPage};
                 }
+                that.oldTotalCount={'snsid':that.snsid,'count':result.totalCount,'curPage':that.curPage};
 
 
                 if(result.list&&result.list.length>0){
@@ -75,12 +74,13 @@ define(function (require, exports, module) {
                         console.log('dom')
                         $('#accountPage .J_feed .tb-feed-items').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
                         var pageCount=Math.ceil(result.totalCount/that._pageSize);
-                        if(pageCount>1){
-                            that.pageNav=new pageNav({'id':'#feedPageNav','index':that.curPage, 'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
-                            that.pageNav.pContainer().on('P:switchPage', function(e,page){
-                                that.changePage(page.index);
-                            });
-                        }
+
+                    }
+                    if(pageCount>1){
+                        that.pageNav=new pageNav({'id':'#feedPageNav','index':that.curPage, 'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
+                        that.pageNav.pContainer().on('P:switchPage', function(e,page){
+                            that.changePage(page.index);
+                        });
                     }
                 }
             });
@@ -90,7 +90,7 @@ define(function (require, exports, module) {
                 if(result&&result.prices.length>0){
 
                     for(var i=0;i<result.prices.length;i++){
-                        //$('.it'+result.prices[i].id).append('<div class="price">'+result.prices[i].price+'元</div>');
+                        $('.it'+result.prices[i].id).append('<div class="price">'+result.prices[i].price+'元</div>');
                     }
 
                     //<div class="price">￥102.00</div>
@@ -130,7 +130,7 @@ define(function (require, exports, module) {
                 console.log('clear tb-feed-items');
             }
             $('header.navbar').html('');
-            $('#feedPageNav').html('');
+
 
             var _navbar=$('header.navbar');
             var _accountPage=$('#accountPage');
@@ -208,7 +208,8 @@ define(function (require, exports, module) {
             var cur=$(e.currentTarget);
             if (cur.attr('linkUrlIsExt') == 'true') {
                 notification.external(cur.attr('url'),function(){
-                    window.location.href=cur.attr('url');
+                    window.open(cur.attr('url'), '_blank')
+                    //window.location.href=cur.attr('url');
                 },null);
             } else {
                 if(cur.attr('url')!=''){

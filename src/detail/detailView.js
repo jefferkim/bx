@@ -122,6 +122,10 @@ define(function (require, exports, module) {
             notification.message("请稍后重试");
             return
           }
+
+          // this is for Android
+          $('#content')[0].style.minHeight = '360px'
+
             console.log('render detail! feed='+JSON.stringify(feed));
           var content = contentTemplate(feed);
           this.$container.find('.main').html(content);
@@ -150,7 +154,7 @@ define(function (require, exports, module) {
         }
 
         if (isExternal == 'true') {
-          notification.external(url, function() { window.location = url })
+          notification.external(url, function() { window.open(url, '_blank') })
         } else {
           window.location = url
         }
