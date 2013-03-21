@@ -52,7 +52,8 @@ define(function (require, exports, module) {
           this.$container.find('.main').empty()
 
            if(!h5_base.isClient() || h5_base.isAndroidClient()) {
-               loading.show();
+               //loading.show();
+               this.$container.find('.main').html('<div class="loading"><span class="spinner"></span></div>');
            }
 
            var that = this;
@@ -114,7 +115,7 @@ define(function (require, exports, module) {
           var feed = this.model.get('feed');
 
             if(!h5_base.isClient() || h5_base.isAndroidClient()) {
-                loading.hide();
+                //loading.hide();
             }
 
           if (feed.fail) {
