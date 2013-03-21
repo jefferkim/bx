@@ -53,11 +53,13 @@ define(function (require, exports, module) {
         el: '#content',
         events: {
             'click header .back': function (e) {
+                if(hashStack.length > 0 && "index" == hashStack[hashStack.length - 1].hash ){
+                    return true;
+                }
                 var prevHash = null;
                 if (hashStack.length > 1) {
                     prevHash = hashStack[hashStack.length - 2];
                 }
-
                 window.location.href = ((prevHash && prevHash.orignHash) ? prevHash.orignHash : "#index");
                 return false;
             },
