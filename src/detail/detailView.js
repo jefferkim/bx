@@ -51,7 +51,7 @@ define(function (require, exports, module) {
           this.$container.find('.account').empty()
           this.$container.find('.main').empty()
 
-           if(!h5_base.isClient() ) {
+           if(!h5_base.isClient() || h5_base.isAndroidClient()) {
                loading.show();
            }
 
@@ -113,7 +113,7 @@ define(function (require, exports, module) {
           var self = this
           var feed = this.model.get('feed');
 
-            if(!h5_base.isClient() ) {
+            if(!h5_base.isClient() || h5_base.isAndroidClient()) {
                 loading.hide();
             }
 
