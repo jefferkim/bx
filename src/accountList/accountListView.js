@@ -125,6 +125,7 @@ define(function (require, exports, module) {
         },
         changePage:function(page){
             var that=this;
+            $('#accountListPage .person-list').html('<div class="loading"><span class="spinner"></span></div>');
             window.location.hash='#accountList/'+that.status+'/'+page;
         },
         goToAccount:function(e){

@@ -160,7 +160,7 @@ define(function (require, exports, module) {
             $('#indexPage .J_list .person-list').html('');
             $('#personListPageNav').html('');
             window.scrollTo(0,1);
-            loading.show();
+            //loading.show();
 
             var param = {'curPage':that.curPage,'pageSize':that._pageSize};
             h5_comm.isLogin() && that.dynIndexModel.get("recommends") &&  (param.type = 2);
@@ -219,12 +219,18 @@ define(function (require, exports, module) {
         },
         changePage:function(page){
             var that=this;
+            if(!h5_comm.isLogin()){
+                //未登录
+                $('.J_list .person-list').html('<div class="loading"><span class="spinner"></span></div>');
+            }else{
+                $('.indexPage .J_status').html('<div class="loading"><span class="spinner"></span></div>');
+            }
+
             window.location.hash='#index/'+page;
             //that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});
         },
         add:function(){
             var that=this;
-            console.log(123456);
             if(h5_comm.isLogin()){
                 window.location.hash='#accountList/1';
             }else{
@@ -234,7 +240,6 @@ define(function (require, exports, module) {
             }
         },
         refresh:function(){
-            console.log('refresh');
             var that=this;
             that.timestamp=new Date().getTime();
             var _spinner=$('.navbar .refresh div');
@@ -253,7 +258,6 @@ define(function (require, exports, module) {
             var cur=$(e.currentTarget);
             if(h5_comm.isLogin()){
                 //已登录
-                console.log('follow');
                 if(!cur.hasClass('followed')){
                     cur.html('关注中...');
                     cur.addClass('min');

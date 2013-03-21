@@ -164,6 +164,7 @@ define(function (require, exports, module) {
 
         if (h5_base.isClient()) {
           e.preventDefault()
+
           location.href = location.origin + location.pathname + '#account/' + this.snsId + '/' + this.page
         }
 

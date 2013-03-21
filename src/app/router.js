@@ -25,6 +25,7 @@ define(function(require, exports, module) {
           //test
           //   localStorage.clear();
           //cdn 获取最佳图片尺寸
+          console.log('init');
           getBetterImg = cdn.getBetterImg; // make it global for convenience use in templates
           resizeImg=cdn.resizeImg;
 
@@ -50,7 +51,7 @@ define(function(require, exports, module) {
           self.route(/^(newComment)\/(\d*)\/(\d*)\/?(\d*)?$/, 'newComment', self.filter);
           // 全局初始化
           global.init();
-               },
+      },
 
       /**
        * 统一入口
@@ -65,8 +66,6 @@ define(function(require, exports, module) {
 //          console.log('divName=' + divName + "|arg0=" + arg0 + "|arg1=" + arg1 + "|arg2=" + arg2);
           //默认divName
           divName = divName || 'index';
-
-          //
           background.enter(divName);
 
           switch (divName) {
@@ -103,11 +102,9 @@ define(function(require, exports, module) {
 
     index: function(page) {
         page = page || 1;
-         console.log('index'+page);
         _indexView.render(page);
     },
     account:function(snsId,page){
-        console.log('account:snsId'+snsId+"|page:"+page);
         page = page || 1;
         _accountView.render(snsId,page);
     },

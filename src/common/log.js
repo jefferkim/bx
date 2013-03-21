@@ -24,7 +24,11 @@ define(function (require, exports, module) {
             var param = {aplus:true};
             param.apdata  = "allspark" + data + "_" + ap.enter;
             ap.uri[uri] && (param.apuri = "allspark" + ap.uri[uri]);
-            aplus.ajax(param);
+            try{
+                aplus.ajax(param);
+            }catch(e) {
+                console.log(e);
+            }
         }
     }
 

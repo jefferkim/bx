@@ -79,6 +79,7 @@ define(function (require, exports, module) {
                     console.log('dom:'+_upDomFlag);
                     if(_upDomFlag){
                         console.log('dom')
+                        //$('#accountPage .J_feed .tb-feed-items').removeClass('loading spinner');
                         $('#accountPage .J_feed .tb-feed-items').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
                     }
                 }
@@ -104,17 +105,22 @@ define(function (require, exports, module) {
             });
 
             //监听数据加载是否完毕
-            that.accountModel.on("change:loaded",function(model,result){
-                loading.hide();
-                model.set("loaded","0");
-            })
+//            that.accountModel.on("change:loaded",function(model,result){
+//                loading.hide();
+//                model.set("loaded","0");
+//            })
         },
         render:function(snsid,page){
             var that=this;
 
-            loading.show();
+            //loading.show();
 
-            console.log('account render');
+//            console.log('account render');
+//            console.log($('#accountPage .J_feed .tb-feed-items').html());
+            if($.trim($('#accountPage .J_feed .tb-feed-items').html()).length==0){
+                console.log('ok');
+                $('#accountPage .J_feed .tb-feed-items').html('<div class="loading"><span class="spinner"></span></div>');
+            }
 
 
             that.snsid=snsid;
@@ -130,10 +136,24 @@ define(function (require, exports, module) {
             }
             $('header.navbar').html('');
 
+            if(that.oldTotalCount){
+                if(that.oldTotalCount.snsid==that.snsid){
+                    var pageCount=Math.ceil(that.oldTotalCount.totalCount/that._pageSize);
+                    if(pageCount>1){
+                        that.pageNav=new pageNav({'id':'#feedPageNav','index':that.curPage, 'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
+                        that.pageNav.pContainer().on('P:switchPage', function(e,page){
+                            that.changePage(page.index);
+                        });
+                    }
+                }else{
+                    $('#feedPageNav').html('');
+                }
+            }
+
 
             var _navbar=$('header.navbar');
             var _accountPage=$('#accountPage');
-            window.scrollTo(0,1);
+
             var _back={'backUrl':'','backTitle':'返回'};
             if(typeof window.AccountList!='undefined'){
                 //window.location.hash=window.AccountList.hash;
@@ -146,7 +166,6 @@ define(function (require, exports, module) {
                 }else{
                     _back={'backUrl':'#index','backTitle':'返回'}
                 }
-
             }
 
 
@@ -187,7 +206,8 @@ define(function (require, exports, module) {
 //            * @param param.pageSize
 //            * @param param.snsId
 //            * @param param.afterTimestamp
-                that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'afterTimestamp':that.afterTimestamp,'before':that.before});
+
+              that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'afterTimestamp':that.afterTimestamp,'before':that.before});
         },
         refresh:function(){
             var that=this;
@@ -289,6 +309,8 @@ define(function (require, exports, module) {
             }else{
                 that.before=false;
             }
+            $('#accountPage .J_feed .tb-feed-items').html('<div class="loading"><span class="spinner"></span></div>');
+
             window.location.hash='#account/'+that.snsid+'/'+page;
             //判断是否为分页，如果是分页返回还是账号列表
             that.backURL=$('.navbar .back a').attr('href');
