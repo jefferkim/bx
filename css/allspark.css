@@ -802,7 +802,7 @@ footer .gotop b {
   */
 
 }
-.tb-h5  > * {
+.tb-h5 img {
   -webkit-transform: translatez(0);
 }
 .tb-h5  > div.view-page {
@@ -834,28 +834,23 @@ footer .gotop b {
 /* animation */
 .iL {
   -webkit-transform: translate3d(-100%, 0px, 0px);
-  position: absolute;
   -webkit-transition: -webkit-transform 200ms ease-out;
 }
 .iC {
   -webkit-transform: translate3d(0px, 0px, 0px);
-  position: absolute;
   -webkit-transition: -webkit-transform 200ms ease-in;
   z-index: 11;
 }
 .iR {
   -webkit-transform: translate3d(100%, 0px, 0px);
-  position: absolute;
   -webkit-transition: -webkit-transform 200ms ease-out;
 }
 .iB {
   -webkit-transform: translate3d(0px, 100%, 0px);
-  position: absolute;
   -webkit-transition: -webkit-transform 200ms ease-in;
 }
 .iT {
   -webkit-transform: translate3d(0px, -100%, 0px);
-  position: absolute;
   -webkit-transition: -webkit-transform 200ms ease-in;
 }
 @-webkit-keyframes spin {
@@ -1832,7 +1827,7 @@ footer .gotop b {
   */
 
 }
-.tb-h5  > * {
+.tb-h5 img {
   -webkit-transform: translatez(0);
 }
 .tb-h5  > div.view-page {
@@ -1864,28 +1859,23 @@ footer .gotop b {
 /* animation */
 .iL {
   -webkit-transform: translate3d(-100%, 0px, 0px);
-  position: absolute;
   -webkit-transition: -webkit-transform 200ms ease-out;
 }
 .iC {
   -webkit-transform: translate3d(0px, 0px, 0px);
-  position: absolute;
   -webkit-transition: -webkit-transform 200ms ease-in;
   z-index: 11;
 }
 .iR {
   -webkit-transform: translate3d(100%, 0px, 0px);
-  position: absolute;
   -webkit-transition: -webkit-transform 200ms ease-out;
 }
 .iB {
   -webkit-transform: translate3d(0px, 100%, 0px);
-  position: absolute;
   -webkit-transition: -webkit-transform 200ms ease-in;
 }
 .iT {
   -webkit-transform: translate3d(0px, -100%, 0px);
-  position: absolute;
   -webkit-transition: -webkit-transform 200ms ease-in;
 }
 @-webkit-keyframes spin {
@@ -2723,8 +2713,6 @@ footer .gotop b {
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
 }
 .tb-h5 .tb-profile .user-info h3 {
-  /*font-family:KozGoPr6N-Regular;*/
-
   font-size: 12px;
   line-height: 120%;
   color: #ffffff;

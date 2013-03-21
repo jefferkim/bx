@@ -113,7 +113,6 @@ define(function (require, exports, module) {
         render:function(snsid,page){
             var that=this;
 
-            //loading.show();
 
 //            console.log('account render');
 //            console.log($('#accountPage .J_feed .tb-feed-items').html());
@@ -208,6 +207,7 @@ define(function (require, exports, module) {
 //            * @param param.afterTimestamp
 
               that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'afterTimestamp':that.afterTimestamp,'before':that.before});
+
         },
         refresh:function(){
             var that=this;
