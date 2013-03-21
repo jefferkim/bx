@@ -160,12 +160,15 @@ define(function (require, exports, module) {
             $('#indexPage .J_list .person-list').html('');
             $('#personListPageNav').html('');
             window.scrollTo(0,1);
-            loading.show();
 
             var param = {'curPage':that.curPage,'pageSize':that._pageSize};
             h5_comm.isLogin() && that.dynIndexModel.get("recommends") &&  (param.type = 2);
 
+            loading.show();
+
             that.dynIndexModel.getPageData(param);
+
+            loading.hide();
 
             var _navbar=$('header.navbar');
 

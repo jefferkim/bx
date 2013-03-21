@@ -112,10 +112,7 @@ define(function (require, exports, module) {
         render:function(snsid,page){
             var that=this;
 
-            loading.show();
-
             console.log('account render');
-
 
             that.snsid=snsid;
             that.curPage= parseInt(page);
@@ -187,7 +184,11 @@ define(function (require, exports, module) {
 //            * @param param.pageSize
 //            * @param param.snsId
 //            * @param param.afterTimestamp
-                that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'afterTimestamp':that.afterTimestamp,'before':that.before});
+             loading.show();
+
+             that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'afterTimestamp':that.afterTimestamp,'before':that.before});
+
+             loading.hide();
         },
         refresh:function(){
             var that=this;
