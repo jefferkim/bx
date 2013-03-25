@@ -9,7 +9,7 @@
         <meta content="telephone=no" name="format-detection" />
         <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
         <link href="http://img04.taobaocdn.com/tps/i4/T1DKVMXtBcXXa.JOZB-114-114.png" rel="apple-touch-icon-precomposed" />
-        <link rel="stylesheet" type="text/css" href="css/allspark.css">
+        <link rel="stylesheet" type="text/css" href="http://a.tbcdn.cn/mw/webapp/allspark/css/allspark.css">
     </head>
     <body style="background: #f8f8f8">
     <div id="content">
@@ -168,7 +168,7 @@
                     <div class="follows"><span><%=item.fansCount%></span>关注者</div>
                     <div class="default">
                         <% if(item.logoUrl){ %>
-                        <img src="<%=item.logoUrl%>_<% if(window.devicePixelRatio > 1){ %>100x100<% }else{ %>50x50<%}%>.jpg">
+                        <img src="<%=getImgUrl(item.logoUrl,100,60)%>">
                         <% } %>
                     </div>
                 </div>
@@ -186,8 +186,8 @@
                     <div class="follows"><span><%=item.fansCount%></span>关注者</div>
                     <div class="default">
                         <% if(item.logoUrl){ %>
-                        <img src="<%=item.logoUrl%>_<% if(window.devicePixelRatio > 1){ %>100x100<% }else{ %>50x50<%}%>.jpg">
-                        <% } %>
+                        <img src="<%=getImgUrl(item.logoUrl,100,60)%>">
+                         <% } %>
                     </div>
                 </div>
                 <% if(item.followed=='true'){ %>
@@ -213,8 +213,8 @@
                     <div class="media">
                         <div class="default">
                             <% if(item.firstFeed.coverTile.path){ %>
-                            <img src="<%=item.firstFeed.coverTile.path%>_<% if(window.devicePixelRatio > 1){ %>170x170<% }else{ %>85x85<%}%>xz.jpg">
-                            <% } %>
+                            <img src="<%=getImgUrl(item.firstFeed.coverTile.path,170,100,true)%>">
+                             <% } %>
                         </div>
                     </div>
                     <% }else{ %>
@@ -256,7 +256,7 @@
             <div class="user-avatar">
                 <div class="default">
                     <% if(logoUrl){ %>
-                    <img src="<%=logoUrl%>_<% if(window.devicePixelRatio > 1){ %>100x100<% }else{ %>50x50<%}%>.jpg"/>
+                    <img src="<%=getImgUrl(logoUrl,100,60)%>">
                     <% } %>
                 </div>
             </div>
@@ -341,7 +341,7 @@
         <a href="#account/<%= snsId %>" class="brand">
             <div class="default">
                 <% if(logoUrl){ %>
-                <img class="avatar" src="<%= logoUrl %>_<% if(window.devicePixelRatio > 1){ %>100x100<% }else{ %>50x50<%}%>on.jpg"/>
+                <img class="avatar" src="<%=getImgUrl(logoUrl,100,60)%>"/>
                 <% } %>
             </div>
             <div class="info">
