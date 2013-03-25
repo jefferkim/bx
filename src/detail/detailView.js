@@ -121,6 +121,7 @@ define(function (require, exports, module) {
           if (feed.fail) {
             this.model.set('feed', {}, { silent: true })
             notification.message("请稍后重试");
+            this.$container.find('.main').html('加载失败，稍后重试！');
             return
           }
 
@@ -165,8 +166,7 @@ define(function (require, exports, module) {
 
         if (h5_base.isClient()) {
           e.preventDefault()
-
-          location.href = location.origin + location.pathname + '#account/' + this.snsId + '/' + this.page
+          location.href = location.protocol+'//'+location.hostname + location.pathname + '#account/' + this.snsId + '/' + this.page
         }
 
         // if (h5_base.isClient() && window.allspark) {
@@ -174,7 +174,6 @@ define(function (require, exports, module) {
         //   window.allspark.skipToHome && window.allspark.skipToHome(this.snsId, 1)
         // }
        },
-
         renderPrices: function() {
           var $items = this.$container.find('.media .item')
           var prices = this.model.get('prices')

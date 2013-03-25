@@ -205,7 +205,7 @@ define(function (require, exports, module) {
 //            * @param param.pageSize
 //            * @param param.snsId
 //            * @param param.afterTimestamp
-
+                window.scrollTo(0,1);
               that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'afterTimestamp':that.afterTimestamp,'before':that.before});
 
         },

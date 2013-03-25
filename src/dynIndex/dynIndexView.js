@@ -159,16 +159,15 @@ define(function (require, exports, module) {
 
             $('#indexPage .J_list .person-list').html('');
             $('#personListPageNav').html('');
-            window.scrollTo(0,1);
+
 
             var param = {'curPage':that.curPage,'pageSize':that._pageSize};
             h5_comm.isLogin() && that.dynIndexModel.get("recommends") &&  (param.type = 2);
 
-            loading.show();
+            //loading.show();
 
-            that.dynIndexModel.getPageData(param);
 
-            loading.hide();
+            //loading.hide();
 
             var _navbar=$('header.navbar');
 
@@ -210,12 +209,13 @@ define(function (require, exports, module) {
                     //当不是从首页进入,返回首页
                 }
             }
-
             if(!h5_comm.isLogin()){
                 //未登录
                 $('#indexPage .J_status').html($('#loginBar_tpl').html());
                 //$($('#loginBar_tpl').html()).insertAfter('div.in-slider');
             }
+            window.scrollTo(0,1);
+            that.dynIndexModel.getPageData(param);
         },
         PageNavRender:function(){
 

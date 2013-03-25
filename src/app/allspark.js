@@ -58,7 +58,7 @@ function timestamps(time){
     if(iTrueTime == NaN){
         ret = "-";
     }else if(iTrueTime > iNow){
-        ret = "您穿越了";
+        ret = "刚刚";
     } else if( iTrueTime > iNow - ONE_SECOND * 10){
         ret = "刚刚";
     } else if( iTrueTime > iNow - ONE_MINUTE){
