@@ -68,16 +68,13 @@ define(function (require, exports, module) {
                      return;
                 }else {
                     mtop.detail(param || {},function(result){
-
                          refine.refineDetail(result);
-
                          console.log(result);
 
+                        self.set("feed",result);
                          //linkUrlFormat
                          result.linkUrl = self.linkUrlFormat(result.linkUrl);
-
                         if (result  && result.tiles && result.tiles.length>0) {
-                            self.set("feed",result);
                             cache.saveItem(param.snsId+"_"+param.feedId,result);
                             getPrices(result,param);
                         }

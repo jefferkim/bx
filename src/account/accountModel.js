@@ -66,6 +66,11 @@ define(function (require, exports, module) {
                 refine.refineFeed(result);
                 console.log(result);
                 //手动改变数据集，以达到出发change事件
+
+                if(result.fail){
+                    self.set("accFeeds",result);
+                    return;
+                }
                 result.a=new Date().getTime();
                 self.set("accFeeds",result);
 
