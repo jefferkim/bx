@@ -39,13 +39,13 @@ define(function (require, exports, module) {
                 console.log(result);
                 if(result&&($('#accountPage .J_info').html()=='')){
                     console.log('dom info');
-                    $('#accountPage .J_info').html(_.template($('#accountinfo_tpl').html(),that.reconAccInfoData(result)));
+                    $('#accountPage .J_info').html(_.template($('#accountinfo_tpl').html(),result));
                 }
             });
             that.accountModel.on("change:accFeeds",function(model,result){
                 //取消刷新按钮动画
                 setTimeout(function(){
-                    $('.navbar .refresh div').removeClass('spinner');
+                    $('.navbar .refresh .btn div').removeClass('spinner');
                 },2000);
                 var _upDomFlag=true;
                 if(that.oldTotalCount){
@@ -211,7 +211,7 @@ define(function (require, exports, module) {
         },
         refresh:function(){
             var that=this;
-            var _spinner=$('.navbar .refresh div');
+            var _spinner=$('.navbar .refresh .btn div');
             if(!_spinner.hasClass('spinner')){
                 _spinner.addClass('spinner');
             }

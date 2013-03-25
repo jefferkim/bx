@@ -82,7 +82,7 @@ define(function (require, exports, module) {
 
                 //取消刷新按钮动画
                 setTimeout(function(){
-                    $('.navbar .refresh div').removeClass('spinner');
+                    $('.navbar .refresh .btn div').removeClass('spinner');
                 },2000);
 
                 if(result.list&&result.list.length>0){
@@ -245,7 +245,7 @@ define(function (require, exports, module) {
         refresh:function(){
             var that=this;
             that.timestamp=new Date().getTime();
-            var _spinner=$('.navbar .refresh div');
+            var _spinner=$('.navbar .refresh .btn div');
             if(!_spinner.hasClass('spinner')){
                 _spinner.addClass('spinner');
             }
