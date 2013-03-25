@@ -66,6 +66,10 @@ define(function (require, exports, module) {
             function getrecommends(param) {
                 mtop.recommends(param, function (recResult) {
                     refine.refineRecommend(recResult);
+                    if(recResult.fail){
+                        self.set("recommends",recResult);
+                        return;
+                    }
 
                     recResult.t=new Date().getTime();
                     self.set("recommends", recResult);
@@ -80,6 +84,10 @@ define(function (require, exports, module) {
             function getPubAccounts(param, fun) {
                 mtop.listWithFirstFeed(
                     param, function (accResult) {
+                        if(accResult.fail){
+                            self.set("accWithFeed",accResult);
+                            return;
+                        }
                         accResult.t=new Date().getTime();
                         self.set("accWithFeed", accResult);
                         fun && fun.call(arguments.callee, accResult);
