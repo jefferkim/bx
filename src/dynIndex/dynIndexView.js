@@ -159,8 +159,12 @@ define(function (require, exports, module) {
             //判断是否登录
             var that=this;
             that.curPage=parseInt(page);
-
-            $('#indexPage .J_list .person-list').html('');
+            if(!h5_comm.isLogin()){
+                //未登录
+                $('.J_list .person-list').html('<div class="loading"><span class="spinner"></span></div>');
+            }else{
+                $('.indexPage .J_status').html('<div class="loading"><span class="spinner"></span></div>');
+            }
             $('#personListPageNav').html('');
 
 
