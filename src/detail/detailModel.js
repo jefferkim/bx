@@ -64,6 +64,7 @@ define(function (require, exports, module) {
                     //保存详情信息
                     self.set( "feed", cacheFeed);
                     self.trigger('change:feed');
+
                     getPrices(cacheFeed,param);
                      return;
                 }else {

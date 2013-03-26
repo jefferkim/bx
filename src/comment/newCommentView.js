@@ -18,7 +18,7 @@ define(function(require, exports, module) {
 
     events: {
       'keyup #comment-area': 'typing',
-      'click .publish-comment.btn': 'publish'
+      'click .publish-comment': 'publish'
     },
 
     initialize: function() {

@@ -145,9 +145,9 @@
 
                 <ul id="inslist" style="-webkit-transform: translate3d(0px, 0px, 0px); -webkit-backface-visibility: hidden; width: <%=width %>px; -webkit-transition: 0ms;">
                     <% _.each(list, function(item) { %>
-                    <li style="-webkit-transform: translate3d(0px, 0px, 0px);" l="1">
+                    <li style="-webkit-transform: translate3d(0px, 0px, 0px);">
                         <a href="<%=item.url %>">
-                            <img class="lazyimg" height="150" width="320" src="<%=item.picture %>">
+                            <img class="lazyimg" height="150" width="320" dataimg="<%=item.picture %>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
                         </a>
                     </li>
                     <% }); %>
@@ -168,7 +168,7 @@
                     <div class="follows"><span><%=item.fansCount%></span>关注者</div>
                     <div class="default">
                         <% if(item.logoUrl){ %>
-                        <img src="<%=item.logoUrl%>_<% if(window.devicePixelRatio > 1){ %>100x100<% }else{ %>50x50<%}%>.jpg">
+                        <img src="<%=item.logoUrl%>_<% if(window.devicePixelRatio > 1){ %>100x100<% }else{ %>60x60<%}%>.jpg">
                         <% } %>
                     </div>
                 </div>
@@ -186,7 +186,7 @@
                     <div class="follows"><span><%=item.fansCount%></span>关注者</div>
                     <div class="default">
                         <% if(item.logoUrl){ %>
-                        <img src="<%=item.logoUrl%>_<% if(window.devicePixelRatio > 1){ %>100x100<% }else{ %>50x50<%}%>.jpg">
+                        <img src="<%=item.logoUrl%>_<% if(window.devicePixelRatio > 1){ %>100x100<% }else{ %>60x60<%}%>.jpg">
                         <% } %>
                     </div>
                 </div>
@@ -213,7 +213,7 @@
                     <div class="media">
                         <div class="default">
                             <% if(item.firstFeed.coverTile.path){ %>
-                            <img src="<%=item.firstFeed.coverTile.path%>_<% if(window.devicePixelRatio > 1){ %>170x170<% }else{ %>100x100<%}%>xz.jpg">
+                            <img src="<%=item.firstFeed.coverTile.path%>_<% if(window.devicePixelRatio > 1){ %>170x170<% }else{ %>90x90<%}%>xz.jpg">
                             <% } %>
                         </div>
                     </div>
@@ -256,7 +256,7 @@
             <div class="user-avatar">
                 <div class="default">
                     <% if(logoUrl){ %>
-                    <img src="<%=logoUrl%>_<% if(window.devicePixelRatio > 1){ %>100x100<% }else{ %>50x50<%}%>.jpg"/>
+                    <img src="<%=logoUrl%>_<% if(window.devicePixelRatio > 1){ %>100x100<% }else{ %>60x60<%}%>.jpg"/>
                     <% } %>
                 </div>
             </div>
@@ -341,7 +341,7 @@
         <a href="#account/<%= snsId %>" class="brand">
             <div class="default">
                 <% if(logoUrl){ %>
-                <img class="avatar" src="<%= logoUrl %>_<% if(window.devicePixelRatio > 1){ %>100x100<% }else{ %>50x50<%}%>on.jpg"/>
+                <img class="avatar" src="<%= logoUrl %>_<% if(window.devicePixelRatio > 1){ %>100x100<% }else{ %>60x60<%}%>on.jpg"/>
                 <% } %>
             </div>
             <div class="info">

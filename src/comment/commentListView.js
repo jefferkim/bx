@@ -20,7 +20,7 @@ define(function(require, exports, module) {
     model: new CommentModel(),
 
     events: {
-      'click .write-comment.btn': 'newComment'
+      'click .write-comment': 'newComment'
     },
 
     initialize: function() {
