@@ -2,6 +2,7 @@ define(function (require, exports, module) {
     var Backbone = require('backbone'),
         _ = require('underscore'),
         mtop = require('../common/mtopForAllspark.js'),
+        cache = require('../common/cache.js'),
         refine = require('../common/refine.js');
 
     /**
@@ -47,6 +48,8 @@ define(function (require, exports, module) {
                 self.set({"accInfo":result,silent:true});
                 self.trigger('change:accInfo');
 
+                cache.saveAccount(param.snsId,result);
+
                 self.set("loaded","1");
             });
 
@@ -58,10 +61,10 @@ define(function (require, exports, module) {
             pageParam.isIndex() && (pageParam.before = false);
 
             self._biz.feeds(pageParam,function(result){
-               /* result.totalCount && result.list && result.list.forEach(function(feed){
+                result.totalCount && result.list && result.list.forEach(function(feed){
                     //feed.coverTile.item={'id':'1500020722928'};
-                    cache.saveItem(feed.id,feed);
-                });*/
+                    cache.saveItem(param.snsId+"_"+feed.id,feed);
+                });
                 console.log('refine accFeeds');
                 refine.refineFeed(result);
                 console.log(result);
