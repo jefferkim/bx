@@ -56,6 +56,9 @@ define(function (require, exports, module) {
                 mtop.info({snsId:param.snsId},function(result){
                     refine.refinePubAccount(result);
                     self.set("accInfo",result);
+
+                    cache.saveAccount(param.snsId,result);
+
                 });
 
                 //step2: 获取详情
@@ -65,8 +68,10 @@ define(function (require, exports, module) {
                     self.set( "feed", cacheFeed);
                     self.trigger('change:feed');
 
+                    self.set("accInfo",cache.getAccountById(param.snsId));
+
                     getPrices(cacheFeed,param);
-                     return;
+                    return;
                 }else {
                     mtop.detail(param || {},function(result){
                          refine.refineDetail(result);
