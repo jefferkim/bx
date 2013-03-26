@@ -87,10 +87,12 @@ define(function (require, exports, module) {
 
                 if(result.list&&result.list.length>0){
                     if((result.list.length==1)&&(that.curPage==1)){
+
                         $('#indexPage .J_status').html(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result));
                         //$(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result)).insertAfter('div.in-slider');
                     }else{
                         //当关注了多个账号 删除推荐列表
+                        $('#indexPage .J_list .person-list').css('height','auto');
                         $('#indexPage .J_list .person-list').html('');
                         $('#personListPageNav').html('');
                         $('#indexPage .J_status').html('<div class="account-title"><span>账号动态</span></div>'+_.template($('#myfeed_tpl').html(),result));
@@ -119,6 +121,7 @@ define(function (require, exports, module) {
                 },2000);
 
                 if(result.list&&result.list.length>0){
+                    $('#indexPage .J_list .person-list').css('height',(71*parseInt(result.list.length))+'px');
                     $('#indexPage .J_list .person-list').html(_.template($('#personList_tpl').html(),result));
 
                     //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));

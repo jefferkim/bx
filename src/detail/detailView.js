@@ -140,7 +140,7 @@ define(function (require, exports, module) {
         if (count > 99) count = '99+'
 
         console.log('comment count', count)
-        $('.comment.btn span').text(count)
+        $('.comment .btn span').text(count)
        },
 
        more: function(e) {
