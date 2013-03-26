@@ -53,13 +53,21 @@ define(function (require, exports, module) {
                  }
 
                 //step1: 获取帐号信息
+                var accountInfo = cache.getAccountById(param.snsId);
+                if(accountInfo)
+                {
+                 self.set("accInfo",accountInfo);   
+                }
+                else
+                {                                
                 mtop.info({snsId:param.snsId},function(result){
                     refine.refinePubAccount(result);
                     self.set("accInfo",result);
-
                     cache.saveAccount(param.snsId,result);
 
-                });
+                });   
+                }
+ 
 
                 //step2: 获取详情
                 var cacheFeed = cache.getItemById(param.snsId+"_"+param.feedId);
@@ -68,7 +76,7 @@ define(function (require, exports, module) {
                     self.set( "feed", cacheFeed);
                     self.trigger('change:feed');
 
-                    self.set("accInfo",cache.getAccountById(param.snsId));
+                   // self.set("accInfo",cache.getAccountById(param.snsId));
 
                     getPrices(cacheFeed,param);
                     return;
