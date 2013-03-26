@@ -30,6 +30,13 @@ define(function (require, exports, module) {
             that.accountListModel.on("change:myAttention",function(model,result){
                 console.log('myAttention');
                 console.log(result);
+
+                if(result.fail){
+                    $('#accountListPage .person-list').html('');
+                    notification.message('服务异常，请稍后再试！');
+                    return;
+                }
+
                 var pageCount=Math.ceil(result.totalCount/that.pageSize);
                 if(pageCount<that.curPage){
                     that.changePage(pageCount);
@@ -52,6 +59,12 @@ define(function (require, exports, module) {
 
 //                console.log('recommends');
 //                console.log(result);
+                if(result.fail){
+                    $('#accountListPage .person-list').html('');
+                    notification.message('服务异常，请稍后再试！');
+                    return;
+                }
+
                 var pageCount=Math.ceil(result.totalCount/that.pageSize);
                 if(pageCount<that.curPage){
                     that.changePage(pageCount);

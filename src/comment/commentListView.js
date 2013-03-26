@@ -33,9 +33,7 @@ define(function(require, exports, module) {
     },
      goComment:function(snsId, feedId, page){
 
-        loading.show();
-
-        this.$container.empty()
+         this.$container.html('<div class="loading"><span class="spinner"></span></div>');
 
          this.snsId = snsId;
          this.feedId = feedId;
@@ -77,8 +75,6 @@ define(function(require, exports, module) {
 
     renderCommentList: function() {
 
-      loading.hide();
-
       var self = this
       var list = this.model.get('commentList');
 
@@ -107,7 +103,9 @@ define(function(require, exports, module) {
     },
 
     changePage: function(page) {
-      location.hash = '#comment/' + this.snsId + '/' + this.feedId + '/' + page
+        this.$container.html('<div class="loading"><span class="spinner"></span></div>');
+
+        location.hash = '#comment/' + this.snsId + '/' + this.feedId + '/' + page
     },
 
     newComment: function() {
