@@ -37,6 +37,10 @@ define(function (require, exports, module) {
             that.accountModel.on("change:accInfo",function(model,result){
                 console.log('accInfo');
                 console.log(result);
+                if(result.fail){
+                    notification.message('服务异常，请稍后再试！');
+                    return;
+                }
                 if(result&&($('#accountPage .J_info').html()=='')){
                     console.log('dom info');
                     $('#accountPage .J_info').html(_.template($('#accountinfo_tpl').html(),result));
@@ -101,6 +105,10 @@ define(function (require, exports, module) {
             that.accountModel.on("change:prices",function(model,result){
                 console.log('prices');
                 console.log(result);
+                if(result.fail){
+                    notification.message('服务异常，请稍后再试！');
+                    return;
+                }
                 if(result&&result.prices.length>0){
 
                     for(var i=0;i<result.prices.length;i++){

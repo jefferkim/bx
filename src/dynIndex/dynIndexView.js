@@ -131,6 +131,17 @@ define(function (require, exports, module) {
                     $('.navbar .refresh div').removeClass('spinner');
                 },2000);
 
+                if(result.fail){
+                    if(!h5_comm.isLogin()){
+                        //未登录
+                        $('.J_list .person-list').html('');
+                    }else{
+                        $('.indexPage .J_status').html('');
+                    }
+                    notification.message('服务异常，请稍后再试！');
+                    return;
+                }
+
                 if(result.list&&result.list.length>0){
                     $('#indexPage .J_list').css('height',(71*parseInt(result.list.length)+70)+'px');
                     $('#indexPage .J_list .person-list').html(_.template($('#personList_tpl').html(),result));
