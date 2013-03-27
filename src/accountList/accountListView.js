@@ -31,7 +31,7 @@ define(function (require, exports, module) {
                 console.log('myAttention');
                 console.log(result);
 
-                if(result.fail){
+                if(result&&result.fail){
                     $('#accountListPage .person-list').html('');
                     notification.message('服务异常，请稍后再试！');
                     return;
@@ -59,7 +59,7 @@ define(function (require, exports, module) {
 
 //                console.log('recommends');
 //                console.log(result);
-                if(result.fail){
+                if(result&&result.fail){
                     $('#accountListPage .person-list').html('');
                     notification.message('服务异常，请稍后再试！');
                     return;

@@ -78,7 +78,7 @@ define(function(require, exports, module) {
       var self = this
       var list = this.model.get('commentList');
 
-        if (list.fail) {
+        if (list&&list.fail) {
             notification.message("请稍后重试");
             this.$container.html('加载失败，稍后重试！');
             return

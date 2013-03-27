@@ -37,7 +37,7 @@ define(function (require, exports, module) {
             that.accountModel.on("change:accInfo",function(model,result){
                 console.log('accInfo');
                 console.log(result);
-                if(result.fail){
+                if(result&&result.fail){
                     notification.message('服务异常，请稍后再试！');
                     return;
                 }
@@ -52,7 +52,7 @@ define(function (require, exports, module) {
                     $('.navbar .refresh .btn div').removeClass('spinner');
                 },2000);
 
-                if(result.fail){
+                if(result&&result.fail){
                     $('#accountPage .J_feed .tb-feed-items').html('');
                     notification.message('服务异常，请稍后再试！');
                     return;
@@ -105,7 +105,7 @@ define(function (require, exports, module) {
             that.accountModel.on("change:prices",function(model,result){
                 console.log('prices');
                 console.log(result);
-                if(result.fail){
+                if(result&&result.fail){
                     notification.message('服务异常，请稍后再试！');
                     return;
                 }

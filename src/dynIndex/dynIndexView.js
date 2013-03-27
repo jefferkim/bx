@@ -83,7 +83,7 @@ define(function (require, exports, module) {
                     $('.navbar .refresh .btn div').removeClass('spinner');
                 },2000);
 
-                if(result.fail){
+                if(result&&result.fail){
                     if(!h5_comm.isLogin()){
                         //未登录
                         $('.J_list .person-list').html('');
@@ -131,7 +131,7 @@ define(function (require, exports, module) {
                     $('.navbar .refresh div').removeClass('spinner');
                 },2000);
 
-                if(result.fail){
+                if(result&&result.fail){
                     if(!h5_comm.isLogin()){
                         //未登录
                         $('.J_list .person-list').html('');

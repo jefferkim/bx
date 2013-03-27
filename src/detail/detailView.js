@@ -127,7 +127,7 @@ define(function (require, exports, module) {
                 //loading.hide();
             }
 
-          if (feed.fail) {
+          if (feed&&feed.fail) {
             this.model.set('feed', {}, { silent: true })
             notification.message("请稍后重试");
             this.$container.find('.main').html('加载失败，稍后重试！');
