@@ -119,10 +119,6 @@ define(function(require, exports, module) {
         status=status||1;
         page=page||1;
         _accountListView.render(status,page);
-
-
-
-
     },
     detail: function(snsId, feedId,page) {
 
