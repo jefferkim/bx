@@ -56,7 +56,8 @@ define(function (require, exports, module) {
                 var accountInfo = cache.getAccountById(param.snsId);
                 if(accountInfo)
                 {
-                 self.set("accInfo",accountInfo);   
+                 self.set("accInfo",accountInfo);
+                 self.trigger('change:accInfo');
                 }
                 else
                 {                                
