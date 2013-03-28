@@ -48,7 +48,7 @@ define(function (require, exports, module) {
         },
        goDetail : function(snsId,feedId,page){
 
-          this.$container.find('.account').empty()
+          //this.$container.find('.account').empty()
           this.$container.find('.main').empty()
 
            if(!h5_base.isClient() || h5_base.isAndroidClient()) {
@@ -103,8 +103,17 @@ define(function (require, exports, module) {
 
        },
         renderAccInfo: function() {
-          var accInfo = accinfoTemplate($.extend(this.model.get('accInfo'), { snsId: this.snsId }))
-          this.$container.find('.account').html(accInfo);
+            var infodata=$.extend(this.model.get('accInfo'),{ snsId: this.snsId });
+            var accInfo = accinfoTemplate(infodata);
+            if(this.$container.find('.account .follow').length>0){
+                if(infodata.fansCount==0){
+                    this.$container.find('.account .follow').html('还没有人关注');
+                }else{
+                    this.$container.find('.account .follow').html('<span class="count">'+infodata.fansCount+'</span> 关注者');
+                }
+            }else{
+                this.$container.find('.account').html(accInfo);
+            }
 
           console.log('detail accInfo', JSON.stringify(this.model.get('accInfo')))
         },
@@ -118,7 +127,7 @@ define(function (require, exports, module) {
                 //loading.hide();
             }
 
-          if (feed.fail) {
+          if (feed&&feed.fail) {
             this.model.set('feed', {}, { silent: true })
             notification.message("请稍后重试");
             this.$container.find('.main').html('加载失败，稍后重试！');

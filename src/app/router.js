@@ -107,6 +107,13 @@ define(function(require, exports, module) {
     account:function(snsId,page){
         page = page || 1;
         _accountView.render(snsId,page);
+        var b = "onorientationchange" in window, c = b ? "orientationchange" : "resize";
+        $(window).bind(c, function() {
+            var _img=$('#accountPage .J_feed .tb-feed-items .media img');
+            for(var i= 0,len=_img.length;i<len;i++){
+                _img.eq(i).attr('style',feedImageSizeStyle(parseInt(_img.eq(i).attr('picWidth')), parseInt(_img.eq(i).attr('picHeight'))));
+            }
+        });
     },
     accountList:function(status,page){
         status=status||1;

@@ -37,6 +37,10 @@ define(function (require, exports, module) {
             that.accountModel.on("change:accInfo",function(model,result){
                 console.log('accInfo');
                 console.log(result);
+                if(result&&result.fail){
+                    notification.message('服务异常，请稍后再试！');
+                    return;
+                }
                 if(result&&($('#accountPage .J_info').html()=='')){
                     console.log('dom info');
                     $('#accountPage .J_info').html(_.template($('#accountinfo_tpl').html(),result));
@@ -47,6 +51,14 @@ define(function (require, exports, module) {
                 setTimeout(function(){
                     $('.navbar .refresh .btn div').removeClass('spinner');
                 },2000);
+
+                if(result&&result.fail){
+                    $('#accountPage .J_feed .tb-feed-items').html('');
+                    notification.message('服务异常，请稍后再试！');
+                    return;
+                }
+
+
                 var _upDomFlag=true;
                 if(that.oldTotalCount){
                     if(that.oldTotalCount.snsid==that.snsid){
@@ -72,6 +84,11 @@ define(function (require, exports, module) {
                         that.changePage(page.index);
                     });
                 }
+                if(result.totalCount==0){
+                    $('#accountPage .J_feed .tb-feed-items').html('');
+                    notification.message('商家很懒还没发消息哦！');
+                    return;
+                }
 
                 if(result.list&&result.list.length>0){
                     console.log('change:accFeeds');
@@ -83,10 +100,15 @@ define(function (require, exports, module) {
                         $('#accountPage .J_feed .tb-feed-items').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
                     }
                 }
+
             });
             that.accountModel.on("change:prices",function(model,result){
                 console.log('prices');
                 console.log(result);
+                if(result&&result.fail){
+                    notification.message('服务异常，请稍后再试！');
+                    return;
+                }
                 if(result&&result.prices.length>0){
 
                     for(var i=0;i<result.prices.length;i++){
@@ -130,7 +152,7 @@ define(function (require, exports, module) {
             if(snsid!=$('#accountPage').attr('snsid')){
                 $('#accountPage').attr('snsid',snsid);
                 $('#accountPage .J_info').html('');
-                $('#accountPage .J_feed .tb-feed-items').html('');
+                $('#accountPage .J_feed .tb-feed-items').html('<div class="loading"><span class="spinner"></span></div>');
                 console.log('clear tb-feed-items');
             }
             $('header.navbar').html('');

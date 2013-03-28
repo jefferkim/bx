@@ -33,9 +33,7 @@ define(function(require, exports, module) {
     },
      goComment:function(snsId, feedId, page){
 
-        loading.show();
-
-        this.$container.empty()
+         this.$container.html('<div class="loading"><span class="spinner"></span></div>');
 
          this.snsId = snsId;
          this.feedId = feedId;
@@ -77,10 +75,14 @@ define(function(require, exports, module) {
 
     renderCommentList: function() {
 
-      loading.hide();
-
       var self = this
       var list = this.model.get('commentList');
+
+        if (list&&list.fail) {
+            notification.message("请稍后重试");
+            this.$container.html('加载失败，稍后重试！');
+            return
+        }
 
       if (list.totalCount == 0) {
         this.$container.html('<p class="no-comment">还没有评论，快抢沙发吧。</p>')
@@ -107,7 +109,9 @@ define(function(require, exports, module) {
     },
 
     changePage: function(page) {
-      location.hash = '#comment/' + this.snsId + '/' + this.feedId + '/' + page
+        this.$container.html('<div class="loading"><span class="spinner"></span></div>');
+
+        location.hash = '#comment/' + this.snsId + '/' + this.feedId + '/' + page
     },
 
     newComment: function() {

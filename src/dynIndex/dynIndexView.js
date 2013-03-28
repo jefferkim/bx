@@ -78,12 +78,23 @@ define(function (require, exports, module) {
             that.dynIndexModel.on("change:accWithFeed",function(model,result){
                 console.log('accWithFeed');
                 console.log(result);
-
-
                 //取消刷新按钮动画
                 setTimeout(function(){
                     $('.navbar .refresh .btn div').removeClass('spinner');
                 },2000);
+
+                if(result&&result.fail){
+                    if(!h5_comm.isLogin()){
+                        //未登录
+                        $('.J_list .person-list').html('');
+                    }else{
+                        $('.indexPage .J_status').html('');
+                    }
+                    notification.message('服务异常，请稍后再试！');
+                    return;
+                }
+
+
 
                 if(result.list&&result.list.length>0){
                     if((result.list.length==1)&&(that.curPage==1)){
@@ -92,7 +103,7 @@ define(function (require, exports, module) {
                         //$(_.template($('#myfeed_tpl').html()+$('#recommendtip_tpl').html(),result)).insertAfter('div.in-slider');
                     }else{
                         //当关注了多个账号 删除推荐列表
-                        $('#indexPage .J_list .person-list').css('height','auto');
+                        $('#indexPage .J_list').css('height','auto');
                         $('#indexPage .J_list .person-list').html('');
                         $('#personListPageNav').html('');
                         $('#indexPage .J_status').html('<div class="account-title"><span>账号动态</span></div>'+_.template($('#myfeed_tpl').html(),result));
@@ -120,8 +131,19 @@ define(function (require, exports, module) {
                     $('.navbar .refresh div').removeClass('spinner');
                 },2000);
 
+                if(result&&result.fail){
+                    if(!h5_comm.isLogin()){
+                        //未登录
+                        $('.J_list .person-list').html('');
+                    }else{
+                        $('.indexPage .J_status').html('');
+                    }
+                    notification.message('服务异常，请稍后再试！');
+                    return;
+                }
+
                 if(result.list&&result.list.length>0){
-                    $('#indexPage .J_list .person-list').css('height',(71*parseInt(result.list.length))+'px');
+                    $('#indexPage .J_list').css('height',(71*parseInt(result.list.length)+70)+'px');
                     $('#indexPage .J_list .person-list').html(_.template($('#personList_tpl').html(),result));
 
                     //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));
@@ -165,6 +187,8 @@ define(function (require, exports, module) {
             }else{
                 $('.indexPage .J_status').html('<div class="loading"><span class="spinner"></span></div>');
             }
+
+            //$('#indexPage .J_list .person-list').html('');
             $('#personListPageNav').html('');
 
 

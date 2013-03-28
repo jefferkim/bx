@@ -25,11 +25,18 @@ define(function (require, exports, module) {
         },
         initialize:function () {
             var that=this;
-            that.pageSize = 5;
+            that.pageSize = 15;
             that.accountListModel = new _model();
             that.accountListModel.on("change:myAttention",function(model,result){
                 console.log('myAttention');
                 console.log(result);
+
+                if(result&&result.fail){
+                    $('#accountListPage .person-list').html('');
+                    notification.message('服务异常，请稍后再试！');
+                    return;
+                }
+
                 var pageCount=Math.ceil(result.totalCount/that.pageSize);
                 if(pageCount<that.curPage){
                     that.changePage(pageCount);
@@ -52,6 +59,12 @@ define(function (require, exports, module) {
 
 //                console.log('recommends');
 //                console.log(result);
+                if(result&&result.fail){
+                    $('#accountListPage .person-list').html('');
+                    notification.message('服务异常，请稍后再试！');
+                    return;
+                }
+
                 var pageCount=Math.ceil(result.totalCount/that.pageSize);
                 if(pageCount<that.curPage){
                     that.changePage(pageCount);
@@ -95,7 +108,7 @@ define(function (require, exports, module) {
             window.scrollTo(0,1);
             $('.tab-bar li.cur').removeClass('cur');
             $('.tab-bar li').eq(that.status-1).addClass('cur');
-            $('#accountListPage .person-list').html('');
+            $('#accountListPage .person-list').html('<div class="loading"><span class="spinner"></span></div>');
             $('#accountListPageNav').html('');
             that.accountListModel.getPageData({'type':that.status,'curPage':that.curPage,'pageSize': that.pageSize,"order":"fans"});
 
