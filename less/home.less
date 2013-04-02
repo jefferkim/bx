@@ -9,7 +9,7 @@
   .in-slider .in-slider-cont{height:100%;overflow:hidden;position:relative;}
   .in-slider .in-slider-cont ul{position:absolute;left:0;top:0;}
   .in-slider .in-slider-cont ul li{width:320px;height:150px;float:left;}
-  .in-slider .in-slider-cont ul li img{border: 0;}
+  .in-slider .in-slider-cont ul li img{border: 0;background: #E8E8E8 }
   .in-slider .in-slider-status{position:absolute;width:100%;height:3px;bottom:0;background-color:rgba(51,51,51,0.5);-webkit-transform:translate3d(0,0,0);display:-webkit-box;}
   .in-slider .in-slider-status span{display:block;-webkit-box-flex:1;height:100%;overflow:hidden;}
   .in-slider .in-slider-status .sel{background-color:#ff4000;}
@@ -62,6 +62,7 @@
     height: 22px;
     text-align: center;
     margin-top:15px;
+    -webkit-transform: translateZ(0);
     span{
       display: inline-block;
       text-align: center;
@@ -85,6 +86,7 @@
       border-top: 1px solid #fcfcfc;
       border-bottom: 1px solid #ddd;
       position: relative;
+      -webkit-transform: translateZ(0);
       .default{
         height: 50px;
         width: 50px;
@@ -188,6 +190,7 @@
 
   .myfeed{
     margin-top: 15px;
+    min-height: 85px;
     li.multimedia{
       .status{
         width: 200px;
@@ -222,6 +225,7 @@
         }
       }
       img{
+        background: #E8E8E8;
         width: 85px;height: 85px;
         border-bottom-left-radius: 4px;
         border-top-left-radius: 4px;

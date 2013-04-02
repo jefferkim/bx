@@ -63,8 +63,6 @@ define(function (require, exports, module) {
                 }
             });
             that.dynIndexModel.on("change:banner",function(model,result){
-                console.log('banner');
-                console.log(result);
                 var d=result;
                 d.width=result.list.length*320;
 
@@ -76,8 +74,6 @@ define(function (require, exports, module) {
                 //equal(3, result.list.length, "We expect banner not empty");
             });
             that.dynIndexModel.on("change:accWithFeed",function(model,result){
-                console.log('accWithFeed');
-                console.log(result);
                 //取消刷新按钮动画
                 setTimeout(function(){
                     $('.navbar .refresh .btn div').removeClass('spinner');
@@ -110,11 +106,15 @@ define(function (require, exports, module) {
                         var pageCount=Math.ceil(result.totalCount/that._pageSize);
                         //页数大于1的时候显示分页组件
                         if(pageCount>1){
+                            $('.J_list').css('min-height','100px');
                             that.myfeedPage=new pageNav({'id':'#personListPageNav','index':that.curPage,'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
                             that.myfeedPage.pContainer().on('P:switchPage', function(e,page){
                                 that.changePage(page.index);
                             });
+                        }else{
+                            $('.J_list').css('min-height','50px');
                         }
+
                         //$(_.template($('#myfeed_tpl').html(),result)).insertAfter('div.in-slider');
                     }
                 }else{
@@ -124,8 +124,6 @@ define(function (require, exports, module) {
             },this);
             that.dynIndexModel.on("change:recommends",function(model,result){
                 //推荐列表
-                console.log('recommends');
-                console.log(result);
                 //取消刷新按钮动画
                 setTimeout(function(){
                     $('.navbar .refresh div').removeClass('spinner');
@@ -143,14 +141,21 @@ define(function (require, exports, module) {
                 }
 
                 if(result.list&&result.list.length>0){
-                    $('#indexPage .J_list').css('height',(71*parseInt(result.list.length)+70)+'px');
+                    var pageCount=Math.ceil(result.totalCount/that._pageSize);
+                    if(pageCount>1){
+                        $('#indexPage .J_list').css('height',(71*parseInt(result.list.length)+100)+'px');
+                    }else{
+                        $('#indexPage .J_list').css('height',(71*parseInt(result.list.length)+70)+'px');
+
+                    }
                     $('#indexPage .J_list .person-list').html(_.template($('#personList_tpl').html(),result));
 
                     //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));
                     //if(!that.recommentPage){
-                        var pageCount=Math.ceil(result.totalCount/that._pageSize);
+
                         //页数大于1的时候显示分页组件
                         if(pageCount>1){
+
                             that.recommentPage=new pageNav({'id':'#personListPageNav','index':that.curPage,'pageCount':pageCount,'pageSize':that._pageSize,'disableHash': 'true'});
                             that.recommentPage.pContainer().on('P:switchPage', function(e,page){
                                 that.changePage(page.index);
@@ -177,7 +182,6 @@ define(function (require, exports, module) {
         },
         render:function(page){
             //$('.tb-h5').html($('#indexPage_tpl').html());
-            console.log('homePage render');
             //判断是否登录
             var that=this;
             that.curPage=parseInt(page);
@@ -372,7 +376,6 @@ define(function (require, exports, module) {
         },
         goToAccount:function(e){
             e.stopPropagation();
-            console.log('goToAccount');
             var cur=$(e.currentTarget);
             window.location.hash='#account/'+cur.attr('snsid')+'/1';
 

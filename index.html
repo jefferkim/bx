@@ -11,6 +11,7 @@
         <link href="http://img04.taobaocdn.com/tps/i4/T1DKVMXtBcXXa.JOZB-114-114.png" rel="apple-touch-icon-precomposed" />
         <link rel="stylesheet" type="text/css" href="css/allspark.css">
     </head>
+
     <body style="background: #f8f8f8">
     <div id="content">
         <header class="navbar " style="display: none">
@@ -23,8 +24,8 @@
                     <div class="person-list"></div>
                     <div id="personListPageNav" class="pagenav c-pnav-con"></div>
                 </div>
-                <footer>
-                    <span class="nick">晓田</span><a href="http://login.m.taobao.com/logout.htm">退出</a> <span class="gotop">Top <b></b></span>
+                <footer style="display: none">
+                    <span class="nick"></span><a href="http://login.m.taobao.com/logout.htm">退出</a> <span class="gotop">Top <b></b></span>
                 </footer>
 
             </div>
@@ -307,7 +308,7 @@
                                         it<%=item.coverTile.item.id%>
                                     <% } %>
                                  <% } %>" >
-                    <img style="<%=feedImageSizeStyle(parseInt(item.coverTile.picWidth), parseInt(item.coverTile.picHeight)) %>" picWidth="<%=parseInt(item.coverTile.picWidth)%>" picHeight="<%=parseInt(item.coverTile.picHeight)%>" src="<%=resizeImg({'url':item.coverTile.path,'expWidth':window.innerWidth,'rWidth':parseInt(item.coverTile.picWidth),'rHeight':parseInt(item.coverTile.picHeight),'isXz':true}).url%>"/>
+                    <img style="<%=feedImageSizeStyle(parseInt(item.coverTile.picWidth), parseInt(item.coverTile.picHeight)) %>" picWidth="<%=parseInt(item.coverTile.picWidth)%>" picHeight="<%=parseInt(item.coverTile.picHeight)%>" src1="<%=resizeImg({'url':item.coverTile.path,'expWidth':window.innerWidth,'rWidth':parseInt(item.coverTile.picWidth),'rHeight':parseInt(item.coverTile.picHeight),'isXz':true}).url%>"/>
                 </div>
             </div>
             <% } %>
@@ -337,7 +338,7 @@
 
 
     <script id="detail_accinfo_tpl" type="text/template">
-        <a href="#account/<%= snsId %>" class="brand">
+        <a href="#account/<%= snsId %>"  class="brand">
             <div class="default">
                 <% if(logoUrl){ %>
                 <img class="avatar" src="<%=getImgUrl(logoUrl,100,60)%>"/>
@@ -346,7 +347,7 @@
             <div class="info">
                 <p class="name"><%= nick %></p>
                 <% if(noHelper(accountType)){ %>
-                <p class="follow">
+                <p class="follow" snsid="<%=snsId%>">
                     <% if (fansCount == 0) { %>
                     还没有人关注
                     <% } else { %>

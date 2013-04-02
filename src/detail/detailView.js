@@ -105,11 +105,19 @@ define(function (require, exports, module) {
         renderAccInfo: function() {
             var infodata=$.extend(this.model.get('accInfo'),{ snsId: this.snsId });
             var accInfo = accinfoTemplate(infodata);
-            if(this.$container.find('.account .follow').length>0){
-                if(infodata.fansCount==0){
-                    this.$container.find('.account .follow').html('还没有人关注');
+            var _follow=this.$container.find('.account .follow');
+            if(_follow.length>0){
+                if(_follow.attr('snsid')==this.snsId ){
+                    if(parseInt(infodata.fansCount)==0){
+                        _follow.html('还没有人关注');
+                    }else{
+                        var _nfollow='<span class="count">'+infodata.fansCount+'</span> 关注者';
+                        if($.trim(_follow.html())!=_nfollow){
+                            _follow.html(_nfollow);
+                        }
+                    }
                 }else{
-                    this.$container.find('.account .follow').html('<span class="count">'+infodata.fansCount+'</span> 关注者');
+                    this.$container.find('.account').html(accInfo);
                 }
             }else{
                 this.$container.find('.account').html(accInfo);

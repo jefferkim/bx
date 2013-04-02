@@ -28,8 +28,6 @@ define(function (require, exports, module) {
             that.pageSize = 15;
             that.accountListModel = new _model();
             that.accountListModel.on("change:myAttention",function(model,result){
-                console.log('myAttention');
-                console.log(result);
 
                 if(result&&result.fail){
                     $('#accountListPage .person-list').html('');
@@ -110,7 +108,7 @@ define(function (require, exports, module) {
             $('.tab-bar li').eq(that.status-1).addClass('cur');
             $('#accountListPage .person-list').html('<div class="loading"><span class="spinner"></span></div>');
             $('#accountListPageNav').html('');
-            that.accountListModel.getPageData({'type':that.status,'curPage':that.curPage,'pageSize': that.pageSize,"order":"fans"});
+            that.accountListModel.getPageData({'type':that.status,'curPage':that.curPage,'pageSize': that.pageSize,"order":"lastFeedTime"});
 
             //判断导航是否已经载入
             if(_navbar.hasClass('iT')){
@@ -144,7 +142,6 @@ define(function (require, exports, module) {
         goToAccount:function(e){
             var that=this;
             e.stopPropagation();
-            console.log('goToAccount');
             var cur=$(e.currentTarget);
             window.AccountList={'hash':'#accountList/'+that.status+'/'+that.curPage,'flag':true}
             window.location.hash='#account/'+cur.attr('snsid')+'/1';
@@ -156,7 +153,6 @@ define(function (require, exports, module) {
             var _numObj=cur.parent().find('.follows span');
             if(h5_comm.isLogin()){
                 //已登录
-                console.log('follow');
                 if(!cur.hasClass('followed')){
                     cur.html('关注中...');
                     cur.addClass('min');
@@ -189,7 +185,6 @@ define(function (require, exports, module) {
         },
         goBack:function(){
             //history.back();
-            console.log('go index');
             window.location.hash='index/';
         },
         changeTab:function(e){
@@ -197,7 +192,6 @@ define(function (require, exports, module) {
             var cur=$(e.currentTarget);
             $('.tab-bar li.cur').removeClass('cur');
             cur.addClass('cur');
-            console.log('ok');
             if(that.status==1){
                 window.location.hash='accountList/2/1';
             }else{
