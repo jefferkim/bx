@@ -35,8 +35,6 @@ define(function (require, exports, module) {
             that.accountModel = new _model();
 
             that.accountModel.on("change:accInfo",function(model,result){
-                console.log('accInfo');
-                console.log(result);
                 if(result&&result.fail){
                     notification.message('服务异常，请稍后再试！');
                     return;
@@ -91,20 +89,22 @@ define(function (require, exports, module) {
                 }
 
                 if(result.list&&result.list.length>0){
-                    console.log('change:accFeeds');
-                    console.log(result);
-                    console.log('dom:'+_upDomFlag);
+//                    console.log('change:accFeeds');
+//                    console.log(result);
+//                    console.log('dom:'+_upDomFlag);
                     if(_upDomFlag){
                         console.log('dom')
                         //$('#accountPage .J_feed .tb-feed-items').removeClass('loading spinner');
                         $('#accountPage .J_feed .tb-feed-items').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
+                        setTimeout(function(){
+                            $('#accountPage').css('height',$('#accountPage')[0].offsetHeight+'px');
+                        },100);
+
                     }
                 }
 
             });
             that.accountModel.on("change:prices",function(model,result){
-                console.log('prices');
-                console.log(result);
                 if(result&&result.fail){
                     notification.message('服务异常，请稍后再试！');
                     return;
@@ -139,7 +139,6 @@ define(function (require, exports, module) {
 //            console.log('account render');
 //            console.log($('#accountPage .J_feed .tb-feed-items').html());
             if($.trim($('#accountPage .J_feed .tb-feed-items').html()).length==0){
-                console.log('ok');
                 $('#accountPage .J_feed .tb-feed-items').html('<div class="loading"><span class="spinner"></span></div>');
             }
 

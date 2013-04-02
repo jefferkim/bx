@@ -36,7 +36,6 @@ define(function (require, exports, module) {
                             fun && fun.call(arguments.callee, _banner);
                         },
                         error:function (error) {
-                            console.log(error);
                             fun && fun.call(arguments.callee, null);
                         }
                     });
@@ -70,7 +69,6 @@ define(function (require, exports, module) {
                         self.set("recommends",recResult);
                         return;
                     }
-
                     recResult.t=new Date().getTime();
                     self.set("recommends", recResult);
 
