@@ -25,7 +25,6 @@ define(function(require, exports, module) {
           //test
           //   localStorage.clear();
           //cdn 获取最佳图片尺寸
-          console.log('init');
           getBetterImg = cdn.getBetterImg; // make it global for convenience use in templates
           resizeImg=cdn.resizeImg;
 
@@ -131,18 +130,15 @@ define(function(require, exports, module) {
     commentList: function(snsId, feedId, page) {
         page=page|| _commentView.page || 1;
         _commentView.goComment(snsId, feedId, page);
-      console.log('route into commentList')
     },
 
     newComment: function(snsId, feedId, page) {
         page=page||1;
         _newCommentView.goNewComment(snsId, feedId, page);
-      console.log('route into newComment')
     },
 
     start: function() {
       Backbone.history.start();
-      console.log('start routing.')
     }
 
   });

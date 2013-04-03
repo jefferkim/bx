@@ -40,7 +40,6 @@ define(function (require, exports, module) {
                     return;
                 }
                 if(result&&($('#accountPage .J_info').html()=='')){
-                    console.log('dom info');
                     $('#accountPage .J_info').html(_.template($('#accountinfo_tpl').html(),result));
                 }
             });
@@ -152,7 +151,6 @@ define(function (require, exports, module) {
                 $('#accountPage').attr('snsid',snsid);
                 $('#accountPage .J_info').html('');
                 $('#accountPage .J_feed .tb-feed-items').html('<div class="loading"><span class="spinner"></span></div>');
-                console.log('clear tb-feed-items');
             }
             $('header.navbar').html('');
 
@@ -200,7 +198,6 @@ define(function (require, exports, module) {
 
             var _show=$('.view-page.show');
             if($('#detailPage').hasClass('show')){
-                console.log('detailPage show');
                 _accountPage.removeClass(' iR iL').addClass('iL');
                 _show.removeClass('show iC').addClass('iR').wAE(function(){
                     _show.addClass('hide');
@@ -226,8 +223,10 @@ define(function (require, exports, module) {
 //            * @param param.pageSize
 //            * @param param.snsId
 //            * @param param.afterTimestamp
-                window.scrollTo(0,1);
+              window.scrollTo(0,1);
               that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'afterTimestamp':that.afterTimestamp,'before':that.before});
+                // this is for Android
+                $('#content')[0].style.minHeight = '360px'
 
         },
         refresh:function(){
@@ -301,7 +300,7 @@ define(function (require, exports, module) {
                             for(var len=d.data.result.length,i=0;i<len;i++){
                                 if(cur.attr('pid')==d.data.result[i].id){
                                     if(d.data.result[i].isSuccess=='true'){
-                                        console.log(d);
+
                                         cur.addClass('followed');
                                         cur.html('取消关注');
                                         $('.stats-count').text(parseInt($('.stats-count').text())+1);
@@ -323,7 +322,6 @@ define(function (require, exports, module) {
         },
         changePage:function(page){
             var that=this;
-            console.log('page:'+page);
 
             if(parseInt(that.curPage)<parseInt(page)){
                 that.before=true;
@@ -350,7 +348,6 @@ define(function (require, exports, module) {
          */
         reconAccInfoData:function(data){
             var d=data;
-            console.log(!!d.logoUrl);
             //if(!d.logoUrl){d.logoUrl='imgs/avatar.png'}
             //if(!d.description){d.description='亲，欢迎光临！'}
             //if(!d.backgroundImg){d.backgroundImg='imgs/cover.png'}

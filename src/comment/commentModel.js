@@ -19,7 +19,6 @@ define(function (require, exports, module) {
             var self = this;
             mtop.commentList(param, function (accResult) {
                     self.set("commentList", accResult);
-                    console.log(accResult);
              })
         },
 

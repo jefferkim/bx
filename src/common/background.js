@@ -76,7 +76,6 @@ define(function (require, exports, module) {
                         data = "cancelattention";
                     }
                     log.logClick(data,currentUri);
-                    console.log(data);
                 }
 
             }

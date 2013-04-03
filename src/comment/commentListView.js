@@ -105,7 +105,6 @@ define(function(require, exports, module) {
         }
       }
 
-      console.log('comment list', this.model.get('commentList'))
     },
 
     changePage: function(page) {

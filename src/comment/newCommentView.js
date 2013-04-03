@@ -99,7 +99,6 @@ define(function(require, exports, module) {
 
       var self = this
       var comment = this.$commentArea.val()
-      console.log('comment length is', comment.length)
 
       if (comment.length == 0) {
         notification.message('写点什么吧 ^_^')

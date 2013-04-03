@@ -42,7 +42,6 @@ define(function (require, exports, module) {
             var self = this;
 
             param.exCludInfo||self._biz.info({snsId:param.snsId,sid:param.sid},function(result){
-                console.log('refine accInfo');
                 refine.refinePubAccount(result);
                 //FIXME 这这应该写错了吧. wuzhong
                 self.set({"accInfo":result,silent:true});
@@ -65,9 +64,7 @@ define(function (require, exports, module) {
                     //feed.coverTile.item={'id':'1500020722928'};
                     //fcache.saveItem(param.snsId+"_"+feed.id,feed);
                 });
-                console.log('refine accFeeds');
                 refine.refineFeed(result);
-                console.log(result);
                 //手动改变数据集，以达到出发change事件
 
                 if(result.fail){

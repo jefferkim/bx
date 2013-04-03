@@ -84,7 +84,6 @@ define(function (require, exports, module) {
                 }else {
                     mtop.detail(param || {},function(result){
                          refine.refineDetail(result);
-                         console.log(result);
 
                         self.set("feed",result);
                          //linkUrlFormat

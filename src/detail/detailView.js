@@ -123,7 +123,6 @@ define(function (require, exports, module) {
                 this.$container.find('.account').html(accInfo);
             }
 
-          console.log('detail accInfo', JSON.stringify(this.model.get('accInfo')))
         },
 
         //渲染详情页
@@ -145,7 +144,6 @@ define(function (require, exports, module) {
           // this is for Android
           $('#content')[0].style.minHeight = '360px'
 
-            console.log('render detail! feed='+JSON.stringify(feed));
           var content = contentTemplate(feed);
           this.$container.find('.main').html(content);
 
@@ -156,7 +154,6 @@ define(function (require, exports, module) {
         var count = this.commentModel.get('commentCount').count
         if (count > 99) count = '99+'
 
-        console.log('comment count', count)
         $('.comment .btn span').text(count)
        },
 
@@ -204,7 +201,6 @@ define(function (require, exports, module) {
               }
             }
           }
-          console.log('prices', this.model.get('prices'))
         },
 
         commentList: function() {
