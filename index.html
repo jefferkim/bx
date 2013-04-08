@@ -10,7 +10,7 @@
         <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
         <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" />
         <link href="http://a.tbcdn.cn/mw/webapp/allspark/wetaoIcon.png" rel="apple-touch-icon-precomposed" />
-        <link rel="stylesheet" type="text/css" href="http://a.tbcdn.cn/mw/webapp/allspark/css/allspark.css">
+        <link rel="stylesheet" type="text/css" href="css/allspark.css">
     </head>
 
     <body style="background: #f8f8f8">
@@ -301,6 +301,14 @@
         <% _.each(list, function(item) { %>
         <li feedId="<%=item.id%>">
             <div class="title"><%=item.title%></div>
+            <div class="fns">
+                <div class="time"><%=timestamps(item.time)%></div>
+                <% if(item.commentCount!=0) {%>
+                <div class="comment commentIco">
+                    <%=item.commentCount%>
+                </div>
+                <% }%>
+            </div>
             <% if(item.coverTile){ %>
             <% if(item.coverTile.path){%>
             <div class="media">
@@ -317,14 +325,7 @@
             <div class="text">
                 <%=item.summary%>
             </div>
-            <div class="fns">
-                <div class="time"><%=timestamps(item.time)%></div>
-                <% if(item.commentCount!=0) {%>
-                <div class="comment commentIco">
-                    <%=item.commentCount%>
-                </div>
-                <% }%>
-            </div>
+
         </li>
         <% }); %>
         </ul>
