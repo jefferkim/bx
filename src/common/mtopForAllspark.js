@@ -89,7 +89,7 @@ define(function (require, exports, module) {
     }
 
     exports.info = function (param, fun) {
-        var cacheAccount = cache.getAccountById(param.snsId);
+      //  var cacheAccount = cache.getAccountById(param.snsId);
         //cacheAccount=false;
         // if (cacheAccount) {
         //  fun && fun.call(arguments.callee, cacheAccount);
@@ -134,7 +134,21 @@ define(function (require, exports, module) {
 
     /**----------------------评论相关---------------------------------------*/
     exports.commentCount = function (param, fun) {
-        invokeApi("mtop.sns.comment.count", param, fun);
+        var key =param.snsId+"_"+ param.feedId ;
+        var count = cache.getCommCountById(key);
+        if(count)
+        {
+         fun && fun.call(arguments.callee, count) ;
+        }
+        else
+        {
+        invokeApi("mtop.sns.comment.count", param,
+            function (result) {
+                result.fail || cache.saveCommCount(key, result);
+                fun && fun.call(arguments.callee, result)
+            }
+        );
+    }
     };
 
     exports.addComment = function (param, fun) {
@@ -142,7 +156,16 @@ define(function (require, exports, module) {
     };
 
     exports.commentList = function (param, fun) {
-        invokeApi("mtop.sns.comment.list", param, fun);
+        invokeApi("mtop.sns.comment.list", param,
+            function (result) {
+                if(!result.fail)
+                {
+                    var key =param.snsId+"_"+ param.feedId ;
+                    cache.saveCommCount(key,{'count':result.totalCount} );
+                }
+                fun && fun.call(arguments.callee, result)
+            }
+        );
     };
 
     /**----------------------详情相关---------------------------------------*/
