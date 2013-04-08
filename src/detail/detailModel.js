@@ -83,15 +83,21 @@ define(function (require, exports, module) {
                     return;
                 }else {
                     mtop.detail(param || {},function(result){
+                         if(_.isEmpty(result) )
+                         {
+                         self.set("feed",{fail:'null',errMsg:'已删除或不存在！'});
+                         }
+                         else
+                         {
                          refine.refineDetail(result);
-
-                        self.set("feed",result);
+                         self.set("feed",result);
                          //linkUrlFormat
                          result.linkUrl = self.linkUrlFormat(result.linkUrl);
                         if (result  && result.tiles && result.tiles.length>0) {
                             cache.saveItem(param.snsId+"_"+param.feedId,result);
                             getPrices(result,param);
                         }
+                         }
                     });
                 }
         }

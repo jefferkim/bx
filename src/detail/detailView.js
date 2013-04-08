@@ -136,8 +136,9 @@ define(function (require, exports, module) {
 
           if (feed&&feed.fail) {
             this.model.set('feed', {}, { silent: true })
-            notification.message("请稍后重试");
-            this.$container.find('.main').html('加载失败，稍后重试！');
+            var errMsg = feed.errMsg || '加载失败，稍后重试！'  ;
+            notification.message(errMsg);
+            this.$container.find('.main').html('<br /><center>'+errMsg+'</center>');
             return
           }
 
