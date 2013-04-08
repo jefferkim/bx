@@ -27,7 +27,18 @@ define(function (require, exports, module) {
             this.model.on('change:params', this.queryFeeds, this);
            
         },
+		render:function(){
+			var params={
+				timestamp:0,//Date.now(),
+				curPage:1,
+				pageSize :20,
+				onlyYou:1,
+				direction:0
+			};
+			this.model.getPageData(params);
+		},
        queryFeeds : function(par){
+	   	
 	   	 this.model.getPageData(par);
  		}
 

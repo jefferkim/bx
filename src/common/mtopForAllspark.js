@@ -233,7 +233,7 @@ define(function (require, exports, module) {
     },
 	/* -----------------feed相关----------------------  */
 	exports.timeLine=function(param, fun){
-		 invokeApi("•mtop.sns.pubAccount.timeLine", param, fun);
+		 invokeApi("mtop.sns.pubAccount.getTimeLine", param, fun);
 	}
 })
 ;
