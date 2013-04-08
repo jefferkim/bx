@@ -301,22 +301,6 @@
         <% _.each(list, function(item) { %>
         <li feedId="<%=item.id%>">
             <div class="title"><%=item.title%></div>
-            <% if(item.coverTile){ %>
-            <% if(item.coverTile.path){%>
-            <div class="media">
-                <div class="item <% if(item.coverTile.item){ %>
-                                    <% if(item.coverTile.item){ %>
-                                        it<%=item.coverTile.item.id%>
-                                    <% } %>
-                                 <% } %>" >
-                    <img style="<%=feedImageSizeStyle(parseInt(item.coverTile.picWidth), parseInt(item.coverTile.picHeight)) %>" picWidth="<%=parseInt(item.coverTile.picWidth)%>" picHeight="<%=parseInt(item.coverTile.picHeight)%>" src1="<%=resizeImg({'url':item.coverTile.path,'expWidth':window.innerWidth,'rWidth':parseInt(item.coverTile.picWidth),'rHeight':parseInt(item.coverTile.picHeight),'isXz':true}).url%>"/>
-                </div>
-            </div>
-            <% } %>
-            <% } %>
-            <div class="text">
-                <%=item.summary%>
-            </div>
             <div class="fns">
                 <div class="time"><%=timestamps(item.time)%></div>
                 <% if(item.commentCount!=0) {%>
@@ -325,6 +309,23 @@
                 </div>
                 <% }%>
             </div>
+            <% if(item.coverTile){ %>
+            <% if(item.coverTile.path){%>
+            <div class="media">
+                <div class="item <% if(item.coverTile.item){ %>
+                                    <% if(item.coverTile.item){ %>
+                                        it<%=item.coverTile.item.id%>
+                                    <% } %>
+                                 <% } %>" >
+                    <img style="<%=feedImageSizeStyle(parseInt(item.coverTile.picWidth), parseInt(item.coverTile.picHeight)) %>" picWidth="<%=parseInt(item.coverTile.picWidth)%>" picHeight="<%=parseInt(item.coverTile.picHeight)%>" src="<%=resizeImg({'url':item.coverTile.path,'expWidth':window.innerWidth,'rWidth':parseInt(item.coverTile.picWidth),'rHeight':parseInt(item.coverTile.picHeight),'isXz':true}).url%>"/>
+                </div>
+            </div>
+            <% } %>
+            <% } %>
+            <div class="text">
+                <%=item.summary%>
+            </div>
+
         </li>
         <% }); %>
         </ul>
