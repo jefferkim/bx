@@ -10,7 +10,7 @@
         <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
         <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" />
         <link href="http://a.tbcdn.cn/mw/webapp/allspark/wetaoIcon.png" rel="apple-touch-icon-precomposed" />
-        <link rel="stylesheet" type="text/css" href="http://a.tbcdn.cn/mw/webapp/allspark/css/allspark.css">
+        <link rel="stylesheet" type="text/css" href="css/allspark.css">
     </head>
 
     <body style="background: #f8f8f8">
@@ -301,14 +301,6 @@
         <% _.each(list, function(item) { %>
         <li feedId="<%=item.id%>">
             <div class="title"><%=item.title%></div>
-            <div class="fns">
-                <div class="time"><%=timestamps(item.time)%></div>
-                <% if(item.commentCount!=0) {%>
-                <div class="comment commentIco">
-                    <%=item.commentCount%>
-                </div>
-                <% }%>
-            </div>
             <% if(item.coverTile){ %>
             <% if(item.coverTile.path){%>
             <div class="media">
@@ -317,7 +309,7 @@
                                         it<%=item.coverTile.item.id%>
                                     <% } %>
                                  <% } %>" >
-                    <img style="<%=feedImageSizeStyle(parseInt(item.coverTile.picWidth), parseInt(item.coverTile.picHeight)) %>" picWidth="<%=parseInt(item.coverTile.picWidth)%>" picHeight="<%=parseInt(item.coverTile.picHeight)%>" src="<%=resizeImg({'url':item.coverTile.path,'expWidth':window.innerWidth,'rWidth':parseInt(item.coverTile.picWidth),'rHeight':parseInt(item.coverTile.picHeight),'isXz':true}).url%>"/>
+                    <img style="<%=feedImageSizeStyle(parseInt(item.coverTile.picWidth), parseInt(item.coverTile.picHeight)) %>" picWidth="<%=parseInt(item.coverTile.picWidth)%>" picHeight="<%=parseInt(item.coverTile.picHeight)%>" src1="<%=resizeImg({'url':item.coverTile.path,'expWidth':window.innerWidth,'rWidth':parseInt(item.coverTile.picWidth),'rHeight':parseInt(item.coverTile.picHeight),'isXz':true}).url%>"/>
                 </div>
             </div>
             <% } %>
@@ -325,7 +317,14 @@
             <div class="text">
                 <%=item.summary%>
             </div>
-
+            <div class="fns">
+                <div class="time"><%=timestamps(item.time)%></div>
+                <% if(item.commentCount!=0) {%>
+                <div class="comment commentIco">
+                    <%=item.commentCount%>
+                </div>
+                <% }%>
+            </div>
         </li>
         <% }); %>
         </ul>
@@ -429,8 +428,7 @@
 
     <!-- Templates -->
 
-        <input type="hidden" id="J_dapp_key" value="12574478">
-		 <input type="hidden" id="J_app_key" value="4272">
+        <input type="hidden" id="J_app_key" value="12574478">
         <script src="http://a.tbcdn.cn/mw/base/libs/seajs/1.2.0/sea.js"></script>
         <script>
             seajs.use('./src/app/allspark.js', function(app){
