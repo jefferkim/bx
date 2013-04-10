@@ -5,7 +5,7 @@ define(function(require, exports, module) {
       tbh5 = require('h5_base'),
       Backbone = require('backbone'),
       //view class import
-      indexView =  require('../dynIndex/dynIndexView'),
+      indexView =  require('../index/indexView'),
       accountView = require('../account/accountView'),
       detailView = require('../detail/detailView'),
       accountListView = require('../accountList/accountListView'),
