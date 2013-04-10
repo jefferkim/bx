@@ -209,7 +209,7 @@
             <% } %>
             </div>
             <% if (isSquareImg(list[i].firstFeed.coverTile)) { %>
-              <img src="<%= list[i].firstFeed.coverTile.path %>">
+          <img src="<%= getBetterImg(list[i].firstFeed.coverTile.path, 120, list[i].firstFeed.coverTile.picWidth) %>">
             <% } %>
             </div>
             <a href="#account/<%= list[i].account.id %>" class="account">
