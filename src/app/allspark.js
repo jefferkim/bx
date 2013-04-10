@@ -100,6 +100,14 @@ function noHelper(type){
     return v.substring(v.length-4,v.length-3)!='1';
 }
 
+function isLongImg(data) {
+    return data && (parseFloat(data.picWidth) / parseFloat(data.picHeight) > 1.45)
+}
+
+function isSquareImg(data) {
+    return data && (parseFloat(data.picWidth) / parseFloat(data.picHeight) <= 1.45)
+}
+
 function feedImageSizeStyle(actualWidth, actualHeight){
     var width = parseInt(actualWidth);
     var height = parseInt(actualHeight);

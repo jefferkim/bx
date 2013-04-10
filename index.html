@@ -28,7 +28,7 @@
                 </div> -->
 
                 <ul class="feed-list">
-                    <li>
+<!--                     <li>
                       <div class="feed-item">
                       <p class="title">冬日，也可以如此清凉美丽</p>
                       <p class="feed-info">
@@ -85,6 +85,7 @@
                       </a>
                       </div>
                     </li>
+ -->
                 </ul>
 
 
@@ -185,6 +186,41 @@
                 <div class="btn"><div class=""></div></div>
             </li>
         </ul>
+    </script>
+
+    <script id="index_feed_tpl" type="text/template">
+      <% for (var i = 0; i < list.length; i++) { %>
+        <li><div class="feed-item">
+            <div class="<%= isSquareImg(list[i].firstFeed.coverTile) ? 'feed-box' : '' %>">
+            <div class="<%= isSquareImg(list[i].firstFeed.coverTile) ? 'feed-text' : '' %>">
+            <p class="title"><%= list[i].firstFeed.title %></p>
+            <p class="feed-info">
+              <span class="icon-clock pub-time"><%= timestamps(list[i].firstFeed.time) %></span>
+              <span class="icon-comment cmt-count"><%= list[i].firstFeed.commentCount %></span>
+            </p>
+            <% if (isLongImg(list[i].firstFeed.coverTile)) { %>
+              <img style="width: 100%" src="<%= getBetterImg(list[i].firstFeed.coverTile.path, window.innerWidth-30, list[i].firstFeed.coverTile.picWidth) %>">
+            <% } %>
+
+            <% if (isLongImg(list[i].firstFeed.coverTile)) { %>
+              <p class="summary"><%= list[i].firstFeed.summary %></p>
+            <% } else { %>
+              <p class="text"><%= list[i].firstFeed.summary %></p>
+            <% } %>
+            </div>
+            <% if (isSquareImg(list[i].firstFeed.coverTile)) { %>
+              <img src="<%= list[i].firstFeed.coverTile.path %>">
+            <% } %>
+            </div>
+            <a href="#account/<%= list[i].account.id %>" class="account">
+              <div class="default">
+                <img class="avatar" src="<%= getImgUrl(list[i].account.logoUrl, 100, 60) %>">
+              </div>
+              <p class="name"><%= list[i].account.nick %></p>
+            </a>
+        <div class="separator">
+        </div></li>
+      <% } %>
     </script>
 
     <script id="detail_header_tpl" type="text/template">
