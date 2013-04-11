@@ -62,11 +62,20 @@ define(function (require, exports, module) {
     },
 
 	render:function(page){
+
+        $('.navbar').html(header);
+        
+        this.params.curPage = page;
+
         //判断是否显示footer
         if(h5_comm.isLogin()){
             $('footer .nick').html(mtop.userNick);
             $('footer').css('display','block');
+            this.model.getTimeLine(this.params);
+        }else{
+            this.model.hotFeeds(this.params);
         }
+
         if($('#indexPage').hasClass('show')){
             //判断是否分页
         }else{
@@ -90,10 +99,7 @@ define(function (require, exports, module) {
             }
         }
 
-        this.params.curPage = page
-	    this.model.getPageData(this.params)
 
-        $('.navbar').html(header)
 
     },
     goTop:function(){
