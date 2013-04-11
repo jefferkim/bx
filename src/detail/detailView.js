@@ -103,23 +103,11 @@ define(function (require, exports, module) {
 
        },
         renderAccInfo: function() {
-            var infodata=$.extend(this.model.get('accInfo'),{ snsId: this.snsId });
-            var accInfo = accinfoTemplate(infodata);
             var _follow=this.$container.find('.account .follow');
-            if(_follow.length>0){
-                if(_follow.attr('snsid')==this.snsId ){
-                    if(parseInt(infodata.fansCount)==0){
-                        _follow.html('还没有人关注');
-                    }else{
-                        var _nfollow='<span class="count">'+infodata.fansCount+'</span> 关注者';
-                        if($.trim(_follow.html())!=_nfollow){
-                            _follow.html(_nfollow);
-                        }
-                    }
-                }else{
-                    this.$container.find('.account').html(accInfo);
-                }
-            }else{
+            //账号信息没渲染,或不是自己，则重新渲染
+            if(_follow.length < 1 || _follow.attr('snsid') !=this.snsId ){
+                var infodata=$.extend(this.model.get('accInfo'),{ snsId: this.snsId });
+                var accInfo = accinfoTemplate(infodata);
                 this.$container.find('.account').html(accInfo);
             }
 
