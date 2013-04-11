@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .nav{min-height: 44px;
+            position: relative;
+            z-index: 10;
+        }
+        .navItems{
+            position: absolute;
+            width: 100%;
+        }
+        .navItems-box{
+            height: 44px;
+            padding: 0 3px;
+            position: relative;
+            text-align: center;
+            width: 100%;
+            -webkit-box-sizing: border-box;
+            -webkit-user-select: none;
+        }
+        .navItems-box-left,.navItems-box-center,.navItems-box-right{
+            bottom: 0;
+            position: absolute;
+            top: 0;
+        }
+        .navItems-box-left{
+            left: 3px;
+        }
+        .navItems-box-right{
+            right: 3px;
+        }
+        .out{
+            -webkit-transform: translate3d(-5000px,0,0)!important;
+            position: absolute!important;
+            width: 100%;
+        }
+        /* views */
+        .views{
+            top: 44px;
+            bottom: 0;
+            position: absolute;
+            width: 100%;
+
+        }
+        .view{
+            position: absolute;
+            bottom: 0;
+            top:0;
+            width: 100%;
+            height: 100%;
+        }
+        .scroller{
+            top: 0;
+            bottom: 0;
+            position: absolute;
+            width: 100%;
+        }
+        .scroller-list{
+            position: relative;
+            z-index: 0;
+        }
+        /* navbg */
+        .navbg{
+            background-image: -webkit-linear-gradient(-90deg,#f9f9f9 0,#eee 100%);
+            background-image: linear-gradient(-90deg,#f9f9f9 0,#eee 100%);
+            background-image: -ms-linear-gradient(-90deg,#f9f9f9 0,#eee 100%);
+            -webkit-box-shadow: 0 -1px 6px 0 rgba(0,0,0,0.6);
+            box-shadow: 0 -1px 6px 0 rgba(0,0,0,0.6);
+            border-bottom: 1px solid rgba(256,256,256,0.6);
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <div class="nav">
+            <div class="navItems navbg">
+                <div class="navItems-box">
+                    <div class="navItems-box-left">
+                        left
+                    </div>
+                    <div class="navItems-box-center" style="left: 54px; right: 54px;">
+                        微淘
+                    </div>
+                    <div class="navItems-box-right">
+                        right
+                    </div>
+                </div>
+            </div>
+            <div class="navItems navbg">
+                <div class="navItems-box">
+                    <div class="navItems-box-left">
+                        left
+                    </div>
+                    <div class="navItems-box-center" style="left: 54px; right: 54px;">
+                        微淘
+                    </div>
+                    <div class="navItems-box-right">
+                        right
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="views">
+            <div class="view">
+                <div class="scroller">
+                    <div class="scroller-list" style="-webkit-transform: translate3d(0px, -50px, 0px); left: 0px; top: 0px; -webkit-transition: -webkit-transform 0ms ease-in-out; transition: -webkit-transform 0ms ease-in-out;">
+                        <ul>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+
+
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>1111</li>
+                            <li>1111</li>
+                            <li>1111</li>
+                            <li>1111</li>
+                            <li>1111</li>
+                            <li>1111</li>
+                            <li>1111</li>
+                            <li>1111</li>
+                            <li>1111</li>
+                            <li>1111</li>
+                            <li>2222</li>
+                            <li>2222</li>
+                            <li>2222</li>
+                            <li>2222</li><li>2222</li>
+                            <li>2222</li><li>2222</li>
+                            <li>2222</li><li>2222</li>
+                            <li>2222</li><li>2222</li>
+                            <li>2222</li><li>2222</li>
+                            <li>2222</li><li>2222</li>
+                            <li>2222</li><li>2222</li>
+                            <li>2222</li><li>2222</li>
+                            <li>2222</li><li>2222</li>
+                            <li>2222</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="http://a.tbcdn.cn/mw/base/libs/seajs/1.2.0/sea.js"></script>
+    <script>
+
+    </script>
+</body>
+</html>

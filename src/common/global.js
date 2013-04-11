@@ -17,11 +17,11 @@ define(function(require){
                 $('body').removeClass('webview');
             }
 		    //判断是否支持cookie
-		   // if(!cookie.isCookieEnable())
-		   // {
-		   //  alert('您的浏览器不支持cookie，请开启cookie!');
-		   //  return ;
-		   //  }
+		   if(!cookie.isCookieEnable())
+		   {
+		    alert('您的浏览器不支持cookie，请开启cookie!');
+		    return ;
+		    }
            //hash check
 			this.hashCheck();
             //set dif time
