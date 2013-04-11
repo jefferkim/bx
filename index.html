@@ -481,7 +481,10 @@
     <script id="detail_content_tpl" type="text/template">
         <h1><%= title %></h1>
         <% if (time) { %>
-        <p class="pub-time"><%= timestamps(time) %></p>
+        <p class="detail-info">
+            <span class="icon-clock pub-time"><%= timestamps(time) %></span>
+            <span class="icon-comment cmt-count"><%= commentCount %></span>
+        </p>
         <% } %>
         <% for (var i = 0; i < tiles.length; i++) { %>
         <% if (tiles[i].type == "pic") { %>
