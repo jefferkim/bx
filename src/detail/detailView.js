@@ -136,6 +136,7 @@ define(function (require, exports, module) {
 
           // this is for Android
           $('#content')[0].style.minHeight = '360px'
+          $('#detailPage')[0].style.minHeight = '500px'
 
         },
 
