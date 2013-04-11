@@ -200,7 +200,7 @@
               <span class="icon-comment cmt-count"><%= list[i].firstFeed.commentCount %></span>
             </p>
             <% if (isLongImg(list[i].firstFeed.coverTile)) { %>
-              <img style="<%= detailImageSizeStyle(list[i].firstFeed.coverTile.picWidth, firstFeed.coverTile.picHeight) %>" src="<%= getBetterImg(list[i].firstFeed.coverTile.path, window.innerWidth-30, list[i].firstFeed.coverTile.picWidth) %>">
+              <img style="<%= detailImageSizeStyle(list[i].firstFeed.coverTile.picWidth, list[i].firstFeed.coverTile.picHeight) %>" src="<%= getBetterImg(list[i].firstFeed.coverTile.path, window.innerWidth-30, list[i].firstFeed.coverTile.picWidth) %>">
             <% } %>
 
             <% if (isLongImg(list[i].firstFeed.coverTile)) { %>
