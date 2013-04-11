@@ -83,12 +83,12 @@ define(function (require, exports, module) {
      * @param data
      * @returns {*}
      */
-    exports.saveMemData = function (_key, id, data) {
+    exports.saveMemData = function (_key, id, data,max) {
         var key = keys[_key];
         if(!key){return null};
            return h5_base.isClient() ?
-            local_cache.pushValue(key, id, data, maxCount)
-            : mem_cache.pushValue(key, id, data, maxCount);
+            local_cache.pushValue(key, id, data, max ||maxCount)
+            : mem_cache.pushValue(key, id, data, max ||maxCount);
     }
     exports.getMemData = function(_key,id){
         var key = keys[_key];
@@ -98,23 +98,6 @@ define(function (require, exports, module) {
             : mem_cache.popValue(key, id);
     }
 
-    /**
-     * 比较通用的get 和 set方法--有效期cache
-     * @param key
-     * @param id
-     * @param data
-     * @returns {*}
-     */
-    exports.saveExpireMemData = function (key,value,expireTime) {
-        return h5_base.isClient() ?
-            local_cache.putExpireValue(key,value,expireTime)
-            : mem_cache.putExpireValue(key,value,expireTime);
-    }
-    exports.getExpireMemData = function(key){
-       return h5_base.isClient()?
-            local_cache.getExpireValue(key)
-            : mem_cache.getExpireValue(key);
-    }
 
     /**
      *从缓存中获取账号信息
@@ -122,7 +105,7 @@ define(function (require, exports, module) {
      * @return {*}
      */
     exports.getAccountById = function (id) {
-        return h5_base.isClient() ? exports.getExpireMemData('accCaKey_'+id) : exports.getMemData('accountCacheKey',id);
+        return exports.getMemData('accountCacheKey',id);
     }
 
 
@@ -135,7 +118,7 @@ define(function (require, exports, module) {
     exports.saveAccount = function (id, jsonData) {
         //Slimming info ,reduce cache size
         jsonData = _.pick(jsonData,'id','nick','logoUrl','fansCount','accountType');
-        return h5_base.isClient() ? exports.saveExpireMemData('accCaKey_'+id,jsonData,900000) : exports.saveMemData('accountCacheKey',id,jsonData);
+        return h5_base.isClient() ? exports.saveMemData('accountCacheKey',id,jsonData,5): exports.saveMemData('accountCacheKey',id,jsonData);
     }
 
     /***
