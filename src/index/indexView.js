@@ -42,7 +42,7 @@ define(function (require, exports, module) {
 //        'click #J_login_btn' : 'goLogin',
         'click .navbar .add':'add',
         'click .navbar .refresh.index':'refresh',
-//        'click #indexPage .myfeed li':'goToAccount',
+        'click #indexPage .js_feed':'goToDetail',
 //        'click #indexPage .person-list li .content':'goToAccount',
 //        'click #indexPage .person-list .followbtn':'follow',
         'click .gotop':'goTop'
@@ -67,14 +67,43 @@ define(function (require, exports, module) {
             $('footer .nick').html(mtop.userNick);
             $('footer').css('display','block');
         }
-      this.params.curPage = page
-			this.model.getPageData(this.params)
+        if($('#indexPage').hasClass('show')){
+            //判断是否分页
+        }else{
+            var _show=$('.view-page.show');
+            var _index=$('#indexPage');
+            if(_show.length>0){
+                if(_index.hasClass('iB')){
+                    _index.removeClass('iB').addClass('iL');
+                }
+                _show.removeClass('show iC').addClass('iR').wAE(function(){
+                    _show.addClass('hide');
+                });
+                _index.removeClass('hide iL').addClass('show iC');
+            }else{
+                //页面第一次加载的时候动画
+                _index.removeClass('hide');
+                setTimeout(function(){
+                    _index.removeClass('iB').addClass('show iC');
+                },0);
+                //当不是从首页进入,返回首页
+            }
+        }
 
-      $('.navbar').html(header)
+        this.params.curPage = page
+	    this.model.getPageData(this.params)
+
+        $('.navbar').html(header)
 
     },
     goTop:function(){
         window.scrollTo(0,1);
+    },
+    goToDetail:function(e){
+        var cur=$(e.currentTarget);
+        var that=this;
+        //window.location.hash='#detail/'+$('.tb-profile').attr('snsid')+'/'+cur.attr('feedid')+'/'+that.curPage;
+        changeHash('#detail/'+cur.attr('snsid')+'/'+cur.attr('feedid')+'/'+that.params.curPage,'detail');
     },
     add:function(){
        var that=this;

@@ -161,6 +161,8 @@ function detailImageSizeStyle(actualWidth, actualHeight) {
     else return "width: " + expectWidth + 'px; ' + 'height: ' + expectHeight + 'px;'
 }
 
+
+
 define(function(require, exports){
     require('./router').start();
 

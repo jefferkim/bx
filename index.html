@@ -190,8 +190,9 @@
 
     <script id="index_feed_tpl" type="text/template">
       <% for (var i = 0; i < list.length; i++) { %>
-        <li><div class="feed-item">
-            <div class="<%= isSquareImg(list[i].firstFeed.coverTile) ? 'feed-box' : '' %>">
+        <li >
+            <div class="feed-item">
+            <div snsid="<%=list[i].account.id%>" feedid="<%=list[i].firstFeed.id%>" class="js_feed <%= isSquareImg(list[i].firstFeed.coverTile) ? 'feed-box' : '' %>">
             <div class="<%= isSquareImg(list[i].firstFeed.coverTile) ? 'feed-text' : '' %>">
             <p class="title"><%= list[i].firstFeed.title %></p>
             <p class="feed-info">
@@ -212,7 +213,7 @@
           <img src="<%= getBetterImg(list[i].firstFeed.coverTile.path, 120, list[i].firstFeed.coverTile.picWidth) %>">
             <% } %>
             </div>
-            <a href="#account/<%= list[i].account.id %>" class="account">
+            <a onclick="changeHash('#account/<%= list[i].account.id %>','index')" class="account">
               <div class="default">
                 <img class="avatar" src="<%= getImgUrl(list[i].account.logoUrl, 100, 60) %>">
               </div>
