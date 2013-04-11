@@ -68,7 +68,7 @@ define(function (require, exports, module) {
             $('footer').css('display','block');
         }
       this.params.curPage = page
-			this.model.getPageData(this.params)
+			this.model.hotFeeds(this.params)
 
       $('.navbar').html(header)
 
