@@ -13,6 +13,7 @@ define(function(require, exports, module) {
       newCommentView = require('../comment/newCommentView'),
       background = require('./../common/background.js'),
       cdn = require('cdn'),
+      log = require("./../common/log.js"),
       mtop = require('../common/mtopForAllspark.js'),
       //缓存实例变量view
       _indexView,_accountView,_detailView,_accountListView,_commentView,_newCommentView ;
@@ -27,6 +28,12 @@ define(function(require, exports, module) {
           //cdn 获取最佳图片尺寸
           getBetterImg = cdn.getBetterImg; // make it global for convenience use in templates
           resizeImg=cdn.resizeImg;
+
+          changeHash=function(hash,refer){
+              log&&log.logEnter(refer);
+              console.log('sdfsdfsdf');
+              window.location.hash=hash;
+          }
 
           //去首次加载动画
           window.MH5slogan && window.MH5slogan.hideFunc && window.MH5slogan.hideFunc();

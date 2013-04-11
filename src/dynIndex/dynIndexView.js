@@ -377,7 +377,8 @@ define(function (require, exports, module) {
         goToAccount:function(e){
             e.stopPropagation();
             var cur=$(e.currentTarget);
-            window.location.hash='#account/'+cur.attr('snsid')+'/1';
+            changeHash('#account/'+cur.attr('snsid')+'/1');
+
 
         }
     });

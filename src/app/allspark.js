@@ -189,6 +189,7 @@ function formatFans(fansCount)
     return fansCount.toString();
 }
 
+
 define(function(require, exports){
     require('./router').start();
 

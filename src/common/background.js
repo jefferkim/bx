@@ -32,7 +32,7 @@ define(function (require, exports, module) {
         addHash(hash);
 
         //记录进入日志
-        logEnter && logEnter(hash);
+        //logEnter && logEnter(hash);
     }
 
     function logEnter(hash){
