@@ -161,6 +161,34 @@ function detailImageSizeStyle(actualWidth, actualHeight) {
     else return "width: " + expectWidth + 'px; ' + 'height: ' + expectHeight + 'px;'
 }
 
+/**
+ * 格式化关注数
+ * @param fansCount
+ */
+function formatFans(fansCount)
+{
+    if(typeof fansCount == 'string')
+    {
+        fansCount = parseInt(fansCount);
+    }
+    if(fansCount > 99999999)
+    {
+        fansCount = fansCount.toString();
+        return fansCount.substr(0,fansCount.length-8)+'亿';
+    }
+   else if(fansCount > 999999)
+    {
+        fansCount = fansCount.toString();
+        return fansCount.substr(0,fansCount.length-4)+'万';
+    }
+    else if(fansCount  > 9999)
+    {
+        fansCount = fansCount.toString();
+        return fansCount.substr(0,fansCount.length-4)+'.'+fansCount.charAt(fansCount.length-4)+'万';
+    }
+    return fansCount.toString();
+}
+
 define(function(require, exports){
     require('./router').start();
 

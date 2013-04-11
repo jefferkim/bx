@@ -57,7 +57,6 @@ define(function (require, exports, module) {
                 if(accountInfo)
                 {
                  self.set("accInfo",accountInfo);
-                 self.trigger('change:accInfo');
                 }
                 else
                 {                                
@@ -85,7 +84,7 @@ define(function (require, exports, module) {
                     mtop.detail(param || {},function(result){
                          if(_.isEmpty(result) )
                          {
-                         self.set("feed",{fail:'null',errMsg:'抱歉,该广播已经被删除！'});
+                         self.set("feed",{fail:'null',errMsg:'抱歉,该广播已删除或不存在！'});
                          }
                          else
                          {

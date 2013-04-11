@@ -283,7 +283,7 @@
                 <div snsid="<%=item.id%>" class="content">
                     <div class="title"><%=item.nick%></div>
                     <div class="info"><%=item.description%></div>
-                    <div class="follows"><span><%=item.fansCount%></span>关注者</div>
+                    <div class="follows"><span><%=formatFans(item.fansCount)%></span>关注者</div>
                     <div class="default">
                         <% if(item.logoUrl){ %>
                         <img src="<%=getImgUrl(item.logoUrl,100,60)%>">
@@ -301,7 +301,7 @@
                 <div snsid="<%=item.id%>" class="content log" data-log="account">
                     <div class="title"><%=item.nick%></div>
                     <div class="info"><%=item.description%></div>
-                    <div class="follows"><span><%=item.fansCount%></span>关注者</div>
+                    <div class="follows"><span><%=formatFans(item.fansCount)%></span>关注者</div>
                     <div class="default">
                         <% if(item.logoUrl){ %>
                         <img src="<%=getImgUrl(item.logoUrl,100,60)%>">
@@ -387,7 +387,7 @@
         <div class="tb-counts">
             <div class="profile-overview">
                 <div class="stats-count">
-                    <%=fansCount%>
+                    <%=formatFans(fansCount)%>
                 </div>
                 <div class="stats-name">
                     关注者
@@ -470,7 +470,7 @@
                     <% if (fansCount == 0) { %>
                     还没有人关注
                     <% } else { %>
-                    <span class="count"><%= fansCount %></span> 关注者
+                    <span class="count"><%= formatFans(fansCount) %></span> 关注者
                     <% } %>
                 </p>
                 <% } %>
@@ -490,10 +490,14 @@
         </div>
         <% } else if (tiles[i].type == "text") { %>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <p class="text"><%= tiles[i].text.replace(/(\n)+/g, '<span style="height:5px;display:block"></span>') %></p>
 =======
         <p class="text"><%= tiles[i].text.replace(/(\n)+/g, '<br />') %></p>
 >>>>>>> a73302ef982323b6f59bb45f33e7beb8023fe1d2
+=======
+        <p class="text"><%= tiles[i].text.replace(/(\n)+/g, '<span style="height:5px;display:block"></span>') %></p>
+>>>>>>> master
         <% } else if (tiles[i].type == "picItem") { %>
         <div class="media">
             <a style="display: block" href="<%= getItemDetailUrl('a', { itemId: tiles[i].item.id }) %>" class="item" data-id="<%= tiles[i].item.id %>">

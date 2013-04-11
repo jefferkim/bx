@@ -103,23 +103,11 @@ define(function (require, exports, module) {
 
        },
         renderAccInfo: function() {
-            var infodata=$.extend(this.model.get('accInfo'),{ snsId: this.snsId });
-            var accInfo = accinfoTemplate(infodata);
             var _follow=this.$container.find('.account .follow');
-            if(_follow.length>0){
-                if(_follow.attr('snsid')==this.snsId ){
-                    if(parseInt(infodata.fansCount)==0){
-                        _follow.html('还没有人关注');
-                    }else{
-                        var _nfollow='<span class="count">'+infodata.fansCount+'</span> 关注者';
-                        if($.trim(_follow.html())!=_nfollow){
-                            _follow.html(_nfollow);
-                        }
-                    }
-                }else{
-                    this.$container.find('.account').html(accInfo);
-                }
-            }else{
+            //账号信息没渲染,或不是自己，则重新渲染
+            if(_follow.length < 1 || _follow.attr('snsid') !=this.snsId ){
+                var infodata=$.extend(this.model.get('accInfo'),{ snsId: this.snsId });
+                var accInfo = accinfoTemplate(infodata);
                 this.$container.find('.account').html(accInfo);
             }
 
@@ -137,17 +125,18 @@ define(function (require, exports, module) {
           if (feed&&feed.fail) {
             this.model.set('feed', {}, { silent: true })
             var errMsg = feed.errMsg || '加载失败，稍后重试！'  ;
-            notification.message(errMsg);
+           // notification.message(errMsg);
             this.$container.find('.main').html('<br /><center>'+errMsg+'</center>');
             return
           }
 
-          // this is for Android
-          $('#content')[0].style.minHeight = '360px'
 
           var content = contentTemplate(feed);
           this.$container.find('.main').html(content);
 
+          // this is for Android
+          $('#content')[0].style.minHeight = '360px'
+          $('#detailPage')[0].style.minHeight = '500px'
 
         },
 
