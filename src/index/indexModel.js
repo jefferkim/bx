@@ -11,9 +11,8 @@ define(function (require, exports, module) {
      * 动态首页
      */
     var IndexModel = Backbone.Model.extend({
-		  getPageData: function(param){
-		  	 var self = this;
-			  function getTimeLine(param) {
+		  getTimeLine:function (param) {
+		  	var self=this;
                 mtop.timeLine(param, function (recResult) {
                   console.log(recResult);
                     if(recResult.fail){
@@ -22,12 +21,21 @@ define(function (require, exports, module) {
                     }
                     recResult.t=new Date().getTime();
                     self.set("timeLine", recResult);
-
+                    //self.set("loaded","1");
+                })
+            },
+			hotFeeds:function (param) {
+				var self=this;
+                mtop.hotFeeds(param, function (recResult) {                
+                    if(recResult.fail){
+                        self.set("hotFeeds",recResult);
+                        return;
+                    }
+                    recResult.t=new Date().getTime();
+                    self.set("hotFeeds", recResult);
                     //self.set("loaded","1");
                 })
             }
-			getTimeLine(param);
-		  },
 		
     });
 
