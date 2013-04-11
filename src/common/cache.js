@@ -137,7 +137,7 @@ define(function (require, exports, module) {
      **/
     exports.saveItem = function (id, jsonData) {
         //Slimming info ,reduce cache size
-        jsonData = _.pick(jsonData,'id','title','tiles','linkUrlIsExt','time','linkUrl');
+       // jsonData = _.pick(jsonData,'id','title','tiles','linkUrlIsExt','time','linkUrl');
         return exports.saveMemData('itemCacheKey',id,jsonData);
     }
 
