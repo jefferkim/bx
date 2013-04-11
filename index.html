@@ -20,8 +20,11 @@
         </header>
         <div class="tb-h5">
             <div id="indexPage" class="view-page">
-                <!--<div class="J_slider"></div>
-                <div class="J_status"></div>
+                <div class="login-bar">一起玩转微淘？<button class="followbtn log" data-log="attention">登录</button></div>
+                <div class="J_slider"></div>
+                <div class="hotfeedhd"><hr/>    <span>热门广播</span></div>
+
+                <!--<div class="J_status"></div>
                 <div class="J_list">
                     <div class="person-list"></div>
                     <div id="personListPageNav" class="pagenav c-pnav-con"></div>
@@ -187,8 +190,11 @@
             </li>
         </ul>
     </script>
-
+    <script id="hot_feedhd_tpl" type="text/template">
+        <div class="hotfeedhd"><hr/>    热门广播</div>
+    </script>
     <script id="index_feed_tpl" type="text/template">
+
       <% for (var i = 0; i < list.length; i++) { %>
         <li >
             <div class="feed-item">
@@ -261,19 +267,20 @@
     <script id="slider_tpl" type="text/template">
         <div class="in-slider ishide">
             <div class="in-slider-cont" style="-webkit-transform: translate3d(0px, 0px, 0px);">
-
                 <ul id="inslist" style="-webkit-transform: translate3d(0px, 0px, 0px); -webkit-backface-visibility: hidden; width: <%=width %>px; -webkit-transition: 0ms;">
                     <% _.each(list, function(item) { %>
                     <li style="-webkit-transform: translate3d(0px, 0px, 0px);">
-                        <a href="<%=item.url %>">
-                            <img class="lazyimg" height="150" width="320" dataimg="<%=item.picture %>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
+                        <a <% if(item.url){ %>
+                            href="<%=item.url %>"
+                        <% } %>
+                        >
+                            <img class="lazyimg" height="156" width="100%" dataimg="<%=item.picture %>"  src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
                         </a>
                     </li>
                     <% }); %>
                 </ul>
             </div>
             <div class="in-slider-status">
-
             </div>
         </div>
     </script>

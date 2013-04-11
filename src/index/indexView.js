@@ -13,6 +13,7 @@ define(function (require, exports, module) {
       h5_comm = require('h5_comm'),
       h5_base = require('h5_base'),
       uriBroker = require('uriBroker'),
+      slider= require('../../../../base/styles/component/slider/js/slider.js'),
       mtop = require('../common/mtopForAllspark.js'),
       loading = require('../ui/loading');
 
@@ -74,6 +75,7 @@ define(function (require, exports, module) {
             $('footer').css('display','block');
             this.model.getTimeLine(this.params);
         }else{
+            this.showBanner();
             this.model.hotFeeds(this.params);
         }
 
@@ -140,8 +142,26 @@ define(function (require, exports, module) {
            window.location.hash='#index/1';
        }
     },
+    showBanner:function(){
+        var d={'list':[{'url':'','picture':'http://a.tbcdn.cn/mw/webapp/allspark/01.jpg'},{'url':'','picture':'http://a.tbcdn.cn/mw/webapp/allspark/02.jpg'},{'url':'','picture':'http://a.tbcdn.cn/mw/webapp/allspark/03.jpg'}]};
+        d.width=d.list.length*document.getElementById('content').offsetWidth;
+        d.swidth=document.getElementById('content').offsetWidth;
+        $('#indexPage .J_slider').html(_.template($('#slider_tpl').html(),d));
+
+        new slider(".in-slider", {wrap: ".in-slider-cont",trigger: ".in-slider-status",useTransform: !0,interval: 5000,play: !0,loop: !0});
+
+
+    },
     renderFeeds: function() {
-      var content = feedTemplate(this.model.get('timeLine'))
+
+        var d;
+      if(h5_comm.isLogin()){
+          d=this.model.get('timeLine');
+      }else{
+          d=this.model.get('hotFeeds');
+      }
+
+      var content = feedTemplate(d)
       this.$feedList.html(content)
     }
 
