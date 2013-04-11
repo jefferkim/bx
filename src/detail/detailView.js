@@ -142,12 +142,12 @@ define(function (require, exports, module) {
             return
           }
 
-          // this is for Android
-          $('#content')[0].style.minHeight = '360px'
 
           var content = contentTemplate(feed);
           this.$container.find('.main').html(content);
 
+          // this is for Android
+          $('#content')[0].style.minHeight = '360px'
 
         },
 
