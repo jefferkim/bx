@@ -493,15 +493,9 @@
                                 style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>">
         </div>
         <% } else if (tiles[i].type == "text") { %>
-<<<<<<< HEAD
-<<<<<<< HEAD
+
         <p class="text"><%= tiles[i].text.replace(/(\n)+/g, '<span style="height:5px;display:block"></span>') %></p>
-=======
-        <p class="text"><%= tiles[i].text.replace(/(\n)+/g, '<br />') %></p>
->>>>>>> a73302ef982323b6f59bb45f33e7beb8023fe1d2
-=======
-        <p class="text"><%= tiles[i].text.replace(/(\n)+/g, '<span style="height:5px;display:block"></span>') %></p>
->>>>>>> master
+
         <% } else if (tiles[i].type == "picItem") { %>
         <div class="media">
             <a style="display: block" href="<%= getItemDetailUrl('a', { itemId: tiles[i].item.id }) %>" class="item" data-id="<%= tiles[i].item.id %>">
