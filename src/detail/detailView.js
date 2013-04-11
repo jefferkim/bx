@@ -126,7 +126,7 @@ define(function (require, exports, module) {
             this.model.set('feed', {}, { silent: true })
             var errMsg = feed.errMsg || '加载失败，稍后重试！'  ;
            // notification.message(errMsg);
-            this.$container.find('.main').html('<br /><center>'+errMsg+'</center>');
+            this.$container.find('.main').html('<br /><center style="color:#999">'+errMsg+'</center>');
             return
           }
 
