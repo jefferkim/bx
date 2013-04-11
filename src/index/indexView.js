@@ -56,6 +56,7 @@ define(function (require, exports, module) {
           direction:0
       }
       this.model.on('change:timeLine', this.renderFeeds, this);
+      this.model.on('change:hotFeeds', this.renderFeeds, this);
 
       this.$feedList =  $('#indexPage .feed-list')
 
@@ -64,7 +65,7 @@ define(function (require, exports, module) {
 	render:function(page){
 
         $('.navbar').html(header);
-        
+
         this.params.curPage = page;
 
         //判断是否显示footer
