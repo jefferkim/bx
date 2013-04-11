@@ -200,7 +200,7 @@
               <span class="icon-comment cmt-count"><%= list[i].firstFeed.commentCount %></span>
             </p>
             <% if (isLongImg(list[i].firstFeed.coverTile)) { %>
-              <img style="width: 100%" src="<%= getBetterImg(list[i].firstFeed.coverTile.path, window.innerWidth-30, list[i].firstFeed.coverTile.picWidth) %>">
+              <img style="<%= detailImageSizeStyle(list[i].firstFeed.coverTile.picWidth, firstFeed.coverTile.picHeight) %>" src="<%= getBetterImg(list[i].firstFeed.coverTile.path, window.innerWidth-30, list[i].firstFeed.coverTile.picWidth) %>">
             <% } %>
 
             <% if (isLongImg(list[i].firstFeed.coverTile)) { %>
@@ -210,7 +210,7 @@
             <% } %>
             </div>
             <% if (isSquareImg(list[i].firstFeed.coverTile)) { %>
-          <img src="<%= getBetterImg(list[i].firstFeed.coverTile.path, 120, list[i].firstFeed.coverTile.picWidth) %>">
+          <img width="120px" src="<%= getBetterImg(list[i].firstFeed.coverTile.path, 120, list[i].firstFeed.coverTile.picWidth) %>">
             <% } %>
             </div>
             <a onclick="changeHash('#account/<%= list[i].account.id %>','index')" class="account">
