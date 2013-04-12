@@ -96,7 +96,7 @@ define(function (require, exports, module) {
                         //$('#accountPage .J_feed .tb-feed-items').removeClass('loading spinner');
                         $('#accountPage .J_feed .tb-feed-items').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
                         setTimeout(function(){
-                            $('#accountPage').css('height',$('#accountPage')[0].offsetHeight+'px');
+                            //$('#accountPage').css('height',$('#accountPage')[0].offsetHeight+'px');
                         },100);
 
                     }

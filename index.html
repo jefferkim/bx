@@ -30,7 +30,7 @@
                     <div class="person-list"></div>
                     <div id="personListPageNav" class="pagenav c-pnav-con"></div>
                 </div> -->
-
+                <div>
                 <ul class="feed-list">
 <!--                     <li>
                       <div class="feed-item">
@@ -91,8 +91,8 @@
                     </li>
  -->
                 </ul>
-
-
+                <div id="timeLinePageNav" class="pagenav c-pnav-con"></div>
+                </div>
 
                 <footer style="display: none">
                     <span class="nick"></span><a href="http://login.m.taobao.com/logout.htm">退出</a> <span class="gotop">Top <b></b></span>
@@ -217,7 +217,7 @@
             <% } %>
             </div>
             <% if (isSquareImg(list[i].firstFeed.coverTile)) { %>
-          <img width="120px" src="<%= getBetterImg(list[i].firstFeed.coverTile.path, 120, list[i].firstFeed.coverTile.picWidth) %>">
+            <img width="120px" height="120px" src="<%=resizeImg({'url':list[i].firstFeed.coverTile.path,'isXz':true,'expWidth':120,'expHeight':120,'rWidth':parseInt(list[i].firstFeed.coverTile.picWidth),'rHeight':parseInt(list[i].firstFeed.coverTile.picHeight)}).url %>">
             <% } %>
             </div>
             <a onclick="changeHash('#account/<%= list[i].account.id %>','index')" class="account">

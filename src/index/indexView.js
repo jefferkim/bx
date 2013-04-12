@@ -15,6 +15,8 @@ define(function (require, exports, module) {
       uriBroker = require('uriBroker'),
       slider= require('../../../../base/styles/component/slider/js/slider.js'),
       mtop = require('../common/mtopForAllspark.js'),
+      pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
+      notification = require('../ui/notification.js'),
       loading = require('../ui/loading');
 
     var header = $('#index_header_tpl').html()
@@ -68,7 +70,7 @@ define(function (require, exports, module) {
 
 
         this.params.curPage = page;
-
+        this.$feedList.html('<div class="loading"><span class="spinner"></span></div>');
         //判断是否显示footer
         if(h5_comm.isLogin()){
             $('.navbar').html(header);
@@ -108,6 +110,20 @@ define(function (require, exports, module) {
 
 
     },
+   changePage:function(page){
+       var that=this;
+       this.$feedList.html('<div class="loading"><span class="spinner"></span></div>');
+       //changeHash('#index/'+page,
+       //that.params.timestamp=new Date().getTime();
+       if(that.params.curPage>page){
+           that.params.direction=0;
+       }else{
+           that.params.direction=1;
+       }
+
+       window.location.hash='#index/'+page;
+       //that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});
+   },
     goTop:function(){
         window.scrollTo(0,1);
     },
@@ -135,13 +151,16 @@ define(function (require, exports, module) {
     },
     refresh:function(){
        var that=this;
-       that.timestamp=new Date().getTime();
+       that.allFeedCount=parseInt(this.model.get('timeLine').allFeedCount);
+//       that.params.timestamp=new Date().getTime();
+//       that.params.direction=1;
        var _spinner=$('.navbar .refresh .btn div');
        if(!_spinner.hasClass('spinner')){
            _spinner.addClass('spinner');
        }
-       if(that.curPage=='1'){
-           that.dynIndexModel.getPageData({'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':that.timestamp});
+       if(this.params.curPage=='1'){
+           this.model.getTimeLine(this.params);
+           //that.dynIndexModel.getPageData({'curPage':that.curPage,'pageSize':that._pageSize,'timestamp':that.timestamp});
        }else{
            window.location.hash='#index/1';
        }
@@ -160,17 +179,34 @@ define(function (require, exports, module) {
     renderFeeds: function() {
 
         var d;
-      if(h5_comm.isLogin()){
-          d=this.model.get('timeLine');
-      }else{
+        var that=this;
+        //取消刷新按钮动画
+        setTimeout(function(){
+            $('.navbar .refresh div').removeClass('spinner');
+        },2000);
+        if(h5_comm.isLogin()){
+            d=this.model.get('timeLine');
+            if(that.allFeedCount){
+                var newcount=parseInt(d.allFeedCount)-that.allFeedCount;
+                if(newcount>0)notification.message('更新了 '+newcount+' 条广播');
+            }
+            //页数大于1的时候显示分页组件
+            var pageCount=Math.ceil(parseInt(d.allFeedCount)/this.params.pageSize);
+            if(pageCount>1){
+                this.recommentPage=new pageNav({'id':'#timeLinePageNav','index':this.params.curPage,'pageCount':pageCount,'pageSize':this.params.pageSize,'disableHash': 'true'});
+                this.recommentPage.pContainer().on('P:switchPage', function(e,page){
+                    that.changePage(page.index);
+                });
+            }
+        }else{
           d=this.model.get('hotFeeds');
-      }
-      if(d.onlyYou=='1'){
+        }
+        if(d.onlyYou=='1'){
           var followHtml='<div class="login-bar">一步玩转微淘？<button class="goFollowbtn log" data-log="attention">去关注</button></div>'
           $('.navbar').append(followHtml);
-      }
-      var content = feedTemplate(d);
-      this.$feedList.html(content);
+        }
+        var content = feedTemplate(d);
+        this.$feedList.html(content);
     }
 
 

@@ -92,7 +92,6 @@ define(function (require, exports, module) {
                }
            }
 
-
            _detailPage.removeClass('hide');
            setTimeout(function(){
                _detailPage.removeClass(' iR iL').addClass('show iC');
