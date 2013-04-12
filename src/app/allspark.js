@@ -176,7 +176,8 @@ function formatFans(fansCount)
     else if(fansCount  > 9999)
     {
         fansCount = fansCount.toString();
-        return fansCount.substr(0,fansCount.length-4)+'.'+fansCount.charAt(fansCount.length-4)+'万';
+        var dian = fansCount.charAt(fansCount.length-4);
+         return fansCount.substr(0,fansCount.length-4)+(dian =='0' ? '':'.'+dian)+'万';
     }
     return fansCount.toString();
 }
