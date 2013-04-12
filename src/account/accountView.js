@@ -279,7 +279,7 @@ define(function (require, exports, module) {
                                     if(d.data.result[i].isSuccess=='true'){
                                         cur.html('关注');
                                         cur.removeClass('followed');
-                                        $('.stats-count').text(parseInt($('.stats-count').text())-1);
+                                        that.showFans(-1);
                                     }else{
                                         notification.message('取消关注失败！');
                                         cur.html('取消关注');
@@ -303,7 +303,7 @@ define(function (require, exports, module) {
 
                                         cur.addClass('followed');
                                         cur.html('取消关注');
-                                        $('.stats-count').text(parseInt($('.stats-count').text())+1);
+                                        that.showFans(1);
                                     }else{
                                         notification.message('关注失败！');
                                         cur.html('关注');
@@ -320,6 +320,15 @@ define(function (require, exports, module) {
                 h5_comm.goLogin('h5_allspark');
             }
         },
+
+        showFans :function(n){
+             var fans = $('.stats-count').text();
+            if(fans.indexOf('万')==-1 &&  fans.indexOf('亿') == -1 )
+            {
+             $('.stats-count').text(parseInt(fans)+n);
+            }
+         }
+        ,
         changePage:function(page){
             var that=this;
 
