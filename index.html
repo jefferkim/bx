@@ -94,9 +94,14 @@
                 <div id="timeLinePageNav" class="pagenav c-pnav-con"></div>
                 </div>
 
-                <footer style="display: none">
-                    <span class="nick"></span><a href="http://login.m.taobao.com/logout.htm">退出</a> <span class="gotop">Top <b></b></span>
+                <footer >
+                    <div class="loginStatus" style="display: none">
+                        <span class="nick"></span><a href="http://login.m.taobao.com/logout.htm">退出</a> <span class="gotop">Top <b></b></span>
+                    </div>
+                    <div class="hdButton">
+                    </div>
                 </footer>
+
 
             </div>
             <div id="accountListPage" class="view-page hide  iR">
@@ -428,11 +433,11 @@
         <li feedId="<%=item.id%>">
             <div class="title"><%=item.title%></div>
             <div class="fns">
-                <div class="time"><%=timestamps(item.time)%></div>
+                <span class="icon-clock time"><%=timestamps(item.time)%></span>
                 <% if(item.commentCount!=0) {%>
-                <div class="comment commentIco">
+                <span class="comment commentIco">
                     <%=item.commentCount%>
-                </div>
+                </span>
                 <% }%>
             </div>
             <% if(item.coverTile){ %>

@@ -48,7 +48,8 @@ define(function (require, exports, module) {
         'click #indexPage .js_feed':'goToDetail',
         'click .goFollowbtn':'add',
 //        'click #indexPage .person-list .followbtn':'follow',
-        'click .gotop':'goTop'
+        'click .gotop':'goTop',
+        'click .hdButton':'changeHD'
     },
     initialize:function () {
       this.params = {
@@ -64,24 +65,31 @@ define(function (require, exports, module) {
       this.$feedList =  $('#indexPage .feed-list')
 
     },
-
+    hotFeedFlag:false,
 	render:function(page){
         var loginHtml='<div class="login-bar">一起玩转微淘？<button class="loginbtn log" data-log="attention">登录</button></div>';
 
 
         this.params.curPage = page;
-        this.$feedList.html('<div class="loading"><span class="spinner"></span></div>');
+        if(this.$feedList.html()==''){
+            this.$feedList.html('<div class="loading"><span class="spinner"></span></div>');
+        }
         //判断是否显示footer
         if(h5_comm.isLogin()){
             $('.navbar').html(header);
             $('footer .nick').html(mtop.userNick);
-            $('footer').css('display','block');
+            $('footer .loginStatus').css('display','block');
             this.model.getTimeLine(this.params);
         }else{
             $('.navbar').html(header+loginHtml);
-            $('#indexPage .J_status').html('<div class="J_slider"></div><div class="hotfeedhd"><hr/><span>热门广播</span></div>');
-            this.showBanner();
-            this.model.hotFeeds(this.params);
+            if($('.J_slider').length==0){
+                $('#indexPage .J_status').html('<div class="J_slider"></div><div class="hotfeedhd"><hr/><span>热门广播</span></div>');
+                this.showBanner();
+            }
+            if(!this.hotFeedFlag){
+                this.model.hotFeeds(this.params);
+                this.hotFeedFlag=true;
+            }
         }
 
         if($('#indexPage').hasClass('show')){
@@ -107,9 +115,20 @@ define(function (require, exports, module) {
             }
         }
 
-
-
     },
+       changeHD:function(e){
+           var that=this,cur=$(e.currentTarget);
+           if(cur.text()=='高清模式'){
+               cur.html('<span>流畅模式</span>');
+               tbh5.set('hdButton',2);
+               globalCDN.setDefaultDpi(2);
+           }else{
+               cur.html('<span>高清模式</span>');
+               tbh5.set('hdButton',1);
+               globalCDN.setDefaultDpi(1);
+           }
+
+       },
    changePage:function(page){
        var that=this;
        this.$feedList.html('<div class="loading"><span class="spinner"></span></div>');
@@ -186,10 +205,19 @@ define(function (require, exports, module) {
         },2000);
         if(h5_comm.isLogin()){
             d=this.model.get('timeLine');
-            if(that.allFeedCount){
+            if(typeof that.allFeedCount!='undefined'){
                 var newcount=parseInt(d.allFeedCount)-that.allFeedCount;
-                if(newcount>0)notification.message('更新了 '+newcount+' 条广播');
+                if(newcount>0||this.$feedList.html()==''){
+                    notification.message('更新了 '+newcount+' 条广播');
+                    var content = feedTemplate(d);
+                    this.$feedList.html(content);
+                }
+            }else{
+                var content = feedTemplate(d);
+                this.$feedList.html(content);
             }
+            that.allFeedCount=parseInt(d.allFeedCount);
+
             //页数大于1的时候显示分页组件
             var pageCount=Math.ceil(parseInt(d.allFeedCount)/this.params.pageSize);
             if(pageCount>1){
@@ -199,14 +227,16 @@ define(function (require, exports, module) {
                 });
             }
         }else{
-          d=this.model.get('hotFeeds');
+
+            d=this.model.get('hotFeeds');
+            var content = feedTemplate(d);
+            this.$feedList.html(content);
         }
         if(d.onlyYou=='1'){
           var followHtml='<div class="login-bar">一步玩转微淘？<button class="goFollowbtn log" data-log="attention">去关注</button></div>'
           $('.navbar').append(followHtml);
         }
-        var content = feedTemplate(d);
-        this.$feedList.html(content);
+
     }
 
 

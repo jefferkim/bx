@@ -26,8 +26,26 @@ define(function(require, exports, module) {
           //test
           //   localStorage.clear();
           //cdn 获取最佳图片尺寸
-          getBetterImg = cdn.getBetterImg; // make it global for convenience use in templates
-          resizeImg=cdn.resizeImg;
+          globalCDN=cdn;
+          if(tbh5.get('hdButton')!=null){
+              globalCDN.setDefaultDpi(parseInt(tbh5.get('hdButton')));
+              if(tbh5.get('hdButton')>1){
+                  $('.hdButton').html('<span>流畅模式</span>');
+              }else{
+                  $('.hdButton').html('<span>高清模式</span>');
+              }
+          }else{
+              if(globalCDN.calDpi()==1){
+                  $('.hdButton').html('<span>流畅模式</span>');
+              }
+          }
+          //tbh5.set('hdButton',0);
+          if(globalCDN.calDpi()>1){
+              $('.hdButton').html('<span>流畅模式</span>');
+          }
+
+          getBetterImg = globalCDN.getBetterImg; // make it global for convenience use in templates
+          resizeImg=globalCDN.resizeImg;
 
           changeHash=function(hash,refer){
               log&&log.logEnter(refer);
@@ -109,6 +127,15 @@ define(function(require, exports, module) {
     index: function(page) {
         page = page || 1;
         _indexView.render(page);
+        var b = "onorientationchange" in window, c = b ? "orientationchange" : "resize";
+        $(window).bind(c, function() {
+            var _img=$('#indexPage .feed-item .js_feed img');
+            for(var i= 0,len=_img.length;i<len;i++){
+                if(!_img.eq(i).parent().hasClass('feed-box')){
+                    _img.eq(i).attr('style',feedImageSizeStyle(parseInt(_img.eq(i).attr('picWidth')), parseInt(_img.eq(i).attr('picHeight'))));
+                }
+            }
+        });
     },
     account:function(snsId,page){
         page = page || 1;
