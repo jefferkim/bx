@@ -132,6 +132,7 @@ define(function (require, exports, module) {
 
           var content = contentTemplate(feed);
           this.$container.find('.main').html(content);
+          window.lazyload.reload()
 
           // this is for Android
           $('#content')[0].style.minHeight = '360px'

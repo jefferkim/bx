@@ -497,8 +497,8 @@
         <% } %>
         <% for (var i = 0; i < tiles.length; i++) { %>
         <% if (tiles[i].type == "pic") { %>
-        <div class="media"><img src="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
-                                style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>">
+        <div class="media"><img class="lazy" dataimg="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
+                                style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
         </div>
         <% } else if (tiles[i].type == "text") { %>
 
@@ -507,8 +507,8 @@
         <% } else if (tiles[i].type == "picItem") { %>
         <div class="media">
             <a style="display: block" href="<%= getItemDetailUrl('a', { itemId: tiles[i].item.id }) %>" class="item" data-id="<%= tiles[i].item.id %>">
-                <img src="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
-                     style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>">
+                <img class="lazy" dataimg="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
+                     style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
                 <div class="price" style="display: none;"></div>
             </a>
         </div>
