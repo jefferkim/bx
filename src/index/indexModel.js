@@ -26,8 +26,7 @@ define(function (require, exports, module) {
             },
 			hotFeeds:function (param) {
 				var self=this;
-                mtop.hotFeeds(param, function (recResult) {      
-				console.log(recResult);          
+                mtop.hotFeeds(param, function (recResult) {  
                     if(recResult.fail){						
 						recResult.errMsg='服务器繁忙，请稍后再试！';
                         self.set("hotFeeds",recResult);
