@@ -84,7 +84,7 @@ define(function (require, exports, module) {
                     mtop.detail(param || {},function(result){
                          if(_.isEmpty(result) )
                          {
-                         self.set("feed",{fail:'null',errMsg:'该广播已删除或不存在！'});
+                         self.set("feed",{fail:'null',errMsg:'抱歉,该广播已删除或不存在！'});
                          }
                          else
                          {
