@@ -295,7 +295,7 @@
                     <div class="follows"><span><%=formatFans(item.fansCount)%></span>关注者</div>
                     <div class="default">
                         <% if(item.logoUrl){ %>
-                        <img src="<%=getImgUrl(item.logoUrl,100,60)%>">
+                        <img class="lazy" dataimg="<%=getImgUrl(item.logoUrl,100,60)%>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
                         <% } %>
                     </div>
                 </div>
@@ -313,7 +313,7 @@
                     <div class="follows"><span><%=formatFans(item.fansCount)%></span>关注者</div>
                     <div class="default">
                         <% if(item.logoUrl){ %>
-                        <img src="<%=getImgUrl(item.logoUrl,100,60)%>">
+                        <img class="lazy" dataimg="<%=getImgUrl(item.logoUrl,100,60)%>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
                          <% } %>
                     </div>
                 </div>
