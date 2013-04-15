@@ -18,6 +18,8 @@ define(function(require, exports, module) {
       //缓存实例变量view
       _indexView,_accountView,_detailView,_accountListView,_commentView,_newCommentView ;
 
+      window.lazyload = require('lazyload')
+
   var Router = Backbone.Router.extend({
 
       routes: {   },
@@ -28,6 +30,7 @@ define(function(require, exports, module) {
           //cdn 获取最佳图片尺寸
           getBetterImg = cdn.getBetterImg; // make it global for convenience use in templates
           resizeImg=cdn.resizeImg;
+
 
           changeHash=function(hash,refer){
               log&&log.logEnter(refer);
