@@ -15,8 +15,8 @@ define(function (require, exports, module) {
 		  	var self=this;
                 mtop.timeLine(param, function (recResult) {
                   console.log(recResult);
-                    if(recResult.fail){
-                        self.set("timeLine",recResult);
+                    if(recResult.fail){                       
+						recResult.errMsg='服务器繁忙，请稍后再试！';
                         return;
                     }
                     recResult.t=new Date().getTime();
@@ -26,8 +26,10 @@ define(function (require, exports, module) {
             },
 			hotFeeds:function (param) {
 				var self=this;
-                mtop.hotFeeds(param, function (recResult) {                
-                    if(recResult.fail){
+                mtop.hotFeeds(param, function (recResult) {      
+				console.log(recResult);          
+                    if(recResult.fail){						
+						recResult.errMsg='服务器繁忙，请稍后再试！';
                         self.set("hotFeeds",recResult);
                         return;
                     }
