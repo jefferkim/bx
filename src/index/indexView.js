@@ -207,6 +207,8 @@ define(function (require, exports, module) {
         }
         var content = feedTemplate(d);
         this.$feedList.html(content);
+
+        window.lazyload.reload()
     }
 
 

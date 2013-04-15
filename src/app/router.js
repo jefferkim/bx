@@ -18,7 +18,10 @@ define(function(require, exports, module) {
       //缓存实例变量view
       _indexView,_accountView,_detailView,_accountListView,_commentView,_newCommentView ;
 
+      // image lazyload setup
       window.lazyload = require('lazyload')
+      window.lazyload.init()
+      window.lazyload.reload = function() { window.lazyload.img.trigger() }
 
   var Router = Backbone.Router.extend({
 

@@ -207,7 +207,7 @@
               <span class="icon-comment cmt-count"><%= list[i].firstFeed.commentCount %></span>
             </p>
             <% if (isLongImg(list[i].firstFeed.coverTile)) { %>
-              <img style="<%= detailImageSizeStyle(list[i].firstFeed.coverTile.picWidth, list[i].firstFeed.coverTile.picHeight) %>" src="<%= getBetterImg(list[i].firstFeed.coverTile.path, window.innerWidth-30, list[i].firstFeed.coverTile.picWidth) %>">
+              <img  class="lazy" style="<%= detailImageSizeStyle(list[i].firstFeed.coverTile.picWidth, list[i].firstFeed.coverTile.picHeight) %>" dataimg="<%= getBetterImg(list[i].firstFeed.coverTile.path, window.innerWidth-30, list[i].firstFeed.coverTile.picWidth) %>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
             <% } %>
 
             <% if (isLongImg(list[i].firstFeed.coverTile)) { %>
@@ -217,12 +217,12 @@
             <% } %>
             </div>
             <% if (isSquareImg(list[i].firstFeed.coverTile)) { %>
-            <img width="120px" height="120px" src="<%=resizeImg({'url':list[i].firstFeed.coverTile.path,'isXz':true,'expWidth':120,'expHeight':120,'rWidth':parseInt(list[i].firstFeed.coverTile.picWidth),'rHeight':parseInt(list[i].firstFeed.coverTile.picHeight)}).url %>">
+            <img class="lazy" width="120px" height="120px" dataimg="<%=resizeImg({'url':list[i].firstFeed.coverTile.path,'isXz':true,'expWidth':120,'expHeight':120,'rWidth':parseInt(list[i].firstFeed.coverTile.picWidth),'rHeight':parseInt(list[i].firstFeed.coverTile.picHeight)}).url %>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
             <% } %>
             </div>
             <a onclick="changeHash('#account/<%= list[i].account.id %>','index')" class="account">
               <div class="default">
-                <img class="avatar" src="<%= getImgUrl(list[i].account.logoUrl, 100, 60) %>">
+                <img class="avatar lazy" dataimg="<%= getImgUrl(list[i].account.logoUrl, 100, 60) %>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
               </div>
               <p class="name"><%= list[i].account.nick %></p>
             </a>
