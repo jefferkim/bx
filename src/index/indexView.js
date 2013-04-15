@@ -209,6 +209,10 @@ define(function (require, exports, module) {
         },2000);
         if(h5_comm.isLogin()){
             d=this.model.get('timeLine');
+            if(d.fail){
+                notification.message(d.errMsg);
+                return;
+            }
             if(typeof that.allFeedCount!='undefined'){
                 var newcount=parseInt(d.allFeedCount)-that.allFeedCount;
                 if(newcount>0||this.$feedList.html()==''){
@@ -240,6 +244,10 @@ define(function (require, exports, module) {
         }else{
 
             d=this.model.get('hotFeeds');
+            if(d.fail){
+                notification.message(d.errMsg);
+                return;
+            }
             var content = feedTemplate(d);
             this.$feedList.html(content);
         }
