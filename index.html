@@ -443,7 +443,7 @@
                                         it<%=item.coverTile.item.id%>
                                     <% } %>
                                  <% } %>" >
-                    <img style="<%=feedImageSizeStyle(parseInt(item.coverTile.picWidth), parseInt(item.coverTile.picHeight)) %>" picWidth="<%=parseInt(item.coverTile.picWidth)%>" picHeight="<%=parseInt(item.coverTile.picHeight)%>" src="<%=resizeImg({'url':item.coverTile.path,'expWidth':window.innerWidth,'rWidth':parseInt(item.coverTile.picWidth),'rHeight':parseInt(item.coverTile.picHeight),'isXz':true}).url%>"/>
+                    <img class="lazy" style="<%=feedImageSizeStyle(parseInt(item.coverTile.picWidth), parseInt(item.coverTile.picHeight)) %>" picWidth="<%=parseInt(item.coverTile.picWidth)%>" picHeight="<%=parseInt(item.coverTile.picHeight)%>" dataimg="<%=resizeImg({'url':item.coverTile.path,'expWidth':window.innerWidth,'rWidth':parseInt(item.coverTile.picWidth),'rHeight':parseInt(item.coverTile.picHeight),'isXz':true}).url%>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif" />
                 </div>
             </div>
             <% } %>
