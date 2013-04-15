@@ -17,6 +17,7 @@ define(function (require, exports, module) {
                   console.log(recResult);
                     if(recResult.fail){                       
 						recResult.errMsg='服务器繁忙，请稍后再试！';
+						 self.set("timeLine",recResult);
                         return;
                     }
                     recResult.t=new Date().getTime();
@@ -26,7 +27,7 @@ define(function (require, exports, module) {
             },
 			hotFeeds:function (param) {
 				var self=this;
-                mtop.hotFeeds(param, function (recResult) {  
+                mtop.hotFeeds(param, function (recResult) { 
                     if(recResult.fail){						
 						recResult.errMsg='服务器繁忙，请稍后再试！';
                         self.set("hotFeeds",recResult);
