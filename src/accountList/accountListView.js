@@ -41,6 +41,7 @@ define(function (require, exports, module) {
                 }
                 if(result.list&&result.list.length>0){
                     $('#accountListPage .person-list').html(_.template($('#myList_tpl').html(),result));
+                    window.lazyload.reload()
                     //$('.tb-h5').append(_.template($('#personList_tpl').html(),result));
 
                     if(pageCount>1){
@@ -69,6 +70,7 @@ define(function (require, exports, module) {
                 }
                 if(result.list&&result.list.length>0){
                     $('#accountListPage .person-list').html((_.template($('#personList_tpl').html(),result)));
+                    window.lazyload.reload()
                     $('#accountListPageNav').html('');
 
                     if(pageCount>1){

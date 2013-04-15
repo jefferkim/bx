@@ -131,6 +131,7 @@ define(function (require, exports, module) {
        },
    changePage:function(page){
        var that=this;
+
        this.$feedList.html('<div class="loading"><span class="spinner"></span></div>');
        //changeHash('#index/'+page,
        //that.params.timestamp=new Date().getTime();
@@ -139,8 +140,10 @@ define(function (require, exports, module) {
        }else{
            that.params.direction=1;
        }
-
+       that.isChangePage=true;
+       window.scrollTo(0,1);
        window.location.hash='#index/'+page;
+
        //that.dynIndexModel.getPageData({'curPage':page,'pageSize':that._pageSize});
    },
     goTop:function(){
@@ -173,6 +176,7 @@ define(function (require, exports, module) {
        that.allFeedCount=parseInt(this.model.get('timeLine').allFeedCount);
 //       that.params.timestamp=new Date().getTime();
 //       that.params.direction=1;
+       that.isRefresh=true;
        var _spinner=$('.navbar .refresh .btn div');
        if(!_spinner.hasClass('spinner')){
            _spinner.addClass('spinner');
@@ -216,6 +220,13 @@ define(function (require, exports, module) {
                 var content = feedTemplate(d);
                 this.$feedList.html(content);
             }
+            if(that.isChangePage||that.isRefresh){
+                var content = feedTemplate(d);
+                this.$feedList.html(content);
+                that.isChangePage=false;
+                that.isRefresh=false;
+            }
+
             that.allFeedCount=parseInt(d.allFeedCount);
 
             //页数大于1的时候显示分页组件
@@ -236,6 +247,8 @@ define(function (require, exports, module) {
           var followHtml='<div class="login-bar">一步玩转微淘？<button class="goFollowbtn log" data-log="attention">去关注</button></div>'
           $('.navbar').append(followHtml);
         }
+
+        window.lazyload.reload()
 
     }
 

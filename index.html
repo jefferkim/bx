@@ -212,7 +212,7 @@
               <span class="icon-comment cmt-count"><%= list[i].firstFeed.commentCount %></span>
             </p>
             <% if (isLongImg(list[i].firstFeed.coverTile)) { %>
-              <img style="<%= detailImageSizeStyle(list[i].firstFeed.coverTile.picWidth, list[i].firstFeed.coverTile.picHeight) %>" src="<%= getBetterImg(list[i].firstFeed.coverTile.path, window.innerWidth-30, list[i].firstFeed.coverTile.picWidth) %>">
+              <img  class="lazy" style="<%= detailImageSizeStyle(list[i].firstFeed.coverTile.picWidth, list[i].firstFeed.coverTile.picHeight) %>" dataimg="<%= getBetterImg(list[i].firstFeed.coverTile.path, window.innerWidth-30, list[i].firstFeed.coverTile.picWidth) %>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
             <% } %>
 
             <% if (isLongImg(list[i].firstFeed.coverTile)) { %>
@@ -222,12 +222,12 @@
             <% } %>
             </div>
             <% if (isSquareImg(list[i].firstFeed.coverTile)) { %>
-            <img width="120px" height="120px" src="<%=resizeImg({'url':list[i].firstFeed.coverTile.path,'isXz':true,'expWidth':120,'expHeight':120,'rWidth':parseInt(list[i].firstFeed.coverTile.picWidth),'rHeight':parseInt(list[i].firstFeed.coverTile.picHeight)}).url %>">
+            <img class="lazy" width="120px" height="120px" dataimg="<%=resizeImg({'url':list[i].firstFeed.coverTile.path,'isXz':true,'expWidth':120,'expHeight':120,'rWidth':parseInt(list[i].firstFeed.coverTile.picWidth),'rHeight':parseInt(list[i].firstFeed.coverTile.picHeight)}).url %>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
             <% } %>
             </div>
             <a onclick="changeHash('#account/<%= list[i].account.id %>','index')" class="account">
               <div class="default">
-                <img class="avatar" src="<%= getImgUrl(list[i].account.logoUrl, 100, 60) %>">
+                <img class="avatar lazy" dataimg="<%= getImgUrl(list[i].account.logoUrl, 100, 60) %>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
               </div>
               <p class="name"><%= list[i].account.nick %></p>
             </a>
@@ -300,7 +300,7 @@
                     <div class="follows"><span><%=formatFans(item.fansCount)%></span>关注者</div>
                     <div class="default">
                         <% if(item.logoUrl){ %>
-                        <img src="<%=getImgUrl(item.logoUrl,100,60)%>">
+                        <img class="lazy" dataimg="<%=getImgUrl(item.logoUrl,100,60)%>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
                         <% } %>
                     </div>
                 </div>
@@ -318,7 +318,7 @@
                     <div class="follows"><span><%=formatFans(item.fansCount)%></span>关注者</div>
                     <div class="default">
                         <% if(item.logoUrl){ %>
-                        <img src="<%=getImgUrl(item.logoUrl,100,60)%>">
+                        <img class="lazy" dataimg="<%=getImgUrl(item.logoUrl,100,60)%>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
                          <% } %>
                     </div>
                 </div>
@@ -448,7 +448,7 @@
                                         it<%=item.coverTile.item.id%>
                                     <% } %>
                                  <% } %>" >
-                    <img style="<%=feedImageSizeStyle(parseInt(item.coverTile.picWidth), parseInt(item.coverTile.picHeight)) %>" picWidth="<%=parseInt(item.coverTile.picWidth)%>" picHeight="<%=parseInt(item.coverTile.picHeight)%>" src="<%=resizeImg({'url':item.coverTile.path,'expWidth':window.innerWidth,'rWidth':parseInt(item.coverTile.picWidth),'rHeight':parseInt(item.coverTile.picHeight),'isXz':true}).url%>"/>
+                    <img class="lazy" style="<%=feedImageSizeStyle(parseInt(item.coverTile.picWidth), parseInt(item.coverTile.picHeight)) %>" picWidth="<%=parseInt(item.coverTile.picWidth)%>" picHeight="<%=parseInt(item.coverTile.picHeight)%>" dataimg="<%=resizeImg({'url':item.coverTile.path,'expWidth':window.innerWidth,'rWidth':parseInt(item.coverTile.picWidth),'rHeight':parseInt(item.coverTile.picHeight),'isXz':true}).url%>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif" />
                 </div>
             </div>
             <% } %>
@@ -502,8 +502,8 @@
         <% } %>
         <% for (var i = 0; i < tiles.length; i++) { %>
         <% if (tiles[i].type == "pic") { %>
-        <div class="media"><img src="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
-                                style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>">
+        <div class="media"><img class="lazy" dataimg="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
+                                style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
         </div>
         <% } else if (tiles[i].type == "text") { %>
 
@@ -512,8 +512,8 @@
         <% } else if (tiles[i].type == "picItem") { %>
         <div class="media">
             <a style="display: block" href="<%= getItemDetailUrl('a', { itemId: tiles[i].item.id }) %>" class="item" data-id="<%= tiles[i].item.id %>">
-                <img src="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
-                     style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>">
+                <img class="lazy" dataimg="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
+                     style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
                 <div class="price" style="display: none;"></div>
             </a>
         </div>
