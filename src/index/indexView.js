@@ -47,9 +47,8 @@ define(function (require, exports, module) {
         'click .navbar .refresh.index':'refresh',
         'click #indexPage .js_feed':'goToDetail',
         'click .goFollowbtn':'add',
-//        'click #indexPage .person-list .followbtn':'follow',
         'click .gotop':'goTop',
-        'click .hdButton':'changeHD'
+        'click .hdButton span':'changeHD'
     },
     initialize:function () {
       this.params = {
@@ -67,7 +66,7 @@ define(function (require, exports, module) {
     },
     hotFeedFlag:false,
 	render:function(page){
-        var loginHtml='<div class="login-bar">一起玩转微淘？<button class="loginbtn log" data-log="attention">登录</button></div>';
+        var loginHtml='<div class="login-bar">想看更多？登录淘宝帐号<button class="loginbtn log" data-log="attention">登录</button></div>';
 
 
         this.params.curPage = page;
@@ -118,12 +117,13 @@ define(function (require, exports, module) {
     },
        changeHD:function(e){
            var that=this,cur=$(e.currentTarget);
+           console.log('changeHD');
            if(cur.text()=='高清模式'){
-               cur.html('<span>流畅模式</span>');
+               cur.html('流畅模式');
                tbh5.set('hdButton',2);
                globalCDN.setDefaultDpi(2);
            }else{
-               cur.html('<span>高清模式</span>');
+               cur.html('高清模式');
                tbh5.set('hdButton',1);
                globalCDN.setDefaultDpi(1);
            }
@@ -191,6 +191,22 @@ define(function (require, exports, module) {
     showBanner:function(){
         var d={'list':[{'url':'','picture':'http://a.tbcdn.cn/mw/webapp/allspark/01.jpg'},{'url':'','picture':'http://a.tbcdn.cn/mw/webapp/allspark/02.jpg'},{'url':'','picture':'http://a.tbcdn.cn/mw/webapp/allspark/03.jpg'}]};
         d.width=d.list.length*document.getElementById('content').offsetWidth;
+        var _flag=false;
+        if(tbh5.get('hdButton')!=null){
+            if(parseInt(tbh5.get('hdButton'))>1){
+                _flag=true;
+            }
+        }else{
+            if(globalCDN.calDpi()>1){
+                _flag=true;
+            }
+        }
+        if(_flag){
+            for(var i=0;i< d.list.length;i++){
+                d.list[i].picture=d.list[i].picture.replace('.jpg','x2.jpg');
+            }
+        }
+
         d.swidth=document.getElementById('content').offsetWidth;
 
         $('#indexPage .J_slider').html(_.template($('#slider_tpl').html(),d));
@@ -252,10 +268,10 @@ define(function (require, exports, module) {
             this.$feedList.html(content);
         }
         if(d.onlyYou=='1'){
-          var followHtml='<div class="login-bar">一步玩转微淘？<button class="goFollowbtn log" data-log="attention">去关注</button></div>'
+          var followHtml='<div class="login-bar">关注账号，订阅丰富内容<button class="goFollowbtn log" data-log="attention">去关注</button></div>'
           $('.navbar').append(followHtml);
         }
-
+        $('#content')[0].style.minHeight = '360px'
         window.lazyload.reload()
 
     }

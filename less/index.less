@@ -8,9 +8,12 @@
     .separator { margin: 10px 0;}
 
     .feed-item {
+      -webkit-transform: translateZ(0);
       padding: 0 15px;
     }
     .title {
+      max-height: 18px;
+      overflow: hidden;
       font-size: 16px;
       font-weight: bold;
     }
@@ -25,7 +28,10 @@
         background-position: 0 1px;
       }
     }
-
+    .feed-alltext .text{
+      max-height: 54px;
+      height: auto;
+    }
     .feed-box {
       display: -webkit-box;
       margin-bottom: 10px;
@@ -37,9 +43,13 @@
     .feed-box .feed-text {
       -webkit-box-flex: 1;
     }
+    .feed-box .title{
+      max-height: 38px;
+    }
 
     .summary, .text {
       color: #333;
+//      height: 36px;
       font-size: 14px;
       line-height: 140%;
       margin: 10px 0;
@@ -73,7 +83,7 @@
         -webkit-border-radius: 4px;
       }
       .name {
-        color: #999;
+        color:rgb(51,51,51);
         font-size: 14px;
         position: absolute;
         left: 35px;

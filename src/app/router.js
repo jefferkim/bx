@@ -55,7 +55,7 @@ define(function(require, exports, module) {
 
           changeHash=function(hash,refer){
               log&&log.logEnter(refer);
-              console.log('sdfsdfsdf');
+
               window.location.hash=hash;
           }
 
@@ -100,8 +100,19 @@ define(function(require, exports, module) {
 
           switch (divName) {
               case 'index':
+//                  if(!_indexView){
+//
+//                      seajs.use('./src/index/indexView',function(index){
+//                          _indexView=new index();
+//                          self.index(arg0);
+//                      })
+//
+//                  }else{
+//                      self.index(arg0);
+//                  }
                   _indexView= _indexView || new indexView();
                   self.index(arg0);
+
                   break;
               case 'account':
                   _accountView= _accountView || new accountView();
