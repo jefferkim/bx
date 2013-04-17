@@ -169,8 +169,7 @@ define(function (require, exports, module) {
     goLogin:function(){
         tbh5.removeValue('allSpark_hash');
         tbh5.removeValue('allSpark_lastHash')
-        m_login.showLogin();
-        //h5_comm.goLogin('h5_allspark');
+        h5_comm.goLogin('h5_allspark');
     },
     refresh:function(){
        var that=this;
