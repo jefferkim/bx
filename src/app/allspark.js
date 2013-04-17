@@ -4,6 +4,7 @@ seajs.config({
         'underscore': 'http://a.tbcdn.cn/mw/base/libs/underscore/1.3.3/underscore',
         'zepto': 'http://a.tbcdn.cn/mw/base/libs/zepto/1.0.0/zepto',
         'mustache': 'http://a.tbcdn.cn/mw/base/libs/mustache/0.5.0/mustache',
+        'm_login' : '../../../../base/modules/login/m_login',
         'linkfocus' : '../../../../base/modules/linkfocus/linkfocus',
         'lazyload': '../../../../base/modules/lazyload/js/lazyload',
         'uriBroker' : '../../../../base/utils/server/uriBroker',
