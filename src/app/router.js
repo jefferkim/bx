@@ -35,19 +35,16 @@ define(function(require, exports, module) {
           if(tbh5.get('hdButton')!=null){
               globalCDN.setDefaultDpi(parseInt(tbh5.get('hdButton')));
               if(tbh5.get('hdButton')>1){
-                  $('.hdButton').html('<span>流畅模式</span>');
+                  $('.hdButton').html('<span>切换到流畅模式</span>');
               }else{
-                  $('.hdButton').html('<span>高清模式</span>');
+                  $('.hdButton').html('<span>切换到高清模式</span>');
               }
           }else{
-              if(globalCDN.calDpi()==1){
-                  $('.hdButton').html('<span>流畅模式</span>');
+              if(globalCDN.calDpi()>1){
+                  $('.hdButton').html('<span>切换到流畅模式</span>');
               }
           }
-          //tbh5.set('hdButton',0);
-          if(globalCDN.calDpi()>1){
-              $('.hdButton').html('<span>流畅模式</span>');
-          }
+
 
           getBetterImg = globalCDN.getBetterImg; // make it global for convenience use in templates
           resizeImg=globalCDN.resizeImg;
@@ -72,7 +69,7 @@ define(function(require, exports, module) {
           //#account/snsid/page  snsid - sns账号Id  page - 页码
           self.route(/^(account)\/(\d*)\/?(\d*)?$/, 'account', self.filter);
           //#detail/snsId/feedId snsid - sns账号Id  feedId - 消息Id
-          self.route(/^(detail)\/(\d*)\/(\d*)\/?(\d*)?$/, 'detail', self.filter);
+          self.route(/^(detail)\/(\d*)\/(\d*)\/?(\d*)?(.*)?$/, 'detail', self.filter);
           //#comment/snsId/feedId/page snsid - sns账号Id  feedId - 消息Id page - 页码
           self.route(/^(comment)\/(\d*)\/(\d*)\/?(\d*)?$/, 'commentList', self.filter);
           //#accountList/status/page  status - 0 - 未关注列表 1 - 以关注列表 默认 未关注列表  page - 页码
