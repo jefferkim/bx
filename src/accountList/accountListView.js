@@ -164,7 +164,12 @@ define(function (require, exports, module) {
                                         cur.addClass('followed');
                                         cur.html('已关注');
                                         cur.removeClass('min');
-                                        _numObj.text(parseInt(_numObj.text())+1);
+                                        var fans = _numObj.text();
+                                        if(fans.indexOf('万')==-1 &&  fans.indexOf('亿') == -1 )
+                                        {
+                                            _numObj.text(parseInt(fans)+1);
+                                        }
+
                                     }else{
                                         notification.message('关注失败！');
                                         cur.removeClass('min');
