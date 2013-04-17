@@ -86,14 +86,9 @@ define(function(require, exports, module) {
        */
       filter : function(divName, arg0, arg1, arg2) {
           var self = this;
-          //如果使用cache中的hash，下面逻辑就不需要执行了，放在最上面
-          if (tbh5.userCacheHash('allSpark')) {
-              return;
-          }
 //          console.log('divName=' + divName + "|arg0=" + arg0 + "|arg1=" + arg1 + "|arg2=" + arg2);
           //默认divName
           divName = divName || 'index';
-          background.enter(divName);
 
           switch (divName) {
               case 'index':
