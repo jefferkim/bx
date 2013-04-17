@@ -276,8 +276,10 @@ define(function (require, exports, module) {
               $('.feed-list').css('margin-top','44px');
             }
         }else{
-            $('.login-bar').remove();
-            $('.feed-list').css('margin-top','');
+            if(h5_comm.isLogin()){
+                $('.login-bar').remove();
+                $('.feed-list').css('margin-top','');
+            }
         }
         $('#content')[0].style.minHeight = '360px'
         window.lazyload.reload()
