@@ -16,7 +16,9 @@ seajs.config({
         'h5_token' : '../../../../base/utils/server/h5_token',
         'cookie' : '../../../../base/utils/server/cookie',
         'cdn' : '../../../../base/utils/server/cdn',
-        'aplus': '../../../../base/modules/aplus/aplus'
+        'aplus': '../../../../base/modules/aplus/aplus',
+        'dpi' : '../../../../base/modules/imgtrim/dpi',
+        'imgtrim': '../../../../base/modules/imgtrim/trim'
     },
     debug: 1
 });
