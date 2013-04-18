@@ -139,7 +139,7 @@
     <script id="index_feed_tpl" type="text/template">
 
       <% for (var i = 0; i < list.length; i++) { %>
-        <li >
+        <li>
             <div class="feed-item">
             <div snsid="<%=list[i].account.id%>" feedid="<%=list[i].firstFeed.id%>" class="js_feed <%= isSquareImg(list[i].firstFeed.coverTile) ? 'feed-box' : '' %>">
             <div class="<%= isSquareImg(list[i].firstFeed.coverTile) ? 'feed-text' : 'feed-alltext' %>">
@@ -172,8 +172,8 @@
               </div>
               <p class="name"><%= list[i].account.nick %></p>
             </a>
-            <div class="separator"></div>
          </div>
+         <div class="separator"></div>
         </li>
       <% } %>
     </script>
