@@ -158,6 +158,7 @@ define(function (require, exports, module) {
     add:function(){
        var that=this;
        if(h5_comm.isLogin()){
+           that.isAdd=true;
            changeHash('#accountList/1','accountList');
            //window.location.hash='#accountList/1';
        }else{
@@ -242,7 +243,7 @@ define(function (require, exports, module) {
                 var content = feedTemplate(d);
                 this.$feedList.html(content);
             }
-            if(that.isChangePage||that.isRefresh){
+            if(that.isChangePage||that.isRefresh||that.isAdd){
                 var content = feedTemplate(d);
                 this.$feedList.html(content);
                 that.isChangePage=false;

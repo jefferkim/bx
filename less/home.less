@@ -1,4 +1,5 @@
 .login-bar{
+  background: rgba(64, 64, 64, 0.9);
   background-image:-webkit-linear-gradient(-90deg,rgba(64,64,64,0.9) 0%,rgba(51,51,51,0.9) 100%);
   height: 44px;
   line-height: 44px;
@@ -11,10 +12,11 @@
     position: absolute;
     right: 10px;
     margin-top: 8px;
+    width:160px;
+    height:60px;
     .user-select(none);
     .box-shadow(0px 2px 0px rgba(255,255,255,0.65));
     .background-image-linear(-90deg,rgb(144,192,35) 0%,rgb(112,169,36) 100%);
-    background-image:-webkit-gradient(linear,102% 0%,102% 98%,color-stop(0, rgb(144,192,35)),color-stop(1, rgb(112,169,36)));
     height:30px;
     border:rgb(105,140,0) 1px solid;
     -webkit-border-radius:4px;
@@ -104,7 +106,9 @@
       border: 1px dashed #ddd;border-width: 1px 0 0 0;margin-top: 18px
     }
     span{
-      display: block;width: 100px;margin: -18px auto;background: #f8f8f8;
+      font-size: 12px;
+
+      display: block;width: 100px;margin: -18px auto;background: #f8f8f8;color: #666;
     }
   }
 
