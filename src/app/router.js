@@ -23,6 +23,8 @@ define(function(require, exports, module) {
       window.lazyload.init()
       window.lazyload.reload = function() { window.lazyload.img.trigger() }
 
+
+
   var Router = Backbone.Router.extend({
 
       routes: {   },
@@ -137,7 +139,7 @@ define(function(require, exports, module) {
         page = page || 1;
         _indexView.render(page);
         var b = "onorientationchange" in window, c = b ? "orientationchange" : "resize";
-        $(window).bind(c, function() {
+        $(window).unbind(c).bind(c, function() {
             var _img=$('#indexPage .feed-item .js_feed img');
             for(var i= 0,len=_img.length;i<len;i++){
                 if(!_img.eq(i).parent().hasClass('feed-box')){
@@ -150,7 +152,7 @@ define(function(require, exports, module) {
         page = page || 1;
         _accountView.render(snsId,page);
         var b = "onorientationchange" in window, c = b ? "orientationchange" : "resize";
-        $(window).bind(c, function() {
+        $(window).unbind(c).bind(c, function() {
             var _img=$('#accountPage .J_feed .tb-feed-items .media img');
             for(var i= 0,len=_img.length;i<len;i++){
                 _img.eq(i).attr('style',feedImageSizeStyle(parseInt(_img.eq(i).attr('picWidth')), parseInt(_img.eq(i).attr('picHeight'))));

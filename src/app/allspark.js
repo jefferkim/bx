@@ -109,10 +109,37 @@ function isSquareImg(data) {
     return data && (parseFloat(data.picWidth) / parseFloat(data.picHeight) <= 1.45)
 }
 
+// 判斷螢幕旋轉方向
+function setOrientation() {
+    var orient;
+    alert(screen.width);
+    if (window.orientation) {
+        orient = Math.abs(window.orientation) === 90 ? 'landscape' : 'portrait';
+    }
+    else if (window.screen) {
+        var width = screen.width;
+        var height = screen.height;
+        orient = (width > height) ? 'landscape' : 'portrait';
+    }
+    else {
+        orient = 'unknow';
+    }
+
+    return orient;
+}
+
 function feedImageSizeStyle(actualWidth, actualHeight){
     var width = parseInt(actualWidth);
     var height = parseInt(actualHeight);
-    var expectWidth = window.innerWidth - 30;
+    var expectWidth ;
+    expectWidth= window.screen.width/2 - 30;
+//    if(setOrientation()=='portrait'){
+//        //if(window.innerWidth>)
+//        expectWidth= window.innerWidth - 30;
+//    }else{
+//        expectWidth=window.innerHeight-30;
+//
+//    }
     var expectHeight = 0;
 
     if(width<height){

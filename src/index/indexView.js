@@ -77,12 +77,14 @@ define(function (require, exports, module) {
         if(h5_comm.isLogin()){
             $('.navbar').html(header);
             $('footer .nick').html(mtop.userNick);
-            $('footer .loginStatus').css('display','block');
+            $('footer .loginStatus a').css('display','block');
             this.model.getTimeLine(this.params);
         }else{
             $('.navbar').html(header+loginHtml);
+            $('footer .nick').html('');
+            $('footer .loginStatus a').css('display','none');
             if($('.J_slider').length==0){
-                $('#indexPage .J_status').html('<div class="J_slider"></div><div class="hotfeedhd"><hr/><span>热门广播</span></div>');
+                $('#indexPage .J_status').html('<div class="J_slider"></div><div class="hotfeedhd"><span>热门广播</span></div>');
                 this.showBanner();
             }
             if(!this.hotFeedFlag){
@@ -269,6 +271,10 @@ define(function (require, exports, module) {
             }
             var content = feedTemplate(d);
             this.$feedList.html(content);
+
+            //
+            $('#timeLinePageNav').remove();
+
         }
         if(d.onlyYou=='1'){
             if($('.login-bar').length==0){
