@@ -41,10 +41,10 @@ define(function (require, exports, module) {
 
             this.model.on('change:prices', this.renderPrices, this)
 
-            if (!h5_base.isClient()) {
-              this.commentModel = new CommentModel()
-              this.commentModel.on('change:commentCount', this.renderComentCount, this)
-            }
+//            if (!h5_base.isClient()) {
+//              this.commentModel = new CommentModel()
+//              this.commentModel.on('change:commentCount', this.renderComentCount, this)
+//            }
         },
        goDetail : function(snsId,feedId,page){
 
@@ -114,25 +114,32 @@ define(function (require, exports, module) {
 
         //渲染详情页
         renderDetail: function() {
-          var self = this
-          var feed = this.model.get('feed');
+            var self = this
+            var feed = this.model.get('feed');
 
-            if(!h5_base.isClient() || h5_base.isAndroidClient()) {
-                //loading.hide();
-            }
+                if(!h5_base.isClient() || h5_base.isAndroidClient()) {
+                    //loading.hide();
+                }
 
-          if (feed&&feed.fail) {
-            this.model.set('feed', {}, { silent: true })
-            var errMsg = feed.errMsg || '加载失败，稍后重试！'  ;
-           // notification.message(errMsg);
-            this.$container.find('.main').html('<br /><center style="color:#999">'+errMsg+'</center>');
-            return
-          }
+              if (feed&&feed.fail) {
+                this.model.set('feed', {}, { silent: true })
+                var errMsg = feed.errMsg || '加载失败，稍后重试！'  ;
+               // notification.message(errMsg);
+                this.$container.find('.main').html('<br /><center style="color:#999">'+errMsg+'</center>');
+                return
+              }
 
 
           var content = contentTemplate(feed);
           this.$container.find('.main').html(content);
-          window.lazyload.reload()
+            var count =parseInt(feed.commentCount);
+            if (count > 99) count = '99+'
+
+            $('.comment .btn span').text(count);
+
+
+
+          window.lazyload.reload();
 
           // this is for Android
           $('#content')[0].style.minHeight = '360px'

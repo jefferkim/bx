@@ -54,7 +54,7 @@ define(function (require, exports, module) {
       this.params = {
           timestamp:0,//Date.now(),
           curPage:1,
-          pageSize :20,
+          pageSize :10,
           onlyYou:1,
           direction:0
       }
@@ -118,12 +118,12 @@ define(function (require, exports, module) {
        changeHD:function(e){
            var that=this,cur=$(e.currentTarget);
            console.log('changeHD');
-           if(cur.text()=='高清模式'){
-               cur.html('流畅模式');
+           if(cur.text()=='切换到高清模式'){
+               cur.html('切换到流畅模式');
                tbh5.set('hdButton',2);
                globalCDN.setDefaultDpi(2);
            }else{
-               cur.html('高清模式');
+               cur.html('切换到高清模式');
                tbh5.set('hdButton',1);
                globalCDN.setDefaultDpi(1);
            }
@@ -232,7 +232,9 @@ define(function (require, exports, module) {
             if(typeof that.allFeedCount!='undefined'){
                 var newcount=parseInt(d.allFeedCount)-that.allFeedCount;
                 if(newcount>0||this.$feedList.html()==''){
-                    notification.message('更新了 '+newcount+' 条广播');
+                    if(this.params.curPage==1){
+                        notification.message('更新了 '+newcount+' 条广播');
+                    }
                     var content = feedTemplate(d);
                     this.$feedList.html(content);
                 }
@@ -250,7 +252,7 @@ define(function (require, exports, module) {
             that.allFeedCount=parseInt(d.allFeedCount);
 
             //页数大于1的时候显示分页组件
-            var pageCount=Math.ceil(parseInt(d.allFeedCount)/this.params.pageSize);
+            var pageCount=Math.ceil(parseInt(d.totalCount)/this.params.pageSize);
             if(pageCount>1){
                 this.recommentPage=new pageNav({'id':'#timeLinePageNav','index':this.params.curPage,'pageCount':pageCount,'pageSize':this.params.pageSize,'disableHash': 'true'});
                 this.recommentPage.pContainer().on('P:switchPage', function(e,page){
@@ -268,8 +270,16 @@ define(function (require, exports, module) {
             this.$feedList.html(content);
         }
         if(d.onlyYou=='1'){
-          var followHtml='<div class="login-bar">关注账号，订阅丰富内容<button class="goFollowbtn log" data-log="attention">去关注</button></div>'
-          $('.navbar').append(followHtml);
+            if($('.login-bar').length==0){
+              var followHtml='<div class="login-bar">关注账号，订阅丰富内容<button class="goFollowbtn log" data-log="attention">去关注</button></div>'
+              $('.navbar').append(followHtml);
+              $('.feed-list').css('margin-top','44px');
+            }
+        }else{
+            if(h5_comm.isLogin()){
+                $('.login-bar').remove();
+                $('.feed-list').css('margin-top','');
+            }
         }
         $('#content')[0].style.minHeight = '360px'
         window.lazyload.reload()
