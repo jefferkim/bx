@@ -52,14 +52,11 @@ define(function (require, exports, module) {
             if (dpi.get() > 1) {
                 $('.hdButton').html('<span>流畅模式</span>');
             }
+            //export 图片处理，方便模版直接调用
             resizeImg = imgTrim.trim;
             getBetterImg = function (name, expwidth, rwidth, isXz) {
                 return imgTrim.trim({url: name, expWidth: expwidth, rWidth: rwidth, isXz: isXz}).url;
             }; // make it global for convenience use in templates
-            /**
-             * 取得图片url考虑devicePixelRatio
-             * @type {Function}
-             */
             getImgUrl = function (name, height1, height2, xz) {
                 if (window.devicePixelRatio <= 1) {
                     height1 = height2;
@@ -68,6 +65,7 @@ define(function (require, exports, module) {
                 var name = name + "_" + width + "x" + height1 + ".jpg";
                 return cdn.getOriginalImg(name);
             };
+
             changeHash = function (hash, refer) {
                 log && log.logEnter(refer);
                 window.location.hash = hash;
