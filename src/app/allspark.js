@@ -16,7 +16,9 @@ seajs.config({
         'h5_token' : '../../../../base/utils/server/h5_token',
         'cookie' : '../../../../base/utils/server/cookie',
         'cdn' : '../../../../base/utils/server/cdn',
-        'aplus': '../../../../base/modules/aplus/aplus'
+        'aplus': '../../../../base/modules/aplus/aplus',
+        'dpi' : '../../../../base/modules/imgtrim/dpi',
+        'imgtrim': '../../../../base/modules/imgtrim/trim'
     },
     debug: 1
 });
@@ -132,7 +134,7 @@ function feedImageSizeStyle(actualWidth, actualHeight){
     var width = parseInt(actualWidth);
     var height = parseInt(actualHeight);
     var expectWidth ;
-    expectWidth= window.screen.width/2 - 30;
+    expectWidth= window.innerWidth - 30;
 //    if(setOrientation()=='portrait'){
 //        //if(window.innerWidth>)
 //        expectWidth= window.innerWidth - 30;

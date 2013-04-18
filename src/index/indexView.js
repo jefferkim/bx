@@ -17,7 +17,8 @@ define(function (require, exports, module) {
       mtop = require('../common/mtopForAllspark.js'),
       pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
       notification = require('../ui/notification.js'),
-      loading = require('../ui/loading');
+      loading = require('../ui/loading'),
+      dpi = require('dpi');
 
     var header = $('#index_header_tpl').html()
     var feedTemplate = _.template($('#index_feed_tpl').html())
@@ -200,7 +201,7 @@ define(function (require, exports, module) {
                 _flag=true;
             }
         }else{
-            if(globalCDN.calDpi()>1){
+            if(dpi.get()>1){
                 _flag=true;
             }
         }
