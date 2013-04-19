@@ -28,12 +28,15 @@ define(function (require, exports, module) {
          * @param param.snsId
          * @param param.feedId
          */
+        /**
         getCommentCount:function(param) {
             var self = this;
              mtop.commentCount(param, function (recResult) {
              self.set("commentCount", recResult);
             })
         },
+
+         **/
 
         /**
          * 评论

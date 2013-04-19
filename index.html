@@ -390,8 +390,8 @@
                                         it<%=item.coverTile.item.id%>
                                     <% } %>
                                  <% } %>" >
-                    <% var pic=resizeImg({'url':item.coverTile.path,'expWidth':window.innerWidth-30,'rWidth':parseInt(item.coverTile.picWidth),'rHeight':parseInt(item.coverTile.picHeight),'isXz':true})  %>
-                    <img class="lazy" style="width:<%=pic.expWidth%>px;height:<%=pic.expHeight%>px" picWidth="<%=parseInt(pic.expWidth)%>" picHeight="<%=parseInt(pic.expHeight)%>"
+                    <% var pic=resizeImg({'url':item.coverTile.path,'expWidth':window.innerWidth,'rWidth':parseInt(item.coverTile.picWidth),'rHeight':parseInt(item.coverTile.picHeight),'isXz':true})  %>
+                    <img class="lazy" style="width:<%=pic.expWidth%>;height:<%=pic.expHeight%>" picWidth="<%=parseInt(item.coverTile.picWidth)%>" picHeight="<%=parseInt(item.coverTile.picHeight)%>"
                          dataimg="<%=pic.url%>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif" />
                 </div>
             </div>

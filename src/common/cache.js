@@ -14,8 +14,8 @@ define(function (require, exports, module) {
             'accountCacheKey': 'allspark_account_key',
             'snsFlagCacheKey': 'allspark_sns_flag_key',
             'indexTmsCacheKey': 'allspark_index_tms_key',
-            'feedCountsKey': 'allspark_feed_counts_key' ,
-            'commentCountsKey': 'allspark_comment_counts_key'
+            'feedCountsKey': 'allspark_feed_counts_key'
+           // 'commentCountsKey': 'allspark_comment_counts_key'
         },
         h5_base = require('h5_base'),
         cookie = require('cookie'),
@@ -146,7 +146,7 @@ define(function (require, exports, module) {
      * 通过id从cache获取评论数据
      * 目前只对客户端缓存，非客户端直接返回null
      * 如果不存在返回 null
-     **/
+     *
     exports.getCommCountById = function (id) {
         return exports.getMemData('commentCountsKey',id);
     }
@@ -156,10 +156,10 @@ define(function (require, exports, module) {
      * id - 详情id
      * jsondata - 详情的json数据
      *  返回true or false
-     **/
+
     exports.saveCommCount = function (id, jsonData) {
        return exports.saveMemData('commentCountsKey',id,jsonData);
     }
-
+     **/
 
 });
