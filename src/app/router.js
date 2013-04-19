@@ -38,18 +38,18 @@ define(function (require, exports, module) {
             if (tbh5.get('hdButton') != null) {
                 imgTrim.setRatio(parseInt(tbh5.get('hdButton')));
                 if (tbh5.get('hdButton') > 1) {
-                    $('.hdButton').html('<span>流畅模式</span>');
+                    $('.hdButton').html('<span>切换到流畅模式</span>');
                 } else {
-                    $('.hdButton').html('<span>高清模式</span>');
+                    $('.hdButton').html('<span>切换到高清模式</span>');
                 }
             } else {
                 if (dpi.get() == 1) {
-                    $('.hdButton').html('<span>流畅模式</span>');
+                    $('.hdButton').html('<span>切换到流畅模式</span>');
                 }
             }
             //tbh5.set('hdButton',0);
             if (dpi.get() > 1) {
-                $('.hdButton').html('<span>流畅模式</span>');
+                $('.hdButton').html('<span>切换到流畅模式</span>');
             }
             //export 图片处理，方便模版直接调用
             resizeImg = imgTrim.trim;
@@ -156,6 +156,7 @@ define(function (require, exports, module) {
             _accountView.render(snsId, page);
             var b = "onorientationchange" in window, c = b ? "orientationchange" : "resize";
             $(window).unbind(c).bind(c, function () {
+                $('.navbar').css('width',window.innerWidth);
                 var _img = $('#accountPage .J_feed .tb-feed-items .media img');
                 for (var i = 0, len = _img.length; i < len; i++) {
                     _img.eq(i).attr('style', feedImageSizeStyle(parseInt(_img.eq(i).attr('picWidth')), parseInt(_img.eq(i).attr('picHeight'))));

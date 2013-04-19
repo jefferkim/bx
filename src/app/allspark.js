@@ -114,7 +114,7 @@ function isSquareImg(data) {
 // 判斷螢幕旋轉方向
 function setOrientation() {
     var orient;
-    alert(screen.width);
+
     if (window.orientation) {
         orient = Math.abs(window.orientation) === 90 ? 'landscape' : 'portrait';
     }
@@ -135,13 +135,14 @@ function feedImageSizeStyle(actualWidth, actualHeight){
     var height = parseInt(actualHeight);
     var expectWidth ;
     expectWidth= window.innerWidth - 30;
-//    if(setOrientation()=='portrait'){
-//        //if(window.innerWidth>)
-//        expectWidth= window.innerWidth - 30;
-//    }else{
-//        expectWidth=window.innerHeight-30;
-//
-//    }
+    if(setOrientation()=='portrait'){
+        //if(window.innerWidth>)
+        expectWidth= window.innerWidth - 30;
+    }else{
+        expectWidth=(window.innerWidth>window.innerHeight?window.innerWidth:window.innerHeight)-30;
+        //expectWidth=window.innerHeight-30;
+
+    }
     var expectHeight = 0;
 
     if(width<height){

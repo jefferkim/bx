@@ -78,7 +78,7 @@ define(function (require, exports, module) {
         if(h5_comm.isLogin()){
             $('.navbar').html(header);
             $('footer .nick').html(mtop.userNick);
-            $('footer .loginStatus a').css('display','block');
+            $('footer .loginStatus a').css('display','inline-block');
             this.model.getTimeLine(this.params);
         }else{
             $('.navbar').html(header+loginHtml);
@@ -264,7 +264,6 @@ define(function (require, exports, module) {
                 });
             }
         }else{
-
             d=this.model.get('hotFeeds');
             if(d.fail){
                 notification.message(d.errMsg);
@@ -272,8 +271,6 @@ define(function (require, exports, module) {
             }
             var content = feedTemplate(d);
             this.$feedList.html(content);
-
-            //
             $('#timeLinePageNav').remove();
 
         }
