@@ -237,6 +237,15 @@ define(function (require, exports, module) {
 	},
 	exports.hotFeeds=function(param, fun){
 		 invokeApi("mtop.sns.pubAccount.hotFeeds", param, fun);
+	},
+	exports.favoriteFeeds  =function(param, fun){
+		 invokeApi("mtop.sns.favorite.feeds", param, fun);
+	},
+	exports.favoriteAddFeed =function(param, fun){
+		 invokeApi("mtop.sns.favorite.addFeed", param, fun);
+	},
+	exports.favoriteRemoveFeed  =function(param, fun){
+		 invokeApi("mtop.sns.favorite.removeFeed", param, fun);
 	}
 })
 ;

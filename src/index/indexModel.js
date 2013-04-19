@@ -2,10 +2,7 @@ define(function (require, exports, module) {
     var Backbone = require('backbone'),
         $ = require('zepto'),
         _ = require('underscore'),
-        mtop = require('../common/mtopForAllspark.js'),
-        h5_comm = require('h5_comm'),
-        cache = require('../common/cache'),
-        refine = require('../common/refine.js');
+        mtop = require('../common/mtopForAllspark.js');
 
     /**
      * 动态首页
