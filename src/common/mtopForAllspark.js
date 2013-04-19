@@ -163,7 +163,7 @@ define(function (require, exports, module) {
                 {
                     //将评论数更新到详情的缓存中
                     var key = param.snsId+"_"+param.feedId;
-                    var feed = cache.getItemById( key) ;
+                    var feed = cache.getItemById(key) ;
                     if(feed)
                     {
                         if( typeof (feed) == "string") {
@@ -171,7 +171,7 @@ define(function (require, exports, module) {
                         }
                         feed['commentCount'] = result.totalCount || 0;
 
-                        cache.saveItem( key,{'count':JSON.stringify(feed)} );
+                        cache.saveItem( key,feed);
                     }
                 }
                 fun && fun.call(arguments.callee, result)
