@@ -9,6 +9,7 @@ define(function (require, exports, module) {
 
     login_refer_flag && localStorage.removeItem("f_l");
 
+
     History.prototype.extend({
         defaultPage: "http://m.taobao.com",
         defaultHash: "#index",
@@ -31,13 +32,13 @@ define(function (require, exports, module) {
             return location.hash.indexOf("&") == -1;
         }
     });
-    window.history = new History;
 
+    var myHis = new History;
     var BackgroundView = Backbone.View.extend({
         el: '#content',
         events: {
             'click header .back': function () {
-                history.back();
+                myHis.back();
                 return false;
             },
             'click .log[data-log]': function (e) {
