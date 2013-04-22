@@ -72,9 +72,15 @@ define(function (require, exports, module) {
            }
            var _show=$('.view-page.show');
            //客户端 去掉动画
-           if(_show.length==0){
+           if(h5_base.isClient() || h5_base.isAndroidClient()) {
+               //loading.hide();
                _detailPage.removeClass(' iR iL');
            }
+
+
+//           if(_show.length==0){
+//
+//           }
 
            //判断先后关系
            var _commentListPage= $('#commentListPage');
