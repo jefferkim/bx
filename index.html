@@ -1,304 +1,348 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>微淘</title>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-        <meta charset="utf-8" />
-        <meta content="yes" name="apple-mobile-web-app-capable" />
-        <meta content="black" name="apple-mobile-web-app-status-bar-style" />
-        <meta content="telephone=no" name="format-detection" />
-        <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
-        <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" />
-        <link href="http://a.tbcdn.cn/mw/webapp/allspark/wetaoIcon.png" rel="apple-touch-icon-precomposed" />
-        <link rel="stylesheet/less" type="text/css" href="less/allspark.less" />
-        <script src="less.js" type="text/javascript"></script>
-    </head>
+<head>
+    <title>微淘</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta charset="utf-8"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width"/>
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)"/>
+    <link href="http://a.tbcdn.cn/mw/webapp/allspark/wetaoIcon.png" rel="apple-touch-icon-precomposed"/>
+    <link rel="stylesheet/less" type="text/css" href="less/allspark.less"/>
+    <script src="less.js" type="text/javascript"></script>
+    <script>
+        var url = location.href;
+        if (url.search('sid=[a-z0-9]+') > 1 && url.search('ttid=[a-z0-9_]+@') < 1) {
+            if (document.referrer.indexOf("//login") > -1) {
+                window.localStorage && window.localStorage.setItem('f_l', '1');
+            }
+            url = url.replace(/sid=[0-9a-z]+&?/, '');
+            location.replace(url);
+        }
+    </script>
+</head>
+<body style="background: #f8f8f8">
+<div id="content">
+    <header class="navbar "></header>
+    <div class="tb-h5">
+        <div id="indexPage" class="view-page show">
+            <div class="J_status"></div>
+            <div>
+                <ul class="feed-list">
+                </ul>
+                <div id="timeLinePageNav" class="pagenav c-pnav-con"></div>
+                <footer>
+                    <div class="loginStatus">
+                        <a class="login">登录</a><a class="reg"
+                                                  href="http://u.m.taobao.com/reg/newUser.htm?tpl_redirect_url=http://h5.m.taobao.com/we/index.htm">注册</a>
+                        <span class="nick"></span><a class="logout"
+                                                     href="http://login.m.taobao.com/logout.htm?tpl_redirect_url=http://h5.m.taobao.com/we/index.htm">退出</a>
+                        <span class="gotop">Top <b></b></span>
 
-    <body style="background: #f8f8f8">
-    <div id="content">
-        <header class="navbar "></header>
-        <div class="tb-h5">
-            <div id="indexPage" class="view-page show">
-                <div class="J_status"></div>
-                <div>
-                    <ul class="feed-list">
-                    </ul>
-                    <div id="timeLinePageNav" class="pagenav c-pnav-con"></div>
-                    <footer >
-                        <div class="loginStatus">
-                            <a class="login">登录</a><a class="reg" href="http://u.m.taobao.com/reg/newUser.htm?tpl_redirect_url=http://h5.m.taobao.com/we/index.htm">注册</a>
-                            <span class="nick"></span><a class="logout" href="http://login.m.taobao.com/logout.htm?tpl_redirect_url=http://h5.m.taobao.com/we/index.htm">退出</a> <span class="gotop">Top <b></b></span>
-
-                        </div>
-                        <div class="hdButton">
-                        </div>
-                    </footer>
-                </div>
-
-
-
-
-            </div>
-            <div id="accountListPage" class="view-page hide  iR">
-                <div class="person-list"></div>
-                <div id="accountListPageNav" class="pagenav c-pnav-con"></div>
-            </div>
-            <div id="accountPage" class="view-page hide iR">
-                <div class="J_info"></div>
-                <div class="J_feed">
-                    <div class="tb-feed">
-                        <ul class="tb-feed-items"></ul>
-                        <div id="feedPageNav" class="pagenav c-pnav-con"></div>
                     </div>
+                    <div class="hdButton">
+                    </div>
+                </footer>
+            </div>
+
+
+        </div>
+        <div id="accountListPage" class="view-page hide  iR">
+            <div class="person-list"></div>
+            <div id="accountListPageNav" class="pagenav c-pnav-con"></div>
+        </div>
+        <div id="accountPage" class="view-page hide iR">
+            <div class="J_info"></div>
+            <div class="J_feed">
+                <div class="tb-feed">
+                    <ul class="tb-feed-items"></ul>
+                    <div id="feedPageNav" class="pagenav c-pnav-con"></div>
                 </div>
             </div>
-            <div id="detailPage" class="view-page hide  iR detail">
-                <div class="account"></div>
-                <div class="main"></div>
-            </div>
-            <div id="commentListPage" class="view-page hide  iR comment">
-            </div>
-            <div id="newCommentPage" class="view-page hide iR new-comment">
-            </div>
-
+        </div>
+        <div id="detailPage" class="view-page hide  iR detail">
+            <div class="account"></div>
+            <div class="main"></div>
+        </div>
+        <div id="commentListPage" class="view-page hide  iR comment">
+        </div>
+        <div id="newCommentPage" class="view-page hide iR new-comment">
         </div>
 
     </div>
 
-    <div id="notification" class="notification" style="display: none;">
-        <div class="panel">
-            <div class="long-message" style="display: none;">
-                即将前往外部页面，页面地址是：
-                <a class="external" href="http://item.taobao.com/item.htm" target="_blank">http://item.taobao.com/item.htm?i123456789</a>
-                外部页面可能有安全隐患，请注意保护您的隐私。
+</div>
+
+<div id="notification" class="notification" style="display: none;">
+    <div class="panel">
+        <div class="long-message" style="display: none;">
+            即将前往外部页面，页面地址是：
+            <a class="external" href="http://item.taobao.com/item.htm" target="_blank">http://item.taobao.com/item.htm?i123456789</a>
+            外部页面可能有安全隐患，请注意保护您的隐私。
+        </div>
+        <div class="simple-message">更新了 <strong>89</strong> 条广播</div>
+        <div class="actions" style="display: none;">
+            <div class="btn-wrap">
+                <button class="confirm">确定</button>
             </div>
-            <div class="simple-message">更新了 <strong>89</strong> 条广播</div>
-            <div class="actions" style="display: none;">
-                <div class="btn-wrap"><button class="confirm">确定</button></div>
-                <div class="btn-wrap"><button class="cancel">取消</button></div>
-                <div class="btn-wrap" style="display: none;"><button class="retry">重试</button></div>
+            <div class="btn-wrap">
+                <button class="cancel">取消</button>
+            </div>
+            <div class="btn-wrap" style="display: none;">
+                <button class="retry">重试</button>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Templates -->
-    <script id="navBack_tpl" type="text/template">
-        <div class="back">
-            <a href="<%=backUrl%>"><%=backTitle%></a>
-        </div>
+<!-- Templates -->
+<script id="navBack_tpl" type="text/template">
+    <div class="back">
+        <a href="<%=backUrl%>"><%=backTitle%></a>
+    </div>
 
-    </script>
-    <script id="homeTitle_tpl" type="text/template">
-        <div class="title"></div>
-        <ul class="fn_btns">
-            <li class="add log" data-log="addaccount">
-                <div class="btn"><div></div></div>
-            </li>
-            <li class="refresh index">
-                <div class="btn"><div></div></div>
-            </li>
-        </ul>
-    </script>
-    <script id="accountTitle_tpl" type="text/template">
-        <div class="title"></div>
-        <ul class="fn_btns">
-            <li class="refresh account">
-                <div class="btn"><div></div></div>
-            </li>
-        </ul>
-    </script>
-    <script id="accountListTabBar_tpl" type="text/template">
-        <div class="tab-bar">
-            <ul>
-                <li class="log" data-log="notfoucus">未关注</li>
-                <li class="log" data-log="foucus">已关注</li>
-            </ul>
-        </div>
-    </script>
-
-
-    <script id="index_header_tpl" type="text/template">
-        <div class="back">
-            <a href="http://m.taobao.com">首页</a>
-        </div>
-        <div class="title">微淘</div>
-        <ul class="fn_btns">
-            <li class="add log" data-log="addaccount">
-                <div class="btn"><div></div></div>
-            </li>
-            <li class="refresh index">
-                <div class="btn"><div class=""></div></div>
-            </li>
-        </ul>
-    </script>
-    <script id="hot_feedhd_tpl" type="text/template">
-        <div class="hotfeedhd"><hr/>    热门广播</div>
-    </script>
-    <script id="index_feed_tpl" type="text/template">
-
-      <% for (var i = 0; i < list.length; i++) { %>
-        <li >
-            <div class="feed-item">
-            <div snsid="<%=list[i].account.id%>" feedid="<%=list[i].firstFeed.id%>" class="js_feed <%= isSquareImg(list[i].firstFeed.coverTile) ? 'feed-box' : '' %>">
-            <div class="<%= isSquareImg(list[i].firstFeed.coverTile) ? 'feed-text' : 'feed-alltext' %>">
-            <p class="title"><%= list[i].firstFeed.title %></p>
-            <p class="feed-info">
-              <span class="icon-clock pub-time"><%= timestamps(list[i].firstFeed.time) %></span>
-              <% if(parseInt(list[i].firstFeed.commentCount)>0){ %>
-              <span class="icon-comment cmt-count"><%= list[i].firstFeed.commentCount %></span>
-              <% } %>
-            </p>
-            <% if (isLongImg(list[i].firstFeed.coverTile)) { %>
-              <img  class="lazy" style="<%= detailImageSizeStyle(list[i].firstFeed.coverTile.picWidth, list[i].firstFeed.coverTile.picHeight) %>" dataimg="<%= getBetterImg(list[i].firstFeed.coverTile.path, window.innerWidth-30, list[i].firstFeed.coverTile.picWidth) %>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
-            <% } %>
-
-            <% if (isLongImg(list[i].firstFeed.coverTile)) { %>
-              <p class="summary"><%= list[i].firstFeed.summary %></p>
-            <% } else { %>
-              <p class="text"><%= list[i].firstFeed.summary %></p>
-            <% } %>
+</script>
+<script id="homeTitle_tpl" type="text/template">
+    <div class="title"></div>
+    <ul class="fn_btns">
+        <li class="add log" data-log="addaccount">
+            <div class="btn">
+                <div></div>
             </div>
-            <% if (isSquareImg(list[i].firstFeed.coverTile)) { %>
-            <img class="lazy" width="120px" height="120px" dataimg="<%=resizeImg({'url':list[i].firstFeed.coverTile.path,'isXz':true,'expWidth':120,'expHeight':120,'rWidth':parseInt(list[i].firstFeed.coverTile.picWidth),'rHeight':parseInt(list[i].firstFeed.coverTile.picHeight)}).url %>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
-            <% } %>
+        </li>
+        <li class="refresh index">
+            <div class="btn">
+                <div></div>
+            </div>
+        </li>
+    </ul>
+</script>
+<script id="accountTitle_tpl" type="text/template">
+    <div class="title"></div>
+    <ul class="fn_btns">
+        <li class="refresh account">
+            <div class="btn">
+                <div></div>
+            </div>
+        </li>
+    </ul>
+</script>
+<script id="accountListTabBar_tpl" type="text/template">
+    <div class="tab-bar">
+        <ul>
+            <li class="log" data-log="notfoucus">未关注</li>
+            <li class="log" data-log="foucus">已关注</li>
+        </ul>
+    </div>
+</script>
+
+
+<script id="index_header_tpl" type="text/template">
+    <div class="back">
+        <a href="http://m.taobao.com">首页</a>
+    </div>
+    <div class="title">微淘</div>
+    <ul class="fn_btns">
+        <li class="add log" data-log="addaccount">
+            <div class="btn">
+                <div></div>
+            </div>
+        </li>
+        <li class="refresh index">
+            <div class="btn">
+                <div class=""></div>
+            </div>
+        </li>
+    </ul>
+</script>
+<script id="hot_feedhd_tpl" type="text/template">
+    <div class="hotfeedhd">
+        <hr/>
+        热门广播
+    </div>
+</script>
+<script id="index_feed_tpl" type="text/template">
+
+    <% for (var i = 0; i < list.length; i++) { %>
+    <li>
+        <div class="feed-item">
+            <div snsid="<%=list[i].account.id%>" feedid="<%=list[i].firstFeed.id%>"
+                 class="js_feed <%= isSquareImg(list[i].firstFeed.coverTile) ? 'feed-box' : '' %>">
+                <div class="<%= isSquareImg(list[i].firstFeed.coverTile) ? 'feed-text' : 'feed-alltext' %>">
+                    <p class="title"><%= list[i].firstFeed.title %></p>
+
+                    <p class="feed-info">
+                        <span class="icon-clock pub-time"><%= timestamps(list[i].firstFeed.time) %></span>
+                        <% if(parseInt(list[i].firstFeed.commentCount)>0){ %>
+                        <span class="icon-comment cmt-count"><%= list[i].firstFeed.commentCount %></span>
+                        <% } %>
+                    </p>
+                    <% if (isLongImg(list[i].firstFeed.coverTile)) { %>
+                    <img class="lazy"
+                         style="<%= detailImageSizeStyle(list[i].firstFeed.coverTile.picWidth, list[i].firstFeed.coverTile.picHeight) %>"
+                         dataimg="<%= getBetterImg(list[i].firstFeed.coverTile.path, window.innerWidth-30, list[i].firstFeed.coverTile.picWidth) %>"
+                         src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
+                    <% } %>
+
+                    <% if (isLongImg(list[i].firstFeed.coverTile)) { %>
+                    <p class="summary"><%= list[i].firstFeed.summary %></p>
+                    <% } else { %>
+                    <p class="text"><%= list[i].firstFeed.summary %></p>
+                    <% } %>
+                </div>
+                <% if (isSquareImg(list[i].firstFeed.coverTile)) { %>
+                <img class="lazy" width="120px" height="120px"
+                     dataimg="<%=resizeImg({'url':list[i].firstFeed.coverTile.path,'isXz':true,'expWidth':120,'expHeight':120,'rWidth':parseInt(list[i].firstFeed.coverTile.picWidth),'rHeight':parseInt(list[i].firstFeed.coverTile.picHeight)}).url %>"
+                     src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
+                <% } %>
             </div>
             <a onclick="changeHash('#account/<%= list[i].account.id %>','index')" class="account">
-              <div class="default">
-                 <% if(list[i].account.logoUrl){ %>
-                <img class="avatar lazy" dataimg="<%= getImgUrl(list[i].account.logoUrl, 100, 60) %>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
-                  <% } %>
-              </div>
-              <p class="name"><%= list[i].account.nick %></p>
-            </a>
-        <div class="separator">
-        </div>
-        </div>
-        </li>
-      <% } %>
-    </script>
-
-    <script id="detail_header_tpl" type="text/template">
-        <div class="back">
-            <a href="<%= href %>">返回</a>
-        </div>
-        <div class="title">&nbsp;</div>
-        <ul class="fn_btns">
-            <li class="comment to-comment-list log" data-log="commentlist">
-                <div class="btn">评论 <span></span></div>
-            </li>
-        </ul>
-    </script>
-    <script id="comment_list_header_tpl" type="text/template">
-        <div class="back">
-            <a href="<%= href %>">返回</a>
-        </div>
-        <div class="title">&nbsp;</div>
-        <ul class="fn_btns">
-            <li class="comment write-comment log" data-log="addcomment">
-                <div class="btn">写评论</div>
-            </li>
-        </ul>
-    </script>
-    <script id="newComment_header_tpl" type="text/template">
-        <div class="back">
-            <a href="<%= href %>">返回</a>
-        </div>
-        <div class="title">&nbsp;</div>
-        <ul class="fn_btns">
-            <li class="comment publish-comment">
-                <div class="btn green">发布</div>
-            </li>
-        </ul>
-    </script>
-
-    <script id="slider_tpl" type="text/template">
-        <div class="in-slider ishide">
-            <div class="in-slider-cont" style="-webkit-transform: translate3d(0px, 0px, 0px);">
-                <ul id="inslist" style="-webkit-transform: translate3d(0px, 0px, 0px); -webkit-backface-visibility: hidden; width: <%=width %>px; -webkit-transition: 0ms;">
-                    <% _.each(list, function(item) { %>
-                    <li style="-webkit-transform: translate3d(0px, 0px, 0px);">
-                        <a <% if(item.url){ %>
-                            href="<%=item.url %>"
-                        <% } %>
-                        >
-                            <img class="lazyimg" height="156" width="100%" dataimg="<%=item.picture %>"  src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
-                        </a>
-                    </li>
-                    <% }); %>
-                </ul>
-            </div>
-            <div class="in-slider-status">
-            </div>
-        </div>
-    </script>
-    <script id="myList_tpl" type="text/template">
-        <ul>
-            <% _.each(list, function(item) { %>
-            <li>
-                <div snsid="<%=item.id%>" class="content">
-                    <div class="title"><%=item.nick%></div>
-                    <div class="info"><%=item.description%></div>
-                    <div class="follows"><span><%=formatFans(item.fansCount)%></span>关注者</div>
-                    <div class="default">
-                        <% if(item.logoUrl){ %>
-                        <img class="lazy" dataimg="<%=getImgUrl(item.logoUrl,100,60)%>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
-                        <% } %>
-                    </div>
-                </div>
-            </li>
-            <% }); %>
-        </ul>
-    </script>
-    <script id="personList_tpl" type="text/template">
-        <ul>
-            <% _.each(list, function(item) { %>
-            <li>
-                <div snsid="<%=item.id%>" class="content log" data-log="account">
-                    <div class="title"><%=item.nick%></div>
-                    <div class="info"><%=item.description%></div>
-                    <div class="follows"><span><%=formatFans(item.fansCount)%></span>关注者</div>
-                    <div class="default">
-                        <% if(item.logoUrl){ %>
-                        <img class="lazy" dataimg="<%=getImgUrl(item.logoUrl,100,60)%>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
-                         <% } %>
-                    </div>
-                </div>
-                <% if(item.followed=='true'){ %>
-                <button pid="<%=item.id%>" class="followbtn followed log" data-log="cancelattention">取消关注</button>
-                <% }else{ %>
-                <button pid="<%=item.id%>" class="followbtn log" data-log="attention">关注</button>
-                <% }%>
-            </li>
-            <% }); %>
-        </ul>
-    </script>
-    <script id="recommendtip_tpl" type="text/template">
-        <div class="recommendtip">您还没有关注任何账号哦，看看我们的推荐吧！</div>
-    </script>
-    <script id="myfeed_tpl" type="text/template">
-
-        <div class="myfeed">
-            <ul>
-                <% _.each(list, function(item) { %>
-                <% if(item.firstFeed){ %>
-                <% if(item.firstFeed.coverTile&&item.firstFeed.coverTile.path) {%>
-                <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="multimedia log" data-log="account">
-                    <div class="media">
-                        <div class="default">
-                            <% if(item.firstFeed.coverTile.path){ %>
-                            <img src="<%=getImgUrl(item.firstFeed.coverTile.path,170,100,true)%>">
-                            <% } %>
-                        </div>
-                    </div>
-                    <% }else{ %>
-                <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="log" data-log="account">
+                <div class="default">
+                    <% if(list[i].account.logoUrl){ %>
+                    <img class="avatar lazy" dataimg="<%= getImgUrl(list[i].account.logoUrl, 100, 60) %>"
+                         src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
                     <% } %>
-                    <div class="feed">
-                        <div class="title"><%=item.firstFeed.title%></div>
-                        <div class="info"><%=item.firstFeed.summary%></div>
-                        <div class="status">
-                            <span class="time"><%=timestamps(item.firstFeed.time)%></span>
-                            <%if (item.unreadCount>0){ %>
+                </div>
+                <p class="name"><%= list[i].account.nick %></p>
+            </a>
+
+            <div class="separator">
+            </div>
+        </div>
+    </li>
+    <% } %>
+</script>
+
+<script id="detail_header_tpl" type="text/template">
+    <div class="back">
+        <a href="<%= href %>">返回</a>
+    </div>
+    <div class="title">&nbsp;</div>
+    <ul class="fn_btns">
+        <li class="comment to-comment-list log" data-log="commentlist">
+            <div class="btn">评论 <span></span></div>
+        </li>
+    </ul>
+</script>
+<script id="comment_list_header_tpl" type="text/template">
+    <div class="back">
+        <a href="<%= href %>">返回</a>
+    </div>
+    <div class="title">&nbsp;</div>
+    <ul class="fn_btns">
+        <li class="comment write-comment log" data-log="addcomment">
+            <div class="btn">写评论</div>
+        </li>
+    </ul>
+</script>
+<script id="newComment_header_tpl" type="text/template">
+    <div class="back">
+        <a href="<%= href %>">返回</a>
+    </div>
+    <div class="title">&nbsp;</div>
+    <ul class="fn_btns">
+        <li class="comment publish-comment">
+            <div class="btn green">发布</div>
+        </li>
+    </ul>
+</script>
+
+<script id="slider_tpl" type="text/template">
+    <div class="in-slider ishide">
+        <div class="in-slider-cont" style="-webkit-transform: translate3d(0px, 0px, 0px);">
+            <ul id="inslist"
+                style="-webkit-transform: translate3d(0px, 0px, 0px); -webkit-backface-visibility: hidden; width: <%=width %>px; -webkit-transition: 0ms;">
+                <% _.each(list, function(item) { %>
+                <li style="-webkit-transform: translate3d(0px, 0px, 0px);">
+                    <% if(item.url){ %>
+                        <a  href="<%=item.url %>">
+                    <% }else{ %>
+                        <a>
+                    <% } %>
+                    <img class="lazyimg" height="156" width="100%" dataimg="<%=item.picture %>"
+                         src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
+                    </a>
+                </li>
+                <% }); %>
+            </ul>
+        </div>
+        <div class="in-slider-status">
+        </div>
+    </div>
+</script>
+<script id="myList_tpl" type="text/template">
+    <ul>
+        <% _.each(list, function(item) { %>
+        <li>
+            <div snsid="<%=item.id%>" class="content">
+                <div class="title"><%=item.nick%></div>
+                <div class="info"><%=item.description%></div>
+                <div class="follows"><span><%=formatFans(item.fansCount)%></span>关注者</div>
+                <div class="default">
+                    <% if(item.logoUrl){ %>
+                    <img class="lazy" dataimg="<%=getImgUrl(item.logoUrl,100,60)%>"
+                         src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
+                    <% } %>
+                </div>
+            </div>
+        </li>
+        <% }); %>
+    </ul>
+</script>
+<script id="personList_tpl" type="text/template">
+    <ul>
+        <% _.each(list, function(item) { %>
+        <li>
+            <div snsid="<%=item.id%>" class="content log" data-log="account">
+                <div class="title"><%=item.nick%></div>
+                <div class="info"><%=item.description%></div>
+                <div class="follows"><span><%=formatFans(item.fansCount)%></span>关注者</div>
+                <div class="default">
+                    <% if(item.logoUrl){ %>
+                    <img class="lazy" dataimg="<%=getImgUrl(item.logoUrl,100,60)%>"
+                         src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
+                    <% } %>
+                </div>
+            </div>
+            <% if(item.followed=='true'){ %>
+            <button pid="<%=item.id%>" class="followbtn followed log" data-log="cancelattention">取消关注</button>
+            <% }else{ %>
+            <button pid="<%=item.id%>" class="followbtn log" data-log="attention">关注</button>
+            <% }%>
+        </li>
+        <% }); %>
+    </ul>
+</script>
+<script id="recommendtip_tpl" type="text/template">
+    <div class="recommendtip">您还没有关注任何账号哦，看看我们的推荐吧！</div>
+</script>
+<script id="myfeed_tpl" type="text/template">
+
+    <div class="myfeed">
+        <ul>
+            <% _.each(list, function(item) { %>
+            <% if(item.firstFeed){ %>
+            <% if(item.firstFeed.coverTile&&item.firstFeed.coverTile.path) {%>
+            <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="multimedia log"
+                data-log="account">
+                <div class="media">
+                    <div class="default">
+                        <% if(item.firstFeed.coverTile.path){ %>
+                        <img src="<%=getImgUrl(item.firstFeed.coverTile.path,170,100,true)%>">
+                        <% } %>
+                    </div>
+                </div>
+                <% }else{ %>
+            <li feedId="<%=item.firstFeed.id%>" snsid="<%=item.firstFeed.creatorId%>" class="log" data-log="account">
+                <% } %>
+                <div class="feed">
+                    <div class="title"><%=item.firstFeed.title%></div>
+                    <div class="info"><%=item.firstFeed.summary%></div>
+                    <div class="status">
+                        <span class="time"><%=timestamps(item.firstFeed.time)%></span>
+                        <%if (item.unreadCount>0){ %>
                                             <span class="like">
                                                 <%if (item.unreadCount>9){ %>
                                                 9+
@@ -306,218 +350,230 @@
                                                     <%=item.unreadCount%>
                                                 <% } %>
                                             </span>
-                            <% } %>
-                            <% if(item.account){ %>
-                            <span class="name"><%=item.account.nick%></span>
-                            <% } %>
-                        </div>
+                        <% } %>
+                        <% if(item.account){ %>
+                        <span class="name"><%=item.account.nick%></span>
+                        <% } %>
                     </div>
-                </li>
-                <% } %>
+                </div>
+            </li>
+            <% } %>
 
-                <% }); %>
+            <% }); %>
 
-            </ul>
+        </ul>
+    </div>
+</script>
+
+<script id="accountinfo_tpl" type="text/template">
+    <div snsid="<%=id%>" class="tb-profile">
+        <div class="user-mark"></div>
+        <div class="user-cover" style="<% if(backgroundImg){ %>background-image: url('<%=backgroundImg%>')<% } %>">
         </div>
-    </script>
-
-    <script id="accountinfo_tpl" type="text/template">
-        <div snsid="<%=id%>" class="tb-profile">
-            <div class="user-mark"></div>
-            <div class="user-cover" style="<% if(backgroundImg){ %>background-image: url('<%=backgroundImg%>')<% } %>">
-            </div>
-            <div class="user-avatar">
-                <div class="default">
-                    <% if(logoUrl){ %>
-                    <img src="<%=getImgUrl(logoUrl,100,60)%>">
-                    <% } %>
-                </div>
-            </div>
-            <div class="user-info">
-                <h1><%=nick%></h1>
-                <h3><%=description%></h3>
-            </div>
-        </div>
-        <% if(noHelper(accountType)){ %>
-        <div class="tb-counts">
-            <div class="profile-overview">
-                <div class="stats-count">
-                    <%=formatFans(fansCount)%>
-                </div>
-                <div class="stats-name">
-                    关注者
-                </div>
-            </div>
-            <div class="profile-overview">
-
-                <div url="<%=url%>" linkUrlIsExt="<%=linkUrlIsExt%>" class="stats-global <% if(url==''){ %> stats-global-disable <% } %> wwwIco"></div>
-
-            </div>
-
-            <div class="profile-overview">
-                <% if(followed=='true'){ %>
-                <button pid="<%=id%>" class="stats-follow-btn followed log" data-log="cancelattention">
-                    取消关注
-                </button>
-                <% }else{ %>
-                <button pid="<%=id%>" class="stats-follow-btn log" data-log="attention">
-                    关注
-                </button>
+        <div class="user-avatar">
+            <div class="default">
+                <% if(logoUrl){ %>
+                <img src="<%=getImgUrl(logoUrl,100,60)%>">
                 <% } %>
             </div>
         </div>
-        <% } %>
-    </script>
-    <script id="tbfeed_tpl" type="text/template">
+        <div class="user-info">
+            <h1><%=nick%></h1>
 
-        <% _.each(list, function(item) { %>
-        <li feedId="<%=item.id%>">
-            <div class="title"><%=item.title%></div>
-            <div class="fns">
-                <span class="icon-clock time"><%=timestamps(item.time)%></span>
-                <% if(item.commentCount!=0) {%>
+            <h3><%=description%></h3>
+        </div>
+    </div>
+    <% if(noHelper(accountType)){ %>
+    <div class="tb-counts">
+        <div class="profile-overview">
+            <div class="stats-count">
+                <%=formatFans(fansCount)%>
+            </div>
+            <div class="stats-name">
+                关注者
+            </div>
+        </div>
+        <div class="profile-overview">
+
+            <div url="<%=url%>" linkUrlIsExt="<%=linkUrlIsExt%>"
+                 class="stats-global <% if(url==''){ %> stats-global-disable <% } %> wwwIco"></div>
+
+        </div>
+
+        <div class="profile-overview">
+            <% if(followed=='true'){ %>
+            <button pid="<%=id%>" class="stats-follow-btn followed log" data-log="cancelattention">
+                取消关注
+            </button>
+            <% }else{ %>
+            <button pid="<%=id%>" class="stats-follow-btn log" data-log="attention">
+                关注
+            </button>
+            <% } %>
+        </div>
+    </div>
+    <% } %>
+</script>
+<script id="tbfeed_tpl" type="text/template">
+
+    <% _.each(list, function(item) { %>
+    <li feedId="<%=item.id%>">
+        <div class="title"><%=item.title%></div>
+        <div class="fns">
+            <span class="icon-clock time"><%=timestamps(item.time)%></span>
+            <% if(item.commentCount!=0) {%>
                 <span class="comment commentIco">
                     <%=item.commentCount%>
                 </span>
-                <% }%>
-            </div>
-            <% if(item.coverTile){ %>
-            <% if(item.coverTile.path){%>
-            <div class="media">
-                <div class="item <% if(item.coverTile.item){ %>
+            <% }%>
+        </div>
+        <% if(item.coverTile){ %>
+        <% if(item.coverTile.path){%>
+        <div class="media">
+            <div class="item <% if(item.coverTile.item){ %>
                                     <% if(item.coverTile.item){ %>
                                         it<%=item.coverTile.item.id%>
                                     <% } %>
-                                 <% } %>" >
+                             <% } %> ">
                     <% var pic=resizeImg({'url':item.coverTile.path,'expWidth':window.innerWidth,'rWidth':parseInt(item.coverTile.picWidth),'rHeight':parseInt(item.coverTile.picHeight),'isXz':true})  %>
-                    <img class="lazy" style="width:<%=pic.expWidth%>;height:<%=pic.expHeight%>" picWidth="<%=parseInt(item.coverTile.picWidth)%>" picHeight="<%=parseInt(item.coverTile.picHeight)%>"
+                    <img class="lazy"
+                            style="width:<%=pic.expWidth%>;height:<%=pic.expHeight%>"
+                            picWidth="<%=parseInt(item.coverTile.picWidth)%>"
+                            picHeight="<%=parseInt(item.coverTile.picHeight)%>"
                          dataimg="<%=pic.url%>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif" />
                 </div>
             </div>
-            <% } %>
-            <% } %>
-            <div class="text">
-                <%=item.summary%>
-            </div>
-
-        </li>
-        <% }); %>
-        </ul>
-
-    </script>
-    <script id="loginBar_tpl" type="text/template" disable>
-        <div class="login-bar">
-            <span>登录后就能关注您喜欢的账号了</span>
-            <a class="login-btn log" data-log="login" id="J_login_btn">登录</a>
+        <% } %>
+        <% } %>
+        <div class="text">
+            <%=item.summary%>
         </div>
-    </script>
+
+    </li>
+    <% }); %>
 
 
-    <script id="detail_accinfo_tpl" type="text/template">
-        <a href="#account/<%= snsId %>"  class="brand">
-            <div class="default">
-                <% if(logoUrl){ %>
-                <img class="avatar" src="<%=getImgUrl(logoUrl,100,60)%>"/>
+</script>
+<script id="loginBar_tpl" type="text/template" disable>
+    <div class="login-bar">
+        <span>登录后就能关注您喜欢的账号了</span>
+        <a class="login-btn log" data-log="login" id="J_login_btn">登录</a>
+    </div>
+</script>
+
+
+<script id="detail_accinfo_tpl" type="text/template">
+    <a href="#account/<%= snsId %>" class="brand">
+        <div class="default">
+            <% if(logoUrl){ %>
+            <img class="avatar" src="<%=getImgUrl(logoUrl,100,60)%>"/>
+            <% } %>
+        </div>
+        <div class="info">
+            <p class="name"><%= nick %></p>
+            <% if(noHelper(accountType)){ %>
+            <p class="follow" snsid="<%=snsId%>">
+                <% if (fansCount == 0) { %>
+                还没有人关注
+                <% } else { %>
+                <span class="count"><%= formatFans(fansCount) %></span> 关注者
                 <% } %>
-            </div>
-            <div class="info">
-                <p class="name"><%= nick %></p>
-                <% if(noHelper(accountType)){ %>
-                <p class="follow" snsid="<%=snsId%>">
-                    <% if (fansCount == 0) { %>
-                    还没有人关注
-                    <% } else { %>
-                    <span class="count"><%= formatFans(fansCount) %></span> 关注者
-                    <% } %>
-                </p>
-                <% } %>
-            </div>
+            </p>
+            <% } %>
+        </div>
+    </a>
+
+    <div class="separator"></div>
+</script>
+<script id="detail_content_tpl" type="text/template">
+    <h1><%= title %></h1>
+    <% if (time) { %>
+    <p class="detail-info">
+        <span class="icon-clock pub-time"><%= timestamps(time) %></span>
+        <% if(parseInt(commentCount)>0){ %>
+        <span class="icon-comment cmt-count"><%= commentCount %></span>
+        <% } %>
+    </p>
+    <% } %>
+    <% for (var i = 0; i < tiles.length; i++) { %>
+    <% if (tiles[i].type == "pic") { %>
+    <div class="media"><img class="lazy"
+                            dataimg="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
+                            style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>"
+                            src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
+    </div>
+    <% } else if (tiles[i].type == "text") { %>
+
+    <p class="text"><%= tiles[i].text.replace(/(\n)+/g, '<span style="height:5px;display:block"></span>') %></p>
+
+    <% } else if (tiles[i].type == "picItem") { %>
+    <div class="media">
+        <a style="display: block" href="<%= getItemDetailUrl('a', { itemId: tiles[i].item.id }) %>" class="item"
+           data-id="<%= tiles[i].item.id %>">
+            <img class="lazy"
+                 dataimg="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
+                 style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>"
+                 src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
+
+            <div class="price" style="display: none;"></div>
         </a>
-        <div class="separator"></div>
-    </script>
-    <script id="detail_content_tpl" type="text/template">
-        <h1><%= title %></h1>
-        <% if (time) { %>
-        <p class="detail-info">
-            <span class="icon-clock pub-time"><%= timestamps(time) %></span>
-            <% if(parseInt(commentCount)>0){ %>
-            <span class="icon-comment cmt-count"><%= commentCount %></span>
-            <% } %>
-        </p>
-        <% } %>
-        <% for (var i = 0; i < tiles.length; i++) { %>
-        <% if (tiles[i].type == "pic") { %>
-        <div class="media"><img class="lazy" dataimg="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
-                                style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
-        </div>
-        <% } else if (tiles[i].type == "text") { %>
+    </div>
+    <% } %>
+    <% } %>
 
-        <p class="text"><%= tiles[i].text.replace(/(\n)+/g, '<span style="height:5px;display:block"></span>') %></p>
-
-        <% } else if (tiles[i].type == "picItem") { %>
-        <div class="media">
-            <a style="display: block" href="<%= getItemDetailUrl('a', { itemId: tiles[i].item.id }) %>" class="item" data-id="<%= tiles[i].item.id %>">
-                <img class="lazy" dataimg="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
-                     style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
-                <div class="price" style="display: none;"></div>
-            </a>
-        </div>
-        <% } %>
-        <% } %>
-
-        <% if (linkUrl) { %>
-        <a href="<%= linkUrl %>" class="more-content">
-            <span class="link-icon"></span>
-            <span class="link-title"><%= linkTitle || '更多内容' %></span></a>
-        <% } %>
-    </script>
+    <% if (linkUrl) { %>
+    <a href="<%= linkUrl %>" class="more-content">
+        <span class="link-icon"></span>
+        <span class="link-title"><%= linkTitle || '更多内容' %></span></a>
+    <% } %>
+</script>
 
 
-
-    <script id="comment_list_tpl" type="text/template">
-        <ul class="comment-list">
-            <% for (var i = 0; i < list.length; i++) { %>
-            <li>
-                <div class="user-info">
-                    <div class="default">
-                        <%if(list[i].createrPic){%>
-                        <img  src="<%= list[i].createrPic %>">
-                        <% } %>
-                    </div>
-                    <div class="info">
-                        <p class="user-name"><%= list[i].createrName %></p>
-                        <p class="pub-time"><%= timestamps(list[i].time) %></p>
-                    </div>
+<script id="comment_list_tpl" type="text/template">
+    <ul class="comment-list">
+        <% for (var i = 0; i < list.length; i++) { %>
+        <li>
+            <div class="user-info">
+                <div class="default">
+                    <%if(list[i].createrPic){%>
+                    <img src="<%= list[i].createrPic %>">
+                    <% } %>
                 </div>
-                <div class="user-comment">
-                    <%- list[i].content %>
+                <div class="info">
+                    <p class="user-name"><%= list[i].createrName %></p>
+
+                    <p class="pub-time"><%= timestamps(list[i].time) %></p>
                 </div>
-                <div class="separator"></div>
-            </li>
-            <% } %>
-        </ul>
-        <div id="commentListPageNav" class="pagenav"></div>
-    </script>
+            </div>
+            <div class="user-comment">
+                <%- list[i].content %>
+            </div>
+            <div class="separator"></div>
+        </li>
+        <% } %>
+    </ul>
+    <div id="commentListPageNav" class="pagenav"></div>
+</script>
 
 
+<script id="newComment_input_tpl" type="text/template">
+    <div class="comment-wrap">
+        <textarea id="comment-area" placeholder="说点儿什么吧"></textarea>
 
-    <script id="newComment_input_tpl" type="text/template">
-        <div class="comment-wrap">
-            <textarea id="comment-area" placeholder="说点儿什么吧"></textarea>
-            <p class="word-count"><span class="char-count">0</span> / 140</p>
-        </div>
-    </script>
+        <p class="word-count"><span class="char-count">0</span> / 140</p>
+    </div>
+</script>
 
-    <!-- Templates -->
+<!-- Templates -->
 
-        <input type="hidden" id="J_app_key" value="12574478">
-		<script src="http://a.tbcdn.cn/mw/base/libs/seajs/1.2.0/sea.js"></script>
-        <script>
-            seajs.use('./src/app/allspark.js', function(app){
-                //new app();
-            });
+<input type="hidden" id="J_app_key" value="12574478">
+<script src="http://a.tbcdn.cn/mw/base/libs/seajs/1.2.0/sea.js"></script>
+<script>
+    seajs.use('./src/app/allspark.js', function (app) {
+        //new app();
+    });
 
-        </script>
+</script>
 
-    </body>
+</body>
 </html>
