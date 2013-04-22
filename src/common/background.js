@@ -5,7 +5,7 @@ define(function (require, exports, module) {
         h5_comm = require('h5_comm'),
         tbh5 = require('h5_base'),
         History = require('../../../../base/modules/history/history.js'),
-        login_refer_flag = localStorage ? false : localStorage.getItem("f_l");
+        login_refer_flag = localStorage ? localStorage.getItem("f_l") : false;
 
     login_refer_flag && localStorage.removeItem("f_l");
 
