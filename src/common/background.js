@@ -11,7 +11,7 @@ define(function (require, exports, module) {
         defaultHash:"#index",
         defaultSeparator : '/',
         fromBack: function(){
-            return h5_comm.isLogin() && document.referrer && 0 == document.referrer.indexOf("http://login");
+            return h5_comm.isLogin() && document.referrer && ('1' ==tbh5.getQueryString('n_b') || document.referrer.indexOf("//login") >-1 );
         },
         setItem:function(key,value){
             tbh5.set(key,value);
