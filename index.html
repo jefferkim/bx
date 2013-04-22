@@ -14,9 +14,10 @@
     <script src="less.js" type="text/javascript"></script>
     <script>
         var url = location.href;
+
         if (url.search('sid=[a-z0-9]+') > 1 && url.search('ttid=[a-z0-9_]+@') < 1) {
-            if (document.referrer.indexOf("//login") > -1) {
-                window.localStorage && window.localStorage.setItem('f_l', '1');
+            if ( window.localStorage && document.referrer ) {
+                window.localStorage && window.localStorage.setItem('f_l', document.referrer);
             }
             url = url.replace(/sid=[0-9a-z]+&?/, '');
             location.replace(url);
