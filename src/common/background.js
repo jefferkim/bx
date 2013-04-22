@@ -30,6 +30,9 @@ define(function (require, exports, module) {
         },
         validate: function () {
             return location.hash.indexOf("&") == -1;
+        },
+        filterEntrance: function(entrence){
+            return entrence.indexOf(document.pathname) >= 0 ? "" : document.referrer;
         }
     });
 
