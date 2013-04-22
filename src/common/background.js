@@ -7,6 +7,8 @@ define(function (require, exports, module) {
         History = require('../../../../base/modules/history/history.js'),
         login_refer_flag = localStorage ? false : localStorage.getItem("f_l");
 
+    login_refer_flag && localStorage.removeItem("f_l");
+
     History.prototype.extend({
         defaultPage: "http://m.taobao.com",
         defaultHash: "#index",
