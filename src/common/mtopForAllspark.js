@@ -133,6 +133,7 @@ define(function (require, exports, module) {
     };
 
     /**----------------------评论相关---------------------------------------*/
+    /**
     exports.commentCount = function (param, fun) {
         var key =param.snsId+"_"+ param.feedId ;
         var count = cache.getCommCountById(key);
@@ -150,7 +151,7 @@ define(function (require, exports, module) {
         );
     }
     };
-
+     **/
     exports.addComment = function (param, fun) {
         invokeApi("mtop.sns.comment.new", param, fun);
     };
@@ -160,8 +161,18 @@ define(function (require, exports, module) {
             function (result) {
                 if(!result.fail)
                 {
-                    var key =param.snsId+"_"+ param.feedId ;
-                    cache.saveCommCount(key,{'count':result.totalCount} );
+                    //将评论数更新到详情的缓存中
+                    var key = param.snsId+"_"+param.feedId;
+                    var feed = cache.getItemById(key) ;
+                    if(feed)
+                    {
+                        if( typeof (feed) == "string") {
+                            feed = JSON.parse(feed);
+                        }
+                        feed['commentCount'] = result.totalCount || 0;
+
+                        cache.saveItem( key,feed);
+                    }
                 }
                 fun && fun.call(arguments.callee, result)
             }
