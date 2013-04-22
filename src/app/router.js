@@ -50,14 +50,15 @@ define(function (require, exports, module) {
                     $('.hdButton').html('<span>切换到高清模式</span>');
                 }
             } else {
-                if (dpi.get() == 1) {
+                if (dpi.get() > 1) {
+                    tbh5.set('hdButton',2);
                     $('.hdButton').html('<span>切换到流畅模式</span>');
                 }
             }
             //tbh5.set('hdButton',0);
-            if (dpi.get() > 1) {
-                $('.hdButton').html('<span>切换到流畅模式</span>');
-            }
+//            if (dpi.get() > 1) {
+//                $('.hdButton').html('<span>切换到流畅模式</span>');
+//            }
             //export 图片处理，方便模版直接调用
             resizeImg = imgTrim.trim;
             getBetterImg = function (name, expwidth, rwidth, isXz) {
