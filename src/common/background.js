@@ -32,7 +32,7 @@ define(function (require, exports, module) {
             return location.hash.indexOf("&") == -1;
         },
         filterEntrance: function(entrence){
-            return entrence.indexOf(document.pathname) >= 0 ? "" : document.referrer;
+            return entrence ? ( entrence.indexOf(document.pathname) >= 0 ? "" : document.referrer) : entrence;
         }
     });
 
