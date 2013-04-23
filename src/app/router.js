@@ -34,7 +34,14 @@ define(function (require, exports, module) {
 
         initialize: function () {
             //cdn 获取最佳图片尺寸
-            globalCDN = cdn;
+            window.globalCDN = imgTrim;
+
+            if(/i(Phone|P(o|a)d)/.test(navigator.userAgent)){
+                //判断是否为android 浏览器
+                if(!$('body').hasClass('ios')){
+                    $('body').addClass('ios');
+                }
+            }
             if (tbh5.get('hdButton') != null) {
                 imgTrim.setRatio(parseInt(tbh5.get('hdButton')));
                 if (tbh5.get('hdButton') > 1) {
@@ -43,14 +50,15 @@ define(function (require, exports, module) {
                     $('.hdButton').html('<span>切换到高清模式</span>');
                 }
             } else {
-                if (dpi.get() == 1) {
+                if (dpi.get() > 1) {
+                    tbh5.set('hdButton',2);
                     $('.hdButton').html('<span>切换到流畅模式</span>');
                 }
             }
             //tbh5.set('hdButton',0);
-            if (dpi.get() > 1) {
-                $('.hdButton').html('<span>切换到流畅模式</span>');
-            }
+//            if (dpi.get() == 1) {
+//                $('.hdButton').html('<span>切换到流畅模式</span>');
+//            }
             //export 图片处理，方便模版直接调用
             resizeImg = imgTrim.trim;
             getBetterImg = function (name, expwidth, rwidth, isXz) {
@@ -143,6 +151,26 @@ define(function (require, exports, module) {
             _indexView.render(page);
             var b = "onorientationchange" in window, c = b ? "orientationchange" : "resize";
             $(window).unbind(c).bind(c, function () {
+
+//                if(setOrientation()=='portrait'){
+//                    //if(window.innerWidth>)
+//                    var _w=$('#content')[0].offsetWidth<$('#content')[0].offsetHeight?$('#content')[0].offsetWidth:$('#content')[0].offsetHeight;
+//                    $('.navbar').css('width',_w);
+//                    alert($('#content')[0].offsetWidth+'--'+$('#content')[0].offsetHeight);
+//                    alert(document.body.clientHeight+'-2-'+document.body.clientWidth);
+//                    //expectWidth= window.innerWidth - 30;
+//                }else{
+//                    var _w=$('#content')[0].offsetWidth>$('#content')[0].offsetHeight?$('#content')[0].offsetWidth:$('#content')[0].offsetHeight;
+//                    alert($('#content')[0].offsetWidth+'--'+$('#content')[0].offsetHeight);
+//                    alert(document.body.clientHeight+'-1-'+document.body.clientWidth);
+//                    $('.navbar').css('width',_w);
+//
+//                    //expectWidth=window.innerHeight-30;
+//
+//                }
+
+                //$('.navbar').css('position','absolute');
+
                 var _img = $('#indexPage .feed-item .js_feed img');
                 for (var i = 0, len = _img.length; i < len; i++) {
                     if (!_img.eq(i).parent().hasClass('feed-box')) {

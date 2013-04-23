@@ -49,7 +49,8 @@ define(function (require, exports, module) {
         'click #indexPage .js_feed':'goToDetail',
         'click .goFollowbtn':'add',
         'click .gotop':'goTop',
-        'click .hdButton span':'changeHD'
+        'click .hdButton span':'changeHD',
+        'click .loginStatus a.login':'goLogin'
     },
     initialize:function () {
       this.params = {
@@ -78,12 +79,17 @@ define(function (require, exports, module) {
         if(h5_comm.isLogin()){
             $('.navbar').html(header);
             $('footer .nick').html(mtop.userNick);
-            $('footer .loginStatus a').css('display','inline-block');
+            $('footer .loginStatus a.logout').css('display','inline-block');
+            $('footer .loginStatus a.login').css('display','none');
+            $('footer .loginStatus a.reg').css('display','none');
+
             this.model.getTimeLine(this.params);
         }else{
             $('.navbar').html(header+loginHtml);
             $('footer .nick').html('');
-            $('footer .loginStatus a').css('display','none');
+            $('footer .loginStatus a.logout').css('display','none');
+            $('footer .loginStatus a.login').css('display','inline-block');
+            $('footer .loginStatus a.reg').css('display','inline-block');
             if($('.J_slider').length==0){
                 $('#indexPage .J_status').html('<div class="J_slider"></div><div class="hotfeedhd"><span>热门广播</span></div>');
                 this.showBanner();
@@ -124,11 +130,11 @@ define(function (require, exports, module) {
            if(cur.text()=='切换到高清模式'){
                cur.html('切换到流畅模式');
                tbh5.set('hdButton',2);
-               globalCDN.setDefaultDpi(2);
+               globalCDN.setRatio(2);
            }else{
                cur.html('切换到高清模式');
                tbh5.set('hdButton',1);
-               globalCDN.setDefaultDpi(1);
+               globalCDN.setRatio(1);
            }
 
        },
