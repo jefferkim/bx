@@ -34,7 +34,7 @@ define(function (require, exports, module) {
 
         initialize: function () {
             //cdn 获取最佳图片尺寸
-            globalCDN = cdn;
+            window.globalCDN = imgTrim;
 
             if(/i(Phone|P(o|a)d)/.test(navigator.userAgent)){
                 //判断是否为android 浏览器
@@ -56,7 +56,7 @@ define(function (require, exports, module) {
                 }
             }
             //tbh5.set('hdButton',0);
-//            if (dpi.get() > 1) {
+//            if (dpi.get() == 1) {
 //                $('.hdButton').html('<span>切换到流畅模式</span>');
 //            }
             //export 图片处理，方便模版直接调用
