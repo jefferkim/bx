@@ -39,7 +39,6 @@ define(function (require, exports, module) {
         }
     });
    return Backbone.View.extend({
-
     el: '#content',
     model : new _model(),
     events:{

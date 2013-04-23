@@ -40,6 +40,9 @@ define(function (require, exports, module) {
                     return;
                 }
                 if(result&&($('#accountPage .J_info').html()=='')){
+                    if(typeof result.logoUrl=='undefined'){
+                        result.logoUrl='';
+                    }
                     $('#accountPage .J_info').html(_.template($('#accountinfo_tpl').html(),result));
                 }
             });
