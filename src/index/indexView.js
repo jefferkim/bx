@@ -130,11 +130,11 @@ define(function (require, exports, module) {
            if(cur.text()=='切换到高清模式'){
                cur.html('切换到流畅模式');
                tbh5.set('hdButton',2);
-               globalCDN.setDefaultDpi(2);
+               globalCDN.setRatio(2);
            }else{
                cur.html('切换到高清模式');
                tbh5.set('hdButton',1);
-               globalCDN.setDefaultDpi(1);
+               globalCDN.setRatio(1);
            }
 
        },
