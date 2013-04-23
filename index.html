@@ -14,7 +14,6 @@
     <script src="less.js" type="text/javascript"></script>
     <script>
         var url = location.href;
-
         if (url.search('sid=[a-z0-9]+') > 1 && url.search('ttid=[a-z0-9_]+@') < 1) {
             if ( window.localStorage && document.referrer ) {
                 window.localStorage && window.localStorage.setItem('f_l', document.referrer);
@@ -568,7 +567,7 @@
 <input type="hidden" id="J_app_key" value="12574478">
 <script src="http://a.tbcdn.cn/mw/base/libs/seajs/1.2.0/sea.js"></script>
 <script>
-    seajs.use('./src/app/allspark.js', function (app) {
+    seajs.use('./src/app/__build/allspark.js', function (app) {
         //new app();
     });
 
