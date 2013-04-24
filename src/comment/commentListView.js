@@ -4,6 +4,7 @@ define(function(require, exports, module) {
       _ = require('underscore'),
       h5_comm = require('h5_comm'),
       loading = require('../ui/loading'),
+      mtop = require('../common/mtopForAllspark.js'),
       pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js');
 
   var notification = require('../ui/notification.js')
@@ -95,7 +96,9 @@ define(function(require, exports, module) {
       if (list.totalCount == 0) {
         this.$container.html('<p class="no-comment">还没有评论，快抢沙发吧。</p>')
       } else {
-        var commentList = commentListTemlate(this.model.get('commentList'))
+        var data = this.model.get('commentList')
+        data.userNick = h5_comm.isLogin() ? mtop.userNick : ""
+        var commentList = commentListTemlate(data)
         this.$container.html(commentList)
 
         var pageCount = Math.ceil(list.totalCount / this.pageSize);
