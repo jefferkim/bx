@@ -27,7 +27,7 @@ define(function(require, exports, module) {
 
       this.pageSize = 10
 
-      this.$container = $('#commentListPage');
+      this.$container = $('#commentListPage .main');
       this.model.on('change:commentList', this.renderCommentList, this);
 
     },

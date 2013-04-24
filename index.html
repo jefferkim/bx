@@ -67,6 +67,12 @@
             <div class="main"></div>
         </div>
         <div id="commentListPage" class="view-page hide  iR comment">
+            <div class="add-comment">
+                <textarea class="field" name="" placeholder="添加评论" rows="1"></textarea>
+                <button class="send-button">发送</button>
+            </div>
+            <div class="main">
+            </div>
         </div>
         <div id="newCommentPage" class="view-page hide iR new-comment">
         </div>
@@ -521,6 +527,7 @@
 
 
 <script id="comment_list_tpl" type="text/template">
+
     <ul class="comment-list">
         <% for (var i = 0; i < list.length; i++) { %>
         <li>
@@ -535,6 +542,7 @@
 
                     <p class="pub-time"><%= timestamps(list[i].time) %></p>
                 </div>
+                <button class="reply-button">回复</button>
             </div>
             <div class="user-comment">
                 <%- list[i].content %>
