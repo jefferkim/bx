@@ -67,6 +67,7 @@
   min-height: 35px;
   padding: 10px;
   display: -webkit-box;
+  position: relative;
   border-bottom: 1px solid #ddd;
   .field {
     font-size: 14px;
@@ -80,6 +81,18 @@
     border: 1px solid #d5d5d5;
     border-bottom: 1px solid #c9c9c9;
   }
+}
+
+.add-comment .char-count {
+  color: #ccc;
+  position: absolute;
+  top: 53px;
+  right: 10px;
+  width: 64px;
+  font-size: 14px;
+  text-align: center;
+
+  .counter.typing { color: #333; }
 }
 
 .send-button, .reply-button {
