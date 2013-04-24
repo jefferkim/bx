@@ -229,11 +229,6 @@
         <a href="<%= href %>">返回</a>
     </div>
     <div class="title">&nbsp;</div>
-    <ul class="fn_btns">
-        <li class="comment write-comment log" data-log="addcomment">
-            <div class="btn">写评论</div>
-        </li>
-    </ul>
 </script>
 <script id="newComment_header_tpl" type="text/template">
     <div class="back">
@@ -565,7 +560,7 @@
 <input type="hidden" id="J_app_key" value="12574478">
 <script src="http://a.tbcdn.cn/mw/base/libs/seajs/1.2.0/sea.js"></script>
 <script>
-    seajs.use('./src/app/__build/allspark.js', function (app) {
+    seajs.use('./src/app/allspark.js', function (app) {
         //new app();
     });
 
