@@ -179,7 +179,13 @@ define(function (require, exports, module) {
         );
     };
 
-    /**----------------------详情相关---------------------------------------*/
+    
+	
+	exports.recommendsReplyList = function (param, fun) {
+        invokeApi("mtop.sns.comment.replyList", param, fun);
+    };	
+	
+	/**----------------------详情相关---------------------------------------*/
     exports.detail = function (param, fun) {
         invokeApi("mtop.sns.feed.detail", param, fun);
     };

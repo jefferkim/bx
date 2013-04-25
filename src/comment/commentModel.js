@@ -58,6 +58,26 @@ define(function (require, exports, module) {
             } else {
                self.set("loginStatus",false);
             }
-        }
+        },
+		getReplyList:function(param,fun) {
+			console.log('getReplyList');
+            var self = this;
+            if (h5_comm.isLogin()){
+                //设置登录状态
+                self.set("loginStatus",true);
+                mtop.recommendsReplyList(param, function (result) {
+					console.log(result);
+					 if(result.fail){	
+						result.errMsg='服务器繁忙，请稍后再试！';
+                        self.set("replyList",result);
+                        return;
+                    }
+                    result.t=new Date().getTime();
+                    self.set("replyList", result);
+					});
+            } else {
+               self.set("loginStatus",false);
+            }
+        },
     });
 });
