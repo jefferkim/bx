@@ -39,7 +39,9 @@ console.log('init');
       this.$charCount = $('.add-comment .char-count')
 
       this.model.on('change:commentList', this.renderCommentList, this);
- 	    //this.model.getReplyList({curPage:1,pageSize:24,direction:1,timestamp:0});
+      // var self = this
+ 	    // this.model.getReplyList({curPage:1,pageSize:24,direction:1,timestamp:0});
+      // this.model.on('change:replyList', function() { console.log(self.model.get('replyList')) })
     },
      goComment:function(snsId, feedId, page){
 
@@ -87,7 +89,6 @@ console.log('init');
 
       var self = this
       var list = this.model.get('commentList');
-      console.log(list)
 
         if (list&&list.fail) {
             notification.message("请稍后重试");
