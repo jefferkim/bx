@@ -321,7 +321,8 @@ define(function (require, exports, module) {
                     });
                 }
             }else{
-                h5_comm.goLogin('h5_allspark');
+                h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'close'});
+                //h5_comm.goLogin('h5_allspark');
             }
         },
 

@@ -78,6 +78,8 @@ define(function (require, exports, module) {
         if(h5_comm.isLogin()){
             $('.navbar').html(header);
             $('footer .nick').html(mtop.userNick);
+            var logoutUrl =  uriBroker.getUrl('login_out');
+            $('footer .loginStatus a.logout').attr('href',logoutUrl);
             $('footer .loginStatus a.logout').css('display','inline-block');
             $('footer .loginStatus a.login').css('display','none');
             $('footer .loginStatus a.reg').css('display','none');
@@ -171,14 +173,15 @@ define(function (require, exports, module) {
            //window.location.hash='#accountList/1';
        }else{
            //allSpark_hash
-           that.goLogin();
+          // that.goLogin('#accountList/1');
+           h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'changeHash','targetUrl':'#accountList/1'});
            //h5_comm.goLogin('h5_allspark');
        }
     },
     goLogin:function(){
-        tbh5.removeValue('allSpark_hash');
-        tbh5.removeValue('allSpark_lastHash')
-        h5_comm.goLogin('h5_allspark');
+      //  tbh5.removeValue('allSpark_hash');
+      //  tbh5.removeValue('allSpark_lastHash')
+          h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'reload'});
     },
     refresh:function(){
        var that=this;

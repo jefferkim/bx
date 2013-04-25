@@ -117,7 +117,8 @@ define(function(require, exports, module) {
       if (h5_comm.isLogin())
         location.hash = 'newComment/' + this.snsId + '/' + this.feedId + '/' + this.page;
       else
-        h5_comm.goLogin('h5_allspark');
+        h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'close'});
+        //h5_comm.goLogin('h5_allspark');
     }
 
   })
