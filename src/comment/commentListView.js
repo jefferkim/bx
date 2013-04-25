@@ -22,7 +22,7 @@ define(function(require, exports, module) {
 
     events: {
       'click .comment .send-button': 'addComment',
-      'click .write-comment': 'newComment',
+      'click .comment .reply-button': 'newComment',
       'keyup #add-comment-area': 'typing',
       'focusin #add-comment-area': 'expandTextArea',
       'focusout #add-comment-area': 'restoreTextArea'
@@ -39,7 +39,7 @@ console.log('init');
       this.$charCount = $('.add-comment .char-count')
 
       this.model.on('change:commentList', this.renderCommentList, this);
- 	  this.model.getReplyList({curPage:1,pageSize:24,direction:1,timestamp:0});
+ 	    //this.model.getReplyList({curPage:1,pageSize:24,direction:1,timestamp:0});
     },
      goComment:function(snsId, feedId, page){
 
@@ -126,11 +126,13 @@ console.log('init');
     },
 
     newComment: function() {
-      if (h5_comm.isLogin())
+
+      if (h5_comm.isLogin()) {
         location.hash = 'newComment/' + this.snsId + '/' + this.feedId + '/' + this.page;
-      else
-       // h5_comm.goLogin('h5_allspark');
-          h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'close'});
+      } else {
+        // h5_comm.goLogin('h5_allspark'
+        h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'close'});
+      }
     },
 
     typing: function() {
