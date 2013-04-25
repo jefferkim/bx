@@ -64,12 +64,14 @@
         </div>
         <div id="detailPage" class="view-page hide  iR detail">
             <div class="account"></div>
+            <div class="separator"></div>
             <div class="main"></div>
         </div>
         <div id="commentListPage" class="view-page hide  iR comment">
             <div class="add-comment">
-                <textarea class="field" name="" placeholder="添加评论" rows="1"></textarea>
+                <textarea id="add-comment-area" class="field" name="" placeholder="添加评论" rows="1"></textarea>
                 <button class="send-button">发送</button>
+                <p class="char-count" style="display: none"><span class="counter">0</span> / <span>140</span></p>
             </div>
             <div class="main">
             </div>
@@ -243,7 +245,7 @@
     <div class="title">&nbsp;</div>
     <ul class="fn_btns">
         <li class="comment publish-comment">
-            <div class="btn green">发布</div>
+            <div class="btn green">回复</div>
         </li>
     </ul>
 </script>
@@ -480,7 +482,7 @@
         </div>
     </a>
 
-    <div class="separator"></div>
+
 </script>
 <script id="detail_content_tpl" type="text/template">
     <h1><%= title %></h1>
@@ -542,7 +544,9 @@
 
                     <p class="pub-time"><%= timestamps(list[i].time) %></p>
                 </div>
-                <button class="reply-button">回复</button>
+                <% if (list[i].createrName != userNick) { %>
+                    <button class="reply-button">回复</button>
+                <% } %>
             </div>
             <div class="user-comment">
                 <%- list[i].content %>

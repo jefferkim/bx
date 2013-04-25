@@ -4,6 +4,7 @@ define(function(require, exports, module) {
       _ = require('underscore'),
       h5_comm = require('h5_comm'),
       loading = require('../ui/loading'),
+      mtop = require('../common/mtopForAllspark.js'),
       pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js');
 
   var notification = require('../ui/notification.js')
@@ -20,7 +21,11 @@ define(function(require, exports, module) {
     model: new CommentModel(),
 
     events: {
-      'click .write-comment': 'newComment'
+      'click .comment .send-button': 'addComment',
+      'click .write-comment': 'newComment',
+      'keyup #add-comment-area': 'typing',
+      'focusin #add-comment-area': 'expandTextArea',
+      'focusout #add-comment-area': 'restoreTextArea'
     },
 
     initialize: function() {
@@ -28,6 +33,10 @@ define(function(require, exports, module) {
       this.pageSize = 10
 
       this.$container = $('#commentListPage .main');
+
+      this.$commentArea = $('#add-comment-area')
+      this.$charCount = $('.add-comment .char-count')
+
       this.model.on('change:commentList', this.renderCommentList, this);
 
     },
@@ -87,7 +96,9 @@ define(function(require, exports, module) {
       if (list.totalCount == 0) {
         this.$container.html('<p class="no-comment">还没有评论，快抢沙发吧。</p>')
       } else {
-        var commentList = commentListTemlate(this.model.get('commentList'))
+        var data = this.model.get('commentList')
+        data.userNick = h5_comm.isLogin() ? mtop.userNick : ""
+        var commentList = commentListTemlate(data)
         this.$container.html(commentList)
 
         var pageCount = Math.ceil(list.totalCount / this.pageSize);
@@ -117,10 +128,71 @@ define(function(require, exports, module) {
       if (h5_comm.isLogin())
         location.hash = 'newComment/' + this.snsId + '/' + this.feedId + '/' + this.page;
       else
-        h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'close'});
-        //h5_comm.goLogin('h5_allspark');
-    }
+       // h5_comm.goLogin('h5_allspark');
+          h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'close'});
+    },
 
+    typing: function() {
+      var length = this.$commentArea.val().length
+      var $counter = this.$charCount.find('.counter')
+      $counter.text(length)
+
+      if (length) $counter.addClass('typing')
+      else $counter.removeClass('typing')
+
+      if (length > 140) {
+        this.$commentArea.val(this.$commentArea.val().substr(0, 140))
+      }
+
+      var self = this
+      setTimeout(function() { self.typing() }, 200)
+
+    },
+
+    expandTextArea: function() {
+      this.$commentArea.attr('rows', 3)
+      this.$charCount.show()
+    },
+
+    restoreTextArea: function() {
+      this.$commentArea.attr('rows', 1)
+      this.$charCount.hide()
+    },
+
+    addComment: function() {
+      if (!h5_comm.isLogin()) {
+        h5_comm.goLogin('h5_allspark')
+        return
+      }
+
+      var self = this
+      var comment = this.$commentArea.val()
+
+      if (comment.length == 0) {
+        notification.message('写点什么吧 ^_^')
+        return
+      } else if (comment.length <= 140) {
+        this.model.addComment({
+          snsId: this.snsId,
+          feedId: this.feedId,
+          content: comment
+        }, function(success, message) {
+          if (success) {
+            if (message) {
+              notification.message(message)
+              return
+            }
+            notification.message('发布成功！')
+            self.$commentArea.val('')
+            location.reolad()
+          } else {
+            notification.message('发布失败，请重试')
+          }
+
+        });
+        notification.message("发布中，请稍候...", true)
+      }
+    }
   })
 
   return CommentListView
