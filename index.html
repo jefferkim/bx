@@ -545,7 +545,9 @@
                     <p class="pub-time"><%= timestamps(list[i].time) %></p>
                 </div>
                 <% if (list[i].createrName != userNick) { %>
-                    <button class="reply-button">回复</button>
+                    <button class="reply-button" authorid="<%= list[i].authorId %>"
+                                                 authornick="<%= list[i].createrName %>"
+                                                 parentid="<%= list[i].id %>">回复</button>
                 <% } %>
             </div>
             <div class="user-comment">
@@ -561,8 +563,8 @@
 
 <script id="newComment_input_tpl" type="text/template">
     <div class="comment-wrap">
-        <textarea id="comment-area" placeholder="说点儿什么吧"></textarea>
-
+        <p class="reply-to">回复：</p>
+        <textarea id="comment-area"></textarea>
         <p class="word-count"><span class="char-count">0</span> / 140</p>
     </div>
 </script>

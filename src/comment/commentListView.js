@@ -87,6 +87,7 @@ console.log('init');
 
       var self = this
       var list = this.model.get('commentList');
+      console.log(list)
 
         if (list&&list.fail) {
             notification.message("请稍后重试");
@@ -125,9 +126,14 @@ console.log('init');
         location.hash = '#comment/' + this.snsId + '/' + this.feedId + '/' + page
     },
 
-    newComment: function() {
+    newComment: function(e) {
 
       if (h5_comm.isLogin()) {
+        window.commentData = {
+          authorId: e.target.getAttribute('authorid'),
+          authorNick: e.target.getAttribute('authornick'),
+          parentId: e.target.getAttribute('parentid')
+        }
         location.hash = 'newComment/' + this.snsId + '/' + this.feedId + '/' + this.page;
       } else {
         // h5_comm.goLogin('h5_allspark'
