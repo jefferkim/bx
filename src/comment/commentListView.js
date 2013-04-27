@@ -30,7 +30,6 @@ define(function(require, exports, module) {
 
     initialize: function() {
 
-console.log('init');
       this.pageSize = 10
 
       this.$container = $('#commentListPage .main');
@@ -42,6 +41,7 @@ console.log('init');
       // var self = this
  	    // this.model.getReplyList({curPage:1,pageSize:24,direction:1,timestamp:0});
       // this.model.on('change:replyList', function() { console.log(self.model.get('replyList')) })
+
     },
      goComment:function(snsId, feedId, page){
 
