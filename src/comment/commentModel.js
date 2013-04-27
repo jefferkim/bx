@@ -65,7 +65,7 @@ define(function (require, exports, module) {
                 //设置登录状态
                 self.set("loginStatus",true);
                 mtop.recommendsReplyList(param, function (result) {
-					console.log(result);
+					//console.log(result);
 					 if(result.fail){	
 						result.errMsg='服务器繁忙，请稍后再试！';
                         self.set("replyList",result);
