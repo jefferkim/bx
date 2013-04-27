@@ -191,8 +191,31 @@
     min-height: 150px;
     li:first-child{border-top: 0;}
     li{
-      border-top: 1px solid #fcfcfc;border-bottom: 1px solid #ddd;min-height: 50px;padding: 0 15px;
+      border-top: 1px solid #fcfcfc;border-bottom: 1px solid #ddd;min-height: 50px;padding: 0 15px 10px 15px;
       -webkit-transform: translateZ(0);
+    }
+    .account {
+      color: #333;
+      display: block;
+      position: relative;
+      text-decoration: none;
+      .default {
+        width: 28px;
+        height: 28px;
+      }
+      .avatar {
+        display: block;
+        width: 28px;
+        height: 28px;
+        -webkit-border-radius: 4px;
+      }
+      .name {
+        color:rgb(51,51,51);
+        font-size: 14px;
+        position: absolute;
+        left: 35px;
+        top: 0;
+      }
     }
     .title{
       font-size:16px;

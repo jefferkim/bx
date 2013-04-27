@@ -12,6 +12,7 @@ define(function (require, exports, module) {
         h5_base = require('h5_base'),
         uriBroker = require('uriBroker'),
         loading = require('../ui/loading'),
+        mtop = require('../common/mtopForAllspark.js'),
         notification = require('../ui/notification.js'),
         CommentModel = require('../comment/commentModel.js')
 
@@ -29,7 +30,8 @@ define(function (require, exports, module) {
         events:{
           'click .to-comment-list': 'commentList',
           'click .more-content': 'more',
-          'click #detailPage .brand': 'toAccountPage'
+          'click #detailPage .brand': 'toAccountPage',
+          'click .favs':'favbtn'
         },
         initialize:function () {
 
@@ -46,6 +48,29 @@ define(function (require, exports, module) {
 //              this.commentModel.on('change:commentCount', this.renderComentCount, this)
 //            }
         },
+       favbtn:function(e){
+           var that=this;
+           var _cur=$(e.currentTarget);
+           if(_cur.hasClass('faved')){
+               mtop.favoriteRemoveFeed({feedId:that.feedId,snsId:that.snsId},function(d){
+                   if(d.fail){
+                       notification.message('服务器在偷懒，再试试吧！');
+                   }else{
+                       _cur.removeClass('faved');
+                       notification.message('已取消收藏！');
+                   }
+               });
+           }else{
+               mtop.favoriteAddFeed({feedId:that.feedId,snsId:that.snsId},function(d){
+                   if(d.fail){
+                       notification.message('服务器在偷懒，再试试吧！');
+                   }else{
+                       _cur.addClass('faved');
+                       notification.message('收藏成功，可以在微淘收藏列表中找到！');
+                   }
+               });
+           }
+       },
        goDetail : function(snsId,feedId,page){
 
           //this.$container.find('.account').empty()

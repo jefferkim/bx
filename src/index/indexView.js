@@ -47,6 +47,8 @@ define(function (require, exports, module) {
         'click .navbar .refresh.index':'refresh',
         'click #indexPage .js_feed':'goToDetail',
         'click .goFollowbtn':'add',
+        'click .navbar .favs':'favs',
+        'click #indexPage .feed-list .favbtn':'favbtn',
         'click .gotop':'goTop',
         'click .hdButton span':'changeHD',
         'click .loginStatus a.login':'goLogin'
@@ -139,6 +141,30 @@ define(function (require, exports, module) {
            }
 
        },
+       favbtn:function(e){
+           var that=this;
+           var _cur=$(e.currentTarget);
+           var _jsfeed=_cur.parent().find('.js_feed');
+           if(_cur.hasClass('faved')){
+               mtop.favoriteRemoveFeed({feedId:_jsfeed.attr('feedid'),snsId:_jsfeed.attr('snsid')},function(d){
+                    if(d.fail){
+                        notification.message('服务器在偷懒，再试试吧！');
+                    }else{
+                        _cur.removeClass('faved');
+                        notification.message('已取消收藏！');
+                    }
+               });
+           }else{
+               mtop.favoriteAddFeed({feedId:_jsfeed.attr('feedid'),snsId:_jsfeed.attr('snsid')},function(d){
+                   if(d.fail){
+                       notification.message('服务器在偷懒，再试试吧！');
+                   }else{
+                       _cur.addClass('faved');
+                       notification.message('收藏成功，可以在微淘收藏列表中找到！');
+                   }
+               });
+           }
+       },
    changePage:function(page){
        var that=this;
 
@@ -164,6 +190,14 @@ define(function (require, exports, module) {
         var that=this;
         //window.location.hash='#detail/'+$('.tb-profile').attr('snsid')+'/'+cur.attr('feedid')+'/'+that.curPage;
         changeHash('#detail/'+cur.attr('snsid')+'/'+cur.attr('feedid')+'/'+that.params.curPage,'detail');
+    },
+    favs:function(){
+        var that=this;
+        if(h5_comm.isLogin()){
+            changeHash('#fav/1','fav');
+        }else{
+            h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'changeHash','targetUrl':'#fav/1'});
+        }
     },
     add:function(){
        var that=this;

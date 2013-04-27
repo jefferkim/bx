@@ -18,13 +18,16 @@ define(function (require, exports, module) {
       uriBroker = require('uriBroker');
 
     var header = $('#favorite_header_tpl').html()
-    var feedTemplate = _.template($('#index_feed_tpl').html())
+    var feedTemplate = _.template($('#favorite_feed_tpl').html())
    return Backbone.View.extend({
 
     el: '#content',
     model : new _model(),
     events:{
-      
+        'click #favoritePage .feed-list .favbtn':'favbtn',
+        'click #favoritePage .js_feed':'goToDetail',
+        'click .navbar .refresh.favorite':'refresh'
+
     },
     initialize:function () {     
         var that=this;
@@ -39,6 +42,27 @@ define(function (require, exports, module) {
 	    this.model.on('change:favStatus', this.renderFeedFavStatus, this);
         that.render();
     },
+    favbtn:function(e){
+        var that=this;
+        var _cur=$(e.currentTarget);
+        var _jsfeed=_cur.parent().find('.js_feed');
+        if(_cur.hasClass('faved')){
+            mtop.favoriteRemoveFeed({feedId:_jsfeed.attr('feedid'),snsId:_jsfeed.attr('snsid')},function(d){
+                if(d.fail){
+                    notification.message('服务器在偷懒，再试试吧！');
+                }else{
+                    _cur.parent().parent().remove();
+                    notification.message('已取消收藏！');
+                }
+            });
+        }
+    },
+   goToDetail:function(e){
+       var cur=$(e.currentTarget);
+       var that=this;
+       //window.location.hash='#detail/'+$('.tb-profile').attr('snsid')+'/'+cur.attr('feedid')+'/'+that.curPage;
+       changeHash('#detail/'+cur.attr('snsid')+'/'+cur.attr('feedid')+'/'+that.params.curPage,'detail');
+   },
     render:function(page){
         var that=this;
         that.params.curPage=page;
@@ -84,9 +108,6 @@ define(function (require, exports, module) {
         setTimeout(function(){
             _favoritePage.removeClass(' iR iL').addClass('show iC');
         },0);
-
-
-
     },
     renderFeedsList: function() {
 		var that=this;
@@ -95,15 +116,48 @@ define(function (require, exports, module) {
             notification.message(d.errMsg);
             return;
         }
-
         if(d.list.length>0){
             var content = feedTemplate(d);
-            this.$feedList.html(content);
+            that.$feedList.html(content);
         }else{
-            this.$feedList.html('<li class="nofavs">还有没收藏哦！</li>');
+            that.$feedList.html('<li class="nofavs">还没有抽到任何广播！</li>');
         }
-		console.log(that.model.get('feedsList'));
+        //页数大于1的时候显示分页组件
+        var pageCount=Math.ceil(parseInt(d.totalCount)/that.params.pageSize);
+        if(pageCount>1){
+            that.recommentPage=new pageNav({'id':'#favoritePageNav','index':that.params.curPage,'pageCount':pageCount,'pageSize':that.params.pageSize,'disableHash': 'true'});
+            that.recommentPage.pContainer().on('P:switchPage', function(e,page){
+                that.changePage(page.index);
+            });
+        }
+        window.lazyload.reload();
 
+    },
+    changePage:function(page){
+        var that=this;
+        that.$feedList.html('<div class="loading"><span class="spinner"></span></div>');
+        if(that.params.curPage>page){
+            that.params.direction=0;
+        }else{
+            that.params.direction=1;
+        }
+        that.isChangePage=true;
+        window.scrollTo(0,1);
+        window.location.hash='#fav/'+page;
+    },
+    refresh:function(){
+       var that=this;
+       that.allFeedCount=parseInt(that.model.get('feedsList').totalCount);
+       that.isRefresh=true;
+       var _spinner=$('.navbar .refresh .btn div');
+       if(!_spinner.hasClass('spinner')){
+           _spinner.addClass('spinner');
+       }
+       if(that.params.curPage=='1'){
+           that.model.favoriteFeeds(that.params);
+       }else{
+           window.location.hash='#fav/1';
+       }
     },
 	renderFeedFavStatus:function(){
 		var self=this;
