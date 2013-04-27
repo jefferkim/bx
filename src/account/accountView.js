@@ -12,7 +12,7 @@ define(function (require, exports, module) {
         h5_comm = require('h5_comm'),
         loading = require('../ui/loading'),
         notification = require('../ui/notification.js'),
-        mtop = require('../common/mtopForAllspark.js');
+        favUtils = require('../common/favUtils.js');
 
 
     var accountView = Backbone.View.extend({
@@ -165,29 +165,11 @@ define(function (require, exports, module) {
 //            })
         },
         favbtn:function(e){
-            var that=this;
-            var _cur=$(e.currentTarget);
+               var _cur=$(e.currentTarget);
             var _jsfeed=_cur.parent();
 
-            if(_cur.hasClass('faved')){
-                mtop.favoriteRemoveFeed({feedId:_jsfeed.attr('feedid'),snsId:_jsfeed.attr('snsid')},function(d){
-                    if(d.fail){
-                        notification.message('服务器在偷懒，再试试吧！');
-                    }else{
-                        _cur.removeClass('faved');
-                        notification.message('已取消收藏！');
-                    }
-                });
-            }else{
-                mtop.favoriteAddFeed({feedId:_jsfeed.attr('feedid'),snsId:_jsfeed.attr('snsid')},function(d){
-                    if(d.fail){
-                        notification.message('服务器在偷懒，再试试吧！');
-                    }else{
-                        _cur.addClass('faved');
-                        notification.message('收藏成功，可以在微淘收藏列表中找到！');
-                    }
-                });
-            }
+            favUtils.favbtn(_cur,_jsfeed.attr('feedid'),_jsfeed.attr('snsid')) ;
+
         },
         render:function(snsid,page){
             var that=this;

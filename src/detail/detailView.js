@@ -12,9 +12,8 @@ define(function (require, exports, module) {
         h5_base = require('h5_base'),
         uriBroker = require('uriBroker'),
         loading = require('../ui/loading'),
-        mtop = require('../common/mtopForAllspark.js'),
-        notification = require('../ui/notification.js'),
-        CommentModel = require('../comment/commentModel.js')
+        favUtils = require('../common/favUtils.js'),
+        notification = require('../ui/notification.js');
 
     var headerTemplate  = _.template($('#detail_header_tpl').html());
     var accinfoTemplate = _.template($('#detail_accinfo_tpl').html());
@@ -50,27 +49,8 @@ define(function (require, exports, module) {
         },
        favbtn:function(e){
            var that=this;
-           var _cur=$(e.currentTarget);
-           if(_cur.hasClass('faved')){
-               mtop.favoriteRemoveFeed({feedId:that.feedId,snsId:that.snsId},function(d){
-                   if(d.fail){
-                       notification.message('服务器在偷懒，再试试吧！');
-                   }else{
-                       _cur.removeClass('faved');
-                       notification.message('已取消收藏！');
-                   }
-               });
-           }else{
-               mtop.favoriteAddFeed({feedId:that.feedId,snsId:that.snsId},function(d){
-                   if(d.fail){
-                       notification.message('服务器在偷懒，再试试吧！');
-                   }else{
-                       _cur.addClass('faved');
-                       notification.message('收藏成功，可以在微淘收藏列表中找到！');
-                   }
-               });
-           }
-       },
+           favUtils.favbtn($(e.currentTarget),that.feedId,that.snsId);
+         },
        goDetail : function(snsId,feedId,page){
 
           //this.$container.find('.account').empty()

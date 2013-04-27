@@ -18,6 +18,7 @@ define(function (require, exports, module) {
       pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
       notification = require('../ui/notification.js'),
       loading = require('../ui/loading'),
+      favUtils = require('../common/favUtils.js'),
       dpi = require('dpi');
 
     var header = $('#index_header_tpl').html()
@@ -142,35 +143,11 @@ define(function (require, exports, module) {
 
        },
        favbtn:function(e){
-           var that=this;
            var _cur=$(e.currentTarget);
            var _jsfeed=_cur.parent().find('.js_feed');
-            //判断是否登录
-           if(!h5_comm.isLogin())
-           {
-               h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'close'});
-               return ;
-           }
 
-           if(_cur.hasClass('faved')){
-               mtop.favoriteRemoveFeed({feedId:_jsfeed.attr('feedid'),snsId:_jsfeed.attr('snsid')},function(d){
-                    if(d.fail){
-                        notification.message('服务器在偷懒，再试试吧！');
-                    }else{
-                        _cur.removeClass('faved');
-                        notification.message('已取消收藏！');
-                    }
-               });
-           }else{
-               mtop.favoriteAddFeed({feedId:_jsfeed.attr('feedid'),snsId:_jsfeed.attr('snsid')},function(d){
-                   if(d.fail){
-                       notification.message('服务器在偷懒，再试试吧！');
-                   }else{
-                       _cur.addClass('faved');
-                       notification.message('收藏成功，可以在微淘收藏列表中找到！');
-                   }
-               });
-           }
+           favUtils.favbtn(_cur,_jsfeed.attr('feedid'),_jsfeed.attr('snsid')) ;
+
        },
    changePage:function(page){
        var that=this;
