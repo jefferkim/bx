@@ -11,6 +11,7 @@ define(function (require, exports, module) {
         accountListView = require('../accountList/accountListView'),
         commentView = require('../comment/commentListView'),
         newCommentView = require('../comment/newCommentView'),
+        favView=require('../favorite/favoriteView'),
         background = require('./../common/background.js'),
         cdn = require('cdn'),
         dpi = require('dpi'),
@@ -18,7 +19,7 @@ define(function (require, exports, module) {
         log = require("./../common/log.js"),
         mtop = require('../common/mtopForAllspark.js'),
     //缓存实例变量view
-        _indexView, _accountView, _detailView, _accountListView, _commentView, _newCommentView;
+        _indexView, _accountView, _detailView, _accountListView, _commentView, _newCommentView,_favView;
 
     // image lazyload setup
     window.lazyload = require('lazyload')
@@ -87,8 +88,11 @@ define(function (require, exports, module) {
 
             var self = this;
             //#index
+
             self.route('', 'index', self.filter);
             self.route(/^(index)\/?(\d*)?$/, 'index', self.filter);
+            self.route(/^(fav)\/?(\d*)?$/, 'fav', self.filter);
+
             //#account/snsid/page  snsid - sns账号Id  page - 页码
             self.route(/^(account)\/(\d*)\/?(\d*)?$/, 'account', self.filter);
             //#detail/snsId/feedId snsid - sns账号Id  feedId - 消息Id
@@ -118,6 +122,10 @@ define(function (require, exports, module) {
                 case 'index':
                     _indexView = _indexView || new indexView();
                     self.index(arg0);
+                    break;
+                case 'fav':
+                    _favView=_favView|| new favView();
+                    self.fav(arg0);
                     break;
                 case 'account':
                     _accountView = _accountView || new accountView();
@@ -178,6 +186,10 @@ define(function (require, exports, module) {
                     }
                 }
             });
+        },
+        fav:function(page){
+            page = page || 1;
+            _favView.render(page);
         },
         account: function (snsId, page) {
             page = page || 1;
