@@ -145,6 +145,13 @@ define(function (require, exports, module) {
            var that=this;
            var _cur=$(e.currentTarget);
            var _jsfeed=_cur.parent().find('.js_feed');
+            //判断是否登录
+           if(!h5_comm.isLogin())
+           {
+               h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'close'});
+               return ;
+           }
+
            if(_cur.hasClass('faved')){
                mtop.favoriteRemoveFeed({feedId:_jsfeed.attr('feedid'),snsId:_jsfeed.attr('snsid')},function(d){
                     if(d.fail){
