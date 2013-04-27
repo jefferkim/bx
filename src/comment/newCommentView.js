@@ -26,6 +26,7 @@ define(function(require, exports, module) {
       this.$container.html(newCommentInputTemplate({}));
 
       this.$commentArea = $('#comment-area');
+      this.$replyTo = $('.comment-wrap .reply-to')
       this.$charCount = this.$container.find('.char-count');
 
       // if (navigator.standalone != undefined) {
@@ -37,6 +38,15 @@ define(function(require, exports, module) {
         this.snsId = snsId;
         this.feedId = feedId;
         this.curPage = page;
+
+        var self = this
+        setTimeout(function() {
+          if (window.commentData) {
+            self.$replyTo.text('回复 ' + window.commentData.authorNick + ':')
+            self.$commentArea.css('text-indent', self.$replyTo.width() + 3 + 'px')
+          }
+        }, 100)
+
         var _navbar=$('header.navbar');
           _navbar.html(newCommentHeaderTempalte({ href: '#comment/' + this.snsId + '/' + this.feedId + '/' + this.curPage }));
           window.scrollTo(0,1);
@@ -107,7 +117,9 @@ define(function(require, exports, module) {
         this.model.addComment({
           snsId: this.snsId,
           feedId: this.feedId,
-          content: comment
+          content: comment,
+          authorId: window.commentData.authorId,
+          parentId: window.commentData.parentId
         }, function(success, message) {
           if (success) {
             if (message) {

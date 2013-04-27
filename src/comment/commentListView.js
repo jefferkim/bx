@@ -22,7 +22,7 @@ define(function(require, exports, module) {
 
     events: {
       'click .comment .send-button': 'addComment',
-      'click .write-comment': 'newComment',
+      'click .comment .reply-button': 'newComment',
       'keyup #add-comment-area': 'typing',
       'focusin #add-comment-area': 'expandTextArea',
       'focusout #add-comment-area': 'restoreTextArea'
@@ -38,7 +38,10 @@ define(function(require, exports, module) {
       this.$charCount = $('.add-comment .char-count')
 
       this.model.on('change:commentList', this.renderCommentList, this);
- 	  //this.model.getReplyList({curPage:1,pageSize:24,direction:1,timestamp:0});
+      // var self = this
+ 	    // this.model.getReplyList({curPage:1,pageSize:24,direction:1,timestamp:0});
+      // this.model.on('change:replyList', function() { console.log(self.model.get('replyList')) })
+
     },
      goComment:function(snsId, feedId, page){
 
@@ -124,12 +127,19 @@ define(function(require, exports, module) {
         location.hash = '#comment/' + this.snsId + '/' + this.feedId + '/' + page
     },
 
-    newComment: function() {
-      if (h5_comm.isLogin())
+    newComment: function(e) {
+
+      if (h5_comm.isLogin()) {
+        window.commentData = {
+          authorId: e.target.getAttribute('authorid'),
+          authorNick: e.target.getAttribute('authornick'),
+          parentId: e.target.getAttribute('parentid')
+        }
         location.hash = 'newComment/' + this.snsId + '/' + this.feedId + '/' + this.page;
-      else
-       // h5_comm.goLogin('h5_allspark');
-          h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'close'});
+      } else {
+        // h5_comm.goLogin('h5_allspark'
+        h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'close'});
+      }
     },
 
     typing: function() {

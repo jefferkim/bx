@@ -13,14 +13,14 @@
     <link rel="stylesheet/less" type="text/css" href="less/allspark.less"/>
     <script src="less.js" type="text/javascript"></script>
     <script>
-        var url = location.href;
-        if (url.search('sid=[a-z0-9]+') > 1 && url.search('ttid=[a-z0-9_]+@') < 1) {
-            if ( window.localStorage && document.referrer ) {
-                window.localStorage && window.localStorage.setItem('f_l', document.referrer);
-            }
-            url = url.replace(/sid=[0-9a-z]+&?/, '');
-            location.replace(url);
-        }
+//        var url = location.href;
+//        if (url.search('sid=[a-z0-9]+') > 1 && url.search('ttid=[a-z0-9_]+@') < 1) {
+//            if ( window.localStorage && document.referrer ) {
+//                window.localStorage && window.localStorage.setItem('f_l', document.referrer);
+//            }
+//            url = url.replace(/sid=[0-9a-z]+&?/, '');
+//            location.replace(url);
+//        }
     </script>
 </head>
 <body style="background: #f8f8f8">
@@ -48,6 +48,11 @@
             </div>
 
 
+        </div>
+        <div id="favoritePage" class="view-paeg hide iR">
+            <ul class="feed-list">
+            </ul>
+            <div id="timeLinePageNav" class="pagenav c-pnav-con"></div>
         </div>
         <div id="accountListPage" class="view-page hide  iR">
             <div class="person-list"></div>
@@ -165,11 +170,27 @@
         </li>
     </ul>
 </script>
+<script id="favorite_header_tpl" type="text/template">
+    <div class="back">
+        <a>返回</a>
+    </div>
+    <div class="title">我的收藏</div>
+    <ul class="fn_btns">
+        <li class="refresh favorite">
+            <div class="btn">
+                <div></div>
+            </div>
+        </li>
+    </ul>
+</script>
 <script id="hot_feedhd_tpl" type="text/template">
     <div class="hotfeedhd">
         <hr/>
         热门广播
     </div>
+</script>
+<script id="favorite_feed_tpl" type="text/template">
+
 </script>
 <script id="index_feed_tpl" type="text/template">
 
@@ -545,7 +566,9 @@
                     <p class="pub-time"><%= timestamps(list[i].time) %></p>
                 </div>
                 <% if (list[i].createrName != userNick) { %>
-                    <button class="reply-button">回复</button>
+                    <button class="reply-button" authorid="<%= list[i].authorId %>"
+                                                 authornick="<%= list[i].createrName %>"
+                                                 parentid="<%= list[i].id %>">回复</button>
                 <% } %>
             </div>
             <div class="user-comment">
@@ -561,8 +584,8 @@
 
 <script id="newComment_input_tpl" type="text/template">
     <div class="comment-wrap">
-        <textarea id="comment-area" placeholder="说点儿什么吧"></textarea>
-
+        <p class="reply-to">回复：</p>
+        <textarea id="comment-area"></textarea>
         <p class="word-count"><span class="char-count">0</span> / 140</p>
     </div>
 </script>
