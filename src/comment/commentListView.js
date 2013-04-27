@@ -30,7 +30,6 @@ define(function(require, exports, module) {
 
     initialize: function() {
 
-console.log('init');
       this.pageSize = 10
 
       this.$container = $('#commentListPage .main');
@@ -39,7 +38,7 @@ console.log('init');
       this.$charCount = $('.add-comment .char-count')
 
       this.model.on('change:commentList', this.renderCommentList, this);
- 	  this.model.getReplyList({curPage:1,pageSize:24,direction:1,timestamp:0});
+ 	  //this.model.getReplyList({curPage:1,pageSize:24,direction:1,timestamp:0});
     },
      goComment:function(snsId, feedId, page){
 
