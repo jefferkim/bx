@@ -85,7 +85,7 @@ define(function (require, exports, module) {
             $('footer .loginStatus a.logout').css('display','inline-block');
             $('footer .loginStatus a.login').css('display','none');
             $('footer .loginStatus a.reg').css('display','none');
-
+            $('.J_status').html('');
             this.model.getTimeLine(this.params);
         }else{
             $('.navbar').html(header+loginHtml);
@@ -320,7 +320,7 @@ define(function (require, exports, module) {
             }
             var content = feedTemplate(d);
             this.$feedList.html(content);
-            $('#timeLinePageNav').remove();
+            $('#timeLinePageNav').html('');
 
         }
         if(d.onlyYou=='1'){
