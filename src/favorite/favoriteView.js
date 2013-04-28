@@ -169,22 +169,6 @@ define(function (require, exports, module) {
 				timestamp:0
 			};
 		self.model.favoriteFeeds(params);
-	},
-	testModel:function(){
-		var self=this;			
-		var params={
-			feedId:1292001,
-			snsId:7000084652
-		};
-		var params1={
-			feedId:'1295003',
-			snsId:'7000084652'
-		};
-		self.model.addFeed(params);	//不存在
-		self.model.addFeed(params1);//正确的	
-		self.model.removeFeed(params);
-		self.model.removeFeed(params1);
-
 	}
 
 
