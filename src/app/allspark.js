@@ -70,10 +70,10 @@ function timestamps(time){
     } else if( iTrueTime > iNow - ONE_HOUR){
         // e.g. 3分钟前
         ret = parseInt((iNow - iTrueTime) / ONE_MINUTE) + "分钟前";
-    } else if( dTrueTime.getDate() ==dNow.getDate()){
+    } else if(dTrueTime.getYear() == dNow.getYear() && dTrueTime.getMonth() == dNow.getMonth() && dTrueTime.getDate() ==dNow.getDate()){
         // e.g. 今天11:39
         ret = "今天" + dTrueTime.getHours() + ":" + minutes;
-    } else if(dNow.getDate()-dTrueTime.getDate()==1){
+    } else if(dTrueTime.getYear() == dNow.getYear() && dTrueTime.getMonth() == dNow.getMonth() && dNow.getDate()-dTrueTime.getDate()==1){
         ret = "昨天" + dTrueTime.getHours() + ":" + minutes;
     } else{
         if(dTrueTime.getYear() == dNow.getYear()){
