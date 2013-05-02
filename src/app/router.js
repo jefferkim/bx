@@ -11,6 +11,7 @@ define(function (require, exports, module) {
         accountListView = require('../accountList/accountListView'),
         commentView = require('../comment/commentListView'),
         newCommentView = require('../comment/newCommentView'),
+        recCommentView = require('../comment/recCommentView'),
         favView=require('../favorite/favoriteView'),
         background = require('./../common/background.js'),
         cdn = require('cdn'),
@@ -19,7 +20,7 @@ define(function (require, exports, module) {
         log = require("./../common/log.js"),
         mtop = require('../common/mtopForAllspark.js'),
     //缓存实例变量view
-        _indexView, _accountView, _detailView, _accountListView, _commentView, _newCommentView,_favView;
+        _indexView, _accountView, _detailView, _accountListView, _commentView, _newCommentView,_favView, _recCommentView;
 
     // image lazyload setup
     window.lazyload = require('lazyload')
@@ -103,6 +104,8 @@ define(function (require, exports, module) {
             self.route(/^(accountList)\/?(\d*)?\/?(\d*)?$/, 'accountList', self.filter);
             //#newcomment/snsId/feedId/page snsid - sns账号Id  feedId - 消息Id page - 页码
             self.route(/^(newComment)\/(\d*)\/(\d*)\/?(\d*)?$/, 'newComment', self.filter);
+
+            self.route(/^(recComment)\/?(\d*)?$/, 'recComment', self.filter);
             // 全局初始化
             global.init();
         },
@@ -146,6 +149,10 @@ define(function (require, exports, module) {
                 case 'newComment':
                     _newCommentView = _newCommentView || new newCommentView();
                     self.newComment(arg0, arg1, arg2);
+                    break;
+                case 'recComment':
+                    _recCommentView = _recCommentView ||  new recCommentView();
+                    self.recComment()
                     break;
                 default :
                     _indexView = _indexView || new indexView();
@@ -226,6 +233,9 @@ define(function (require, exports, module) {
             _newCommentView.goNewComment(snsId, feedId, page);
         },
 
+        recComment: function() {
+            _recCommentView.goRecComment()
+        },
 
         start: function () {
             Backbone.history.start();
