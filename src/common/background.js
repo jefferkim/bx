@@ -5,7 +5,7 @@ define(function (require, exports, module) {
         h5_comm = require('h5_comm'),
         tbh5 = require('h5_base'),
         History = require('../../../../base/modules/history/history.js');
-
+   /**
     History.prototype.extend({
         defaultPage:"http://m.taobao.com",
         defaultHash:"#index",
@@ -22,6 +22,7 @@ define(function (require, exports, module) {
         validate:function () {
             return location.hash.indexOf("&") == -1;
         }
+        **/
     });
 
     var myHis = new History;
