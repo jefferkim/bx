@@ -7,7 +7,7 @@ define(function(require, exports, module) {
     mtop = require('../common/mtopForAllspark.js'),
     pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js');
 
-
+    var recCommentHeaderTemplate = _.template($('#recComment_header_tpl').html())
     var CommentModel = require('./commentModel')
 
     var RecCommentView = Backbone.View.extend({
@@ -17,10 +17,16 @@ define(function(require, exports, module) {
       model: new CommentModel(),
 
       events: {
+
+      },
+
+      initialize: function() {
+        this.$container = $('#RecCommentPage')
+
       },
 
       goRecComment: function() {
-
+        $('header.navbar').html(recCommentHeaderTemplate({ href: '#index' }))
       }
     })
 

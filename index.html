@@ -27,7 +27,7 @@
 <div id="content">
     <header class="navbar" style="display: none"></header>
     <div class="tb-h5">
-        <div id="indexPage" class="view-page show">
+        <div id="indexPage" class="view-page hide">
             <div class="J_status"></div>
             <div>
                 <ul class="feed-list">
@@ -83,9 +83,34 @@
         </div>
         <div id="newCommentPage" class="view-page hide iR new-comment">
         </div>
-        <div id="RecCommentPage" class="view-page hide iR new-comment">
+        <div id="RecCommentPage" class="view-page show rec-comment">
+            <ul class="comment-list">
+                <li>
+                    <div class="user-info">
+                        <div class="default">
 
-        </div>
+                            <img src="http://wsapi.jianghu.daily.taobao.net/avatar/get_avatar.do?userId=179051023&amp;width=100&amp;height=100&amp;type=sns">
+
+                        </div>
+                        <div class="info">
+                            <p class="user-name">qd_test_001</p>
+
+                            <p class="pub-time">今天14:10</p>
+                        </div>
+
+                            <button class="reply-button" authorid="7000084652" authornick="qd_test_001" parentid="1332003">回复</button>
+
+                    </div>
+                    <div class="user-comment">
+                        OneTwoThree
+                    </div>
+                    <div class="my-comment">
+                        我的评论：好有趣，原来衣服还可以这样搭配，赞！这样搭配，赞！！！！！
+                    </div>
+                    <div class="separator"></div>
+                </li>
+            </ul>
+        </div><!-- end of RecCommentPage -->
     </div>
 
 </div>
@@ -663,6 +688,13 @@
         <textarea id="comment-area"></textarea>
         <p class="word-count"><span class="char-count">0</span> / 140</p>
     </div>
+</script>
+
+<script id="recComment_header_tpl" type="text/template">
+    <div class="back">
+        <a href="<%= href %>">返回</a>
+    </div>
+    <div class="title">收到的评论</div>
 </script>
 
 <!-- Templates -->
