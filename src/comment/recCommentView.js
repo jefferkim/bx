@@ -23,6 +23,9 @@ define(function(require, exports, module) {
       },
 
       initialize: function() {
+
+        this.pageSize = 10
+
         this.$container = $('#RecCommentPage')
         this.model.on('change:replyList', this.renderComment, this)
       },
@@ -66,9 +69,29 @@ define(function(require, exports, module) {
         } else {
           list.userNick = h5_comm.isLogin() ? mtop.userNick : ""
           this.$container.html(recCommentTemplate(list))
-        }
 
+          var pageCount = Math.ceil(list.totalCount / this.pageSize);
+          if (pageCount > 1) {
+           this.pageNav = new pageNav({
+            'id': '#RecCommentPageNav',
+            'index': this.page,
+            'pageCount': pageCount,
+            'pageSize': this.pageSize,'disableHash': 'true'});
+
+
+            this.pageNav.pContainer().on('P:switchPage', function(e,page){
+              self.changePage(page.index);
+            });
+          }
+        }
+      },
+
+      changePage: function(page) {
+        this.$container.html('<div class="loading"><span class="spinner"></span></div>');
+
+        location.hash = 'recComment/' + page
       }
+
     })
 
     return RecCommentView
