@@ -674,6 +674,7 @@
             <div class="user-comment">
                 <%- list[i].content %>
             </div>
+
             <div class="separator"></div>
         </li>
         <% } %>
@@ -681,6 +682,42 @@
     <div id="commentListPageNav" class="pagenav"></div>
 </script>
 
+<script id="rec_comment_tpl" type="text/template">
+<ul class="comment-list">
+    <% for (var i = 0; i < list.length; i++) { %>
+    <li>
+        <div class="user-info">
+            <div class="default">
+                <%if(list[i].createrPic){%>
+                <img src="<%= list[i].createrPic %>">
+                <% } %>
+            </div>
+            <div class="info">
+                <p class="user-name"><%= list[i].createrName %></p>
+
+                <p class="pub-time"><%= timestamps(list[i].time) %></p>
+            </div>
+            <% if (list[i].createrName != userNick) { %>
+                <button class="reply-button" authorid="<%= list[i].createrId %>"
+                                             authornick="<%= list[i].createrName %>"
+                                             parentid="<%= list[i].id %>"
+                                             snsid="<%= list[i].ownerId %>"
+                                             feedid="<%= list[i].feedId %>">回复</button>
+            <% } %>
+        </div>
+        <div class="user-comment">
+            <%- list[i].content %>
+        </div>
+        <div class="my-comment">
+            我的评论：<%- list[i].parentContent %>
+        </div>
+
+        <div class="separator"></div>
+    </li>
+    <% } %>
+</ul>
+<div id="commentListPageNav" class="pagenav"></div>
+</script>
 
 <script id="newComment_input_tpl" type="text/template">
     <div class="comment-wrap">

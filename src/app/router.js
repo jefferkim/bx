@@ -152,7 +152,7 @@ define(function (require, exports, module) {
                     break;
                 case 'recComment':
                     _recCommentView = _recCommentView ||  new recCommentView();
-                    self.recComment()
+                    self.recComment(arg0)
                     break;
                 default :
                     _indexView = _indexView || new indexView();
@@ -233,8 +233,9 @@ define(function (require, exports, module) {
             _newCommentView.goNewComment(snsId, feedId, page);
         },
 
-        recComment: function() {
-            _recCommentView.goRecComment()
+        recComment: function(page) {
+            page = page || 1
+            _recCommentView.goRecComment(page)
         },
 
         start: function () {
