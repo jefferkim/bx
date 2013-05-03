@@ -84,7 +84,7 @@
         <div id="newCommentPage" class="view-page hide iR new-comment">
         </div>
         <div id="RecCommentPage" class="view-page show rec-comment">
-            <ul class="comment-list">
+<!--             <ul class="comment-list">
                 <li>
                     <div class="user-info">
                         <div class="default">
@@ -110,7 +110,7 @@
                     <div class="separator"></div>
                 </li>
             </ul>
-        </div><!-- end of RecCommentPage -->
+ -->        </div><!-- end of RecCommentPage -->
     </div>
 
 </div>
@@ -666,7 +666,7 @@
                     <p class="pub-time"><%= timestamps(list[i].time) %></p>
                 </div>
                 <% if (list[i].createrName != userNick) { %>
-                    <button class="reply-button" authorid="<%= list[i].authorId %>"
+                    <button class="reply-button" authorid="<%= list[i].createrId %>"
                                                  authornick="<%= list[i].createrName %>"
                                                  parentid="<%= list[i].id %>">回复</button>
                 <% } %>

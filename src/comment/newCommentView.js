@@ -119,7 +119,8 @@ define(function(require, exports, module) {
           feedId: this.feedId,
           content: comment,
           authorId: window.commentData.authorId,
-          parentId: window.commentData.parentId
+          parentId: window.commentData.parentId,
+          authorNick: window.commentData.authorNick
         }, function(success, message) {
           if (success) {
             if (message) {
