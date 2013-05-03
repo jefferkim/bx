@@ -191,7 +191,7 @@ define(function(require, exports, module) {
             }
             notification.message('发布成功！')
             self.$commentArea.val('')
-            location.reolad()
+            location.reload()
           } else {
             notification.message('发布失败，请重试')
           }
