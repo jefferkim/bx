@@ -52,7 +52,8 @@ define(function (require, exports, module) {
         'click #indexPage .feed-list .favbtn':'favbtn',
         'click .gotop':'goTop',
         'click .hdButton span':'changeHD',
-        'click .loginStatus a.login':'goLogin'
+        'click .loginStatus a.login':'goLogin',
+        'click .icon-received-comments': 'recComment'
     },
     initialize:function () {
       this.params = {
@@ -315,8 +316,10 @@ define(function (require, exports, module) {
         $('#content')[0].style.minHeight = '360px'
         window.lazyload.reload()
 
+    },
+
+    recComment: function() {
+      location.hash = 'recComment/1'
     }
-
-
   });
 });

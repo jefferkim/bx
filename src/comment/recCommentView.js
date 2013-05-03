@@ -14,7 +14,7 @@ define(function(require, exports, module) {
 
     var RecCommentView = Backbone.View.extend({
 
-      el: '#RecCommentPage',
+      el: '#recCommentPage',
 
       model: new CommentModel(),
 
