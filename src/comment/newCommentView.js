@@ -48,7 +48,8 @@ define(function(require, exports, module) {
         }, 100)
 
         var _navbar=$('header.navbar');
-          _navbar.html(newCommentHeaderTempalte({ href: '#comment/' + this.snsId + '/' + this.feedId + '/' + this.curPage }));
+        _navbar.html(newCommentHeaderTempalte({ href: this.backHref() }));
+
           window.scrollTo(0,1);
           //判断导航是否已经载入
           if(_navbar.hasClass('iT')){
@@ -72,8 +73,18 @@ define(function(require, exports, module) {
           $('#newCommentPage').removeClass('iL').addClass('show iC');
       },
 
+    backHref: function(page) {
+      var href = null
+      if (window.commentData.from == 'commentList') {
+        href = '#comment/' + this.snsId + '/' + this.feedId + '/' + (page || this.curPage)
+      } else if (window.commentData.from == 'replyList') {
+        href = '#recComment/' + this.curPage
+      }
+      return href
+    },
+
     back: function(page) {
-      location.hash = '#comment/' + this.snsId + '/' + this.feedId + '/' + (page || this.curPage)
+      location.hash = this.backHref(page)
     },
 
     focus: function() {

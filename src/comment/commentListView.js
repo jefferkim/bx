@@ -128,6 +128,7 @@ define(function(require, exports, module) {
 
       if (h5_comm.isLogin()) {
         window.commentData = {
+          from: 'commentList',
           authorId: e.target.getAttribute('authorid'),
           authorNick: e.target.getAttribute('authornick'),
           parentId: e.target.getAttribute('parentid')

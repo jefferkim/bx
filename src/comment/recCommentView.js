@@ -43,6 +43,7 @@ define(function(require, exports, module) {
         var button = e.target
         if (h5_comm.isLogin()) {
           window.commentData = {
+            from: 'replyList',
             authorId: button.getAttribute('authorid'),
             authorNick: button.getAttribute('authornick'),
             parentId: button.getAttribute('parentid')
