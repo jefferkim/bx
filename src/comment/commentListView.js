@@ -169,7 +169,7 @@ define(function(require, exports, module) {
 
     addComment: function() {
       if (!h5_comm.isLogin()) {
-        h5_comm.goLogin('h5_allspark')
+          h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'close'});
         return
       }
 

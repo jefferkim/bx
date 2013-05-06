@@ -86,8 +86,11 @@ define(function (require, exports, module) {
                          {
                          self.set("feed",{fail:'null',errMsg:'抱歉,该广播已删除或不存在！'});
                          }
-                         else
+                         else if(result.fail)
                          {
+                             self.set("feed",result);
+                         }
+                         else{
                          refine.refineDetail(result);
                          self.set("feed",result);
                          //linkUrlFormat

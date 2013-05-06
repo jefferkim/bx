@@ -200,7 +200,8 @@ define(function (require, exports, module) {
     goLogin:function(){
       //  tbh5.removeValue('allSpark_hash');
       //  tbh5.removeValue('allSpark_lastHash')
-          h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'reload'});
+          var indexUrl=uriBroker.getUrl('h5_allspark')+location.hash;
+          h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'redirect',targetUrl: indexUrl});
     },
     refresh:function(){
        var that=this;
