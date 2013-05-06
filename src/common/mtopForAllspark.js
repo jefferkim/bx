@@ -48,7 +48,8 @@ define(function (require, exports, module) {
     }
 
     //TODO get form cookie
-    var userNick = exports.userNick = (h5_comm.getNickFromCookie() || h5_comm.getNickFromHidden() || (h5_comm.isLogin() ? "test":"")) ;
+    var userNick = exports.userNick = (h5_comm.getNickFromCookie() || h5_comm.getNickFromHidden() || (h5_comm.isLogin() ? "欢迎您!":"")) ;
+
     exports.pageParam = {
         curPage:1,
         pageSize:3,
@@ -179,7 +180,13 @@ define(function (require, exports, module) {
         );
     };
 
-    /**----------------------详情相关---------------------------------------*/
+    
+	
+	exports.recommendsReplyList = function (param, fun) {
+        invokeApi("mtop.sns.comment.replyList", param, fun);
+    };	
+	
+	/**----------------------详情相关---------------------------------------*/
     exports.detail = function (param, fun) {
         invokeApi("mtop.sns.feed.detail", param, fun);
     };
@@ -248,6 +255,15 @@ define(function (require, exports, module) {
 	},
 	exports.hotFeeds=function(param, fun){
 		 invokeApi("mtop.sns.pubAccount.hotFeeds", param, fun);
+	},
+	exports.favoriteFeeds  =function(param, fun){
+		 invokeApi("mtop.sns.favorite.feeds", param, fun);
+	},
+	exports.favoriteAddFeed =function(param, fun){
+		 invokeApi("mtop.sns.favorite.addFeed", param, fun);
+	},
+	exports.favoriteRemoveFeed  =function(param, fun){
+		 invokeApi("mtop.sns.favorite.removeFeed", param, fun);
 	}
 })
 ;

@@ -18,6 +18,7 @@ define(function (require, exports, module) {
       pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
       notification = require('../ui/notification.js'),
       loading = require('../ui/loading'),
+      favUtils = require('../common/favUtils.js'),
       dpi = require('dpi');
 
     var header = $('#index_header_tpl').html()
@@ -39,7 +40,6 @@ define(function (require, exports, module) {
         }
     });
    return Backbone.View.extend({
-
     el: '#content',
     model : new _model(),
     events:{
@@ -48,9 +48,12 @@ define(function (require, exports, module) {
         'click .navbar .refresh.index':'refresh',
         'click #indexPage .js_feed':'goToDetail',
         'click .goFollowbtn':'add',
+        'click .navbar .favs':'favs',
+        'click #indexPage .feed-list .favbtn':'favbtn',
         'click .gotop':'goTop',
         'click .hdButton span':'changeHD',
-        'click .loginStatus a.login':'goLogin'
+        'click .loginStatus a.login':'goLogin',
+        'click .icon-received-comments': 'recComment'
     },
     initialize:function () {
       this.params = {
@@ -79,10 +82,12 @@ define(function (require, exports, module) {
         if(h5_comm.isLogin()){
             $('.navbar').html(header);
             $('footer .nick').html(mtop.userNick);
+            var logoutUrl =  uriBroker.getUrl('login_out');
+            $('footer .loginStatus a.logout').attr('href',logoutUrl);
             $('footer .loginStatus a.logout').css('display','inline-block');
             $('footer .loginStatus a.login').css('display','none');
             $('footer .loginStatus a.reg').css('display','none');
-
+            $('.J_status').html('');
             this.model.getTimeLine(this.params);
         }else{
             $('.navbar').html(header+loginHtml);
@@ -138,6 +143,13 @@ define(function (require, exports, module) {
            }
 
        },
+       favbtn:function(e){
+           var _cur=$(e.currentTarget);
+           var _jsfeed=_cur.parent().find('.js_feed');
+
+           favUtils.favbtn(_cur,_jsfeed.attr('feedid'),_jsfeed.attr('snsid')) ;
+
+       },
    changePage:function(page){
        var that=this;
 
@@ -164,6 +176,14 @@ define(function (require, exports, module) {
         //window.location.hash='#detail/'+$('.tb-profile').attr('snsid')+'/'+cur.attr('feedid')+'/'+that.curPage;
         changeHash('#detail/'+cur.attr('snsid')+'/'+cur.attr('feedid')+'/'+that.params.curPage,'detail');
     },
+    favs:function(){
+        var that=this;
+        if(h5_comm.isLogin()){
+            changeHash('#fav/1','fav');
+        }else{
+            h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'changeHash','targetUrl':'#fav/1'});
+        }
+    },
     add:function(){
        var that=this;
        if(h5_comm.isLogin()){
@@ -172,14 +192,15 @@ define(function (require, exports, module) {
            //window.location.hash='#accountList/1';
        }else{
            //allSpark_hash
-           that.goLogin();
+          // that.goLogin('#accountList/1');
+           h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'changeHash','targetUrl':'#accountList/1'});
            //h5_comm.goLogin('h5_allspark');
        }
     },
     goLogin:function(){
-        tbh5.removeValue('allSpark_hash');
-        tbh5.removeValue('allSpark_lastHash')
-        h5_comm.goLogin('h5_allspark');
+      //  tbh5.removeValue('allSpark_hash');
+      //  tbh5.removeValue('allSpark_lastHash')
+          h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'reload'});
     },
     refresh:function(){
        var that=this;
@@ -277,7 +298,7 @@ define(function (require, exports, module) {
             }
             var content = feedTemplate(d);
             this.$feedList.html(content);
-            $('#timeLinePageNav').remove();
+            $('#timeLinePageNav').html('');
 
         }
         if(d.onlyYou=='1'){
@@ -295,8 +316,10 @@ define(function (require, exports, module) {
         $('#content')[0].style.minHeight = '360px'
         window.lazyload.reload()
 
+    },
+
+    recComment: function() {
+      location.hash = 'recComment/1'
     }
-
-
   });
 });

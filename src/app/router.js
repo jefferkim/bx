@@ -5,12 +5,14 @@ define(function (require, exports, module) {
         tbh5 = require('h5_base'),
         Backbone = require('backbone'),
     //view class import
-        indexView = require('../index/indexView'),
+       	indexView = require('../index/indexView'),
         accountView = require('../account/accountView'),
         detailView = require('../detail/detailView'),
         accountListView = require('../accountList/accountListView'),
         commentView = require('../comment/commentListView'),
         newCommentView = require('../comment/newCommentView'),
+        recCommentView = require('../comment/recCommentView'),
+        favView=require('../favorite/favoriteView'),
         background = require('./../common/background.js'),
         cdn = require('cdn'),
         dpi = require('dpi'),
@@ -18,7 +20,7 @@ define(function (require, exports, module) {
         log = require("./../common/log.js"),
         mtop = require('../common/mtopForAllspark.js'),
     //缓存实例变量view
-        _indexView, _accountView, _detailView, _accountListView, _commentView, _newCommentView;
+        _indexView, _accountView, _detailView, _accountListView, _commentView, _newCommentView,_favView, _recCommentView;
 
     // image lazyload setup
     window.lazyload = require('lazyload')
@@ -87,8 +89,11 @@ define(function (require, exports, module) {
 
             var self = this;
             //#index
+
             self.route('', 'index', self.filter);
             self.route(/^(index)\/?(\d*)?$/, 'index', self.filter);
+            self.route(/^(fav)\/?(\d*)?$/, 'fav', self.filter);
+
             //#account/snsid/page  snsid - sns账号Id  page - 页码
             self.route(/^(account)\/(\d*)\/?(\d*)?$/, 'account', self.filter);
             //#detail/snsId/feedId snsid - sns账号Id  feedId - 消息Id
@@ -99,6 +104,8 @@ define(function (require, exports, module) {
             self.route(/^(accountList)\/?(\d*)?\/?(\d*)?$/, 'accountList', self.filter);
             //#newcomment/snsId/feedId/page snsid - sns账号Id  feedId - 消息Id page - 页码
             self.route(/^(newComment)\/(\d*)\/(\d*)\/?(\d*)?$/, 'newComment', self.filter);
+
+            self.route(/^(recComment)\/?(\d*)?$/, 'recComment', self.filter);
             // 全局初始化
             global.init();
         },
@@ -119,6 +126,10 @@ define(function (require, exports, module) {
                     _indexView = _indexView || new indexView();
                     self.index(arg0);
                     break;
+                case 'fav':
+                    _favView=_favView|| new favView();
+                    self.fav(arg0);
+                    break;
                 case 'account':
                     _accountView = _accountView || new accountView();
                     self.account(arg0, arg1);
@@ -138,6 +149,10 @@ define(function (require, exports, module) {
                 case 'newComment':
                     _newCommentView = _newCommentView || new newCommentView();
                     self.newComment(arg0, arg1, arg2);
+                    break;
+                case 'recComment':
+                    _recCommentView = _recCommentView ||  new recCommentView();
+                    self.recComment(arg0)
                     break;
                 default :
                     _indexView = _indexView || new indexView();
@@ -179,6 +194,10 @@ define(function (require, exports, module) {
                 }
             });
         },
+        fav:function(page){
+            page = page || 1;
+            _favView.render(page);
+        },
         account: function (snsId, page) {
             page = page || 1;
             _accountView.render(snsId, page);
@@ -214,6 +233,10 @@ define(function (require, exports, module) {
             _newCommentView.goNewComment(snsId, feedId, page);
         },
 
+        recComment: function(page) {
+            page = page || 1
+            _recCommentView.goRecComment(page)
+        },
 
         start: function () {
             Backbone.history.start();

@@ -12,8 +12,8 @@ define(function (require, exports, module) {
         h5_base = require('h5_base'),
         uriBroker = require('uriBroker'),
         loading = require('../ui/loading'),
-        notification = require('../ui/notification.js'),
-        CommentModel = require('../comment/commentModel.js')
+        favUtils = require('../common/favUtils.js'),
+        notification = require('../ui/notification.js');
 
     var headerTemplate  = _.template($('#detail_header_tpl').html());
     var accinfoTemplate = _.template($('#detail_accinfo_tpl').html());
@@ -29,7 +29,8 @@ define(function (require, exports, module) {
         events:{
           'click .to-comment-list': 'commentList',
           'click .more-content': 'more',
-          'click #detailPage .brand': 'toAccountPage'
+          'click #detailPage .brand': 'toAccountPage',
+          'click .favs':'favbtn'
         },
         initialize:function () {
 
@@ -46,6 +47,10 @@ define(function (require, exports, module) {
 //              this.commentModel.on('change:commentCount', this.renderComentCount, this)
 //            }
         },
+       favbtn:function(e){
+           var that=this;
+           favUtils.favbtn($(e.currentTarget),that.feedId,that.snsId);
+         },
        goDetail : function(snsId,feedId,page){
 
           //this.$container.find('.account').empty()

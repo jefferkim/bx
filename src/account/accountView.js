@@ -12,16 +12,17 @@ define(function (require, exports, module) {
         h5_comm = require('h5_comm'),
         loading = require('../ui/loading'),
         notification = require('../ui/notification.js'),
-        mtop = require('../common/mtopForAllspark.js');
+        favUtils = require('../common/favUtils.js');
 
 
     var accountView = Backbone.View.extend({
         el:'#content',
         events:{
-            'click .tb-feed-items li':'goToDetail',
+            'click .tb-feed-items .jsItem':'goToDetail',
             //'click .navbar .back':'goBackHome',
             'click #accountPage .J_info .stats-follow-btn':'follow',
             'click .navbar .refresh.account':'refresh',
+            'click #accountPage .favbtn':'favbtn',
             'click #accountPage .wwwIco':'goWWW'
         },
         backURL:'',
@@ -40,7 +41,23 @@ define(function (require, exports, module) {
                     return;
                 }
                 if(result&&($('#accountPage .J_info').html()=='')){
+                    if(typeof result.logoUrl=='undefined'){
+                        result.logoUrl='';
+                    }
                     $('#accountPage .J_info').html(_.template($('#accountinfo_tpl').html(),result));
+                }
+
+                if(result){
+                    var t='<div class="default">';
+                    if(result.logoUrl){
+                        t+='<img class="avatar lazy" dataimg="'+getImgUrl(result.logoUrl, 100, 60);
+                        t+='src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">';
+                    }
+                    t+='</div><p class="name">'+result.nick+'</p>';
+                    console.log(t);
+                    if($('#accountPage li a.account').children.length==0){
+                        $('#accountPage li a.account').html(t);
+                    }
                 }
             });
             that.accountModel.on("change:accFeeds",function(model,result){
@@ -94,7 +111,22 @@ define(function (require, exports, module) {
                     if(_upDomFlag){
                         console.log('dom')
                         //$('#accountPage .J_feed .tb-feed-items').removeClass('loading spinner');
+                        if(that.accountModel.get('accInfo'))
                         $('#accountPage .J_feed .tb-feed-items').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));
+
+                        if(that.accountModel.get('accInfo').nick!=''){
+                            var t='<div class="default">';
+                            var _d=that.accountModel.get('accInfo');
+                            if(_d.logoUrl){
+                                t+='<img class="avatar lazy" dataimg="'+getImgUrl(_d.logoUrl, 100, 60);
+                                t+='src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">';
+                            }
+                            t+='</div><p class="name">'+_d.nick+'</p>';
+                            if($('#accountPage li a.account').children.length==1){
+                                $('#accountPage li a.account').html(t);
+                            }
+                        }
+
                         window.lazyload.reload()
                         setTimeout(function(){
                             //$('#accountPage').css('height',$('#accountPage')[0].offsetHeight+'px');
@@ -132,12 +164,15 @@ define(function (require, exports, module) {
 //                model.set("loaded","0");
 //            })
         },
+        favbtn:function(e){
+               var _cur=$(e.currentTarget);
+            var _jsfeed=_cur.parent();
+
+            favUtils.favbtn(_cur,_jsfeed.attr('feedid'),_jsfeed.attr('snsid')) ;
+
+        },
         render:function(snsid,page){
             var that=this;
-
-
-//            console.log('account render');
-//            console.log($('#accountPage .J_feed .tb-feed-items').html());
             if($.trim($('#accountPage .J_feed .tb-feed-items').html()).length==0){
                 $('#accountPage .J_feed .tb-feed-items').html('<div class="loading"><span class="spinner"></span></div>');
             }
@@ -318,7 +353,8 @@ define(function (require, exports, module) {
                     });
                 }
             }else{
-                h5_comm.goLogin('h5_allspark');
+                h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'close'});
+                //h5_comm.goLogin('h5_allspark');
             }
         },
 
@@ -347,7 +383,7 @@ define(function (require, exports, module) {
             //that.accountModel.getPageData({'snsId':that.snsid,'curPage':page,'pageSize':that._pageSize,'disableHash': 'true'});
         },
         goToDetail:function(e){
-            var cur=$(e.currentTarget);
+            var cur=$(e.currentTarget).parent();
             var that=this;
             window.location.hash='#detail/'+$('.tb-profile').attr('snsid')+'/'+cur.attr('feedid')+'/'+that.curPage;
         },
