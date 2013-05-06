@@ -6,7 +6,7 @@ define(function (require, exports, module) {
         tbh5 = require('h5_base'),
         History = require('../../../../base/modules/history/history.js');
 
-    History.prototype.extend({
+    var myHis = new History({
         defaultPage:"http://m.taobao.com",
         defaultHash:"#index",
         defaultSeparator:'/',
@@ -23,8 +23,6 @@ define(function (require, exports, module) {
             return location.hash.indexOf("&") == -1;
         }
     });
-
-    var myHis = new History;
     var BackgroundView = Backbone.View.extend({
         el:'#content',
         events:{
