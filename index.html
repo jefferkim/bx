@@ -179,8 +179,7 @@
     </div>
 </script>
 
-
-<script id="index_header_tpl" type="text/template">
+<script id="index_logedheader_tpl" type="text/template">
     <div class="back">
         <a href="http://m.taobao.com">首页</a>
     </div>
@@ -196,6 +195,24 @@
                 <div></div>
             </div>
         </li>
+        <li class="add log" data-log="addaccount">
+            <div class="btn">
+                <div></div>
+            </div>
+        </li>
+        <li class="refresh index">
+            <div class="btn">
+                <div class=""></div>
+            </div>
+        </li>
+    </ul>
+</script>
+<script id="index_header_tpl" type="text/template">
+    <div class="back">
+        <a href="http://m.taobao.com">首页</a>
+    </div>
+
+    <ul class="fn_btns">
         <li class="add log" data-log="addaccount">
             <div class="btn">
                 <div></div>
@@ -321,7 +338,9 @@
                 <p class="name"><%= list[i].account.nick %></p>
 
             </a>
+            <% if(!hotFeeds){ %>
             <div class="favbtn <% if(list[i].firstFeed.isLiked =='1'){%> faved <% } %>"></div>
+            <% } %>
         </div>
         <div class="separator"></div>
     </li>
@@ -337,11 +356,7 @@
         <li class="comment to-comment-list log" data-log="commentlist">
             <div class="btn">评论 <span></span></div>
         </li>
-        <li class="favs log" data-log="favbtn">
-            <div class="btn">
-                <div></div>
-            </div>
-        </li>
+
     </ul>
 </script>
 <script id="comment_list_header_tpl" type="text/template">
@@ -559,7 +574,7 @@
 
                 </div>
                 </div>
-            <% } %>d
+            <% } %>
             <% } %>
             <div class="text">
                 <%=item.summary%>
@@ -607,6 +622,7 @@
 </script>
 <script id="detail_content_tpl" type="text/template">
     <h1><%= title %></h1>
+    <div class="favbtn <% if(isLiked =='1'){%> faved <% } %>"></div>
     <% if (time) { %>
     <p class="detail-info">
         <span class="icon-clock pub-time"><%= timestamps(time) %></span>

@@ -19,7 +19,7 @@ define(function(require, exports, module) {
       model: new CommentModel(),
 
       events: {
-        'click .reply-button': 'newComment',
+        'click .reply-button': 'newComment'
       },
 
       initialize: function() {
@@ -57,7 +57,29 @@ define(function(require, exports, module) {
       },
 
       renderComment: function() {
-        var list = this.model.get('replyList')
+        var list = this.model.get('replyList');
+          var _navbar=$('header.navbar');
+          var _recCommentPage=$('#recCommentPage');
+          var _show=$('.view-page.show');
+
+
+
+          if($('#detailPage').hasClass('show')){
+              _recCommentPage.removeClass(' iR iL').addClass('iL');
+              _show.removeClass('show iC').addClass('iR').wAE(function(){
+                  _show.addClass('hide');
+              });
+          }else{
+              if(!_recCommentPage.hasClass('show')){
+                  _show.removeClass('show iC').addClass('iL').wAE(function(){
+                      _show.addClass('hide');
+                  });
+              }
+          }
+          _recCommentPage.removeClass('hide');
+          setTimeout(function(){
+              _recCommentPage.removeClass(' iR iL').addClass('show iC');
+          },0);
 
         if (list&&list.fail) {
           notification.message("请稍后重试");

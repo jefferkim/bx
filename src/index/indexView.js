@@ -21,8 +21,9 @@ define(function (require, exports, module) {
       favUtils = require('../common/favUtils.js'),
       dpi = require('dpi');
 
-    var header = $('#index_header_tpl').html()
-    var feedTemplate = _.template($('#index_feed_tpl').html())
+    var header = $('#index_header_tpl').html();
+    var logedHeader=$('#index_logedheader_tpl').html();
+    var feedTemplate = _.template($('#index_feed_tpl').html());
     $.extend($.fn, {
         // 扩展动画结束事件
         wAE: function (c,n) {
@@ -80,7 +81,7 @@ define(function (require, exports, module) {
         }
         //判断是否显示footer
         if(h5_comm.isLogin()){
-            $('.navbar').html(header);
+            $('.navbar').html(logedHeader);
             $('footer .nick').html(mtop.userNick);
             var logoutUrl =  uriBroker.getUrl('login_out');
             $('footer .loginStatus a.logout').attr('href',logoutUrl);
@@ -200,8 +201,8 @@ define(function (require, exports, module) {
     goLogin:function(){
       //  tbh5.removeValue('allSpark_hash');
       //  tbh5.removeValue('allSpark_lastHash')
-          var indexUrl=location.href+location.hash;
-          h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'redirect',targetUrl: indexUrl});
+          var indexUrl=location.href;
+          h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'reload'});
     },
     refresh:function(){
        var that=this;
@@ -248,7 +249,6 @@ define(function (require, exports, module) {
 
     },
     renderFeeds: function() {
-
         var d;
         var that=this;
         //取消刷新按钮动画
@@ -257,6 +257,7 @@ define(function (require, exports, module) {
         },2000);
         if(h5_comm.isLogin()){
             d=this.model.get('timeLine');
+            d.hotFeeds=false;
             if(d.fail){
                 notification.message(d.errMsg);
                 return;
@@ -297,6 +298,7 @@ define(function (require, exports, module) {
                 notification.message(d.errMsg);
                 return;
             }
+            d.hotFeeds=true;
             var content = feedTemplate(d);
             this.$feedList.html(content);
             $('#timeLinePageNav').html('');

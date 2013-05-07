@@ -27,10 +27,10 @@ define(function (require, exports, module) {
         el: '#content',
         model : new _model(),
         events:{
-          'click .to-comment-list': 'commentList',
-          'click .more-content': 'more',
+          'click #detailPage .to-comment-list': 'commentList',
+          'click #detailPage .more-content': 'more',
           'click #detailPage .brand': 'toAccountPage',
-          'click .favs':'favbtn'
+          'click #detailPage .favbtn':'favbtn'
         },
         initialize:function () {
 
@@ -50,7 +50,7 @@ define(function (require, exports, module) {
        favbtn:function(e){
            var that=this;
            favUtils.favbtn($(e.currentTarget),that.feedId,that.snsId);
-         },
+       },
        goDetail : function(snsId,feedId,page){
 
           //this.$container.find('.account').empty()
@@ -80,6 +80,7 @@ define(function (require, exports, module) {
            if(h5_base.isClient() || h5_base.isAndroidClient()) {
                //loading.hide();
                _detailPage.removeClass(' iR iL');
+
            }
 
 
@@ -143,6 +144,11 @@ define(function (require, exports, module) {
 
           var content = contentTemplate(feed);
           this.$container.find('.main').html(content);
+            //客户端 去掉动画
+            if(h5_base.isClient() || h5_base.isAndroidClient()) {
+                $('div.favbtn').hide();
+            }
+
             var count =parseInt(feed.commentCount);
             if (count > 99) count = '99+'
 

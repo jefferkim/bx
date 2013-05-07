@@ -15,6 +15,7 @@ define(function (require, exports, module) {
       notification = require('../ui/notification.js'),
       mtop = require('../common/mtopForAllspark.js'),
       pageNav=require('../../../../base/styles/component/pagenav/js/pagenav.js'),
+      favUtils = require('../common/favUtils.js'),
       uriBroker = require('uriBroker');
 
     var header = $('#favorite_header_tpl').html()
@@ -33,7 +34,7 @@ define(function (require, exports, module) {
         var that=this;
         that.params={
             curPage:1,
-            pageSize:24,
+            pageSize:10,
             direction:1,//与timestamp 配合使用，0表向前翻，1表示向后翻
             timestamp:0
         };
@@ -46,16 +47,31 @@ define(function (require, exports, module) {
         var that=this;
         var _cur=$(e.currentTarget);
         var _jsfeed=_cur.parent().find('.js_feed');
-        if(_cur.hasClass('faved')){
-            mtop.favoriteRemoveFeed({feedId:_jsfeed.attr('feedid'),snsId:_jsfeed.attr('snsid')},function(d){
-                if(d.fail){
-                    notification.message('服务器在偷懒，再试试吧！');
-                }else{
-                    _cur.parent().parent().remove();
-                    notification.message('已取消收藏！');
-                }
-            });
-        }
+
+        favUtils.favbtn(_cur,_jsfeed.attr('feedid'),_jsfeed.attr('snsid')) ;
+
+//        if(_cur.hasClass('faved')){
+//            mtop.favoriteRemoveFeed({feedId:_jsfeed.attr('feedid'),snsId:_jsfeed.attr('snsid')},function(d){
+//                if(d.fail){
+//                    notification.message('服务器在偷懒，再试试吧！');
+//                }else{
+//                    _cur.removeClass('faved');
+//                    //_cur.parent().parent().remove();
+//                    notification.message('已取消收藏！');
+//                }
+//            });
+//        }else{
+//            mtop.favoriteAddFeed({feedId:_jsfeed.attr('feedid'),snsId:_jsfeed.attr('snsid')},function(d){
+//                if(d.fail){
+//                    notification.message('服务器在偷懒，再试试吧！');
+//                }else{
+//                    _cur.addClass('faved');
+//                    //_cur.parent().parent().remove();
+//                    notification.message('收藏成功，可以在微淘收藏列表中找到！');
+//                }
+//            });
+//
+//        }
     },
    goToDetail:function(e){
        var cur=$(e.currentTarget);
@@ -120,7 +136,7 @@ define(function (require, exports, module) {
             var content = feedTemplate(d);
             that.$feedList.html(content);
         }else{
-            that.$feedList.html('<li class="nofavs">还没有抽到任何广播！</li>');
+            that.$feedList.html('<li class="nofavs">还没有收藏任何广播！</li>');
         }
         //页数大于1的时候显示分页组件
         var pageCount=Math.ceil(parseInt(d.totalCount)/that.params.pageSize);
