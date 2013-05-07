@@ -148,6 +148,8 @@ define(function (require, exports, module) {
 
             $('.comment .btn span').text(count);
 
+            //是否已经收藏样式
+            feed.isLiked == '1' ? $('.favs').addClass('faved') : $('.favs').removeClass('faved');
 
 
           window.lazyload.reload();
