@@ -34,6 +34,20 @@ define(function (require, exports, module) {
                     self.set("hotFeeds", recResult);
                     //self.set("loaded","1");
                 })
+            },
+			getReplyCount:function (param) {
+				var self=this;
+                mtop.recommendsReplyCount(param, function (recResult) {
+					console.log(recResult); 
+                    if(recResult.fail){						
+						recResult.errMsg='服务器繁忙，请稍后再试！';
+                        self.set("replyCount",recResult);
+                        return;
+                    }
+                    recResult.t=new Date().getTime();
+                    self.set("replyCount", recResult);
+                    //self.set("loaded","1");
+                })
             }
 		
     });

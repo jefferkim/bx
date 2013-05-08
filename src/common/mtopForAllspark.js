@@ -185,6 +185,9 @@ define(function (require, exports, module) {
 	exports.recommendsReplyList = function (param, fun) {
         invokeApi("mtop.sns.comment.replyList", param, fun);
     };	
+	exports.recommendsReplyCount = function (param, fun) {
+        invokeApi("mtop.sns.comment.replyCount", param, fun);
+    };	
 	
 	/**----------------------详情相关---------------------------------------*/
     exports.detail = function (param, fun) {
