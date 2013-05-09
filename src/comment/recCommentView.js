@@ -87,8 +87,8 @@ define(function(require, exports, module) {
           return
         }
 
-        if (list.totalCount == 0) {
-
+        if (parseInt(list.totalCount) == 0) {
+            _recCommentPage.html('还没有收到任何评论哦');
         } else {
           list.userNick = h5_comm.isLogin() ? mtop.userNick : ""
           this.$container.html(recCommentTemplate(list))
