@@ -41,7 +41,6 @@ define(function (require, exports, module) {
         this.$feedList =  $('#favoritePage .feed-list')
         this.model.on('change:feedsList', this.renderFeedsList, this);
 	    this.model.on('change:favStatus', this.renderFeedFavStatus, this);
-        that.render();
     },
     favbtn:function(e){
         var that=this;
