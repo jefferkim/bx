@@ -681,11 +681,9 @@
 
                     <p class="pub-time"><%= timestamps(list[i].time) %></p>
                 </div>
-                <% if (list[i].createrName != userNick) { %>
-                    <button class="reply-button" authorid="<%= list[i].createrId %>"
-                                                 authornick="<%= list[i].createrName %>"
-                                                 parentid="<%= list[i].id %>">回复</button>
-                <% } %>
+                <button class="reply-button" authorid="<%= list[i].createrId %>"
+                                             authornick="<%= list[i].createrName %>"
+                                             parentid="<%= list[i].id %>">回复</button>
             </div>
             <div class="user-comment">
                 <%- list[i].content %>
