@@ -209,6 +209,8 @@ define(function (require, exports, module) {
         renderPrices: function() {
           var $items = this.$container.find('.media .item')
           var prices = this.model.get('prices')
+          if (!prices) return
+
           for (var i = 0; i < $items.length; i++) {
             var $item = $items.eq(i)
             var id = $item.attr('data-id')
