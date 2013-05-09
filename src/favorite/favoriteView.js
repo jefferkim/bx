@@ -99,7 +99,8 @@ define(function (require, exports, module) {
 
             that.model.favoriteFeeds();
         }else{
-
+            h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'close'});
+            return ;
         }
 
         var _navbar=$('header.navbar');

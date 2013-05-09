@@ -50,7 +50,7 @@ define(function (require, exports, module) {
                     recResult.t=new Date().getTime();
                     self.set("favStatus", recResult);
                 })
-            },
+            }
 		
     });
 
