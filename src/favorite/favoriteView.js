@@ -75,7 +75,7 @@ define(function (require, exports, module) {
             that.model.favoriteFeeds(that.params);
         }else{
             h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'changeHash','targetUrl':'#fav/1'});
-            return;
+           // return;
         }
         //没有关注的时候留有空白
         $('.feed-list').css('margin-top','');
