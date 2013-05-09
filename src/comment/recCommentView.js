@@ -26,7 +26,7 @@ define(function(require, exports, module) {
 
         this.pageSize = 10
 
-        this.$container = $('#RecCommentPage')
+        this.$container = $('#recCommentPage')
         this.model.on('change:replyList', this.renderComment, this)
       },
 
