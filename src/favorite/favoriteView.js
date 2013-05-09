@@ -50,28 +50,6 @@ define(function (require, exports, module) {
 
         favUtils.favbtn(_cur,_jsfeed.attr('feedid'),_jsfeed.attr('snsid')) ;
 
-//        if(_cur.hasClass('faved')){
-//            mtop.favoriteRemoveFeed({feedId:_jsfeed.attr('feedid'),snsId:_jsfeed.attr('snsid')},function(d){
-//                if(d.fail){
-//                    notification.message('服务器在偷懒，再试试吧！');
-//                }else{
-//                    _cur.removeClass('faved');
-//                    //_cur.parent().parent().remove();
-//                    notification.message('已取消收藏！');
-//                }
-//            });
-//        }else{
-//            mtop.favoriteAddFeed({feedId:_jsfeed.attr('feedid'),snsId:_jsfeed.attr('snsid')},function(d){
-//                if(d.fail){
-//                    notification.message('服务器在偷懒，再试试吧！');
-//                }else{
-//                    _cur.addClass('faved');
-//                    //_cur.parent().parent().remove();
-//                    notification.message('收藏成功，可以在微淘收藏列表中找到！');
-//                }
-//            });
-//
-//        }
     },
    goToDetail:function(e){
        var cur=$(e.currentTarget);
@@ -81,6 +59,7 @@ define(function (require, exports, module) {
    },
     render:function(page){
         var that=this;
+
         that.params.curPage=page;
 
         this.params.curPage = page;
@@ -97,11 +76,10 @@ define(function (require, exports, module) {
             $('footer .loginStatus a.login').css('display','none');
             $('footer .loginStatus a.reg').css('display','none');
 
-            that.model.favoriteFeeds();
-        }else{
-
+            that.model.favoriteFeeds(that.params);
         }
-
+        //没有关注的时候留有空白
+        $('.feed-list').css('margin-top','');
         var _navbar=$('header.navbar');
         var _favoritePage=$('#favoritePage');
         var _show=$('.view-page.show');
@@ -128,6 +106,10 @@ define(function (require, exports, module) {
     renderFeedsList: function() {
 		var that=this;
         var d=that.model.get('feedsList');
+        //取消刷新按钮动画
+        setTimeout(function(){
+            $('.navbar .refresh div').removeClass('spinner');
+        },2000);
         if(d.fail){
             notification.message(d.errMsg);
             return;
@@ -136,7 +118,11 @@ define(function (require, exports, module) {
             var content = feedTemplate(d);
             that.$feedList.html(content);
         }else{
-            that.$feedList.html('<li class="nofavs">还没有收藏任何广播！</li>');
+            if(parseInt(d.totalCount)>0){
+                that.changePage(that.params.curPage-1);
+            }else{
+                that.$feedList.html('<li class="nofavs">还没有收藏任何广播！</li>');
+            }
         }
         //页数大于1的时候显示分页组件
         var pageCount=Math.ceil(parseInt(d.totalCount)/that.params.pageSize);
@@ -151,7 +137,9 @@ define(function (require, exports, module) {
     },
     changePage:function(page){
         var that=this;
+        $('#favoritePageNav').html('');
         that.$feedList.html('<div class="loading"><span class="spinner"></span></div>');
+
         if(that.params.curPage>page){
             that.params.direction=0;
         }else{
@@ -164,6 +152,7 @@ define(function (require, exports, module) {
     refresh:function(){
        var that=this;
        that.allFeedCount=parseInt(that.model.get('feedsList').totalCount);
+       $('#favoritePageNav').html('');
        that.isRefresh=true;
        var _spinner=$('.navbar .refresh .btn div');
        if(!_spinner.hasClass('spinner')){

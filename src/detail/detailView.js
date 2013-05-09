@@ -27,8 +27,8 @@ define(function (require, exports, module) {
         el: '#content',
         model : new _model(),
         events:{
-          'click #detailPage .to-comment-list': 'commentList',
-          'click #detailPage .more-content': 'more',
+          'click  .to-comment-list': 'commentList',
+          'click  .more-content': 'more',
           'click #detailPage .brand': 'toAccountPage',
           'click #detailPage .favbtn':'favbtn'
         },
@@ -147,6 +147,7 @@ define(function (require, exports, module) {
             //客户端 去掉动画
             if(h5_base.isClient() || h5_base.isAndroidClient()) {
                 $('div.favbtn').hide();
+                $('#detailPage .main h1').css('padding-right','0');
             }
 
             var count =parseInt(feed.commentCount);

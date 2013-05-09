@@ -12,6 +12,7 @@ define(function (require, exports, module) {
         h5_comm = require('h5_comm'),
         loading = require('../ui/loading'),
         notification = require('../ui/notification.js'),
+        mtop = require('../common/mtopForAllspark.js'),
         favUtils = require('../common/favUtils.js');
 
 
