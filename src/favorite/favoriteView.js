@@ -59,9 +59,7 @@ define(function (require, exports, module) {
    },
     render:function(page){
         var that=this;
-
         that.params.curPage=page;
-
         this.params.curPage = page;
         if(this.$feedList.html()==''){
             this.$feedList.html('<div class="loading"><span class="spinner"></span></div>');
@@ -75,8 +73,10 @@ define(function (require, exports, module) {
             $('footer .loginStatus a.logout').css('display','inline-block');
             $('footer .loginStatus a.login').css('display','none');
             $('footer .loginStatus a.reg').css('display','none');
-
             that.model.favoriteFeeds(that.params);
+        }else{
+            h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'changeHash','targetUrl':'#fav/1'});
+            return;
         }
         //没有关注的时候留有空白
         $('.feed-list').css('margin-top','');

@@ -67,7 +67,7 @@ define(function (require, exports, module) {
       this.model.on('change:timeLine', this.renderFeeds, this);
       this.model.on('change:hotFeeds', this.renderFeeds, this);
 
-      this.$feedList =  $('#indexPage .feed-list')
+      this.$feedList =  $('#indexPage .feed-list')	 
 
     },
     hotFeedFlag:false,
@@ -90,6 +90,7 @@ define(function (require, exports, module) {
             $('footer .loginStatus a.reg').css('display','none');
             $('.J_status').html('');
             this.model.getTimeLine(this.params);
+			this.model.getReplyCount({});
         }else{
             $('.navbar').html(header+loginHtml);
             $('footer .nick').html('');
