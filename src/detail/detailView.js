@@ -133,7 +133,7 @@ define(function (require, exports, module) {
                     //loading.hide();
                 }
 
-              if (feed&&feed.fail) {
+              if ((feed&&feed.fail&&feed.fail=='null')||(typeof feed.fail=='undefined')) {
                 this.model.set('feed', {}, { silent: true })
                 var errMsg = feed.errMsg || '加载失败，稍后重试！'  ;
                // notification.message(errMsg);
