@@ -686,6 +686,9 @@
                                              parentid="<%= list[i].id %>">回复</button>
             </div>
             <div class="user-comment">
+                <% if (list[i].authorNick) { %>
+                    回复 <span style="color: #999"><%= list[i].authorNick %>: </span>
+                <% } %>
                 <%- list[i].content %>
             </div>
 
