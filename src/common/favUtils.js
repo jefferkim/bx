@@ -47,7 +47,7 @@ define(function (require, exports, module) {
                     }
                   }else{
                     _curTar.addClass('faved');
-                    notification.message('收藏成功，可以在微淘收藏列表中找到！');
+                    notification.message('收藏成功！');
                     updateCache(cacheKey,"1");
                 }
             });
