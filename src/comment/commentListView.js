@@ -78,8 +78,11 @@ define(function(require, exports, module) {
          },0);
 
 
+         this.getPageData()
+     },
 
-         this.model.getPageData({'snsId':this.snsId,'feedId':this.feedId,'curPage':this.page, 'pageSize': this.pageSize });
+     getPageData: function() {
+       this.model.getPageData({'snsId':this.snsId,'feedId':this.feedId,'curPage':this.page, 'pageSize': this.pageSize });
      },
 
     renderCommentList: function() {
@@ -192,7 +195,10 @@ define(function(require, exports, module) {
             }
             notification.message('发布成功！')
             self.$commentArea.val('')
-            location.reload()
+            setTimeout(function() {
+              self.page = 1
+              self.getPageData()
+            }, 1000);
           } else {
             notification.message('发布失败，请重试')
           }
