@@ -681,13 +681,14 @@
 
                     <p class="pub-time"><%= timestamps(list[i].time) %></p>
                 </div>
-                <% if (list[i].createrName != userNick) { %>
-                    <button class="reply-button" authorid="<%= list[i].createrId %>"
-                                                 authornick="<%= list[i].createrName %>"
-                                                 parentid="<%= list[i].id %>">回复</button>
-                <% } %>
+                <button class="reply-button" authorid="<%= list[i].createrId %>"
+                                             authornick="<%= list[i].createrName %>"
+                                             parentid="<%= list[i].id %>">回复</button>
             </div>
             <div class="user-comment">
+                <% if (list[i].authorNick) { %>
+                    回复 <span style="color: #999"><%= list[i].authorNick %>: </span>
+                <% } %>
                 <%- list[i].content %>
             </div>
 

@@ -96,9 +96,7 @@ define(function(require, exports, module) {
       if (list.totalCount == 0) {
         this.$container.html('<p class="no-comment">还没有评论，快抢沙发吧。</p>')
       } else {
-        var data = this.model.get('commentList')
-        data.userNick = h5_comm.isLogin() ? mtop.userNick : ""
-        var commentList = commentListTemlate(data)
+        var commentList = commentListTemlate(list)
         this.$container.html(commentList)
 
         var pageCount = Math.ceil(list.totalCount / this.pageSize);
