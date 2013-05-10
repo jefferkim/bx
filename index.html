@@ -187,7 +187,7 @@
     <ul class="fn_btns">
         <li class="comments log" data-log="favs">
             <div class="btn">
-                <div class="icon-received-comments"></div>
+                <div class="icon-received-comments"><span class="count" style="display: none;"></span></div>
             </div>
         </li>
         <li class="favs log" data-log="favs">
@@ -363,13 +363,13 @@
     <div class="back">
         <a href="<%= href %>">返回</a>
     </div>
-    <div class="title">&nbsp;</div>
+    <div class="title">评论<span class="comment-count"><span></div>
 </script>
 <script id="newComment_header_tpl" type="text/template">
     <div class="back">
         <a href="<%= href %>">返回</a>
     </div>
-    <div class="title">&nbsp;</div>
+    <div class="title">回复评论</div>
     <ul class="fn_btns">
         <li class="comment publish-comment">
             <div class="btn green">回复</div>
@@ -681,13 +681,14 @@
 
                     <p class="pub-time"><%= timestamps(list[i].time) %></p>
                 </div>
-                <% if (list[i].createrName != userNick) { %>
-                    <button class="reply-button" authorid="<%= list[i].createrId %>"
-                                                 authornick="<%= list[i].createrName %>"
-                                                 parentid="<%= list[i].id %>">回复</button>
-                <% } %>
+                <button class="reply-button" authorid="<%= list[i].createrId %>"
+                                             authornick="<%= list[i].createrName %>"
+                                             parentid="<%= list[i].id %>">回复</button>
             </div>
             <div class="user-comment">
+                <% if (list[i].authorNick) { %>
+                    回复 <span style="color: #999"><%= list[i].authorNick %>: </span>
+                <% } %>
                 <%- list[i].content %>
             </div>
 

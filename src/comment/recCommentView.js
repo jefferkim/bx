@@ -26,7 +26,7 @@ define(function(require, exports, module) {
 
         this.pageSize = 10
 
-        this.$container = $('#RecCommentPage')
+        this.$container = $('#recCommentPage')
         this.model.on('change:replyList', this.renderComment, this)
       },
 
@@ -87,8 +87,8 @@ define(function(require, exports, module) {
           return
         }
 
-        if (list.totalCount == 0) {
-
+        if (parseInt(list.totalCount) == 0) {
+            _recCommentPage.html('<p class="no-comment">还没有收到任何评论哦</p>');
         } else {
           list.userNick = h5_comm.isLogin() ? mtop.userNick : ""
           this.$container.html(recCommentTemplate(list))

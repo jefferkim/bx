@@ -78,8 +78,11 @@ define(function(require, exports, module) {
          },0);
 
 
+         this.getPageData()
+     },
 
-         this.model.getPageData({'snsId':this.snsId,'feedId':this.feedId,'curPage':this.page, 'pageSize': this.pageSize });
+     getPageData: function() {
+       this.model.getPageData({'snsId':this.snsId,'feedId':this.feedId,'curPage':this.page, 'pageSize': this.pageSize });
      },
 
     renderCommentList: function() {
@@ -93,12 +96,12 @@ define(function(require, exports, module) {
             return
         }
 
+      $('.navbar .comment-count').html('(' + list.totalCount + ')')
+
       if (list.totalCount == 0) {
         this.$container.html('<p class="no-comment">还没有评论，快抢沙发吧。</p>')
       } else {
-        var data = this.model.get('commentList')
-        data.userNick = h5_comm.isLogin() ? mtop.userNick : ""
-        var commentList = commentListTemlate(data)
+        var commentList = commentListTemlate(list)
         this.$container.html(commentList)
 
         var pageCount = Math.ceil(list.totalCount / this.pageSize);
@@ -192,7 +195,10 @@ define(function(require, exports, module) {
             }
             notification.message('发布成功！')
             self.$commentArea.val('')
-            location.reload()
+            setTimeout(function() {
+              self.page = 1
+              self.getPageData()
+            }, 1000);
           } else {
             notification.message('发布失败，请重试')
           }
