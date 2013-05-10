@@ -40,8 +40,13 @@ define(function (require, exports, module) {
         }else{
             mtopAllspark.favoriteAddFeed({feedId:feedId,snsId:snsId},function(d){
                 if(d.fail){
-                    if(d.fail.split('::').length >1){
-                        notification.message(d.fail.split('::')[1]);
+                    var errMsgs = d.fail.split('::');
+                    if(errMsgs.length >1){
+                        notification.message(errMsgs[1]);
+                        if('FAIL_BIZ_SNS_FAVORITE_ALREADY_FAVORITE' == errMsgs[0])
+                        {
+                            _curTar.addClass('faved');
+                        }
                     }else{
                         notification.message('服务器在偷懒，再试试吧！');
                     }

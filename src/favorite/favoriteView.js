@@ -74,7 +74,7 @@ define(function (require, exports, module) {
             $('footer .loginStatus a.reg').css('display','none');
             that.model.favoriteFeeds(that.params);
         }else{
-            h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'changeHash','targetUrl':'#fav/1'});
+            h5_comm.goLogin({rediUrl:'h5_allSpark'});
            // return;
         }
         //没有关注的时候留有空白
