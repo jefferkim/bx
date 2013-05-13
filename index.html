@@ -714,13 +714,12 @@
 
                 <p class="pub-time"><%= timestamps(list[i].time) %></p>
             </div>
-            <% if (list[i].createrName != userNick) { %>
-                <button class="reply-button" authorid="<%= list[i].createrId %>"
-                                             authornick="<%= list[i].createrName %>"
-                                             parentid="<%= list[i].id %>"
-                                             snsid="<%= list[i].ownerId %>"
-                                             feedid="<%= list[i].feedId %>">回复</button>
-            <% } %>
+
+            <button class="reply-button" authorid="<%= list[i].createrId %>"
+                                         authornick="<%= list[i].createrName %>"
+                                         parentid="<%= list[i].id %>"
+                                         snsid="<%= list[i].ownerId %>"
+                                         feedid="<%= list[i].feedId %>">回复</button>
         </div>
         <div class="user-comment">
             回复我：<%- list[i].content %>
