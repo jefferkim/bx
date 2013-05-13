@@ -66,7 +66,7 @@ define(function (require, exports, module) {
         //判断是否显示footer
         if(h5_comm.isLogin()){
             $('.navbar').html(header);
-            $('footer .nick').html(mtop.userNick);
+            $('footer .nick').html(h5_comm.getNickFromCookie());
             var logoutUrl =  uriBroker.getUrl('login_out');
             $('footer .loginStatus a.logout').attr('href',logoutUrl);
             $('footer .loginStatus a.logout').css('display','inline-block');

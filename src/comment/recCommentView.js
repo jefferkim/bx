@@ -98,7 +98,7 @@ define(function(require, exports, module) {
         if (parseInt(list.totalCount) == 0) {
             _recCommentPage.html('<p class="no-comment">还没有收到任何评论哦</p>');
         } else {
-          list.userNick = h5_comm.isLogin() ? mtop.userNick : ""
+          list.userNick = h5_comm.isLogin() ? h5_comm.getNickFromCookie() : ""
           this.$container.html(recCommentTemplate(list))
 
           var pageCount = Math.ceil(list.totalCount / this.pageSize);
