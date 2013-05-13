@@ -69,13 +69,12 @@ define(function (require, exports, module) {
       this.model.on('change:replyCount', this.renderReplyCount, this)
 
       this.$feedList =  $('#indexPage .feed-list')
-      this.$replyCount = $('.icon-received-comments .count')
     },
     hotFeedFlag:false,
 	render:function(page){
         var loginHtml='<div class="login-bar">想看更多？登录淘宝帐号<button class="loginbtn log" data-log="attention">登录</button></div>';
 
-        this.$replyCount.hide()
+        $('.icon-received-comments .count').hide()
 
         this.params.curPage = page;
         if(this.$feedList.html()==''){
@@ -327,7 +326,7 @@ define(function (require, exports, module) {
     renderReplyCount: function() {
       var count = this.model.get('replyCount').count
       if (parseInt(count) > 9) count = 'N'
-      this.$replyCount.text(count).show()
+      $('.icon-received-comments .count').text(count).show()
     },
 
     recComment: function() {
