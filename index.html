@@ -725,7 +725,7 @@
             回复我：<%- list[i].content %>
         </div>
         <div class="my-comment">
-            我的评论：<%- list[i].parentContent %>
+            我的评论：<a href="#detail/<%= list[i].ownerId + '/' + list[i].feedId %>"><%- list[i].parentContent %></a>
         </div>
 
         <div class="separator"></div>
