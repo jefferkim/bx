@@ -66,7 +66,7 @@ define(function (require, exports, module) {
       }
       this.model.on('change:timeLine', this.renderFeeds, this);
       this.model.on('change:hotFeeds', this.renderFeeds, this);
-      this.model.on('chagne:replyCount', this.renderReplyCount, this)
+      this.model.on('change:replyCount', this.renderReplyCount, this)
 
       this.$feedList =  $('#indexPage .feed-list')
       this.$replyCount = $('.icon-received-comments .count')
