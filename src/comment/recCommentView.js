@@ -57,6 +57,9 @@ define(function(require, exports, module) {
       },
 
       renderComment: function() {
+
+        var self = this
+
         var list = this.model.get('replyList');
           var _navbar=$('header.navbar');
           var _recCommentPage=$('#recCommentPage');
