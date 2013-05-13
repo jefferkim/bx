@@ -60,9 +60,9 @@ define(function (require, exports, module) {
         var that=this;
         that.params.curPage=page;
         this.params.curPage = page;
-        if(this.$feedList.html()==''){
+        //if(this.$feedList.html()==''){
             this.$feedList.html('<div class="loading"><span class="spinner"></span></div>');
-        }
+        //}
         //判断是否显示footer
         if(h5_comm.isLogin()){
             $('.navbar').html(header);
@@ -115,11 +115,11 @@ define(function (require, exports, module) {
             return;
         }
         if(d.list.length>0){
-            if(parseInt(that.$feedList.attr('len'))!= d.list.length){
+            //if(parseInt(that.$feedList.attr('len'))!= d.list.length){
                 var content = feedTemplate(d);
                 that.$feedList.html(content);
                 that.$feedList.attr('len', d.list.length);
-            }
+            //}
         }else{
             if(parseInt(d.totalCount)>0){
                 that.changePage(that.params.curPage-1);
