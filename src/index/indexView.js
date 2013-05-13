@@ -286,7 +286,7 @@ define(function (require, exports, module) {
             }
 
             that.allFeedCount=parseInt(d.allFeedCount);
-
+            $('#timeLinePageNav').html('');
             //页数大于1的时候显示分页组件
             var pageCount=Math.ceil(parseInt(d.totalCount)/this.params.pageSize);
             if(pageCount>1){

@@ -46,7 +46,9 @@ define(function (require, exports, module) {
                         result.logoUrl='';
                     }
                     $('#accountPage .J_info').html(_.template($('#accountinfo_tpl').html(),result));
-                }else{
+                }
+
+                if(result){
                     //follow按钮会发生变化需要实时更新状态
                     if(result.followed=='false'){
                         $('#accountPage .stats-follow-btn').html('关注').attr('class','stats-follow-btn log');
@@ -54,16 +56,12 @@ define(function (require, exports, module) {
                         $('#accountPage .stats-follow-btn').html('取消关注').attr('class','stats-follow-btn followed log');
                     }
 
-                }
-
-                if(result){
                     var t='<div class="default">';
                     if(result.logoUrl){
                         t+='<img class="avatar lazy" dataimg="'+getImgUrl(result.logoUrl, 100, 60);
                         t+='src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">';
                     }
                     t+='</div><p class="name">'+result.nick+'</p>';
-                    console.log(t);
                     if($('#accountPage li a.account').children.length==0){
                         $('#accountPage li a.account').html(t);
                     }
