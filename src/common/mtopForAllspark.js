@@ -48,7 +48,7 @@ define(function (require, exports, module) {
     }
 
     //TODO get form cookie
-    var userNick = exports.userNick = h5_comm.getNickFromCookie() ;
+    var userNick =  exports.userNick = h5_comm.getNickFromCookie() ;
 
     exports.pageParam = {
         curPage:1,
