@@ -46,6 +46,14 @@ define(function (require, exports, module) {
                         result.logoUrl='';
                     }
                     $('#accountPage .J_info').html(_.template($('#accountinfo_tpl').html(),result));
+                }else{
+                    //follow按钮会发生变化需要实时更新状态
+                    if(result.followed=='false'){
+                        $('#accountPage .stats-follow-btn').html('关注').attr('class','stats-follow-btn log');
+                    }else{
+                        $('#accountPage .stats-follow-btn').html('取消关注').attr('class','stats-follow-btn followed log');
+                    }
+
                 }
 
                 if(result){

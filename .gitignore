@@ -3,3 +3,5 @@
 .svn/
 .idea/
 *.htm
+Rakefile
+.project

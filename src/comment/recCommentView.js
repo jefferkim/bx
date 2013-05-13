@@ -36,7 +36,7 @@ define(function(require, exports, module) {
 
         $('header.navbar').html(recCommentHeaderTemplate({ href: '#index' }))
 
-        this.model.getReplyList({curPage:1,pageSize:24,direction:1,timestamp:0});
+        this.model.getReplyList({curPage:1,pageSize:this.pageSize,direction:1,timestamp:0});
       },
 
       newComment: function(e) {
@@ -57,6 +57,9 @@ define(function(require, exports, module) {
       },
 
       renderComment: function() {
+
+        var self = this
+
         var list = this.model.get('replyList');
           var _navbar=$('header.navbar');
           var _recCommentPage=$('#recCommentPage');
