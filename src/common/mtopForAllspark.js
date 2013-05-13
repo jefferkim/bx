@@ -47,9 +47,6 @@ define(function (require, exports, module) {
         return {snsIds:ids};
     }
 
-    //TODO get form cookie
-    var userNick =  exports.userNick = h5_comm.getNickFromCookie() ;
-
     exports.pageParam = {
         curPage:1,
         pageSize:3,
@@ -236,9 +233,8 @@ define(function (require, exports, module) {
     }
 
     exports.autoCreate = function(){
-//        this.userNick = "test";
-        var nick = this.userNick;
-        if(this.userNick && !cache.isCreateSns(this.userNick)){
+        var nick = h5_comm.getNickFromCookie();
+        if(nick && !cache.isCreateSns(nick)){
             h5_mtop.getApi("mtop.transformer.account.autoCreate", '2.0', {}, {},
                 function (result) {
                     //处理正常的返回
