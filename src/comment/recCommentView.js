@@ -32,11 +32,6 @@ define(function(require, exports, module) {
 
       goRecComment: function(page) {
 
-        if (!h5_comm.isLogin()) {
-          h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'close'})
-          return
-        }
-
         this.page = page
 
         $('header.navbar').html(recCommentHeaderTemplate({ href: '#index' }))

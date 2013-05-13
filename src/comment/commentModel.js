@@ -61,9 +61,9 @@ define(function (require, exports, module) {
         },
 		getReplyList:function(param,fun) {
             var self = this;
-            if (h5_comm.isLogin()){
+           // if (h5_comm.isLogin()){
                 //设置登录状态
-                self.set("loginStatus",true);
+           //     self.set("loginStatus",true);
                 mtop.recommendsReplyList(param, function (result) {
 					//console.log(result);
 					 if(result.fail){	
@@ -74,9 +74,10 @@ define(function (require, exports, module) {
                     result.t=new Date().getTime();
                     self.set("replyList", result);
 					});
-            } else {
-               self.set("loginStatus",false);
-            }
-        },
+           // }
+           // else {
+           //    self.set("loginStatus",false);
+           // }
+        }
     });
 });
