@@ -101,6 +101,7 @@ define(function (require, exports, module) {
         setTimeout(function(){
             _favoritePage.removeClass(' iR iL').addClass('show iC');
         },0);
+        window.scrollTo(0,1);
     },
     renderFeedsList: function() {
 		var that=this;
@@ -114,8 +115,11 @@ define(function (require, exports, module) {
             return;
         }
         if(d.list.length>0){
-            var content = feedTemplate(d);
-            that.$feedList.html(content);
+            if(parseInt(that.$feedList.attr('len'))!= d.list.length){
+                var content = feedTemplate(d);
+                that.$feedList.html(content);
+                that.$feedList.attr('len', d.list.length);
+            }
         }else{
             if(parseInt(d.totalCount)>0){
                 that.changePage(that.params.curPage-1);

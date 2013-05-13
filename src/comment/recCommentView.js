@@ -83,7 +83,7 @@ define(function(require, exports, module) {
           setTimeout(function(){
               _recCommentPage.removeClass(' iR iL').addClass('show iC');
           },0);
-
+          window.scrollTo(0,1);
         if (list&&list.fail) {
           notification.message("请稍后重试");
           this.$container.html('加载失败，稍后重试！');
