@@ -71,7 +71,7 @@ define(function (require, exports, module) {
 
                 //step2: 获取详情
                 var cacheFeed = cache.getItemById(param.snsId+"_"+param.feedId);
-                if (cacheFeed  && cacheFeed.tiles && cacheFeed.tiles.length>0) {
+                if (cacheFeed  && cacheFeed.title && cacheFeed.tiles && cacheFeed.tiles.length>0) {
                     //保存详情信息
                     self.set( "feed", cacheFeed);
                     self.trigger('change:feed');
