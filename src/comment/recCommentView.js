@@ -14,12 +14,13 @@ define(function(require, exports, module) {
 
     var RecCommentView = Backbone.View.extend({
 
-      el: '#recCommentPage',
+      el: '#content',
 
       model: new CommentModel(),
 
       events: {
-        'click .reply-button': 'newComment'
+        'click #recCommentPage .reply-button': 'newComment',
+        'click .fn_btns .refresh': 'refresh'
       },
 
       initialize: function() {
@@ -28,6 +29,10 @@ define(function(require, exports, module) {
 
         this.$container = $('#recCommentPage')
         this.model.on('change:replyList', this.renderComment, this)
+      },
+
+      refresh: function() {
+        this.model.getReplyList({curPage:this.page,pageSize:this.pageSize,direction:1,timestamp:0});
       },
 
       goRecComment: function(page) {
