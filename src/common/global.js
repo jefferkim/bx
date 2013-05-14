@@ -2,7 +2,25 @@ define(function(require){
 	var $ = require('zepto'),
 		h5_utils = require('h5_utils'),
         h5_base = require('h5_base'),
+        dpi = require('dpi'),
+        imgTrim = require('imgtrim'),
+        tbh5 = require('h5_base'),
+        log = require("./../common/log.js"),
+        cdn = require('cdn'),
   		cookie = require('cookie');
+
+
+
+    //全局函数
+    /**
+     * hash改变
+     * @param hash
+     * @param refer
+     */
+    changeHash = function (hash, refer) {
+        log && log.logEnter(refer);
+        window.location.hash = hash;
+    };
 
 
 	return h5_utils.wrapColsure({

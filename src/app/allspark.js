@@ -196,8 +196,7 @@ function detailImageSizeStyle(actualWidth, actualHeight) {
  * 格式化关注数
  * @param fansCount
  */
-function formatFans(fansCount)
-{
+function formatFans(fansCount){
     if(typeof fansCount == 'string')
     {
         fansCount = parseInt(fansCount);

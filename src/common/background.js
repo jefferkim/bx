@@ -23,7 +23,8 @@ define(function (require, exports, module) {
             return location.hash.indexOf("&") == -1;
         },
         changeHash:function(str){
-            alert(str);
+            window.changeHash(str,location.hash.split('/')[0].replace('#',''));
+            //alert(str);
         }
     });
     var BackgroundView = Backbone.View.extend({

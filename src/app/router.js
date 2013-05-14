@@ -57,10 +57,7 @@ define(function (require, exports, module) {
                     $('.hdButton').html('<span>切换到流畅模式</span>');
                 }
             }
-            //tbh5.set('hdButton',0);
-//            if (dpi.get() == 1) {
-//                $('.hdButton').html('<span>切换到流畅模式</span>');
-//            }
+
             //export 图片处理，方便模版直接调用
             resizeImg = imgTrim.trim;
             getBetterImg = function (name, expwidth, rwidth, isXz) {
@@ -74,12 +71,6 @@ define(function (require, exports, module) {
                 var name = name + "_" + width + "x" + height1 + ".jpg";
                 return cdn.getOriginalImg(name);
             };
-
-            changeHash = function (hash, refer) {
-                log && log.logEnter(refer);
-
-                window.location.hash = hash;
-            }
 
             //去首次加载动画
             window.MH5slogan && window.MH5slogan.hideFunc && window.MH5slogan.hideFunc();

@@ -10,7 +10,9 @@ define(function (require, exports, module) {
               accountList: '_accountlist',
               account : '_account',
               detail : '_detail',
-              comment : '_commentlist'
+              comment : '_comment',
+              recComment:'_recComment',
+              fav:'_fav'
           },
           uri:{
               index:'_index',
