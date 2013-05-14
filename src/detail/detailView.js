@@ -223,7 +223,8 @@ define(function (require, exports, module) {
         },
 
         commentList: function() {
-            location.hash ='comment/' + this.snsId + '/' + this.feedId + '/1';
+          var hash = 'comment/' + this.snsId + '/' + this.feedId + '/1'
+          changeHash(hash, 'detail')
         }
 
     });

@@ -60,7 +60,8 @@ define(function(require, exports, module) {
             authorNick: button.getAttribute('authornick'),
             parentId: button.getAttribute('parentid')
           }
-          location.hash = 'newComment/' + button.getAttribute('snsid') + '/' + button.getAttribute('feedid') + '/' + this.page;
+          var hash = 'newComment/' + button.getAttribute('snsid') + '/' + button.getAttribute('feedid') + '/' + this.page;
+          changeHash(hash, 'rec_comment')
         } else {
           // h5_comm.goLogin('h5_allspark'
           h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'close'});
