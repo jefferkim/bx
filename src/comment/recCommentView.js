@@ -75,11 +75,6 @@ define(function(require, exports, module) {
 
         var self = this
 
-        var list = this.model.get('replyList')
-        var prev = this.model.previous('replyList')
-
-        if (prev && (prev.totalCount == list.totalCount)) return
-
           var _navbar=$('header.navbar');
           var _recCommentPage=$('#recCommentPage');
           var _show=$('.view-page.show');
@@ -103,11 +98,17 @@ define(function(require, exports, module) {
               _recCommentPage.removeClass(' iR iL').addClass('show iC');
           },0);
           window.scrollTo(0,1);
+
+        var list = this.model.get('replyList')
+        var prev = this.model.previous('replyList')
+
         if (list&&list.fail) {
           notification.message("请稍后重试");
           this.$container.html('加载失败，稍后重试！');
           return
         }
+
+        if (prev && (prev.totalCount == list.totalCount)) return
 
         if (parseInt(list.totalCount) == 0) {
             _recCommentPage.html('<p class="no-comment">还没有收到任何评论哦</p>');
