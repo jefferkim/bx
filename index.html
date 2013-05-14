@@ -598,7 +598,7 @@
 
 
 <script id="detail_accinfo_tpl" type="text/template">
-    <a href="#account/<%= snsId %>" class="brand">
+    <a onclick="changeHash('#account/<%= snsId %>','detail')" class="brand">
         <div class="default">
             <% if(logoUrl){ %>
             <img class="avatar" src="<%=getImgUrl(logoUrl,100,60)%>"/>
@@ -725,7 +725,7 @@
             回复我：<%- list[i].content %>
         </div>
         <div class="my-comment">
-            我的评论：<a href="#detail/<%= list[i].ownerId + '/' + list[i].feedId %>"><%- list[i].parentContent %></a>
+            我的评论：<a onclick="changeHash('#detail/<%= list[i].ownerId + '/' + list[i].feedId %>','rec_comment')"><%- list[i].parentContent %></a>
         </div>
 
         <div class="separator"></div>
