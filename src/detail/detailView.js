@@ -143,7 +143,6 @@ define(function (require, exports, module) {
 
 
           var content = contentTemplate(feed);
-            console.log(content);
           this.$container.find('.main').html(content);
             //客户端 去掉动画
             if(h5_base.isClient() || h5_base.isAndroidClient()) {

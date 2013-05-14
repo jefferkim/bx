@@ -327,7 +327,7 @@ define(function (require, exports, module) {
       var count = parseInt(this.model.get('replyCount').count)
       if (count > 9) count = 'N'
       if (count == 0) return
-      $('.icon-received-comments .count').text(count).show()
+      count && $('.icon-received-comments .count').text(count).show()
     },
 
     recComment: function() {

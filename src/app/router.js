@@ -24,7 +24,7 @@ define(function (require, exports, module) {
 
     // image lazyload setup
     window.lazyload = require('lazyload')
-    window.lazyload.init()
+    window.lazyload.init({ lazyHeight: 300 })
     window.lazyload.reload = function () {
         window.lazyload.img.trigger()
     }

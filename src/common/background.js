@@ -21,6 +21,9 @@ define(function (require, exports, module) {
         },
         validate:function () {
             return location.hash.indexOf("&") == -1;
+        },
+        changeHash:function(str){
+            alert(str);
         }
     });
     var BackgroundView = Backbone.View.extend({
