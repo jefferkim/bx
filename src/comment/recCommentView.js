@@ -33,7 +33,11 @@ define(function(require, exports, module) {
 
       refresh: function() {
         this.$('.fn_btns .refresh.rec-comment .btn div').addClass('spinner')
-        this.model.getReplyList({curPage:this.page,pageSize:this.pageSize,direction:1,timestamp:0});
+        if (this.page == 1) {
+          this.model.getReplyList({curPage:1,pageSize:this.pageSize,direction:1,timestamp:0});
+        } else {
+          location.hash = 'recComment/1'
+        }
       },
 
       goRecComment: function(page) {
