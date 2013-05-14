@@ -59,15 +59,15 @@ define(function (require, exports, module) {
                  self.set("accInfo",accountInfo);
                 }
                 else
-                {                                
+                {
                 mtop.info({snsId:param.snsId},function(result){
                     refine.refinePubAccount(result);
                     self.set("accInfo",result);
                     cache.saveAccount(param.snsId,result);
 
-                });   
+                });
                 }
- 
+
 
                 //step2: 获取详情
                 var cacheFeed = cache.getItemById(param.snsId+"_"+param.feedId);
@@ -84,7 +84,7 @@ define(function (require, exports, module) {
                     mtop.detail(param || {},function(result){
                          if(_.isEmpty(result) )
                          {
-                         self.set("feed",{fail:'null',errMsg:'抱歉,该广播已删除或不存在！'});
+                         self.set("feed",{fail:'null',errMsg:'抱歉,该广播已删除或不存在！', t: (new Date()).getTime() });
                          }
                          else if(result.fail)
                          {
