@@ -75,7 +75,11 @@ define(function(require, exports, module) {
 
         var self = this
 
-        var list = this.model.get('replyList');
+        var list = this.model.get('replyList')
+        var prev = this.model.previous('replyList')
+
+        if (prev && (prev.totalCount == list.totalCount)) return
+
           var _navbar=$('header.navbar');
           var _recCommentPage=$('#recCommentPage');
           var _show=$('.view-page.show');
