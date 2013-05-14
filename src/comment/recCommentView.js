@@ -20,7 +20,7 @@ define(function(require, exports, module) {
 
       events: {
         'click #recCommentPage .reply-button': 'newComment',
-        'click .fn_btns .refresh': 'refresh'
+        'click .fn_btns .refresh.rec-comment': 'refresh'
       },
 
       initialize: function() {
@@ -32,12 +32,15 @@ define(function(require, exports, module) {
       },
 
       refresh: function() {
+        this.$('.fn_btns .refresh.rec-comment .btn div').addClass('spinner')
         this.model.getReplyList({curPage:this.page,pageSize:this.pageSize,direction:1,timestamp:0});
       },
 
       goRecComment: function(page) {
 
         this.page = page
+
+        this.$(".fn_btns .refresh.rec-comment .btn div").removeClass('spinner')
 
         $('header.navbar').html(recCommentHeaderTemplate({ href: '#index' }))
 
@@ -62,6 +65,8 @@ define(function(require, exports, module) {
       },
 
       renderComment: function() {
+
+        this.$(".fn_btns .refresh.rec-comment .btn div").removeClass('spinner')
 
         var self = this
 
