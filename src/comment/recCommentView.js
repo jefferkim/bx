@@ -71,9 +71,11 @@ define(function(require, exports, module) {
 
       renderComment: function() {
 
-        this.$(".fn_btns .refresh.rec-comment .btn div").removeClass('spinner')
-
         var self = this
+
+        setTimeout(function() {
+          self.$(".fn_btns .refresh.rec-comment .btn div").removeClass('spinner')
+        }, 2000)
 
           var _navbar=$('header.navbar');
           var _recCommentPage=$('#recCommentPage');
