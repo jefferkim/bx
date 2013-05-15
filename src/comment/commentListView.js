@@ -96,7 +96,9 @@ define(function(require, exports, module) {
             return
         }
 
-      $('.navbar .comment-count').html('(' + list.totalCount + ')')
+      if (list.totalCount != null) {
+        $('.navbar .comment-count').html('(' + list.totalCount + ')')
+      }
 
       if (list.totalCount == 0) {
         this.$container.html('<p class="no-comment">还没有评论，快抢沙发吧。</p>')
