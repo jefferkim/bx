@@ -331,8 +331,7 @@ define(function (require, exports, module) {
     },
 
     recComment: function() {
-        changeHash('#recComment/1','index');
-      //location.hash = 'recComment/1'
+      changeHash('recComment/1', 'index')
     }
   });
 });
