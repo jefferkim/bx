@@ -322,6 +322,7 @@ define(function (require, exports, module) {
                                     if(d.data.result[i].isSuccess=='true'){
                                         cur.html('关注');
                                         cur.removeClass('followed');
+                                        cur.attr('data-log','attention');
                                         that.showFans(-1);
                                     }else{
                                         notification.message('取消关注失败！');
@@ -345,6 +346,7 @@ define(function (require, exports, module) {
                                     if(d.data.result[i].isSuccess=='true'){
 
                                         cur.addClass('followed');
+                                        cur.attr('data-log','cancelattention');
                                         cur.html('取消关注');
                                         that.showFans(1);
                                     }else{
@@ -392,7 +394,8 @@ define(function (require, exports, module) {
         goToDetail:function(e){
             var cur=$(e.currentTarget).parent();
             var that=this;
-            window.location.hash='#detail/'+$('.tb-profile').attr('snsid')+'/'+cur.attr('feedid')+'/'+that.curPage;
+            //window.location.hash='#detail/'+$('.tb-profile').attr('snsid')+'/'+cur.attr('feedid')+'/'+that.curPage;
+            changeHash('#detail/'+$('.tb-profile').attr('snsid')+'/'+cur.attr('feedid')+'/'+that.curPage,'account')
         },
         /**
          * 重构数据集

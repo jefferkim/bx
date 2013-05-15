@@ -84,7 +84,7 @@ define(function(require, exports, module) {
     },
 
     back: function(page) {
-      location.hash = this.backHref(page)
+      changeHash(this.backHref(page), 'new_comment')
     },
 
     focus: function() {

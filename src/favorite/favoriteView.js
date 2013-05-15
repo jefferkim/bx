@@ -64,26 +64,12 @@ define(function (require, exports, module) {
             this.$feedList.html('<div class="loading"><span class="spinner"></span></div>');
         //}
         //判断是否显示footer
-        if(h5_comm.isLogin()){
-            $('.navbar').html(header);
-            $('footer .nick').html(h5_comm.getNickFromCookie());
-            var logoutUrl =  uriBroker.getUrl('login_out');
-            $('footer .loginStatus a.logout').attr('href',logoutUrl);
-            $('footer .loginStatus a.logout').css('display','inline-block');
-            $('footer .loginStatus a.login').css('display','none');
-            $('footer .loginStatus a.reg').css('display','none');
-            that.model.favoriteFeeds(that.params);
-        }else{
-            h5_comm.goLogin({rediUrl:'h5_allSpark'});
-           // return;
-        }
+
         //没有关注的时候留有空白
         $('.feed-list').css('margin-top','');
         var _navbar=$('header.navbar');
         var _favoritePage=$('#favoritePage');
         var _show=$('.view-page.show');
-
-
         _navbar.html(header);
         if($('#detailPage').hasClass('show')){
             _favoritePage.removeClass(' iR iL').addClass('iL');
@@ -101,6 +87,21 @@ define(function (require, exports, module) {
         setTimeout(function(){
             _favoritePage.removeClass(' iR iL').addClass('show iC');
         },0);
+
+        if(h5_comm.isLogin()){
+            $('.navbar').html(header);
+            $('footer .nick').html(h5_comm.getNickFromCookie());
+            var logoutUrl =  uriBroker.getUrl('login_out');
+            $('footer .loginStatus a.logout').attr('href',logoutUrl);
+            $('footer .loginStatus a.logout').css('display','inline-block');
+            $('footer .loginStatus a.login').css('display','none');
+            $('footer .loginStatus a.reg').css('display','none');
+            that.model.favoriteFeeds(that.params);
+        }else{
+            h5_comm.goLogin({rediUrl:'h5_allSpark'});
+            // return;
+        }
+
         window.scrollTo(0,1);
     },
     renderFeedsList: function() {

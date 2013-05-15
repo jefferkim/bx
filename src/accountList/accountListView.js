@@ -146,7 +146,8 @@ define(function (require, exports, module) {
             e.stopPropagation();
             var cur=$(e.currentTarget);
             window.AccountList={'hash':'#accountList/'+that.status+'/'+that.curPage,'flag':true}
-            window.location.hash='#account/'+cur.attr('snsid')+'/1';
+            changeHash('#account/'+cur.attr('snsid')+'/1','account');
+            //window.location.hash='#account/'+cur.attr('snsid')+'/1';
         },
         follow:function(e){
             e.stopPropagation();

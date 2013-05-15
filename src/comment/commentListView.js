@@ -136,7 +136,8 @@ define(function(require, exports, module) {
           authorNick: e.target.getAttribute('authornick'),
           parentId: e.target.getAttribute('parentid')
         }
-        location.hash = 'newComment/' + this.snsId + '/' + this.feedId + '/' + this.page;
+        var hash = 'newComment/' + this.snsId + '/' + this.feedId + '/' + this.page;
+        changeHash(hash, 'comment_list')
       } else {
         // h5_comm.goLogin('h5_allspark'
         h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'close'});

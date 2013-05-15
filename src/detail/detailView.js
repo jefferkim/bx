@@ -134,7 +134,7 @@ define(function (require, exports, module) {
                 }
 
               if (feed&&feed.fail) {
-                this.model.set('feed', {}, { silent: true })
+                //this.model.set('feed', {}, { silent: true })
                 var errMsg = feed.errMsg || '加载失败，稍后重试！'  ;
                // notification.message(errMsg);
                 this.$container.find('.main').html('<br /><center style="color:#999">'+errMsg+'</center>');
@@ -223,7 +223,8 @@ define(function (require, exports, module) {
         },
 
         commentList: function() {
-            location.hash ='comment/' + this.snsId + '/' + this.feedId + '/1';
+          var hash = 'comment/' + this.snsId + '/' + this.feedId + '/1'
+          changeHash(hash, 'detail')
         }
 
     });

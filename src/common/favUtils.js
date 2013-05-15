@@ -33,6 +33,8 @@ define(function (require, exports, module) {
                     notification.message('服务器在偷懒，再试试吧！');
                 }else{
                     _curTar.removeClass('faved');
+                    //更新打点datalog
+                    _curTar.attr('data-log','addfav');
                     notification.message('已取消收藏！');
                     updateCache(cacheKey,"0");
                 }
@@ -46,12 +48,14 @@ define(function (require, exports, module) {
                         if('FAIL_BIZ_SNS_FAVORITE_ALREADY_FAVORITE' == errMsgs[0])
                         {
                             _curTar.addClass('faved');
+                            _curTar.attr('data-log','cancelfaved');
                         }
                     }else{
                         notification.message('服务器在偷懒，再试试吧！');
                     }
                   }else{
                     _curTar.addClass('faved');
+                    _curTar.attr('data-log','cancelfaved');
                     notification.message('收藏成功！');
                     updateCache(cacheKey,"1");
                 }

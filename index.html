@@ -153,7 +153,7 @@
                 <div></div>
             </div>
         </li>
-        <li class="refresh index">
+        <li class="refresh index log" data-log="indexRefresh" >
             <div class="btn">
                 <div></div>
             </div>
@@ -163,7 +163,7 @@
 <script id="accountTitle_tpl" type="text/template">
     <div class="title"></div>
     <ul class="fn_btns">
-        <li class="refresh account">
+        <li class="refresh account log" data-log="accountRefresh">
             <div class="btn">
                 <div></div>
             </div>
@@ -180,7 +180,7 @@
 </script>
 
 <script id="index_logedheader_tpl" type="text/template">
-    <div class="back">
+    <div class="back log" data-log="indexback">
         <a href="http://m.taobao.com">首页</a>
     </div>
 
@@ -200,7 +200,7 @@
                 <div></div>
             </div>
         </li>
-        <li class="refresh index">
+        <li class="refresh index log" data-log="indexRefresh">
             <div class="btn">
                 <div class=""></div>
             </div>
@@ -208,7 +208,7 @@
     </ul>
 </script>
 <script id="index_header_tpl" type="text/template">
-    <div class="back">
+    <div class="back log" data-log="indexback">
         <a href="http://m.taobao.com">首页</a>
     </div>
 
@@ -218,7 +218,7 @@
                 <div></div>
             </div>
         </li>
-        <li class="refresh index">
+        <li class="refresh index log" data-log="indexRefresh">
             <div class="btn">
                 <div class=""></div>
             </div>
@@ -226,12 +226,12 @@
     </ul>
 </script>
 <script id="favorite_header_tpl" type="text/template">
-    <div class="back">
+    <div class="back log" data-log="favback">
         <a>返回</a>
     </div>
     <div class="title">收藏的广播</div>
     <ul class="fn_btns">
-        <li class="refresh favorite">
+        <li class="refresh favorite log" data-log="favRefresh">
             <div class="btn">
                 <div></div>
             </div>
@@ -278,7 +278,7 @@
                      src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
                 <% } %>
             </div>
-            <a onclick="changeHash('#account/<%= list[i].account.id %>','fav')" class="account">
+            <a onclick="changeHash('#account/<%= list[i].account.id %>','fav')" data-log="favAccount" class="account log">
                 <div class="default">
                     <% if(list[i].account.logoUrl){ %>
                     <img class="avatar lazy" dataimg="<%= getImgUrl(list[i].account.logoUrl, 100, 60) %>"
@@ -288,7 +288,7 @@
                 <p class="name"><%= list[i].account.nick %></p>
 
             </a>
-            <div class="favbtn <% if(list[i].firstFeed.isLiked =='1'){%> faved <% } %>"></div>
+            <div class="favbtn <% if(list[i].firstFeed.isLiked =='1'){%> faved <% } %> log" data-log="<% if(list[i].firstFeed.isLiked =='1'){%> cancelfaved <% }else{ %> addfav <%} %>"></div>
         </div>
         <div class="separator"></div>
     </li>
@@ -328,18 +328,18 @@
                      src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
                 <% } %>
             </div>
-            <a onclick="changeHash('#account/<%= list[i].account.id %>','index')" class="account">
+            <a onclick="changeHash('#account/<%= list[i].account.id %>','index')" class="account log" data-log="indexAccount">
                 <div class="default">
                     <% if(list[i].account.logoUrl){ %>
                     <img class="avatar lazy" dataimg="<%= getImgUrl(list[i].account.logoUrl, 100, 60) %>"
                          src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
                     <% } %>
                 </div>
-                <p class="name"><%= list[i].account.nick %></p>
+                <p class="name" ><%= list[i].account.nick %></p>
 
             </a>
             <% if(!hotFeeds){ %>
-            <div class="favbtn <% if(list[i].firstFeed.isLiked =='1'){%> faved <% } %>"></div>
+            <div class="favbtn <% if(list[i].firstFeed.isLiked =='1'){%> faved <% } %> log" data-log="<% if(list[i].firstFeed.isLiked =='1'){%> cancelfaved <% }else{ %> addfav <% } %>"></div>
             <% } %>
         </div>
         <div class="separator"></div>
@@ -348,7 +348,7 @@
 </script>
 
 <script id="detail_header_tpl" type="text/template">
-    <div class="back">
+    <div class="back log" data-log="detailback">
         <a href="<%= href %>">返回</a>
     </div>
     <div class="title">&nbsp;</div>
@@ -360,13 +360,13 @@
     </ul>
 </script>
 <script id="comment_list_header_tpl" type="text/template">
-    <div class="back">
+    <div class="back log" data-log="commentback">
         <a href="<%= href %>">返回</a>
     </div>
     <div class="title">评论<span class="comment-count"><span></div>
 </script>
 <script id="newComment_header_tpl" type="text/template">
-    <div class="back">
+    <div class="back log" data-log="newCommentback">
         <a href="<%= href %>">返回</a>
     </div>
     <div class="title">回复评论</div>
@@ -404,7 +404,7 @@
     <ul>
         <% _.each(list, function(item) { %>
         <li>
-            <div snsid="<%=item.id%>" class="content">
+            <div snsid="<%=item.id%>" class="content log" data-log="account">
                 <div class="title"><%=item.nick%></div>
                 <div class="info"><%=item.description%></div>
                 <div class="follows"><span><%=formatFans(item.fansCount)%></span>关注者</div>
@@ -528,7 +528,7 @@
         <div class="profile-overview">
 
             <div url="<%=url%>" linkUrlIsExt="<%=linkUrlIsExt%>"
-                 class="stats-global <% if(url==''){ %> stats-global-disable <% } %> wwwIco"></div>
+                 class="stats-global <% if(url==''){ %> stats-global-disable <% } %> wwwIco log" data-log="wwwIco"></div>
 
         </div>
 
@@ -550,7 +550,7 @@
 
     <% _.each(list, function(item) { %>
     <li feedId="<%=item.id%>" snsid="<%=item.creatorId%>">
-        <div class="jsItem">
+        <div class="jsItem log" data-log="accountFeedItem">
             <div class="title"><%=item.title%></div>
             <div class="fns">
                 <span class="icon-clock time"><%=timestamps(item.time)%></span>
@@ -583,7 +583,7 @@
         <a class="account">
 
         </a>
-        <div class="favbtn <% if(item.isLiked =='1'){%> faved <% } %>"></div>
+        <div class="favbtn <% if(item.isLiked =='1'){%> faved <% } %> log" data-log="<% if(item.isLiked =='1'){%> cancelfaved <% }else{ %> addfav <% } %>"></div>
     </li>
     <% }); %>
 
@@ -598,7 +598,7 @@
 
 
 <script id="detail_accinfo_tpl" type="text/template">
-    <a onclick="changeHash('#account/<%= snsId %>','detail')" class="brand">
+    <a onclick="changeHash('#account/<%= snsId %>','detail')" class="brand log" data-log="detailAccount">
         <div class="default">
             <% if(logoUrl){ %>
             <img class="avatar" src="<%=getImgUrl(logoUrl,100,60)%>"/>
@@ -622,7 +622,7 @@
 </script>
 <script id="detail_content_tpl" type="text/template">
     <h1><%= title %> </h1>
-    <div class="favbtn <% if(isLiked =='1'){%> faved <% } %>"></div>
+    <div class="favbtn <% if(isLiked =='1'){%> faved <% } %> log" data-log="<% if(isLiked =='1'){%> cancelfaved <% }else{ %> addfav <% } %>"></div>
     <% if (time) { %>
     <p class="detail-info">
         <span class="icon-clock pub-time"><%= timestamps(time) %></span>
@@ -744,12 +744,12 @@
 </script>
 
 <script id="recComment_header_tpl" type="text/template">
-    <div class="back">
+    <div class="back log" data-log="recCommentback">
         <a href="<%= href %>">返回</a>
     </div>
     <div class="title">收到的评论</div>
     <ul class="fn_btns">
-        <li class="refresh rec-comment">
+        <li class="refresh rec-comment log" data-log="recCommentRefresh">
             <div class="btn"><div>
             </div></div>
         </li>

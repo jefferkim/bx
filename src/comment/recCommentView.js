@@ -33,7 +33,11 @@ define(function(require, exports, module) {
 
       refresh: function() {
         this.$('.fn_btns .refresh.rec-comment .btn div').addClass('spinner')
-        this.model.getReplyList({curPage:this.page,pageSize:this.pageSize,direction:1,timestamp:0});
+        if (this.page == 1) {
+          this.model.getReplyList({curPage:1,pageSize:this.pageSize,direction:1,timestamp:0});
+        } else {
+          location.hash = 'recComment/1'
+        }
       },
 
       goRecComment: function(page) {
@@ -56,7 +60,8 @@ define(function(require, exports, module) {
             authorNick: button.getAttribute('authornick'),
             parentId: button.getAttribute('parentid')
           }
-          location.hash = 'newComment/' + button.getAttribute('snsid') + '/' + button.getAttribute('feedid') + '/' + this.page;
+          var hash = 'newComment/' + button.getAttribute('snsid') + '/' + button.getAttribute('feedid') + '/' + this.page;
+          changeHash(hash, 'rec_comment')
         } else {
           // h5_comm.goLogin('h5_allspark'
           h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'close'});
@@ -70,7 +75,11 @@ define(function(require, exports, module) {
 
         var self = this
 
-        var list = this.model.get('replyList');
+        var list = this.model.get('replyList')
+        var prev = this.model.previous('replyList')
+
+        if (prev && (prev.totalCount == list.totalCount)) return
+
           var _navbar=$('header.navbar');
           var _recCommentPage=$('#recCommentPage');
           var _show=$('.view-page.show');
