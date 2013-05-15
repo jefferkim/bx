@@ -72,10 +72,7 @@ define(function(require, exports, module) {
       renderComment: function() {
 
         var self = this
-        var list = this.model.get('replyList')
-        var prev = this.model.previous('replyList')
 
-        if (prev && (prev.totalCount == list.totalCount)) return
         setTimeout(function() {
           self.$(".fn_btns .refresh.rec-comment .btn div").removeClass('spinner')
         }, 2000)
@@ -105,8 +102,6 @@ define(function(require, exports, module) {
           window.scrollTo(0,1);
 
         var list = this.model.get('replyList')
-        var prev = this.model.previous('replyList')
-
         if (list&&list.fail) {
           notification.message("请稍后重试");
           this.$container.html('<p class="no-comment">加载失败，稍后重试！</p>');
