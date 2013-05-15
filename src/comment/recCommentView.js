@@ -108,7 +108,7 @@ define(function(require, exports, module) {
           return
         }
 
-        if (prev && (prev.totalCount == list.totalCount)) return
+        if (prev && (this.page == 1) && (prev.totalCount == list.totalCount)) return
 
         if (parseInt(list.totalCount) == 0) {
             _recCommentPage.html('<p class="no-comment">还没有收到任何评论哦</p>');
