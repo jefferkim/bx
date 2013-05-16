@@ -198,6 +198,8 @@ define(function (require, exports, module) {
         if (h5_base.isClient()) {
           e.preventDefault()
           location.href = location.protocol+'//'+location.hostname + location.pathname + '#account/' + this.snsId + '/' + this.page
+        }else{
+            window.changeHash('#account/'+this.snsId,'detail');
         }
 
         // if (h5_base.isClient() && window.allspark) {
