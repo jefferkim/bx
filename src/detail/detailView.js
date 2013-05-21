@@ -75,6 +75,9 @@ define(function (require, exports, module) {
            if(_navbar.hasClass('iT')){
                _navbar.removeClass('iT').addClass('iC');
            }
+           if(Env.isDesktop){
+               _navbar.hide();
+           }
            var _show=$('.view-page.show');
            //客户端 去掉动画
            if(h5_base.isClient() || h5_base.isAndroidClient()) {
@@ -199,7 +202,9 @@ define(function (require, exports, module) {
           e.preventDefault()
           location.href = location.protocol+'//'+location.hostname + location.pathname + '#account/' + this.snsId + '/' + this.page
         }else{
-            window.changeHash('#account/'+this.snsId,'detail');
+            if(!Env.isDesktop){
+                window.changeHash('#account/'+this.snsId,'detail');
+            }
         }
 
         // if (h5_base.isClient() && window.allspark) {

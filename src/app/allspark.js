@@ -167,9 +167,11 @@ function feedImageSizeStyle(actualWidth, actualHeight){
             expectHeight = height / (width / expectWidth)
         }
     }
-
-    if (!expectHeight) return "width: 100%"
-    else return "width: " + expectWidth + 'px; ' + 'height: ' + expectHeight + 'px;'
+    //临时处理pc端问题，使期不会放大图片
+    if(!Env.isDesktop){
+        if (!expectHeight) return "width: 100%"
+        else return "width: " + expectWidth + 'px; ' + 'height: ' + expectHeight + 'px;'
+    }
 
 
 }
@@ -187,9 +189,11 @@ function detailImageSizeStyle(actualWidth, actualHeight) {
     } else {
         expectHeight = height / (width / expectWidth)
     }
-
-    if (!expectHeight) return "width: 100%"
-    else return "width: " + expectWidth + 'px; ' + 'height: ' + expectHeight + 'px;'
+    //临时处理pc端问题，使期不会放大图片
+    if(!Env.isDesktop){
+        if (!expectHeight) return "width: 100%"
+        else return "width: " + expectWidth + 'px; ' + 'height: ' + expectHeight + 'px;'
+    }
 }
 
 /**

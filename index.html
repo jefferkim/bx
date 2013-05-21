@@ -566,7 +566,12 @@
                                             it<%=item.coverTile.item.id%>
                                         <% } %>
                                  <% } %> ">
-                    <% var pic=resizeImg({'url':item.coverTile.path,'expWidth':window.innerWidth-30,'rWidth':parseInt(item.coverTile.picWidth),'rHeight':parseInt(item.coverTile.picHeight),'isXz':true})  %>
+                    <% var pic; if(Env.isDesktop){ %>
+                    <% pic=resizeImg({'url':item.coverTile.path,'expWidth':470,'rWidth':parseInt(item.coverTile.picWidth),'rHeight':parseInt(item.coverTile.picHeight),'isXz':true})  %>
+                    <% }else{ %>
+                    <% pic=resizeImg({'url':item.coverTile.path,'expWidth':window.innerWidth-30,'rWidth':parseInt(item.coverTile.picWidth),'rHeight':parseInt(item.coverTile.picHeight),'isXz':true})  %>
+
+                    <% } %>
                     <img class="lazy" style="width:<%=pic.expWidth%>px;height:<%=pic.expHeight%>px" picWidth="<%=parseInt(pic.expWidth)%>" picHeight="<%=parseInt(pic.expHeight)%>"
                          dataimg="<%=pic.url%>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif" />
 
@@ -632,8 +637,13 @@
     <% for (var i = 0; i < tiles.length; i++) { %>
     <% if (tiles[i].type == "pic") { %>
     <div class="media"><img class="lazy"
-                            dataimg="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
-                            style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>"
+                            <%if(Env.isDesktop){%>
+                                dataimg="<%=getBetterImg(tiles[i].path, 370, parseInt(tiles[i].picWidth),true) %>"
+                            <% }else{%>
+                                dataimg="<%=getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
+                                style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>"
+                            <% } %>
+
                             src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
     </div>
     <% } else if (tiles[i].type == "text") { %>
@@ -645,8 +655,12 @@
         <a style="display: block" href="<%= getItemDetailUrl('a', { itemId: tiles[i].item.id }) %>" class="item"
            data-id="<%= tiles[i].item.id %>">
             <img class="lazy"
-                 dataimg="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
-                 style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>"
+                <%if(Env.isDesktop){%>
+                    dataimg="1<%= getBetterImg(tiles[i].path, 370, parseInt(tiles[i].picWidth),true) %>"
+                <% }else{ %>
+                     dataimg="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
+                     style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>"
+                <% } %>
                  src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
 
             <div class="price" style="display: none;"></div>
