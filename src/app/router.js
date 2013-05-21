@@ -205,6 +205,7 @@ define(function (require, exports, module) {
             status = status || 1;
             page = page || 1;
             _accountListView.render(status, page);
+
         },
         detail: function (snsId, feedId, page) {
 
@@ -212,6 +213,15 @@ define(function (require, exports, module) {
             //详情需要置顶
             window.scrollTo(0, 0);
             _detailView.goDetail(snsId, feedId, page);
+            var b = "onorientationchange" in window, c = b ? "orientationchange" : "resize";
+            $(window).unbind(c).bind(c, function () {
+                var _img = $('#detailPage .media img');
+                for (var i = 0, len = _img.length; i < len; i++) {
+                    //if (!_img.eq(i).parent().hasClass('feed-box')) {
+                        _img.eq(i).attr('style', feedImageSizeStyle(parseInt(_img.eq(i).attr('picWidth')), parseInt(_img.eq(i).attr('picHeight'))));
+                    //}
+                }
+            });
         },
 
         commentList: function (snsId, feedId, page) {

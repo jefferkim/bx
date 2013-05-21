@@ -656,7 +656,7 @@
            data-id="<%= tiles[i].item.id %>">
             <img class="lazy"
                 <%if(Env.isDesktop){%>
-                    dataimg="1<%= getBetterImg(tiles[i].path, 370, parseInt(tiles[i].picWidth),true) %>"
+                    dataimg="<%= getBetterImg(tiles[i].path, 370, parseInt(tiles[i].picWidth),true) %>"
                 <% }else{ %>
                      dataimg="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
                      style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>"
