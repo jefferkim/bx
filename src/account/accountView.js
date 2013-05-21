@@ -116,7 +116,7 @@ define(function (require, exports, module) {
 //                    console.log(result);
 //                    console.log('dom:'+_upDomFlag);
                     if(_upDomFlag){
-                        console.log('dom')
+                      //  console.log('dom')
                         //$('#accountPage .J_feed .tb-feed-items').removeClass('loading spinner');
                         if(that.accountModel.get('accInfo'))
                         $('#accountPage .J_feed .tb-feed-items').html(_.template($('#tbfeed_tpl').html(),that.reconFeedListData(result)));

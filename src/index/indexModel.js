@@ -11,7 +11,7 @@ define(function (require, exports, module) {
 		  getTimeLine:function (param) {
 		  	var self=this;
                 mtop.timeLine(param, function (recResult) {
-                  console.log(recResult);
+                 // console.log(recResult);
                     if(recResult.fail){                       
 						recResult.errMsg='服务器繁忙，请稍后再试！';
 						 self.set("timeLine",recResult);
