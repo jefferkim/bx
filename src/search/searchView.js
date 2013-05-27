@@ -19,12 +19,12 @@ define(function (require, exports, module) {
     var searchView = Backbone.View.extend({
         el:'#content',
         events:{
-            'click .tb-feed-items .jsItem':'goToDetail',
+           /* 'click .tb-feed-items .jsItem':'goToDetail',
             //'click .navbar .back':'goBackHome',
             'click #accountPage .J_info .stats-follow-btn':'follow',
             'click .navbar .refresh.account':'refresh',
             'click #accountPage .favbtn':'favbtn',
-            'click #accountPage .wwwIco':'goWWW'
+            'click #accountPage .wwwIco':'goWWW'*/
         },
         backURL:'',
         afterTimestamp:'',
@@ -77,7 +77,7 @@ define(function (require, exports, module) {
             console.log(nick);
             console.log(page);
 
-            this.model.getReplyList({curPage:this.page,pageSize:this.pageSize,direction:1,timestamp:0});
+            this.searchModel.searchAccount({keywords:nick,paging:page});
 
         },
 

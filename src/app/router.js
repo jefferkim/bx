@@ -151,8 +151,7 @@ define(function (require, exports, module) {
                     self.recComment(arg0)
                     break;
                 case 'searchAccount':
-                    alert("fff");
-                   // _searchAccountView = _searchAccountView || new searchAccountView();
+                    _searchAccountView = _searchAccountView || new searchAccountView();
                     self.searchAccount(arg0,arg1);
                     break;
                 default :
@@ -250,10 +249,8 @@ define(function (require, exports, module) {
         },
 
         searchAccount: function (nick, page) {
-            alert(nick);
-            console.log(page);
-            //page = page || 1;
-           //_searchAccountView.goSearchAccountList(nick, page);
+            page = page || 1;
+            _searchAccountView.goSearchAccountList(nick, page);
 
         },
 

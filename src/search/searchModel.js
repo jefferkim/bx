@@ -17,7 +17,8 @@ define(function (require, exports, module) {
 
 
         searchAccount:function(params){
-            mtop.searchAccount({nick:params.nick},function(result){
+            mtop.searchAccount({keyword:params.keyword,paging:params.paging},function(result){
+                console.log(result);
 
                 refine.refinePubAccount(result);
 
