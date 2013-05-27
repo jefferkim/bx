@@ -17,25 +17,14 @@
     <div id="ios-arrow-left" class="back">
         <a href="http://m.taobao.com">返回</a>
     </div>
-    <div class="title">关注管理</div>
+    <div class="title">推荐关注</div>
 </header>
 <div class="tb-h5">
 
-    <div class="account-search">
+    <div class="account-recommend">
 
-        <div class="search-item">
-            <div class="search-input"><input type="text" name="" placeholder="请输入微淘帐号名称"/><a href="#" class="close-btn"></a></div><div class="search-icon"></div>
-        </div>
-
-        <div class="add-public-account">
-            <div class="info">关注更多公共帐号</div>
-            <span class="icon"></span>
-        </div>
 
         <div class="person-list">
-            <h3 class="follows-count">已关注的微淘帐号 100</h3>
-
-            <!--<p class="tips">你还没有关注任何微淘帐号</p>-->
             <ul>
                 <li>
                     <div snsid="<%=item.id%>" class="content">
@@ -48,6 +37,7 @@
                                  src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
                         </div>
                     </div>
+                    <button pid="" class="followbtn log" data-log="attention">关注</button>
                 </li>
                 <li>
                     <div snsid="<%=item.id%>" class="content">
@@ -60,6 +50,7 @@
                                  src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
                         </div>
                     </div>
+                    <button pid="" class="followbtn log followed" data-log="attention">已关注</button>
                 </li>
                 <li>
                     <div snsid="<%=item.id%>" class="content">
@@ -72,6 +63,7 @@
                                  src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
                         </div>
                     </div>
+                    <button pid="" class="followbtn log followed" data-log="attention">已关注</button>
                 </li>
             </ul>
 
