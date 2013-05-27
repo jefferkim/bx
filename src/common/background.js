@@ -39,9 +39,9 @@ define(function (require, exports, module) {
                 var z = $(e.currentTarget);
                 var data = z.data("log")
                 if (data) {
-                    if ("attention" == data && "account" == currentUri && z.hasClass("followed")) {
-                        data = "cancelattention";
-                    }
+//                    if ("attention" == data && "account" == currentUri && z.hasClass("followed")) {
+//                        data = "cancelattention";
+//                    }
                     log.logClick(data, currentUri);
                 }
             }

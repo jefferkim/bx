@@ -152,7 +152,7 @@
                 <div></div>
             </div>
         </li>
-        <li class="refresh index log" data-log="index_Refresh" >
+        <li class="refresh index log" data-log="Refresh" >
             <div class="btn">
                 <div></div>
             </div>
@@ -162,7 +162,7 @@
 <script id="accountTitle_tpl" type="text/template">
     <div class="title"></div>
     <ul class="fn_btns">
-        <li class="refresh account log" data-log="account_Refresh">
+        <li class="refresh account log" data-log="Refresh">
             <div class="btn">
                 <div></div>
             </div>
@@ -199,7 +199,7 @@
                 <div></div>
             </div>
         </li>
-        <li class="refresh index log" data-log="index_Refresh">
+        <li class="refresh index log" data-log="Refresh">
             <div class="btn">
                 <div class=""></div>
             </div>
@@ -217,7 +217,7 @@
                 <div></div>
             </div>
         </li>
-        <li class="refresh index log" data-log="index_Refresh">
+        <li class="refresh index log" data-log="Refresh">
             <div class="btn">
                 <div class=""></div>
             </div>
@@ -230,7 +230,7 @@
     </div>
     <div class="title">收藏的广播</div>
     <ul class="fn_btns">
-        <li class="refresh favorite log" data-log="fav_Refresh">
+        <li class="refresh favorite log" data-log="Refresh">
             <div class="btn">
                 <div></div>
             </div>
@@ -656,7 +656,7 @@
            data-id="<%= tiles[i].item.id %>">
             <img class="lazy"
                 <%if(Env.isDesktop){%>
-                    dataimg="1<%= getBetterImg(tiles[i].path, 370, parseInt(tiles[i].picWidth),true) %>"
+                    dataimg="<%= getBetterImg(tiles[i].path, 370, parseInt(tiles[i].picWidth),true) %>"
                 <% }else{ %>
                      dataimg="<%= getBetterImg(tiles[i].path, window.innerWidth-30, parseInt(tiles[i].picWidth)) %>"
                      style="<%= detailImageSizeStyle(tiles[i].picWidth, tiles[i].picHeight) %>"
@@ -761,7 +761,7 @@
     </div>
     <div class="title">收到的评论</div>
     <ul class="fn_btns">
-        <li class="refresh rec-comment log" data-log="recComment_Refresh">
+        <li class="refresh rec-comment log" data-log="Refresh">
             <div class="btn"><div>
             </div></div>
         </li>

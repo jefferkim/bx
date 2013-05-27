@@ -14,17 +14,17 @@ define(function(require){
     //全局函数
     Env={isDesktop:false};
     var R_desktop = /(\bwindows\b|\bmacintosh\b|\blinux\b|\bunix\b)/;
-    if(R_desktop.exec(navigator.userAgent.toLowerCase())){
-        Env.isDesktop=true;
-        $('body').addClass('desktop');
-    }
+//    if(R_desktop.exec(navigator.userAgent.toLowerCase())){
+//        Env.isDesktop=true;
+//        $('body').addClass('desktop');
+//    }
     /**
      * hash改变
      * @param hash
      * @param refer
      */
     changeHash = function (hash, refer) {
-        log && log.logEnter(hash.split('/')[0].replace('#',''),refer);
+        log && log.logEnter(hash,refer);
         window.location.hash = hash;
     };
 
