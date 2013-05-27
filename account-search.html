@@ -10,8 +10,7 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
     <link href="http://a.tbcdn.cn/mw/s/hi/tbtouch/images/touch-icon.png" rel="apple-touch-icon-precomposed"/>
 
-    <link rel="stylesheet/less" href="less/allspark.less">
-    <script type="text/javascript" src="less.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/allspark.css"/>
 </head>
 <body>
 <header class="navbar">
@@ -24,19 +23,16 @@
     <div class="account-search">
 
         <div class="search-item">
-            <input type="text" name=""/>
-            <button type="">搜索</button>
+            <div class="search-input"><input type="text" name="" placeholder="请输入微淘帐号名称"/></div><div class="search-icon"></div>
         </div>
 
         <div class="add-public-account">
             <div class="info">关注更多公共帐号</div>
-            <div class="">
-                <img src="http://img02.taobaocdn.com/tfscom/tuitui/T1HLeeXz0fXXXXXXXX_60x60.jpg"/>
-            </div>
+            <span class="icon"></span>
         </div>
 
         <div class="person-list">
-            <h3>已关注的微淘帐号 100</h3>
+            <h3 class="follows-count">已关注的微淘帐号 100</h3>
             <ul>
                 <li>
                     <div snsid="<%=item.id%>" class="content">
