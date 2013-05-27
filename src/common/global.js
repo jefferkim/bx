@@ -55,11 +55,14 @@ define(function(require){
 		 * 检测hash
 		 */
 		hashCheck : function(){
-		  var hash = location.hash ;
-		  if(hash && hash != '#index'&&hash.indexOf('#fav') ==-1 && hash.indexOf('#account') ==-1&& hash.indexOf('#detail') ==-1 && hash.indexOf('#comment') ==-1 &&  hash.indexOf('#newComment') ==-1  &&  hash.indexOf('#recComment') ==-1 && hash.indexOf('#accountList') ==-1)
-		  {
+		  var hash = location.hash;
+          var hashPart = hash.split("/")[0];
+          var wl = ['#fav','#account','#detail','#comment','#newComment','#recComment','#accountList','#searchAccount'];
+
+		  if(hash && hash != '#index' && wl.indexOf(hashPart) == -1){
 		   location.hash='#index';
 		  }
 		}
+
 	});
 });
