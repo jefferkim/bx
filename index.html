@@ -75,7 +75,7 @@
         <div id="commentListPage" class="view-page hide  iR comment">
             <div class="add-comment">
                 <textarea id="add-comment-area" class="field" name="" placeholder="添加评论" rows="1"></textarea>
-                <button class="send-button">发送</button>
+                <button class="send-button log" data-log="send_button">发送</button>
                 <p class="char-count" style="display: none"><span class="counter">0</span> / <span>140</span></p>
             </div>
             <div class="main">
@@ -139,7 +139,7 @@
 
 <!-- Templates -->
 <script id="navBack_tpl" type="text/template">
-    <div class="back">
+    <div class="back log" data-log="account_back">
         <a href="<%=backUrl%>"><%=backTitle%></a>
     </div>
 

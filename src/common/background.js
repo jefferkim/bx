@@ -30,10 +30,7 @@ define(function (require, exports, module) {
     var BackgroundView = Backbone.View.extend({
         el:'#content',
         events:{
-            'click header .back':function () {
-                myHis.back();
-                return false;
-            },
+
             'click .log[data-log]':function (e) {
                 var currentUri = location.hash ? location.hash.split("/")[0].replace("#", "") : "";
                 var z = $(e.currentTarget);
@@ -44,6 +41,10 @@ define(function (require, exports, module) {
 //                    }
                     log.logClick(data, currentUri);
                 }
+            },
+            'click header .back':function () {
+                myHis.back();
+                return false;
             }
         }
     });

@@ -287,15 +287,23 @@ define(function (require, exports, module) {
         },
         goWWW:function(e){
             var that=this;
-            var cur=$(e.currentTarget);
+            var cur=$(e.currentTarget),url='';
+            if(cur.attr('url')!=''){
+                if(cur.attr('url').indexOf('?')==-1){
+                    url=cur.attr('url')+'?ap_ref='+encodeURIComponent(window.location.href);
+                }else{
+                    url=cur.attr('url')+'&ap_ref='+encodeURIComponent(window.location.href);
+                }
+            }
+
             if (cur.attr('linkUrlIsExt') == 'true') {
                 notification.external(cur.attr('url'),function(){
-                    window.open(cur.attr('url'), '_blank')
+                    window.open(url, '_blank')
                     //window.location.href=cur.attr('url');
                 },null);
             } else {
                 if(cur.attr('url')!=''){
-                    window.location.href = cur.attr('url');
+                    window.location.href = url;
                 }
             }
 

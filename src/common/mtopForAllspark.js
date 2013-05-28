@@ -17,7 +17,7 @@ define(function (require, exports, module) {
      */
     var getData = exports.getData = function (apiName, param, successF, failF) {
         //调用mtop 接口
-        h5_mtop.getApi(apiName, '2.0', param, {'ap_ref':window.location.hash},
+        h5_mtop.getApi(apiName, '2.0', param, {'ap_ref':window.location.href},
             function (result) {
                 //处理正常的返回
                 h5_comm.dealResponse(result, function (result) {
