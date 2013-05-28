@@ -100,7 +100,7 @@ define(function (require, exports, module) {
             self.route(/^(recComment)\/?(\d*)?$/, 'recComment', self.filter);
 
             //#addaccount/nick/page nick - sns帐号  page - 页码
-            self.route(/^(searchAccount)\/?(\d*)?\/?(\d*)?$/, 'searchAccount', self.filter);
+            //self.route(/^(searchAccount)\/?(\d*)?\/?(\d*)?$/, 'searchAccount', self.filter);
 
             // 全局初始化
             global.init();

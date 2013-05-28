@@ -503,7 +503,7 @@
         </div>
         <div class="user-avatar">
             <div class="default">
-                <% if(logoUrl){ %>
+                <% if(typeof logoUrl!='undefined'&&logoUrl!==''){ %>
                 <img src="<%=getImgUrl(logoUrl,100,60)%>">
                 <% } %>
             </div>
@@ -604,7 +604,7 @@
 <script id="detail_accinfo_tpl" type="text/template">
     <a snsid="<%= snsId %>" class="brand log" data-log="detailAccount">
         <div class="default">
-            <% if(logoUrl){ %>
+            <% if(typeof logoUrl!='undefined'&&logoUrl!==''){ %>
             <img class="avatar" src="<%=getImgUrl(logoUrl,100,60)%>"/>
             <% } %>
         </div>

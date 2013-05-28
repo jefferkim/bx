@@ -81,6 +81,7 @@ define(function (require, exports, module) {
             this.$feedList.html('<div class="loading"><span class="spinner"></span></div>');
         }
         //判断是否显示footer
+        $('footer').css('display','block');
         if(h5_comm.isLogin()){
             $('.navbar').html(logedHeader);
             $('footer .nick').html(h5_comm.getNickFromCookie());
