@@ -36,15 +36,20 @@ define(function (require, exports, module) {
             that.afterTimestamp=new Date().getTime();
             this.searchModel = new _model();
 
+
+
             //===========================
             //getSearchlist
             this.searchModel.on("change:searchList",function(model,result){
+                console.log(result);
+
                 if(result&&result.fail){
                     notification.message('服务异常，请稍后再试！');
                     return;
                 }
 
                 if(result){
+                    console.log(result);
                     if(result.followed=='false'){
                         $('#accountPage .stats-follow-btn').html('关注').attr('class','stats-follow-btn log');
                     }else{
@@ -74,15 +79,24 @@ define(function (require, exports, module) {
 
 
         goSearchAccountList:function(nick,page){
+
             console.log(nick);
             console.log(page);
 
-            this.searchModel.searchAccount({keywords:nick,paging:page});
+            this.searchModel.searchAccount({curPage:page,pageSize:this._pageSize,keywords:nick});
 
         },
 
 
-        render:function(snsid,page){
+
+        ///========渲染列表数据
+        /*
+        * nick: 搜索帐号
+        * page: 分页no
+        * */
+
+        render:function(nick,page){
+
             var that=this;
             if($.trim($('#accountPage .J_feed .tb-feed-items').html()).length==0){
                 $('#accountPage .J_feed .tb-feed-items').html('<div class="loading"><span class="spinner"></span></div>');
@@ -100,6 +114,11 @@ define(function (require, exports, module) {
                 $('#accountPage .J_feed .tb-feed-items').html('<div class="loading"><span class="spinner"></span></div>');
             }
             $('header.navbar').html('');
+
+
+
+
+
 
             if(that.oldTotalCount){
                 if(that.oldTotalCount.snsid==that.snsid){
@@ -170,8 +189,10 @@ define(function (require, exports, module) {
 //            * @param param.pageSize
 //            * @param param.snsId
 //            * @param param.afterTimestamp
+
+
               window.scrollTo(0,1);
-              that.accountModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'afterTimestamp':that.afterTimestamp,'before':that.before});
+              that.searchModel.getPageData({'snsId':that.snsid,'curPage':that.curPage,'pageSize':that._pageSize,'afterTimestamp':that.afterTimestamp,'before':that.before});
                 // this is for Android
                 $('#content')[0].style.minHeight = '360px'
 

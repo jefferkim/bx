@@ -17,10 +17,12 @@ define(function (require, exports, module) {
 
 
         searchAccount:function(params){
-            mtop.searchAccount({keyword:params.keyword,paging:params.paging},function(result){
-                console.log(result);
+            var self = this;
+            mtop.searchAccount({keywords:params.keywords,curPage:params.curPage,pageSize:params.pageSize},function(result){
+
 
                 refine.refinePubAccount(result);
+                console.log(result);
 
                 self.set({"DATA_SearchList":result,silent:true});
                 self.trigger('change:searchList');
@@ -39,56 +41,36 @@ define(function (require, exports, module) {
          * @param param.afterTimestamp  进入首页的时侯或者刷新的时侯取当前时间点,翻页时可以不传
          * @param param.before  下一页的时侯置为true,上一页不用传递
          */
+
+
+
+
         getPageData:function (param) {
+
             var self = this;
 
-            param.exCludInfo||self._biz.info({snsId:param.snsId,sid:param.sid},function(result){
-                refine.refinePubAccount(result);
-                //FIXME 这这应该写错了吧. wuzhong
-                self.set({"accInfo":result,silent:true});
-                self.trigger('change:accInfo');
-
-                cache.saveAccount(param.snsId,result);
-
-                self.set("loaded","1");
-            });
-
             param || (param = {});
+            var type = param.type || 1;
+
             var pageParam = _.clone(mtop.pageParam);
             _.extend(pageParam, param);
 
-            //判断是否第一页
-            pageParam.isIndex() && (pageParam.before = false);
 
-            self._biz.feeds(pageParam,function(result){
-                result.totalCount && result.list && result.list.forEach(function(feed){
-                    //feed.coverTile.item={'id':'1500020722928'};
-                    //fcache.saveItem(param.snsId+"_"+feed.id,feed);
-                });
-                refine.refineFeed(result);
-                //手动改变数据集，以达到出发change事件
 
-                if(result.fail){
-                    self.set("accFeeds",result);
-                    return;
-                }
-                result.a=new Date().getTime();
-                self.set("accFeeds",result);
+                mtop.searchAccount(param, function (resp) {
 
-                //获取价格参数
-                var ids = [];
-                result.totalCount && result.list && result.list.forEach(function(feed){
-                    feed.coverTile && feed.coverTile.item && feed.coverTile.item.id&& ids.push(feed.coverTile.item.id);
-//                    s.forEach(function(item){
-//                        item.id&&ids.push(item.id)
-//                    });
-                });
-                mtop.getPrices(_.uniq(ids),function(prices){
-                    prices.length && self.set('prices',{'prices':prices,'t':new Date().getTime()});
+                    resp.a=new Date().getTime();
+                    refine.refineRecommend(resp);
+                    self.set("recommends", resp);
+
+                    self.set("loaded","1");
                 })
-                self.set("loaded","1");
-            })
+
+
+
         }
+
+
 
     });
 });
