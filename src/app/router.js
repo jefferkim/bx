@@ -9,6 +9,7 @@ define(function (require, exports, module) {
         accountView = require('../account/accountView'),
         detailView = require('../detail/detailView'),
         accountListView = require('../accountList/accountListView'),
+        searchAccountView = require('../search/searchView'),
         commentView = require('../comment/commentListView'),
         newCommentView = require('../comment/newCommentView'),
         recCommentView = require('../comment/recCommentView'),
@@ -20,7 +21,7 @@ define(function (require, exports, module) {
         log = require("./../common/log.js"),
         mtop = require('../common/mtopForAllspark.js'),
     //缓存实例变量view
-        _indexView, _accountView, _detailView, _accountListView, _commentView, _newCommentView,_favView, _recCommentView;
+        _indexView, _accountView, _searchAccountView, _detailView, _accountListView, _commentView, _newCommentView,_favView, _recCommentView;
 
     // image lazyload setup
     window.lazyload = require('lazyload')
@@ -97,6 +98,10 @@ define(function (require, exports, module) {
             self.route(/^(newComment)\/(\d*)\/(\d*)\/?(\d*)?$/, 'newComment', self.filter);
 
             self.route(/^(recComment)\/?(\d*)?$/, 'recComment', self.filter);
+
+            //#addaccount/nick/page nick - sns帐号  page - 页码
+            self.route(/^(searchAccount)\/?(\d*)?\/?(\d*)?$/, 'searchAccount', self.filter);
+
             // 全局初始化
             global.init();
         },
@@ -144,6 +149,10 @@ define(function (require, exports, module) {
                 case 'recComment':
                     _recCommentView = _recCommentView ||  new recCommentView();
                     self.recComment(arg0)
+                    break;
+                case 'searchAccount':
+                    _searchAccountView = _searchAccountView || new searchAccountView();
+                    self.searchAccount(arg0,arg1);
                     break;
                 default :
                     _indexView = _indexView || new indexView();
@@ -239,9 +248,17 @@ define(function (require, exports, module) {
             _recCommentView.goRecComment(page)
         },
 
+        searchAccount: function (nick, page) {
+            page = page || 1;
+            _searchAccountView.render(nick, page);
+
+        },
+
         start: function () {
             Backbone.history.start();
         }
+
+
 
     });
 
