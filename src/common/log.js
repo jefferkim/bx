@@ -11,7 +11,7 @@ define(function (require, exports, module) {
             if(window.location.search==''){
                 ap_uri=location.protocol+'//'+location.hostname + location.pathname+'?log=page_'+data.split('/')[0].replace('#','')+data;
             }else{
-                window.location.search
+
                 ap_uri=location.protocol+'//'+location.hostname + location.pathname+window.location.search+'&log=page_'+data.split('/')[0].replace('#','')+data;
             }
             param.apuri=ap_uri;
@@ -26,15 +26,17 @@ define(function (require, exports, module) {
     exports.logClick = function(data,uri){
         if (data) {
             var param = {aplus:true};
-            var ap_uri='';
+            var ap_uri='',ap_ref='';
             //param.apdata  = "allspark_" + data + "_" + ap.click;
             //ap.data[uri] && (param.apuri = "allspark" + ap.data[uri]);
             if(window.location.search==''){
                 ap_uri=location.protocol+'//'+location.hostname + location.pathname+'?log=click_'+data;
+                ap_ref=location.protocol+'//'+location.hostname + location.pathname+location.hash;
             }else{
-                window.location.search
                 ap_uri=location.protocol+'//'+location.hostname + location.pathname+window.location.search+'&log=click_'+data+location.hash;
+                ap_ref=location.protocol+'//'+location.hostname + location.pathname+window.location.search+location.hash;
             }
+            param.apref=ap_ref;
             param.apuri=ap_uri;
             aplus.ajax(param);
         }

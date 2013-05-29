@@ -20,7 +20,16 @@ define(function (require, exports, module) {
     var contentTemplate = _.template($('#detail_content_tpl').html());
 
     getBetterImg = cdn.getBetterImg // make it global for convenience use in templates
-    getItemDetailUrl = uriBroker.getUrl
+    getItemDetailUrl = function(module, param){
+        var rui=uriBroker.getUrl(module, param);
+        if(rui.indexOf('?')==-1){
+            rui=rui+'?ap_ref='+encodeURIComponent(window.location.href);
+        }else{
+            rui=rui+'&ap_ref='+encodeURIComponent(window.location.href);
+        }
+        return rui;
+    }
+
 
    var detailView = Backbone.View.extend({
 
@@ -143,7 +152,13 @@ define(function (require, exports, module) {
                 this.$container.find('.main').html('<br /><center style="color:#999">'+errMsg+'</center>');
                 return
               }
-
+            if(feed.linkUrl){
+                if(feed.linkUrl.indexOf('?')==-1){
+                    feed.linkUrl=feed.linkUrl+'?ap_ref='+encodeURIComponent(window.location.href);
+                }else{
+                    feed.linkUrl=feed.linkUrl+'&ap_ref='+encodeURIComponent(window.location.href);
+                }
+            }
 
           var content = contentTemplate(feed);
           this.$container.find('.main').html(content);
