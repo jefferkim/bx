@@ -11,6 +11,10 @@ define(function (require, exports, module) {
 
     return Backbone.Model.extend({
 
+        defaults:{
+            needLazy:false
+        },
+
         validate:function(attrs, options){
 
 

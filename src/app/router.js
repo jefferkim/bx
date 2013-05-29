@@ -10,6 +10,7 @@ define(function (require, exports, module) {
         detailView = require('../detail/detailView'),
         accountListView = require('../accountList/accountListView'),
         searchAccountView = require('../search/searchView'),
+        recommendAccount = require('../search/recommendView'),
         commentView = require('../comment/commentListView'),
         newCommentView = require('../comment/newCommentView'),
         recCommentView = require('../comment/recCommentView'),
@@ -21,7 +22,7 @@ define(function (require, exports, module) {
         log = require("./../common/log.js"),
         mtop = require('../common/mtopForAllspark.js'),
     //缓存实例变量view
-        _indexView, _accountView, _searchAccountView, _detailView, _accountListView, _commentView, _newCommentView,_favView, _recCommentView;
+        _indexView, _accountView,_recommendAccount, _searchAccountView, _detailView, _accountListView, _commentView, _newCommentView,_favView, _recCommentView;
 
     // image lazyload setup
     window.lazyload = require('lazyload')
@@ -99,8 +100,10 @@ define(function (require, exports, module) {
 
             self.route(/^(recComment)\/?(\d*)?$/, 'recComment', self.filter);
 
+            //推荐关注页面 TODO:精简filter代码
+            self.route(/^(recommendAccount)\/?(\d*)?$/, 'recommend', self.filter);
             //#addaccount/nick/page nick - sns帐号  page - 页码
-            //self.route(/^(searchAccount)\/?(\d*)?\/?(\d*)?$/, 'searchAccount', self.filter);
+            self.route(/^(searchAccount)\/?(\d*)?\/?(\d*)?$/, 'searchAccount', self.filter);
 
             // 全局初始化
             global.init();
@@ -153,6 +156,9 @@ define(function (require, exports, module) {
                 case 'searchAccount':
                     _searchAccountView = _searchAccountView || new searchAccountView();
                     self.searchAccount(arg0,arg1);
+                    break;
+                case 'recommend':
+                    _recommendAccount = _recommendAccount || new recommendAccount();
                     break;
                 default :
                     _indexView = _indexView || new indexView();
