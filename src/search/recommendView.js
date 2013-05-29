@@ -18,12 +18,10 @@ define(function (require, exports, module) {
         favUtils = require('../common/favUtils.js');
 
 
-    var searchView = Backbone.View.extend({
+    var recommendView = Backbone.View.extend({
         el: '#content',
         events: {
-            "click .content":"goToAccount", //不考虑放入到personItemView中，预防后期跳转链接不同
-            "click #J-searchBtn":"searchPerson",
-            "click .add-public-account":"goToRecommend"
+            "click .content":"goToAccount" //不考虑放入到personItemView中，预防后期跳转链接不同
         },
 
 
@@ -54,24 +52,6 @@ define(function (require, exports, module) {
             };
 
             this.Collection.on("reset",this.render,this);
-        },
-
-        searchPerson:function(e){
-            e.stopPropagation();
-            var target = $(e.currentTarget);
-            console.log(target);
-            var nick = $("#J-keyword").val();
-            console.log(nick);
-
-            this.queryPersonList(nick,1);
-
-        },
-
-        goToRecommend:function(e){
-            e.stopPropagation();
-            changeHash('#recommendAccount/1','account');
-
-
         },
 
         //motp queryPersonList
@@ -136,7 +116,7 @@ define(function (require, exports, module) {
 
 
            // render
-            _accountListPage.html($("#J-searchItemTpl").html());
+            $(".person-list").html($("#J-searchItemTpl").html());
             this.Collection.each(function (person) {
                 self.addItem(person);
             });
@@ -205,5 +185,5 @@ define(function (require, exports, module) {
 
 
     });
-    return searchView;
+    return recommendView;
 });

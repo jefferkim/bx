@@ -57,7 +57,7 @@ define(function(require){
 		hashCheck : function(){
 		  var hash = location.hash;
           var hashPart = hash.split("/")[0];
-          var wl = ['#fav','#account','#detail','#comment','#newComment','#recComment','#accountList','#searchAccount'];//searchAccount
+          var wl = ['#fav','#account','#detail','#comment','#newComment','#recComment','#accountList','#searchAccount','#recommendAccount'];//searchAccount
 
 		  if(hash && hash != '#index' && wl.indexOf(hashPart) == -1){
 		   location.hash='#index';
