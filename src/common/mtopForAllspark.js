@@ -268,6 +268,7 @@ define(function (require, exports, module) {
 
     /**
      * mtop.sns.pubAccount.search 搜索公共账号
+     入参：
 
      出参：PaginationResult
      * @param param   PubAccount显示字段为：id, logoUrl, nick, description, fansCount
@@ -275,7 +276,7 @@ define(function (require, exports, module) {
      */
 
     exports.searchAccount = function(param,fun){
-        this.getData("mtop.sns.pubAccount.search", param, fun);
+        invokeApi("mtop.sns.pubAccount.search", param, fun);
     };
 
 

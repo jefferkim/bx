@@ -198,5 +198,29 @@
     </div>
     <!-- end of .account-search -->
 </div>
+
+<script type="text/template" id="J-personTpl">
+    <li>
+        <div snsid="<%= id%>" class="content log" data-log="account">
+            <div class="title"><%= nick%></div>
+            <div class="info"><%= description%></div>
+            <div class="follows"><span><%= fansCount%></span>关注者</div>
+            <div class="default">
+                <img class="lazy" dataimg="<%= logoUrl%>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif">
+            </div>
+        </div>
+        <button pid="<%=id%>" class="followbtn <%if(followed){ followInfo.cls }%> log" data-log="<%= followInfo.log%>"><%= followInfo.txt%></button>
+    </li>
+</script>
+
+
+<input type="hidden" id="J_app_key" value="12574478">
+<script src="http://a.tbcdn.cn/mw/base/libs/seajs/1.2.0/sea.js"></script>
+<script>
+    seajs.use('./src/app/allspark.js', function (app) {
+        //new app();
+    });
+
+</script>
 </body>
 </html>

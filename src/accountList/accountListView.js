@@ -22,7 +22,10 @@ define(function (require, exports, module) {
             //'click .navbar .back':'goBack',
             'click #accountListPage .person-list li .content':'goToAccount',
             'click #accountListPage .followbtn':'follow'
+
         },
+
+
         initialize:function () {
             var that=this;
             that.pageSize = 15;

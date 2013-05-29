@@ -250,7 +250,7 @@ define(function (require, exports, module) {
 
         searchAccount: function (nick, page) {
             page = page || 1;
-            _searchAccountView.render(nick, page);
+            _searchAccountView.queryPersonList(nick, page);
 
         },
 
