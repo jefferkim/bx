@@ -74,6 +74,8 @@
         </div>
 
         <div id="searchPersonPage" class="view-page hide iR">
+            <div id="J-searchListPage"></div>
+            <div id="J-searchListPageNav" class="pagenav c-pnav-con"></div>
         </div>
 
         <div id="commentListPage" class="view-page hide  iR comment">
@@ -787,7 +789,7 @@
         </div>
 
         <div class="person-list">
-            <h3 class="follows-count">已关注的微淘帐号 <span id="J-num">100</span></h3>
+            <h3 class="follows-count">已关注的微淘帐号 <span id="J-num"></span></h3>
             <ul id="J-personList">
             </ul>
         </div>
@@ -813,6 +815,7 @@
             </div>
         </div>
         <button pid="<%=id%>" class="followbtn <%if(followed){%><%=followInfo.cls%><%}%> log" data-log="<%= followInfo.log%>"><%= followInfo.txt%></button>
+
 </script>
 
 <!-- Templates -->

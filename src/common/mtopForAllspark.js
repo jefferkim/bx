@@ -278,9 +278,7 @@ define(function (require, exports, module) {
     exports.searchAccount = function(param,callback){
         invokeApi("mtop.sns.pubAccount.search", param, callback);
     };
-    exports.recommends = function(params,callback){
-        invokeApi("mtop.transformer.pubAccount.recommands",params,callback);
-    };
+
 
 
 

@@ -27,7 +27,6 @@ define(function (require, exports, module) {
 
         attrs: {
             PAGESIZE: 15,
-            totalPage: 1,
             curPage:1,
             backURL: '',
             afterTimestamp: '',
@@ -62,29 +61,18 @@ define(function (require, exports, module) {
                 0:"fans",
                 1:"lastFeedTime"
             };
-            var pageSize = this.getAttr('PAGESIZE');
-           //var params = {order: orderMap[order], curPage: page, pageSize: this.getAttr('PAGESIZE')};
-            var params = {keywords: order, curPage: page, pageSize: this.getAttr('PAGESIZE')};
+
+            var params = {order: orderMap[order], curPage: page, pageSize: this.getAttr('PAGESIZE')};
+
             this.setAttr('curPage',page);
 
-            mtop.searchAccount(params, function (result) {
-          //  mtop.recommends(params, function (result) {
-                console.log(result);
+
+            mtop.recommends(params, function (result) {
+
                 self.Collection.reset(result.list);
 
-                //pageNav
-                self.setAttr('totalPage',Math.ceil(result.totalCount/pageSize));
 
-                if(!self.pageNav && self.getAttr('pageCount')>1){
-                    self.pageNav=new pageNav({'id':'#accountListPageNav','index':self.curPage, 'pageCount':2,'pageSize':self.getAttr('totalPage'),'disableHash': 'true'});
-
-                    self.pageNav.pContainer().on('P:switchPage', function(e,goPage){
-
-                        window.location.hash = '#searchAccount/' + nick + '/' + goPage.index;
-                        //判断是否为分页，如果是分页返回还是账号列表
-                        self.backURL = $('.navbar .back a').attr('href');
-                    });
-                }
+                self._renderPager(result.totalCount);
 
             });
         },
@@ -92,6 +80,26 @@ define(function (require, exports, module) {
         addItem:function (person) {
             var personItemView = new personItemView1({model:person});
             $("#J-recommendPersonList").append(personItemView.render());
+        },
+
+        _renderPager: function (totalCount) {
+
+            var self = this;
+
+            var pageTotal = Math.ceil(totalCount / this.getAttr('PAGESIZE'));
+
+            if (pageTotal > 1) {
+
+                self.pageNav = new pageNav({'id': '#J-searchListPageNav', 'index': self.curPage, 'pageCount': pageTotal, 'pageSize': this.getAttr('PAGESIZE'), 'disableHash': 'true'});
+
+                self.pageNav.pContainer().on('P:switchPage', function (e, goPage) {
+
+                    window.location.hash = '#searchAccount/' + goPage.index;
+                    //判断是否为分页，如果是分页返回还是账号列表
+                    self.backURL = $('.navbar .back a').attr('href');
+                });
+            }
+
         },
 
         //render person list
@@ -166,6 +174,10 @@ define(function (require, exports, module) {
         },
 
 
+
+
+
+        //====以下是以前的逻辑 TODO:需要封装下
         goToAccount:function(e){
             var that=this;
             e.stopPropagation();
@@ -173,8 +185,6 @@ define(function (require, exports, module) {
             window.AccountList={'hash':'#accountList/'+that.status+'/'+that.curPage,'flag':true};
             changeHash('#account/'+cur.attr('snsid')+'/1','account');
         },
-
-        //====以下是以前的逻辑
 
         goBackHome: function () {
             if (typeof window.AccountList != 'undefined') {

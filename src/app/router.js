@@ -101,9 +101,9 @@ define(function (require, exports, module) {
             self.route(/^(recComment)\/?(\d*)?$/, 'recComment', self.filter);
 
             //推荐关注页面 TODO:精简filter代码  order - 排序 0=fans 1=lastFeedTime page - 页码
-            self.route(/^(recommendAccount)\/(\d*)\/?(\d*)?$/, 'recommend', self.filter);
+            self.route(/^(recommendAccount)\/(\d*)\/?p(\d*)?$/, 'recommend', self.filter);
             //#addaccount/nick/page nick - sns帐号  page - 页码
-            self.route(/^(searchAccount)\/?(\d*)?\/?(\d*)?$/, 'searchAccount', self.filter);
+            self.route(/^(searchAccount)\/?p(\d*)?$/, 'searchAccount', self.filter);
 
             // 全局初始化
             global.init();
@@ -155,7 +155,7 @@ define(function (require, exports, module) {
                     break;
                 case 'searchAccount':
                     _searchAccountView = _searchAccountView || new searchAccountView();
-                    self.searchAccount(arg0,arg1);
+                    self.searchAccount(arg0);
                     break;
                 case 'recommendAccount':
                     _recommendAccountView = _recommendAccountView || new recommendAccountView();
@@ -252,12 +252,12 @@ define(function (require, exports, module) {
 
         recComment: function(page) {
             page = page || 1
-            _recCommentView.goRecComment(page)
+            _recCommentView.goRecComment(page);
         },
 
-        searchAccount: function (nick, page) {
+        searchAccount: function (page) { //进入页面搜索页面默认显示自己关注过的帐号
             page = page || 1;
-            _searchAccountView.queryPersonList(nick, page);
+            _searchAccountView.queryMyList(page);
 
         },
         recommedAccount:function(order,page){

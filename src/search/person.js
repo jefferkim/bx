@@ -12,7 +12,7 @@ define(function (require, exports, module) {
     return Backbone.Model.extend({
 
         defaults:{
-            needLazy:false
+           // isMyList:false //个人关注列表时，此时不渲染关注按钮
         },
 
         validate:function(attrs, options){
