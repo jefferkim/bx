@@ -1,7 +1,7 @@
 /**
- * User: 晓田(tancy)
- * Date: 13-2-21
- * Time: PM4:44
+ * User: 金建峰
+ * Date: 13-5-30
+ * Time: PM
  */
 define(function (require, exports, module) {
     var Backbone = require('backbone'),
@@ -54,14 +54,22 @@ define(function (require, exports, module) {
             this.Collection.on("reset",this.render,this);
         },
 
-        //motp queryPersonList
-        queryPersonList: function (nick, page) {
+        //motp queryRecommendList
+        queryRecommendList: function (order,page) {
+
             var self = this;
+            var orderMap = {
+                0:"fans",
+                1:"lastFeedTime"
+            };
             var pageSize = this.getAttr('PAGESIZE');
-            var params = {keywords: nick, curPage: page, pageSize: this.getAttr('PAGESIZE')};
+           //var params = {order: orderMap[order], curPage: page, pageSize: this.getAttr('PAGESIZE')};
+            var params = {keywords: order, curPage: page, pageSize: this.getAttr('PAGESIZE')};
             this.setAttr('curPage',page);
 
             mtop.searchAccount(params, function (result) {
+          //  mtop.recommends(params, function (result) {
+                console.log(result);
                 self.Collection.reset(result.list);
 
                 //pageNav
@@ -83,7 +91,7 @@ define(function (require, exports, module) {
 
         addItem:function (person) {
             var personItemView = new personItemView1({model:person});
-            $("#J-personList").append(personItemView.render());
+            $("#J-recommendPersonList").append(personItemView.render());
         },
 
         //render person list
@@ -93,7 +101,6 @@ define(function (require, exports, module) {
             var _navbar=$('header.navbar');
 
             var _accountListPage=$('#searchPersonPage');
-
 
             var _back={'backUrl':'','backTitle':'返回'};
             if(typeof window.AccountList!='undefined'){
@@ -112,11 +119,8 @@ define(function (require, exports, module) {
 
 
 
-
-
-
            // render
-            $(".person-list").html($("#J-searchItemTpl").html());
+            _accountListPage.html($("#J-recommendAccountTpl").html());
             this.Collection.each(function (person) {
                 self.addItem(person);
             });

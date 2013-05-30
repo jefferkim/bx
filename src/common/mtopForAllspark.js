@@ -275,8 +275,11 @@ define(function (require, exports, module) {
      * @param fun
      */
 
-    exports.searchAccount = function(param,fun){
-        invokeApi("mtop.sns.pubAccount.search", param, fun);
+    exports.searchAccount = function(param,callback){
+        invokeApi("mtop.sns.pubAccount.search", param, callback);
+    };
+    exports.recommends = function(params,callback){
+        invokeApi("mtop.transformer.pubAccount.recommands",params,callback);
     };
 
 

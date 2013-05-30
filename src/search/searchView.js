@@ -1,7 +1,7 @@
 /**
- * User: 晓田(tancy)
- * Date: 13-2-21
- * Time: PM4:44
+ * User: 金建峰
+ * Date: 13-5-30
+ * Time:
  */
 define(function (require, exports, module) {
     var Backbone = require('backbone'),
