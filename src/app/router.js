@@ -9,6 +9,7 @@ define(function (require, exports, module) {
         accountView = require('../account/accountView'),
         detailView = require('../detail/detailView'),
         accountListView = require('../accountList/accountListView'),
+        personCollection = require('../search/personCollection'),
         searchAccountView = require('../search/searchView'),
         recommendAccountView = require('../search/recommendView'),
         commentView = require('../comment/commentListView'),
@@ -105,6 +106,8 @@ define(function (require, exports, module) {
             //#addaccount/nick/page nick - sns帐号  page - 页码
             self.route(/^(searchAccount)\/?p(\d*)?$/, 'searchAccount', self.filter);
 
+            self.route(/^(search)\/?p(\d*)?$/, 'searchAccount', self.filter);
+
             // 全局初始化
             global.init();
         },
@@ -154,10 +157,13 @@ define(function (require, exports, module) {
                     self.recComment(arg0)
                     break;
                 case 'searchAccount':
+                    G_PersonCollection = G_PersonCollection || new personCollection; //important
                     _searchAccountView = _searchAccountView || new searchAccountView();
                     self.searchAccount(arg0);
                     break;
                 case 'recommendAccount':
+                    console.log(G_PersonCollection);
+                    G_PersonCollection = G_PersonCollection || new personCollection;
                     _recommendAccountView = _recommendAccountView || new recommendAccountView();
                     self.recommedAccount(arg0,arg1);
                     break;

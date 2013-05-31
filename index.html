@@ -814,8 +814,9 @@
                 <img class="lazy" dataimg="<%= logoUrl%>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif"/>
             </div>
         </div>
+        <%if(!isMyList){%>
         <button pid="<%=id%>" class="followbtn <%if(followed){%><%=followInfo.cls%><%}%> log" data-log="<%= followInfo.log%>"><%= followInfo.txt%></button>
-
+        <%}%>
 </script>
 
 <!-- Templates -->

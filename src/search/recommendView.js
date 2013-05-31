@@ -40,7 +40,8 @@ define(function (require, exports, module) {
 
             var self = this;
 
-            this.Collection = new personCollection;
+            this.Collection = G_PersonCollection;
+
             this.Model = new Person();
 
             this.getAttr = function (key) {
@@ -90,17 +91,19 @@ define(function (require, exports, module) {
 
             if (pageTotal > 1) {
 
-                self.pageNav = new pageNav({'id': '#J-searchListPageNav', 'index': self.curPage, 'pageCount': pageTotal, 'pageSize': this.getAttr('PAGESIZE'), 'disableHash': 'true'});
+                self.pageNav = new pageNav({'id': '#J-searchListPageNav', 'index': self.curPage, 'pageCount': pageTotal, 'pageSize': this.getAttr('PAGESIZE'), 'objId':'p'});
 
                 self.pageNav.pContainer().on('P:switchPage', function (e, goPage) {
 
-                    window.location.hash = '#searchAccount/' + goPage.index;
+                    ///window.location.hash = '#recommendAccount/' +order+ '/p'+goPage.index;
                     //判断是否为分页，如果是分页返回还是账号列表
                     self.backURL = $('.navbar .back a').attr('href');
                 });
             }
 
         },
+
+
 
         //render person list
         render: function () {
@@ -128,7 +131,7 @@ define(function (require, exports, module) {
 
 
            // render
-            _accountListPage.html($("#J-recommendAccountTpl").html());
+            _accountListPage.find("#J-searchListPage").html($("#J-recommendAccountTpl").html());
             this.Collection.each(function (person) {
                 self.addItem(person);
             });

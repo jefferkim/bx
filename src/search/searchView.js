@@ -13,7 +13,6 @@ define(function (require, exports, module) {
         loading = require('../ui/loading'),
         notification = require('../ui/notification.js'),
         mtop = require('../common/mtopForAllspark.js'),
-        personCollection = require('./personCollection.js'),
         personItemView1 = require('./personItemView.js'),
         favUtils = require('../common/favUtils.js');
 
@@ -30,6 +29,7 @@ define(function (require, exports, module) {
         attrs: {
             PAGESIZE: 15,
             curPage: 1,
+            isMyListPage: false,
             backURL: '',
             afterTimestamp: '',
             before: false
@@ -42,7 +42,11 @@ define(function (require, exports, module) {
 
             var self = this;
 
-            this.Collection = new personCollection;
+
+           // this.Collection = new personCollection;
+
+            this.Collection = G_PersonCollection;
+
             this.Model = new Person();
 
             this.getAttr = function (key) {
@@ -59,8 +63,10 @@ define(function (require, exports, module) {
             e.stopPropagation();
 
             var nick = $.trim($("#J-keyword").val());
-
-            this.queryPersonList(nick, 1);
+            var keyword = _.escape(nick);
+            if(nick){
+                this.queryPersonList(keyword, 1);
+            }
         },
 
 
@@ -69,18 +75,19 @@ define(function (require, exports, module) {
             var self = this;
 
             var pageTotal = Math.ceil(totalCount / this.getAttr('PAGESIZE'));
-
+            console.log(pageTotal);
 
             if (pageTotal > 1) {
 
-                self.pageNav = new pageNav({'id': '#J-searchListPageNav', 'index': self.curPage, 'pageCount': pageTotal, 'pageSize': this.getAttr('PAGESIZE'),'objId':'p', 'disableHash': 'true'});
+                self.pageNav = new pageNav({'id': '#J-searchListPageNav', 'index': self.curPage, 'pageCount': pageTotal, 'pageSize': this.getAttr('PAGESIZE'),'objId':'p'});
 
                 self.pageNav.pContainer().on('P:switchPage', function (e, goPage) {
-
-                    window.location.hash = '#searchAccount/p' + goPage.index;
                     //判断是否为分页，如果是分页返回还是账号列表
                     self.backURL = $('.navbar .back a').attr('href');
                 });
+            }else{
+                self.pageNav = null;
+                $("#J-searchListPageNav").html("");
             }
 
         },
@@ -90,10 +97,11 @@ define(function (require, exports, module) {
             var self = this;
             var params = {keywords: nick, curPage: page, pageSize: this.getAttr('PAGESIZE')};
             this.setAttr('curPage', page);
+            this.setAttr('isMyListPage',false);
 
             mtop.searchAccount(params, function (result) {
                 self.Collection.reset(result.list);
-                self._renderPager(result.totalCount);
+                window.location.hash = '#search/'+encodeURI(nick)+'/'+1;
 
             });
         },
@@ -106,6 +114,7 @@ define(function (require, exports, module) {
             var page = page || 1;
             var params = {curPage: page, pageSize: this.getAttr('PAGESIZE')};
             this.setAttr('curPage', page);
+            this.setAttr('isMyListPage',true);
 
             mtop.my(params, function (result) {
                 self.Collection.reset(result.list);
@@ -116,11 +125,10 @@ define(function (require, exports, module) {
 
 
         addItem: function (person) {
-            var personModel = person.set('isMyList', this.getAttr('isMypage'));
+            var personModel = person.set('isMyList', this.getAttr('isMyListPage'));
             var personItemView = new personItemView1({model: personModel});
             $("#J-personList").append(personItemView.render());
         },
-
 
 
         //render person list
@@ -131,7 +139,7 @@ define(function (require, exports, module) {
             var _accountListPage = $('#searchPersonPage');
 
 
-            var _back = {'backUrl': '', 'backTitle': '返回'};
+            /*var _back = {'backUrl': '', 'backTitle': '返回'};
             if (typeof window.AccountList != 'undefined') {
                 //window.location.hash=window.AccountList.hash;
                 _back = {'backUrl': '#' + window.AccountList.hash, 'backTitle': '返回'};
@@ -143,7 +151,13 @@ define(function (require, exports, module) {
                 } else {
                     _back = {'backUrl': '#index', 'backTitle': '返回'}
                 }
-            }
+            }*/
+
+
+            _navbar.html(_.template($('#navBack_tpl').html(),{'backUrl':'#index','backTitle':'微淘'}));
+
+
+
 
 
             // render
@@ -175,8 +189,6 @@ define(function (require, exports, module) {
                     });
                 }
             }
-
-            _accountListPage.removeClass('hide');
 
             setTimeout(function () {
                 _accountListPage.removeClass(' iR iL').addClass('show iC');

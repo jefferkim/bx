@@ -8,7 +8,7 @@ define(function (require, exports, module) {
     return Backbone.Collection.extend({
 
         initialize:function () {
-            console.log(Person);
+            console.log("init collection");
 
         },
 
