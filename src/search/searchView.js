@@ -201,6 +201,68 @@ define(function (require, exports, module) {
 
             // this is for Android
             $('#content')[0].style.minHeight = '360px';
+            
+            
+            
+            function pageTransform(wrapper,dirction){
+                
+                var currentView = $('.view-page.show');
+
+                if(!$(wrapper).hasClass('show')){
+                    currentView.removeClass('show iC').addClass('iL').wAE(function(){
+                        currentView.addClass('hide');
+                    });
+                }
+
+                $(wrapper).removeClass('hide');
+                setTimeout(function(){
+                    $(wrapper).removeClass('iR iL').addClass('show iC');
+                },0);
+
+
+
+                var t = {
+                    customEvents:[],
+                    onFlip: function (fn) {
+                        this.wrapper.addEventListener('transformview-flip', fn, false);
+                        this.customEvents.push(['flip', fn]);
+                    },
+                    
+                    __type: function (dirction) {
+                        var d = {
+                            
+                        }
+                            this.wrapper.style[transform] = translate3d(0px, -100%, 0px);
+                    },
+                    onMoveOut: function (fn) {
+                        this.wrapper.addEventListener('transformview-moveout', fn, false);
+                        this.customEvents.push(['moveout', fn]);
+                    },
+
+                    onMoveIn: function (fn) {
+                        this.wrapper.addEventListener('transformview-movein', fn, false);
+                        this.customEvents.push(['movein', fn]);
+                    },
+                    
+                    destroy: function () {
+                        while ( this.customEvents.length ) {
+                            this.wrapper.removeEventListener('transformview-' + this.customEvents[0][0], this.customEvents[0][1], false);
+                            this.customEvents.shift();
+                        }
+                        
+                        // Remove the event listeners
+                        window.removeEventListener(resizeEvent, this, false);
+                        this.wrapper.removeEventListener(moveEvent, this, false);
+                        this.wrapper.removeEventListener(endEvent, this, false);
+                        this.slider.removeEventListener(transitionEndEvent, this, false);
+
+                    }
+
+
+
+                };
+               
+            }
         },
 
 
