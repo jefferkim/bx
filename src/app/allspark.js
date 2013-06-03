@@ -23,6 +23,8 @@ seajs.config({
     debug: 1
 });
 
+var G_PersonCollection;
+
 function timestamps(time){
 
     if(typeof time == 'string'){

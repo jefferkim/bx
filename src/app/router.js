@@ -9,7 +9,9 @@ define(function (require, exports, module) {
         accountView = require('../account/accountView'),
         detailView = require('../detail/detailView'),
         accountListView = require('../accountList/accountListView'),
+        personCollection = require('../search/personCollection'),
         searchAccountView = require('../search/searchView'),
+        recommendAccountView = require('../search/recommendView'),
         commentView = require('../comment/commentListView'),
         newCommentView = require('../comment/newCommentView'),
         recCommentView = require('../comment/recCommentView'),
@@ -21,7 +23,7 @@ define(function (require, exports, module) {
         log = require("./../common/log.js"),
         mtop = require('../common/mtopForAllspark.js'),
     //缓存实例变量view
-        _indexView, _accountView, _searchAccountView, _detailView, _accountListView, _commentView, _newCommentView,_favView, _recCommentView;
+        _indexView, _accountView,_recommendAccountView, _searchAccountView, _detailView, _accountListView, _commentView, _newCommentView,_favView, _recCommentView;
 
     // image lazyload setup
     window.lazyload = require('lazyload')
@@ -99,8 +101,12 @@ define(function (require, exports, module) {
 
             self.route(/^(recComment)\/?(\d*)?$/, 'recComment', self.filter);
 
+            //推荐关注页面 TODO:精简filter代码  order - 排序 0=fans 1=lastFeedTime page - 页码
+            self.route(/^(recommendAccount)\/(\d*)\/?p(\d*)?$/, 'recommend', self.filter);
             //#addaccount/nick/page nick - sns帐号  page - 页码
-            //self.route(/^(searchAccount)\/?(\d*)?\/?(\d*)?$/, 'searchAccount', self.filter);
+            self.route(/^(searchAccount)\/?p(\d*)?$/, 'searchAccount', self.filter);
+
+            self.route(/^(search)\/?p(\d*)?$/, 'searchAccount', self.filter);
 
             // 全局初始化
             global.init();
@@ -151,8 +157,15 @@ define(function (require, exports, module) {
                     self.recComment(arg0)
                     break;
                 case 'searchAccount':
+                    G_PersonCollection = G_PersonCollection || new personCollection; //important
                     _searchAccountView = _searchAccountView || new searchAccountView();
-                    self.searchAccount(arg0,arg1);
+                    self.searchAccount(arg0);
+                    break;
+                case 'recommendAccount':
+                    console.log(G_PersonCollection);
+                    G_PersonCollection = G_PersonCollection || new personCollection;
+                    _recommendAccountView = _recommendAccountView || new recommendAccountView();
+                    self.recommedAccount(arg0,arg1);
                     break;
                 default :
                     _indexView = _indexView || new indexView();
@@ -245,13 +258,17 @@ define(function (require, exports, module) {
 
         recComment: function(page) {
             page = page || 1
-            _recCommentView.goRecComment(page)
+            _recCommentView.goRecComment(page);
         },
 
-        searchAccount: function (nick, page) {
+        searchAccount: function (page) { //进入页面搜索页面默认显示自己关注过的帐号
             page = page || 1;
-            _searchAccountView.render(nick, page);
+            _searchAccountView.queryMyList(page);
 
+        },
+        recommedAccount:function(order,page){
+            page = page || 1;
+            _recommendAccountView.queryRecommendList(order,page);
         },
 
         start: function () {
