@@ -147,18 +147,29 @@ define(function (require, exports, module) {
 
               if (feed&&feed.fail) {
                 //this.model.set('feed', {}, { silent: true })
-                var errMsg = feed.errMsg || '加载失败，稍后重试！'  ;
+                var errMsg = feed.errMsg || '加载失败，稍后重试！';
                // notification.message(errMsg);
                 this.$container.find('.main').html('<br /><center style="color:#999">'+errMsg+'</center>');
                 return
               }
-            if(feed.linkUrl){
-                if(feed.linkUrl.indexOf('?')==-1){
-                    feed.linkUrl=feed.linkUrl+'?ap_ref='+encodeURIComponent(window.location.href);
-                }else{
-                    feed.linkUrl=feed.linkUrl+'&ap_ref='+encodeURIComponent(window.location.href);
-                }
-            }
+//                if(feed.linkUrl){
+//                    var _ref='';
+//                    if(feed.linkUrl.indexOf('?')==-1){
+//                        _ref='?ap_ref='+encodeURIComponent(window.location.href);
+//                    }else{
+//                        _ref='&ap_ref='+encodeURIComponent(window.location.href);
+//                    }
+//                    var s='',e='';
+//                    if(feed.linkUrl.indexOf('#')!=-1){
+//                        var _v=feed.linkUrl.indexOf('#');
+//                        s=feed.linkUrl.substring(0,_v);
+//                        e=feed.linkUrl.substring(_v,feed.linkUrl.length);
+//                        feed.linkUrl=s+_ref+e;
+//                    }else{
+//                        feed.linkUrl=feed.linkUrl+_ref;
+//                    }
+//
+//                }
 
           var content = contentTemplate(feed);
           this.$container.find('.main').html(content);
