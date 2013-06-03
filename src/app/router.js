@@ -274,7 +274,7 @@ define(function (require, exports, module) {
 
         search: function(keyword,page){
            page = page || 1;
-           _searchAccountView.search(keyword,page);
+           _searchResultView.search(keyword,page);
         },
         recommedAccount:function(order,page){
             page = page || 1;

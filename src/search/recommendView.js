@@ -28,6 +28,7 @@ define(function (require, exports, module) {
         attrs: {
             PAGESIZE: 15,
             curPage:1,
+            isMyListPage:true,
             backURL: '',
             afterTimestamp: '',
             before: false
@@ -80,7 +81,7 @@ define(function (require, exports, module) {
 
         addItem:function (person) {
             var personItemView = new personItemView1({model:person});
-            $("#J-recommendPersonList").append(personItemView.render());
+            $("#recommendResult #J-recommendList").append(personItemView.render());
         },
 
         _renderPager: function (totalCount) {
@@ -91,7 +92,7 @@ define(function (require, exports, module) {
 
             if (pageTotal > 1) {
 
-                self.pageNav = new pageNav({'id': '#J-searchListPageNav', 'index': self.curPage, 'pageCount': pageTotal, 'pageSize': this.getAttr('PAGESIZE'), 'objId':'p'});
+                self.pageNav = new pageNav({'id': '#J-recommendPageNav', 'index': self.curPage, 'pageCount': pageTotal, 'pageSize': this.getAttr('PAGESIZE'), 'objId':'p'});
 
                 self.pageNav.pContainer().on('P:switchPage', function (e, goPage) {
 
@@ -111,7 +112,9 @@ define(function (require, exports, module) {
             var self = this;
             var _navbar=$('header.navbar');
 
-            var _accountListPage=$('#searchPersonPage');
+            var _accountListPage=$('#recommendResult');
+
+            _accountListPage.find("#J-recommendList").html('<div class="loading"><span class="spinner"></span></div>');
 
             var _back={'backUrl':'','backTitle':'返回'};
             if(typeof window.AccountList!='undefined'){
@@ -130,13 +133,14 @@ define(function (require, exports, module) {
             _navbar.html(_.template($('#navBack_tpl').html(),_back)+'<div class="title">推荐关注</div>');
 
 
-
-
-            // render
-            _accountListPage.find("#J-searchListPage").html($("#J-recommendAccountTpl").html());
-            this.Collection.each(function (person) {
-                self.addItem(person);
-            });
+            if(this.Collection.length){
+                _accountListPage.find("#J-recommendList").html('');
+                this.Collection.each(function (person) {
+                    self.addItem(person);
+                });
+            }else{
+                _accountListPage.find("#J-recommendList").html('<p class="search-no-result">你已经关注了所有的推荐帐号</p>');
+            }
 
 
 
@@ -147,27 +151,26 @@ define(function (require, exports, module) {
 
 
 
-            _accountListPage.removeClass('hide');
+
 
             if(_navbar.hasClass('iT')){
                 _navbar.removeClass('iT').addClass('iC');
             }
 
             var _show=$('.view-page.show');
-            if($('#detailPage').hasClass('show')){
-                _accountListPage.removeClass(' iR iL').addClass('iL');
-                _show.removeClass('show iC').addClass('iR').wAE(function(){
+
+            if(!_accountListPage.hasClass('show')){
+                console.log("ssss");
+                _show.removeClass('show iC').addClass('iL').wAE(function(){
                     _show.addClass('hide');
                 });
-            }else{
-                if(!_accountListPage.hasClass('show')){
-                    _show.removeClass('show iC').addClass('iL').wAE(function(){
-                        _show.addClass('hide');
-                    });
-                }
             }
 
             _accountListPage.removeClass('hide');
+
+
+
+
 
             setTimeout(function(){
                 _accountListPage.removeClass(' iR iL').addClass('show iC');
