@@ -73,10 +73,38 @@
             <div class="main"></div>
         </div>
 
-        <div id="searchPersonPage" class="view-page hide iR">
-            <div id="J-searchListPage"></div>
+        <!--关注管理-->
+        <div id="accountManage" class="view-page hide iR">
+            <div id="J-searchListPage">
+                <div class="account-search">
+                    <div class="search-item">
+                        <div class="search-input"><input id="J-keyword" type="text" name="" placeholder="请输入微淘帐号名称"/><a href="#" class="close-btn"></a></div><button class="search-icon" id="J-searchBtn"></button>
+                    </div>
+                    <div class="add-public-account">
+                        <div class="info">关注更多公共帐号</div>
+                        <span class="icon"></span>
+                        <em class="arrow"></em>
+                    </div>
+
+                    <div class="person-list">
+                        <h3 class="follows-count">已关注的微淘帐号 <span id="J-num"></span></h3>
+                        <ul id="J-personList">
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <div id="J-searchListPageNav" class="pagenav c-pnav-con"></div>
         </div>
+
+        <!--搜索结果 -->
+        <div id="searchResult" class="view-page hide iR">
+            <div id="J-searchResult"></div>
+            <div id="J-searchResultPageNav" class="pagenav c-pnav-con"></div>
+        </div>
+
+
+
+
 
         <div id="commentListPage" class="view-page hide  iR comment">
             <div class="add-comment">
@@ -778,18 +806,20 @@
 
 <script type="text/template" id="J-searchItemTpl">
     <div class="account-search">
+
         <div class="search-item">
             <div class="search-input"><input id="J-keyword" type="text" name="" placeholder="请输入微淘帐号名称"/><a href="#" class="close-btn"></a></div><button class="search-icon" id="J-searchBtn"></button>
         </div>
-
+        <%if(!searchPage){%>
         <div class="add-public-account">
             <div class="info">关注更多公共帐号</div>
             <span class="icon"></span>
             <em class="arrow"></em>
         </div>
+        <%}%>
 
         <div class="person-list">
-            <h3 class="follows-count">已关注的微淘帐号 <span id="J-num"></span></h3>
+            <%if(!searchPage){%><h3 class="follows-count">已关注的微淘帐号 <span id="J-num"></span></h3><%}%>
             <ul id="J-personList">
             </ul>
         </div>

@@ -10,7 +10,8 @@ define(function (require, exports, module) {
         detailView = require('../detail/detailView'),
         accountListView = require('../accountList/accountListView'),
         personCollection = require('../search/personCollection'),
-        searchAccountView = require('../search/searchView'),
+        accountManageView = require('../search/accountManageView'),
+        searchResultView = require('../search/searchResultView'),
         recommendAccountView = require('../search/recommendView'),
         commentView = require('../comment/commentListView'),
         newCommentView = require('../comment/newCommentView'),
@@ -23,7 +24,7 @@ define(function (require, exports, module) {
         log = require("./../common/log.js"),
         mtop = require('../common/mtopForAllspark.js'),
     //缓存实例变量view
-        _indexView, _accountView,_recommendAccountView, _searchAccountView, _detailView, _accountListView, _commentView, _newCommentView,_favView, _recCommentView;
+        _indexView, _accountView,_recommendAccountView, _accountManageView,_searchResultView,_detailView, _accountListView, _commentView, _newCommentView,_favView, _recCommentView;
 
     // image lazyload setup
     window.lazyload = require('lazyload')
@@ -103,10 +104,10 @@ define(function (require, exports, module) {
 
             //推荐关注页面 TODO:精简filter代码  order - 排序 0=fans 1=lastFeedTime page - 页码
             self.route(/^(recommendAccount)\/(\d*)\/?p(\d*)?$/, 'recommend', self.filter);
-            //#addaccount/nick/page nick - sns帐号  page - 页码
-            self.route(/^(searchAccount)\/?p(\d*)?$/, 'searchAccount', self.filter);
-
-            self.route(/^(search)\/?p(\d*)?$/, 'searchAccount', self.filter);
+            //帐号关注页面 - sns帐号  page - 页码
+            self.route(/^(accountManage)\/?p(\d*)?$/, 'accountManage', self.filter);
+            //搜索结果页面
+            self.route(/^(search)\/(.*)\/p(\d*)?$/, 'search', self.filter);
 
             // 全局初始化
             global.init();
@@ -156,13 +157,17 @@ define(function (require, exports, module) {
                     _recCommentView = _recCommentView ||  new recCommentView();
                     self.recComment(arg0)
                     break;
-                case 'searchAccount':
+                case 'accountManage':  //帐号管理
                     G_PersonCollection = G_PersonCollection || new personCollection; //important
-                    _searchAccountView = _searchAccountView || new searchAccountView();
-                    self.searchAccount(arg0);
+                    _accountManageView = _accountManageView || new accountManageView();
+                    self.accountManage(arg0);
+                    break;
+                case 'search':
+                    G_PersonCollection = G_PersonCollection || new personCollection;
+                    _searchResultView = _searchResultView || new searchResultView();
+                    self.search(arg0,arg1);
                     break;
                 case 'recommendAccount':
-                    console.log(G_PersonCollection);
                     G_PersonCollection = G_PersonCollection || new personCollection;
                     _recommendAccountView = _recommendAccountView || new recommendAccountView();
                     self.recommedAccount(arg0,arg1);
@@ -261,10 +266,15 @@ define(function (require, exports, module) {
             _recCommentView.goRecComment(page);
         },
 
-        searchAccount: function (page) { //进入页面搜索页面默认显示自己关注过的帐号
+        accountManage: function (page) { //进入页面搜索页面默认显示自己关注过的帐号
             page = page || 1;
-            _searchAccountView.queryMyList(page);
+            _accountManageView.queryMyList(page);
 
+        },
+
+        search: function(keyword,page){
+           page = page || 1;
+           _searchAccountView.search(keyword,page);
         },
         recommedAccount:function(order,page){
             page = page || 1;

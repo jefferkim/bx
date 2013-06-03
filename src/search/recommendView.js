@@ -127,10 +127,12 @@ define(function (require, exports, module) {
                 }
             }
 
+            _navbar.html(_.template($('#navBack_tpl').html(),_back)+'<div class="title">推荐关注</div>');
 
 
 
-           // render
+
+            // render
             _accountListPage.find("#J-searchListPage").html($("#J-recommendAccountTpl").html());
             this.Collection.each(function (person) {
                 self.addItem(person);
