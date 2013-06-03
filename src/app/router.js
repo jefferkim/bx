@@ -267,6 +267,7 @@ define(function (require, exports, module) {
         },
 
         accountManage: function (page) { //进入页面搜索页面默认显示自己关注过的帐号
+            console.log("route accountManage");
             page = page || 1;
             _accountManageView.queryMyList(page);
 
@@ -277,6 +278,7 @@ define(function (require, exports, module) {
            _searchResultView.search(keyword,page);
         },
         recommedAccount:function(order,page){
+            console.log("route recommend");
             page = page || 1;
             _recommendAccountView.queryRecommendList(order,page);
         },

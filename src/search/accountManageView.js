@@ -13,6 +13,7 @@ define(function (require, exports, module) {
         loading = require('../ui/loading'),
         notification = require('../ui/notification.js'),
         mtop = require('../common/mtopForAllspark.js'),
+        personCollection = require('./personCollection.js'),
         personItemView1 = require('./personItemView.js'),
         favUtils = require('../common/favUtils.js');
 
@@ -43,9 +44,9 @@ define(function (require, exports, module) {
             var self = this;
 
 
-           // this.Collection = new personCollection;
+            this.Collection = new personCollection;
 
-            this.Collection = G_PersonCollection;
+           // this.Collection = G_PersonCollection;
 
             this.Model = new Person();
 
@@ -75,36 +76,6 @@ define(function (require, exports, module) {
             }
         },
 
-
-
-
-
-
-        //motp queryPersonList
-        _queryPersonList: function (nick, page) {
-            var self = this;
-            var nick = $.trim($("#J-keyword").val());
-            var keyword = nick.replace(/<[^>].*?>/g,"");
-            var params = {keywords: nick, curPage: page, pageSize: this.getAttr('PAGESIZE')};
-            this.setAttr('curPage', page);
-
-
-            if(keyword){
-                mtop.searchAccount(params, function (result) {
-                    self.Collection.reset(result.list);
-                    if(!result.list || !result.list.length){
-                        $("#J-personList").html('<p class="tips">没有找到"'+nick+'"相关的微淘帐号</p>');
-                        return;
-                    }
-                    window.location.hash = '#search/'+encodeURI(nick)+'/p'+1;
-
-                });
-
-            }
-
-        },
-
-
         //查询我的列表
         queryMyList: function (page) {
 
@@ -128,7 +99,6 @@ define(function (require, exports, module) {
             var self = this;
 
             var pageTotal = Math.ceil(totalCount / this.getAttr('PAGESIZE'));
-            console.log(pageTotal);
 
             if (pageTotal > 1) {
 
@@ -159,6 +129,7 @@ define(function (require, exports, module) {
             var _navbar = $('header.navbar');
             var _accountManagePage = $('#accountManage');
 
+            $("#accountManage #J-keyword").val('');
 
             /*var _back = {'backUrl': '', 'backTitle': '返回'};
             if (typeof window.AccountList != 'undefined') {
@@ -193,12 +164,14 @@ define(function (require, exports, module) {
 
 
 
+
             //start:动画
             if (_navbar.hasClass('iT')) {
                 _navbar.removeClass('iT').addClass('iC');
             }
 
             var _show = $('.view-page.show');
+
             if(!_accountManagePage.hasClass('show')){
                 _show.removeClass('show iC').addClass('iL').wAE(function(){
                     _show.addClass('hide');
@@ -206,9 +179,6 @@ define(function (require, exports, module) {
             }
 
             _accountManagePage.removeClass('hide');
-
-
-
 
             setTimeout(function () {
                 _accountManagePage.removeClass(' iR iL').addClass('show iC');
@@ -231,7 +201,7 @@ define(function (require, exports, module) {
         //====以下是以前的逻辑
         goToRecommend: function (e) {
             e.stopPropagation();
-            changeHash('#recommendAccount/0/p1', 'account');
+            changeHash('#recommendAccount/0/p1', 'recommend');
         },
 
         goToAccount: function (e) {

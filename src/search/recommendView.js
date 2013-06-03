@@ -41,7 +41,7 @@ define(function (require, exports, module) {
 
             var self = this;
 
-            this.Collection = G_PersonCollection;
+            this.Collection = new personCollection;
 
             this.Model = new Person();
 
@@ -109,6 +109,7 @@ define(function (require, exports, module) {
         //render person list
         render: function () {
 
+
             var self = this;
             var _navbar=$('header.navbar');
 
@@ -158,18 +159,15 @@ define(function (require, exports, module) {
             }
 
             var _show=$('.view-page.show');
+            console.log(_show);
 
             if(!_accountListPage.hasClass('show')){
-                console.log("ssss");
                 _show.removeClass('show iC').addClass('iL').wAE(function(){
                     _show.addClass('hide');
                 });
             }
 
             _accountListPage.removeClass('hide');
-
-
-
 
 
             setTimeout(function(){
