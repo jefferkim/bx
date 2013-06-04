@@ -50,6 +50,9 @@ define(function (require, exports, module) {
             this.model.on('change:accInfo', this.renderAccInfo, this);
 
             this.model.on('change:prices', this.renderPrices, this)
+            if(typeof wetao!='undefined'){
+                wetao.addTimer('detail_init');
+            }
 
 //            if (!h5_base.isClient()) {
 //              this.commentModel = new CommentModel()
@@ -133,6 +136,9 @@ define(function (require, exports, module) {
                 var accInfo = accinfoTemplate(infodata);
                 this.$container.find('.account').html(accInfo);
             }
+            if(typeof wetao!='undefined'){
+                wetao.addTimer('renderAccInfo');
+            }
 
         },
 
@@ -193,6 +199,9 @@ define(function (require, exports, module) {
           // this is for Android
           $('#content')[0].style.minHeight = '360px'
           $('#detailPage')[0].style.minHeight = '500px'
+            if(typeof wetao!='undefined'){
+                wetao.addTimer('renderDetail');
+            }
 
         },
 
