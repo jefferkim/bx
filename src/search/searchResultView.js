@@ -14,6 +14,7 @@ define(function (require, exports, module) {
         notification = require('../ui/notification.js'),
         mtop = require('../common/mtopForAllspark.js'),
         personItemView1 = require('./personItemView.js'),
+        personCollection = require('./personCollection.js'),
         favUtils = require('../common/favUtils.js');
 
 
@@ -22,7 +23,8 @@ define(function (require, exports, module) {
         el: '#content',
         events: {
             "click .content": "goToAccount",
-            "click #J-searchBtn": "searchPerson"
+            "click #J-searchResult #J-searchBtn": "searchPerson"
+
         },
 
 
@@ -44,9 +46,9 @@ define(function (require, exports, module) {
             var self = this;
 
 
-           // this.Collection = new personCollection;
+            this.Collection = new personCollection;
 
-            this.Collection = G_PersonCollection;
+            //this.Collection = G_PersonCollection;
 
             this.Model = new Person();
 
@@ -58,6 +60,29 @@ define(function (require, exports, module) {
             };
 
             this.Collection.on("reset", this.render, this);
+
+
+            //TODO: 公用
+            var _btn = $("#J-searchResult .close-btn");
+            var _input = $("#J-searchResult #J-searchkeyword");
+            var keyupEvent = function(e){
+                _btn.show();
+                !_input.val() && (_btn.hide());
+            };
+            _input.on("input",keyupEvent).focus(function (){
+                $(this).val() && _btn.show();
+            }).bind('blur',function(){
+                if($(this).val() == '' ) {
+                    $('#J_searchT').show()
+                }
+            });
+            _btn.on("click",function(e){
+                e.preventDefault();
+                _input.val('');
+                _btn.hide();
+                $(".search-no-result").hide();
+            });
+
         },
 
 
@@ -72,7 +97,6 @@ define(function (require, exports, module) {
             this.setAttr('keywords',keywords);
 
             mtop.searchAccount(params, function (result) {
-
                 self.Collection.reset(result.list);
                 self._renderPager(result.totalCount);
             });
@@ -84,49 +108,14 @@ define(function (require, exports, module) {
 
         //跳转到搜索页面
         searchPerson: function (e) {
-            e.stopPropagation();
-
-            this.setAttr('isSearchPage',true);
+            e.preventDefault();
 
             var nick = $.trim($("#J-searchkeyword").val());
             var keyword = nick.replace(/<[^>].*?>/g,"");
-            console.log(keyword);
-
-            //this.search(keyword,1);
-            window.location.hash = '#search/'+encodeURI(keyword)+'/p'+1;
-
-        },
-
-
-
-
-
-
-        /*//motp queryPersonList
-        _queryPersonList: function (nick, page) {
-            console.log(nick);
-            var self = this;
-            var nick = $.trim($("#J-keyword").val());
-            var keyword = nick.replace(/<[^>].*?>/g,"");
-            var params = {keywords: nick, curPage: page, pageSize: this.getAttr('PAGESIZE')};
-            this.setAttr('curPage', page);
-
-
             if(keyword){
-                mtop.searchAccount(params, function (result) {
-                    self.Collection.reset(result.list);
-                    if(!result.list || !result.list.length){
-                        $("#J-personList").html('<p class="tips">没有找到"'+nick+'"相关的微淘帐号</p>');
-                        return;
-                    }
-                    window.location.hash = '#search/'+encodeURI(nick)+'/p'+1;
-
-                });
-
+                window.location.hash = '#search/'+encodeURI(keyword)+'/p'+1;
             }
-
-        },*/
-
+        },
 
 
         _renderPager: function (totalCount) {
@@ -183,7 +172,7 @@ define(function (require, exports, module) {
 
             //TODO: navbar 渲染放到pageLoad时，通过配置参数实现
 
-            _navbar.html(_.template($('#navBack_tpl').html(),{'backUrl':'#index','backTitle':'微淘'})+'<div class="title">关注管理</div>');
+            _navbar.html(_.template($('#navBack_tpl').html(),{'backUrl':'#index','backTitle':'返回'})+'<div class="title">帐号搜索</div>');
 
 
             // render
@@ -222,7 +211,7 @@ define(function (require, exports, module) {
 
             window.scrollTo(0, 1);
 
-            window.lazyload.reload();
+          //  window.lazyload.reload();
 
             // this is for Android
             $('#content')[0].style.minHeight = '360px';

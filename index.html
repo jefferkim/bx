@@ -77,7 +77,7 @@
             <div id="J-searchListPage">
                 <div class="account-search">
                     <div class="search-item">
-                        <div class="search-input"><input id="J-keyword" type="text" name="" placeholder="请输入微淘帐号名称"/><a href="#" class="close-btn"></a></div><button class="search-icon" id="J-searchBtn"></button>
+                        <div class="search-input"><input id="J-keyword" type="text" name="" placeholder="请输入微淘帐号名称"/><a href="#" class="close-btn"></a></div><a href="#" class="search-icon" id="J-searchBtn"><em></em></a>
                     </div>
                     <div class="add-public-account">
                         <div class="info">关注更多公共帐号</div>
@@ -98,7 +98,7 @@
             <div id="J-searchResult">
                 <div class="account-search">
                     <div class="search-item">
-                        <div class="search-input"><input id="J-searchkeyword" type="text" name="" placeholder="请输入微淘帐号名称"/><a href="#" class="close-btn"></a></div><button class="search-icon" id="J-searchBtn"></button>
+                        <div class="search-input"><input id="J-searchkeyword" type="text" name="" placeholder="请输入微淘帐号名称"/><a href="#" class="close-btn"></a></div><a href="#" class="search-icon" id="J-searchBtn"><em></em></a>
                     </div>
                     <div class="person-list">
                         <ul id="J-searchResultList">
@@ -837,7 +837,7 @@
             <div class="info"><%= description%></div>
             <div class="follows"><span><%= fansCount%></span>关注者</div>
             <div class="default">
-                <img class="lazy" dataimg="<%= logoUrl%>" src="http://a.tbcdn.cn/mw/webapp/fav/img/grey.gif"/>
+                <%if(logoUrl){%><img src="<%= logoUrl%>"/><%}%>
             </div>
         </div>
         <%if(!isMyList){%>

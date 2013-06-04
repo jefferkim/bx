@@ -22,7 +22,7 @@ define(function (require, exports, module) {
         el: '#content',
         events: {
             "click .content": "goToAccount",
-            "click #J-searchBtn": "searchPerson",
+            "click #J-searchListPage #J-searchBtn": "searchPerson",
             "click .add-public-account": "goToRecommend"
         },
 
@@ -58,16 +58,35 @@ define(function (require, exports, module) {
             };
 
             this.Collection.on("reset", this.render, this);
+
+
+            //TODO: 公用
+            var _btn = $("#J-searchListPage .close-btn");
+            var _input = $("#J-searchListPage #J-keyword");
+            var keyupEvent = function(e){
+                _btn.show();
+                !_input.val() && (_btn.hide());
+            };
+
+            _input.on("input",keyupEvent).focus(function (){
+                $(this).val() && _btn.show();
+            }).bind('blur',function(){
+                    if($(this).val() == '' ) {
+                        $('#J_searchT').show()
+                    }
+                });
+            _btn.on("click",function(e){
+                e.preventDefault();
+                _input.val('');
+                _btn.hide();
+            });
         },
-
-
-
 
 
 
         //跳转到搜索页面
         searchPerson: function (e) {
-            e.stopPropagation();
+            e.preventDefault();
 
             var nick = $.trim($("#J-keyword").val());
             var keyword = nick.replace(/<[^>].*?>/g,"");
@@ -88,6 +107,11 @@ define(function (require, exports, module) {
 
             mtop.my(params, function (result) {
                 self.Collection.reset(result.list);
+                var totalCount = Math.ceil(result.totalCount / self.getAttr('PAGESIZE'));
+
+                if(page > totalCount) {     //如果hash中当前页码大于后台返回，此时显示数据集最大数据
+                    window.location.hash = '#accountManage/p'+totalCount;
+                }
                 $("#J-num").text(result.totalCount);
                 self._renderPager(result.totalCount);
             });
@@ -99,6 +123,7 @@ define(function (require, exports, module) {
             var self = this;
 
             var pageTotal = Math.ceil(totalCount / this.getAttr('PAGESIZE'));
+
 
             if (pageTotal > 1) {
 
@@ -122,12 +147,14 @@ define(function (require, exports, module) {
         },
 
 
+        //TODO: 用户列表的数据
         //render person list
         render: function () {
 
             var self = this;
             var _navbar = $('header.navbar');
             var _accountManagePage = $('#accountManage');
+            console.log("render====");
 
             $("#accountManage #J-keyword").val('');
 
@@ -187,11 +214,10 @@ define(function (require, exports, module) {
 
             window.scrollTo(0, 1);
 
-            window.lazyload.reload();
+         //   window.lazyload.reload();
 
             // this is for Android
             $('#content')[0].style.minHeight = '360px';
-
             //end:动画
             
 
@@ -201,7 +227,7 @@ define(function (require, exports, module) {
         //====以下是以前的逻辑
         goToRecommend: function (e) {
             e.stopPropagation();
-            changeHash('#recommendAccount/0/p1', 'recommend');
+            changeHash('#recommendAccount/1/p1', 'recommend');
         },
 
         goToAccount: function (e) {
