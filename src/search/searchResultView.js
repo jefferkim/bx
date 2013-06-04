@@ -211,7 +211,7 @@ define(function (require, exports, module) {
 
             window.scrollTo(0, 1);
 
-            window.lazyload.reload();
+          //  window.lazyload.reload();
 
             // this is for Android
             $('#content')[0].style.minHeight = '360px';

@@ -97,7 +97,6 @@ define(function (require, exports, module) {
                 self.pageNav.pContainer().on('P:switchPage', function (e, goPage) {
 
                     ///window.location.hash = '#recommendAccount/' +order+ '/p'+goPage.index;
-                    //判断是否为分页，如果是分页返回还是账号列表
                     self.backURL = $('.navbar .back a').attr('href');
                 });
             }
@@ -144,14 +143,8 @@ define(function (require, exports, module) {
             }
 
 
-
-
-
             window.scrollTo(0, 1);
-            window.lazyload.reload();
-
-
-
+        //   window.lazyload.reload();
 
 
             if(_navbar.hasClass('iT')){

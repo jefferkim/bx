@@ -147,12 +147,14 @@ define(function (require, exports, module) {
         },
 
 
+        //TODO: 用户列表的数据
         //render person list
         render: function () {
 
             var self = this;
             var _navbar = $('header.navbar');
             var _accountManagePage = $('#accountManage');
+            console.log("render====");
 
             $("#accountManage #J-keyword").val('');
 
@@ -212,7 +214,7 @@ define(function (require, exports, module) {
 
             window.scrollTo(0, 1);
 
-            window.lazyload.reload();
+         //   window.lazyload.reload();
 
             // this is for Android
             $('#content')[0].style.minHeight = '360px';

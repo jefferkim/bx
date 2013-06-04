@@ -158,17 +158,14 @@ define(function (require, exports, module) {
                     self.recComment(arg0)
                     break;
                 case 'accountManage':  //帐号管理
-                    G_PersonCollection = G_PersonCollection || new personCollection; //important
                     _accountManageView = _accountManageView || new accountManageView();
                     self.accountManage(arg0);
                     break;
                 case 'search':
-                    G_PersonCollection = G_PersonCollection || new personCollection;
                     _searchResultView = _searchResultView || new searchResultView();
                     self.search(arg0,arg1);
                     break;
                 case 'recommendAccount':
-                    G_PersonCollection = G_PersonCollection || new personCollection;
                     _recommendAccountView = _recommendAccountView || new recommendAccountView();
                     self.recommedAccount(arg0,arg1);
                     break;

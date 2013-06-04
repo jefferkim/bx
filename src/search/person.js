@@ -23,7 +23,7 @@ define(function (require, exports, module) {
         getPersonInfo: function () {
             return {
                 id: this.get('id') === undefined ? 0 : this.get('id'),
-                logoUrl: this.get('logoUrl') ? getImgUrl(this.get('logoUrl'), 100, 60) : "",
+                logoUrl: this.get('logoUrl') ? getImgUrl(this.get('logoUrl'), 100, 60) : undefined,
                 nick: this.get('nick') || "",
                 description: this.get('description') || "",
                 linkUrlIsExt: this.get('linkUrlIsExt') == "true",
