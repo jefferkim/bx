@@ -192,7 +192,7 @@ define(function (require, exports, module) {
        var that=this;
        if(h5_comm.isLogin()){
            that.isAdd=true;
-           changeHash('#accountList/1','accountList');
+           changeHash('#accountManage/p1','accountManage');
            //window.location.hash='#accountList/1';
        }else{
            //allSpark_hash
