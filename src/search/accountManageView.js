@@ -61,8 +61,10 @@ define(function (require, exports, module) {
 
 
             //TODO: 公用
+
             var _btn = $("#J-searchListPage .close-btn");
             var _input = $("#J-searchListPage #J-keyword");
+            _btn.hide();
             var keyupEvent = function(e){
                 _btn.show();
                 !_input.val() && (_btn.hide());
@@ -154,7 +156,6 @@ define(function (require, exports, module) {
             var self = this;
             var _navbar = $('header.navbar');
             var _accountManagePage = $('#accountManage');
-            console.log("render====");
 
             $("#accountManage #J-keyword").val('');
 

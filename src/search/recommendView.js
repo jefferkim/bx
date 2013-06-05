@@ -73,6 +73,11 @@ define(function (require, exports, module) {
 
                 self.Collection.reset(result.list);
 
+                var totalCount = Math.ceil(result.totalCount / self.getAttr('PAGESIZE'));
+
+                if(page > totalCount) {     //如果hash中当前页码大于后台返回，此时显示数据集最大数据
+                    window.location.hash = '#recommendAccount/1/p'+totalCount;
+                }
 
                 self._renderPager(result.totalCount);
 

@@ -65,6 +65,9 @@ define(function (require, exports, module) {
             //TODO: 公用
             var _btn = $("#J-searchResult .close-btn");
             var _input = $("#J-searchResult #J-searchkeyword");
+
+            _btn.hide();
+
             var keyupEvent = function(e){
                 _btn.show();
                 !_input.val() && (_btn.hide());
@@ -94,6 +97,9 @@ define(function (require, exports, module) {
             var params = {keywords: keywords, curPage: page, pageSize: this.getAttr('PAGESIZE')};
             this.setAttr('curPage', page);
             $("#J-searchkeyword").val(keywords);
+            if($("#J-searchkeyword").val() !==""){
+                $("#J-searchResult .close-btn").show();
+            }
             this.setAttr('keywords',keywords);
 
             mtop.searchAccount(params, function (result) {
@@ -184,7 +190,7 @@ define(function (require, exports, module) {
                     self.addItem(person);
                 });
             }else{
-                _accountListPage.find("#J-searchResultList").html('<p class="search-no-result">没有找到 "'+self.getAttr('keywords')+'" 相关的用户</p>');
+                _accountListPage.find("#J-searchResultList").html('<p class="search-no-result">没有找到 "'+self.getAttr('keywords')+'" 相关的微淘帐号</p>');
             }
 
 
