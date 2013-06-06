@@ -23,6 +23,7 @@ define(function (require, exports, module) {
             return location.hash.indexOf("&") == -1;
         },
         changeHash:function(str){
+            console.log('12222');
             window.changeHash(str,location.hash.split('/')[0].replace('#',''));
             //alert(str);
         }

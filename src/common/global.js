@@ -24,6 +24,8 @@ define(function(require){
      * @param refer
      */
     changeHash = function (hash, refer) {
+
+        if(window.location.hash==hash)return false;
         log && log.logEnter(hash,refer);
         window.location.hash = hash;
     };
