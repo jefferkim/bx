@@ -275,7 +275,6 @@ define(function (require, exports, module) {
            _searchResultView.search(keyword,page);
         },
         recommedAccount:function(order,page){
-            console.log("route recommend");
             page = page || 1;
             _recommendAccountView.queryRecommendList(order,page);
         },

@@ -101,6 +101,9 @@ define(function (require, exports, module) {
         queryMyList: function (page) {
 
             var self = this;
+            if(page <= 0){
+                window.location.hash = '#accountManage/p1';
+            }
             var page = page || 1;
             var params = {curPage: page, pageSize: this.getAttr('PAGESIZE')};
             this.setAttr('curPage', page);
@@ -175,7 +178,7 @@ define(function (require, exports, module) {
 
             //TODO: navbar 渲染放到pageLoad时，通过配置参数实现
 
-            _navbar.html(_.template($('#navBack_tpl').html(),{'backUrl':'#index','backTitle':'微淘'})+'<div class="title">关注管理</div>');
+            _navbar.html(_.template($('#navBack_tpl').html(),{'backUrl':'#index','backTitle':'返回'})+'<div class="title">关注管理</div>');
 
 
 
@@ -215,6 +218,9 @@ define(function (require, exports, module) {
 
             window.scrollTo(0, 1);
 
+
+
+
          //   window.lazyload.reload();
 
             // this is for Android
@@ -227,7 +233,7 @@ define(function (require, exports, module) {
 
         //====以下是以前的逻辑
         goToRecommend: function (e) {
-            e.stopPropagation();
+            e.preventDefault();
             changeHash('#recommendAccount/1/p1', 'recommend');
         },
 

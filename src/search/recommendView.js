@@ -67,6 +67,9 @@ define(function (require, exports, module) {
             var params = {order: orderMap[order], curPage: page, pageSize: this.getAttr('PAGESIZE')};
 
             this.setAttr('curPage',page);
+            if(page <= 0){
+                window.location.hash = '#recommendAccount/1/p1';
+            }
 
 
             mtop.recommends(params, function (result) {
