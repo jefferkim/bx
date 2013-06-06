@@ -63,8 +63,8 @@ define(function (require, exports, module) {
 
 
             //TODO: 公用
-            var _btn = $("#J-searchResult .close-btn");
-            var _input = $("#J-searchResult #J-searchkeyword");
+            var _btn = $("#searchResult .close-btn");
+            var _input = $("#searchResult #J-searchkeyword");
 
             _btn.hide();
 

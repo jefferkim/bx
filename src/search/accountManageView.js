@@ -62,8 +62,8 @@ define(function (require, exports, module) {
 
             //TODO: 公用
 
-            var _btn = $("#J-searchListPage .close-btn");
-            var _input = $("#J-searchListPage #J-keyword");
+            var _btn = $("#accountManage .close-btn");
+            var _input = $("#accountManage #J-keyword");
             _btn.hide();
             var keyupEvent = function(e){
                 _btn.show();
@@ -161,20 +161,9 @@ define(function (require, exports, module) {
             var _accountManagePage = $('#accountManage');
 
             $("#accountManage #J-keyword").val('');
+            $("#accountManage .close-btn").hide();
 
-            /*var _back = {'backUrl': '', 'backTitle': '返回'};
-            if (typeof window.AccountList != 'undefined') {
-                //window.location.hash=window.AccountList.hash;
-                _back = {'backUrl': '#' + window.AccountList.hash, 'backTitle': '返回'};
-                window.AccountList.flag = false;
-                delete window.AccountList;
-            } else {
-                if (self.backURL != '') {
-                    _back = {'backUrl': self.backURL, 'backTitle': '返回'}
-                } else {
-                    _back = {'backUrl': '#index', 'backTitle': '返回'}
-                }
-            }*/
+
 
             //TODO: navbar 渲染放到pageLoad时，通过配置参数实现
 

@@ -8,6 +8,7 @@ define(function (require, exports, module) {
         $ = require('zepto'),
         _ = require('underscore'),
         h5_comm = require('h5_comm'),
+        notification = require('../ui/notification.js'),
         mtop = require('../common/mtopForAllspark.js');
 
 
@@ -43,7 +44,12 @@ define(function (require, exports, module) {
                     mtop.addAccount(_model.get('id'), function (resp) {
                         var result = resp.data.result;
                         if (result) {
-
+                            if (result[0].isSuccess == "false" && result[0].retCode.msgCode.indexOf('FAIL_BIZ_SNS_FOLLOW_CANNOT_SELF') != -1) {
+                                notification.message('自己不能关注自己');
+                                cur.removeClass('min');
+                                cur.html('关注');
+                                return;
+                            }
                             for (var i = 0; i < result.length; i++) {
                                 if (_model.get('id') == result[i].id && result[i].isSuccess == 'true') {
                                     _model.set({
@@ -56,8 +62,9 @@ define(function (require, exports, module) {
                                     cur.removeClass('min');
                                     cur.html('关注');
                                 }
-
                             }
+
+
                         }
                     }, function () {
                         notification.message('关注失败！');

@@ -51,5 +51,7 @@ define(function (require, exports, module) {
     });
 
     new BackgroundView;
+    window.G_History = myHis;  //暴露到全局
+
 
 });
