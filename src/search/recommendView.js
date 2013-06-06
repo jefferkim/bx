@@ -67,12 +67,20 @@ define(function (require, exports, module) {
             var params = {order: orderMap[order], curPage: page, pageSize: this.getAttr('PAGESIZE')};
 
             this.setAttr('curPage',page);
+            if(page <= 0){
+                window.location.hash = '#recommendAccount/1/p1';
+            }
 
 
             mtop.recommends(params, function (result) {
 
                 self.Collection.reset(result.list);
 
+                var totalCount = Math.ceil(result.totalCount / self.getAttr('PAGESIZE'));
+
+                if(page > totalCount) {     //如果hash中当前页码大于后台返回，此时显示数据集最大数据
+                    window.location.hash = '#recommendAccount/1/p'+totalCount;
+                }
 
                 self._renderPager(result.totalCount);
 
@@ -139,7 +147,7 @@ define(function (require, exports, module) {
                     self.addItem(person);
                 });
             }else{
-                _accountListPage.find("#J-recommendList").html('<p class="search-no-result">你已经关注了所有的推荐帐号</p>');
+                _accountListPage.find("#J-recommendList").html('<p class="tips">你已经关注了所有的推荐帐号</p>');
             }
 
 

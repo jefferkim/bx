@@ -61,8 +61,10 @@ define(function (require, exports, module) {
 
 
             //TODO: 公用
-            var _btn = $("#J-searchListPage .close-btn");
-            var _input = $("#J-searchListPage #J-keyword");
+
+            var _btn = $("#accountManage .close-btn");
+            var _input = $("#accountManage #J-keyword");
+            _btn.hide();
             var keyupEvent = function(e){
                 _btn.show();
                 !_input.val() && (_btn.hide());
@@ -99,6 +101,9 @@ define(function (require, exports, module) {
         queryMyList: function (page) {
 
             var self = this;
+            if(page <= 0){
+                window.location.hash = '#accountManage/p1';
+            }
             var page = page || 1;
             var params = {curPage: page, pageSize: this.getAttr('PAGESIZE')};
             this.setAttr('curPage', page);
@@ -154,27 +159,15 @@ define(function (require, exports, module) {
             var self = this;
             var _navbar = $('header.navbar');
             var _accountManagePage = $('#accountManage');
-            console.log("render====");
 
             $("#accountManage #J-keyword").val('');
+            $("#accountManage .close-btn").hide();
 
-            /*var _back = {'backUrl': '', 'backTitle': '返回'};
-            if (typeof window.AccountList != 'undefined') {
-                //window.location.hash=window.AccountList.hash;
-                _back = {'backUrl': '#' + window.AccountList.hash, 'backTitle': '返回'};
-                window.AccountList.flag = false;
-                delete window.AccountList;
-            } else {
-                if (self.backURL != '') {
-                    _back = {'backUrl': self.backURL, 'backTitle': '返回'}
-                } else {
-                    _back = {'backUrl': '#index', 'backTitle': '返回'}
-                }
-            }*/
+
 
             //TODO: navbar 渲染放到pageLoad时，通过配置参数实现
 
-            _navbar.html(_.template($('#navBack_tpl').html(),{'backUrl':'#index','backTitle':'微淘'})+'<div class="title">关注管理</div>');
+            _navbar.html(_.template($('#navBack_tpl').html(),{'backUrl':'#index','backTitle':'返回'})+'<div class="title">关注管理</div>');
 
 
 
@@ -214,6 +207,9 @@ define(function (require, exports, module) {
 
             window.scrollTo(0, 1);
 
+
+
+
          //   window.lazyload.reload();
 
             // this is for Android
@@ -226,7 +222,7 @@ define(function (require, exports, module) {
 
         //====以下是以前的逻辑
         goToRecommend: function (e) {
-            e.stopPropagation();
+            e.preventDefault();
             changeHash('#recommendAccount/1/p1', 'recommend');
         },
 
