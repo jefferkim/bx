@@ -3,15 +3,16 @@ define(function (require, exports, module) {
     var aplus = require('aplus');
 
     exports.logEnter = function (data,uri) {
+        console.log(data);
         if (data) {
             var param = {aplus:true};
             var ap_uri='';
 //            param.apdata  = "allspark" + data + "_" + ap.enter;
 //            ap.uri[uri] && (param.apuri = "allspark" + ap.uri[uri]);
             if(window.location.search==''){
-                ap_uri=location.protocol+'//'+location.hostname + location.pathname+'?log=page_'+data.split('/')[0].replace('#','')+'#'+data;
+                ap_uri=location.protocol+'//'+location.hostname + location.pathname+'?log=page_'+data.split('/')[0].replace('#','')+data;
             }else{
-                ap_uri=location.protocol+'//'+location.hostname + location.pathname+window.location.search+'&log=page_'+data.split('/')[0].replace('#','')+'#'+data;
+                ap_uri=location.protocol+'//'+location.hostname + location.pathname+window.location.search+'&log=page_'+data.split('/')[0].replace('#','')+data;
             }
             param.apuri=ap_uri;
             try{

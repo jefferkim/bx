@@ -332,7 +332,7 @@ define(function (require, exports, module) {
     },
 
     recComment: function() {
-      changeHash('recComment/1', 'index')
+      changeHash('#recComment/1', 'index')
     }
   });
 });
