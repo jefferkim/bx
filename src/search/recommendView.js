@@ -147,7 +147,7 @@ define(function (require, exports, module) {
                     self.addItem(person);
                 });
             }else{
-                _accountListPage.find("#J-recommendList").html('<p class="search-no-result">你已经关注了所有的推荐帐号</p>');
+                _accountListPage.find("#J-recommendList").html('<p class="tips">你已经关注了所有的推荐帐号</p>');
             }
 
 
