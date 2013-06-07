@@ -76,7 +76,6 @@ define(function (require, exports, module) {
 
 
             mtop.recommends(params, function (result) {
-
                 self.Collection.reset(result.list);
 
                 if (result && result.totalCount) {
@@ -85,8 +84,12 @@ define(function (require, exports, module) {
                         //不设置最小1的话会导致和上方逻辑死循环
                         window.location.hash = '#recommendAccount/1/p' + Math.max(totalPage,1);
                     }
-                    totalPage && self._renderPager(totalPage);
+                    self._renderPager(totalPage);
+                }else{
+                    $("#J-searchListPageNav").html("");
                 }
+
+
 
             });
         },

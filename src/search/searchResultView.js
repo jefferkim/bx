@@ -116,8 +116,11 @@ define(function (require, exports, module) {
                         //不设置最小1的话会导致和上方逻辑死循环
                         window.location.hash = '#search/' + keyword + "/p" + Math.max(totalPage, 1);
                     }
-                    totalPage && self._renderPager(totalPage);
+                    self._renderPager(totalPage);
+                }else{
+                    $("#J-searchResultPageNav").html("");
                 }
+
             });
         },
 
