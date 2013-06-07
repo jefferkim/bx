@@ -120,6 +120,8 @@ define(function (require, exports, module) {
                     }
                     $("#J-num").text(result.totalCount);
                     self._renderPager(totalPage);
+                }else{
+                    $("#J-searchListPageNav").html("");
                 }
             });
         },
@@ -195,6 +197,8 @@ define(function (require, exports, module) {
 
             setTimeout(function () {
                 _accountManagePage.removeClass(' iR iL').addClass('show iC');
+                _accountManagePage.removeClass('iC');
+               // _accountManagePage[0].style.webkitTransition = "none";
             }, 0);
 
 
