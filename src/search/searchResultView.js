@@ -204,12 +204,20 @@ define(function (require, exports, module) {
             _accountListPage.removeClass('hide');
 
 
+            //===test
+
             setTimeout(function () {
-                _accountListPage.removeClass(' iR iL').addClass('show iC');
+                _accountListPage.removeClass(' iR iL').addClass('show iC').wAE(function () {
+                    _accountListPage.removeClass("iC"); //FIXBUG:在动画完成后一定要移除到class不然会导致很多问题
+                });
+
+              //  _accountListPage[0].style.webkitTransition = "none";
             }, 0);
 
 
             window.scrollTo(0, 1);
+
+
 
             //  window.lazyload.reload();
 

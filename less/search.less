@@ -69,7 +69,6 @@
      border-radius:16px;
      -webkit-transform-style:flat;  //fix因为translate3d导致input重复的问题
      background: -webkit-gradient(linear,0 0,0 40%,from(#f9fafe), to(#fff));
-    //fix:部分android机子会在translate3d后导致input按钮错位
      input{
        width:100%;
        height:30px;
@@ -83,6 +82,20 @@
    }
 
 }
+
+
+//==test=
+
+
+#J-searchResult .search-item{
+  -webkit-transform-style:falt;
+}
+
+#J-searchResult .search-item .search-input{
+  -webkit-transform-style:falt;
+
+}
+//==test=
 
 .add-public-account{
     position:relative;
