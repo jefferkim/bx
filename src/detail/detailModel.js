@@ -44,8 +44,9 @@ define(function (require, exports, module) {
                     var ids = [];
 
                     result.tiles &&  result.tiles.forEach(function(tile){
-                            tile.item &&  ids.push(tile.item.id); }
-                            );
+                            tile.item &&  ids.push(tile.item.id);
+                        }
+                         );
                       mtop.getPrices(_.uniq(ids),function(prices){
                           prices.length && self.set({"prices":prices},{silent:true});
                           self.trigger('change:prices');

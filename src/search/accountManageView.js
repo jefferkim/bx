@@ -46,7 +46,7 @@ define(function (require, exports, module) {
 
             this.Collection = new personCollection;
 
-           // this.Collection = G_PersonCollection;
+            // this.Collection = G_PersonCollection;
 
             this.Model = new Person();
 
@@ -65,19 +65,19 @@ define(function (require, exports, module) {
             var _btn = $("#accountManage .close-btn");
             var _input = $("#accountManage #J-keyword");
             _btn.hide();
-            var keyupEvent = function(e){
+            var keyupEvent = function (e) {
                 _btn.show();
                 !_input.val() && (_btn.hide());
             };
 
-            _input.on("input",keyupEvent).focus(function (){
+            _input.on("input", keyupEvent).focus(function () {
                 $(this).val() && _btn.show();
-            }).bind('blur',function(){
-                    if($(this).val() == '' ) {
+            }).bind('blur', function () {
+                    if ($(this).val() == '') {
                         $('#J_searchT').show()
                     }
                 });
-            _btn.on("click",function(e){
+            _btn.on("click", function (e) {
                 e.preventDefault();
                 _input.val('');
                 _btn.hide();
@@ -85,15 +85,14 @@ define(function (require, exports, module) {
         },
 
 
-
         //跳转到搜索页面
         searchPerson: function (e) {
             e.preventDefault();
 
             var nick = $.trim($("#J-keyword").val());
-            var keyword = nick.replace(/<[^>].*?>/g,"");
-            if(keyword){
-                window.location.hash = '#search/'+encodeURI(nick)+'/p'+1;
+            var keyword = nick.replace(/<[^>].*?>/g, "");
+            if (keyword) {
+                window.location.hash = '#search/' + encodeURI(nick) + '/p' + 1;
             }
         },
 
@@ -101,44 +100,44 @@ define(function (require, exports, module) {
         queryMyList: function (page) {
 
             var self = this;
-            if(page <= 0){
+            if (page <= 0) {
                 window.location.hash = '#accountManage/p1';
             }
             var page = page || 1;
             var params = {curPage: page, pageSize: this.getAttr('PAGESIZE')};
             this.setAttr('curPage', page);
-            this.setAttr('isMyListPage',true);
+            this.setAttr('isMyListPage', true);
 
 
             mtop.my(params, function (result) {
-                self.Collection.reset(result.list);
-                var totalCount = Math.ceil(result.totalCount / self.getAttr('PAGESIZE'));
+                if (result && result.totalCount) {
 
-                if(page > totalCount) {     //如果hash中当前页码大于后台返回，此时显示数据集最大数据
-                    window.location.hash = '#accountManage/p'+totalCount;
+                    self.Collection.reset(result.list);
+                    var totalPage = Math.ceil(result.totalCount / self.getAttr('PAGESIZE'));
+
+                    if (page > totalPage) {     //如果hash中当前页码大于后台返回，此时显示数据集最大数据
+                        window.location.hash = '#accountManage/p' + Math.max(totalPage, 1);
+                    }
+                    $("#J-num").text(result.totalCount);
+                    self._renderPager(totalPage);
                 }
-                $("#J-num").text(result.totalCount);
-                self._renderPager(result.totalCount);
             });
         },
 
 
-        _renderPager: function (totalCount) {
+        _renderPager: function (totalPage) {
 
             var self = this;
 
-            var pageTotal = Math.ceil(totalCount / this.getAttr('PAGESIZE'));
+            if (totalPage > 1) {
 
-
-            if (pageTotal > 1) {
-
-                self.pageNav = new pageNav({'id': '#J-searchListPageNav', 'index': self.curPage, 'pageCount': pageTotal, 'pageSize': this.getAttr('PAGESIZE'),'objId':'p'});
+                self.pageNav = new pageNav({'id': '#J-searchListPageNav', 'index': self.curPage, 'pageCount': totalPage, 'pageSize': this.getAttr('PAGESIZE'), 'objId': 'p'});
 
                 self.pageNav.pContainer().on('P:switchPage', function (e, goPage) {
                     //判断是否为分页，如果是分页返回还是账号列表
                     self.backURL = $('.navbar .back a').attr('href');
                 });
-            }else{
+            } else {
                 self.pageNav = null;
                 $("#J-searchListPageNav").html("");
             }
@@ -164,25 +163,19 @@ define(function (require, exports, module) {
             $("#accountManage .close-btn").hide();
 
 
-
             //TODO: navbar 渲染放到pageLoad时，通过配置参数实现
 
-            _navbar.html(_.template($('#navBack_tpl').html(),{'backUrl':'#index','backTitle':'返回'})+'<div class="title">关注管理</div>');
+            _navbar.html(_.template($('#navBack_tpl').html(), {'backUrl': '#index', 'backTitle': '返回'}) + '<div class="title">关注管理</div>');
 
 
-
-
-
-            if(this.Collection.length){
+            if (this.Collection.length) {
                 _accountManagePage.find("#J-personList").html("");
                 this.Collection.each(function (person) {
                     self.addItem(person);
                 });
-            }else{
+            } else {
                 _accountManagePage.find("#J-personList").html('<p class="tips">你还没有关注任何微淘帐号</p>');
             }
-
-
 
 
             //start:动画
@@ -192,8 +185,8 @@ define(function (require, exports, module) {
 
             var _show = $('.view-page.show');
 
-            if(!_accountManagePage.hasClass('show')){
-                _show.removeClass('show iC').addClass('iL').wAE(function(){
+            if (!_accountManagePage.hasClass('show')) {
+                _show.removeClass('show iC').addClass('iL').wAE(function () {
                     _show.addClass('hide');
                 });
             }
@@ -208,14 +201,12 @@ define(function (require, exports, module) {
             window.scrollTo(0, 1);
 
 
-
-
-         //   window.lazyload.reload();
+            //   window.lazyload.reload();
 
             // this is for Android
             $('#content')[0].style.minHeight = '360px';
             //end:动画
-            
+
 
         },
 

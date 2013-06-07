@@ -197,7 +197,7 @@ define(function (require, exports, module) {
        }else{
            //allSpark_hash
           // that.goLogin('#accountList/1');
-           h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'changeHash','targetUrl':'#accountList/1'});
+           h5_comm.goLogin({rediUrl:'h5_allSpark',hideType:'changeHash','targetUrl':'#accountManage/p1'});
            //h5_comm.goLogin('h5_allspark');
        }
     },

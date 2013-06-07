@@ -21,13 +21,13 @@ define(function (require, exports, module) {
     var recommendView = Backbone.View.extend({
         el: '#content',
         events: {
-            "click .content":"goToAccount" //不考虑放入到personItemView中，预防后期跳转链接不同
+            "click .content": "goToAccount" //不考虑放入到personItemView中，预防后期跳转链接不同
         },
 
         attrs: {
             PAGESIZE: 15,
-            curPage:1,
-            isMyListPage:true,
+            curPage: 1,
+            isMyListPage: true,
             backURL: '',
             afterTimestamp: '',
             before: false
@@ -47,27 +47,31 @@ define(function (require, exports, module) {
             this.getAttr = function (key) {
                 return self.attrs[key];
             };
-            this.setAttr = function(key,val){
+            this.setAttr = function (key, val) {
                 self.attrs[key] = val;
             };
 
-            this.Collection.on("reset",this.render,this);
+            this.Collection.on("reset", this.render, this);
         },
 
         //motp queryRecommendList
-        queryRecommendList: function (order,page) {
+        queryRecommendList: function (order, page) {
 
             var self = this;
             var orderMap = {
-                0:"fans",
-                1:"lastFeedTime"
+                0: "fans",
+                1: "lastFeedTime"
             };
 
             var params = {order: orderMap[order], curPage: page, pageSize: this.getAttr('PAGESIZE')};
 
-            this.setAttr('curPage',page);
-            if(page <= 0){
+            this.setAttr('curPage', page);
+
+
+
+            if (page <= 0) {
                 window.location.hash = '#recommendAccount/1/p1';
+                return;
             }
 
 
@@ -75,41 +79,40 @@ define(function (require, exports, module) {
 
                 self.Collection.reset(result.list);
 
-                var totalCount = Math.ceil(result.totalCount / self.getAttr('PAGESIZE'));
-
-                if(page > totalCount) {     //如果hash中当前页码大于后台返回，此时显示数据集最大数据
-                    window.location.hash = '#recommendAccount/1/p'+totalCount;
+                if (result && result.totalCount) {
+                    var totalPage = Math.ceil(result.totalCount / self.getAttr('PAGESIZE'));
+                    if (page > totalPage) {
+                        //不设置最小1的话会导致和上方逻辑死循环
+                        window.location.hash = '#recommendAccount/1/p' + Math.max(totalPage,1);
+                    }
+                    totalPage && self._renderPager(totalPage);
                 }
-
-                self._renderPager(result.totalCount);
 
             });
         },
 
-        addItem:function (person) {
-            var personItemView = new personItemView1({model:person});
+        addItem: function (person) {
+            var personItemView = new personItemView1({model: person});
             $("#recommendResult #J-recommendList").append(personItemView.render());
         },
 
-        _renderPager: function (totalCount) {
-
+        _renderPager: function (totalPage) {
             var self = this;
 
-            var pageTotal = Math.ceil(totalCount / this.getAttr('PAGESIZE'));
+            if (totalPage > 1) {
+                 self.pageNav = new pageNav({'id': '#J-recommendPageNav','index': self.curPage,'pageCount': totalPage,'pageSize': this.getAttr('PAGESIZE'),'objId': 'p'});
 
-            if (pageTotal > 1) {
+                 self.pageNav.pContainer().on('P:switchPage', function (e, goPage) {
 
-                self.pageNav = new pageNav({'id': '#J-recommendPageNav', 'index': self.curPage, 'pageCount': pageTotal, 'pageSize': this.getAttr('PAGESIZE'), 'objId':'p'});
-
-                self.pageNav.pContainer().on('P:switchPage', function (e, goPage) {
-
-                    ///window.location.hash = '#recommendAccount/' +order+ '/p'+goPage.index;
-                    self.backURL = $('.navbar .back a').attr('href');
-                });
+                       ///window.location.hash = '#recommendAccount/' +order+ '/p'+goPage.index;
+                        self.backURL = $('.navbar .back a').attr('href');
+                 });
+           }else{
+                self.pageNav = null;
+                $("#J-searchListPageNav").html("");
             }
 
         },
-
 
 
         //render person list
@@ -117,52 +120,38 @@ define(function (require, exports, module) {
 
 
             var self = this;
-            var _navbar=$('header.navbar');
+            var _navbar = $('header.navbar');
 
-            var _accountListPage=$('#recommendResult');
+            var _accountListPage = $('#recommendResult');
 
             _accountListPage.find("#J-recommendList").html('<div class="loading"><span class="spinner"></span></div>');
 
-            var _back={'backUrl':'','backTitle':'返回'};
-            if(typeof window.AccountList!='undefined'){
-                //window.location.hash=window.AccountList.hash;
-                _back={'backUrl':'#'+window.AccountList.hash,'backTitle':'返回'};
-                window.AccountList.flag=false;
-                delete window.AccountList;
-            }else{
-                if(self.backURL!=''){
-                    _back={'backUrl':self.backURL,'backTitle':'返回'}
-                }else{
-                    _back={'backUrl':'#index','backTitle':'返回'}
-                }
-            }
 
-            _navbar.html(_.template($('#navBack_tpl').html(),_back)+'<div class="title">推荐关注</div>');
+            _navbar.html(_.template($('#navBack_tpl').html(), {'backUrl': '', 'backTitle': '返回'}) + '<div class="title">推荐关注</div>');
 
 
-            if(this.Collection.length){
+            if (this.Collection.length) {
                 _accountListPage.find("#J-recommendList").html('');
                 this.Collection.each(function (person) {
                     self.addItem(person);
                 });
-            }else{
+            } else {
                 _accountListPage.find("#J-recommendList").html('<p class="tips">你已经关注了所有的推荐帐号</p>');
             }
 
 
             window.scrollTo(0, 1);
-        //   window.lazyload.reload();
+            //   window.lazyload.reload();
 
 
-            if(_navbar.hasClass('iT')){
+            if (_navbar.hasClass('iT')) {
                 _navbar.removeClass('iT').addClass('iC');
             }
 
-            var _show=$('.view-page.show');
-            console.log(_show);
+            var _show = $('.view-page.show');
 
-            if(!_accountListPage.hasClass('show')){
-                _show.removeClass('show iC').addClass('iL').wAE(function(){
+            if (!_accountListPage.hasClass('show')) {
+                _show.removeClass('show iC').addClass('iL').wAE(function () {
                     _show.addClass('hide');
                 });
             }
@@ -170,9 +159,9 @@ define(function (require, exports, module) {
             _accountListPage.removeClass('hide');
 
 
-            setTimeout(function(){
+            setTimeout(function () {
                 _accountListPage.removeClass(' iR iL').addClass('show iC');
-            },0);
+            }, 0);
 
 
             // this is for Android
@@ -180,16 +169,13 @@ define(function (require, exports, module) {
         },
 
 
-
-
-
         //====以下是以前的逻辑 TODO:需要封装下
-        goToAccount:function(e){
-            var that=this;
+        goToAccount: function (e) {
+            var that = this;
             e.stopPropagation();
-            var cur=$(e.currentTarget);
-            window.AccountList={'hash':'#accountList/'+that.status+'/'+that.curPage,'flag':true};
-            changeHash('#account/'+cur.attr('snsid')+'/1','account');
+            var cur = $(e.currentTarget);
+            window.AccountList = {'hash': '#accountList/' + that.status + '/' + that.curPage, 'flag': true};
+            changeHash('#account/' + cur.attr('snsid') + '/1', 'account');
         },
 
         goBackHome: function () {
