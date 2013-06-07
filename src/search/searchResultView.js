@@ -19,7 +19,7 @@ define(function (require, exports, module) {
 
 
     var searchResultView = Backbone.View.extend({
-        
+
         el: '#content',
         events: {
             "click .content": "goToAccount",
@@ -32,7 +32,7 @@ define(function (require, exports, module) {
             PAGESIZE: 15,
             curPage: 1,
             isMyListPage: false,
-            keywords:'',
+            keywords: '',
             backURL: '',
             afterTimestamp: '',
             before: false
@@ -68,18 +68,18 @@ define(function (require, exports, module) {
 
             _btn.hide();
 
-            var keyupEvent = function(e){
+            var keyupEvent = function (e) {
                 _btn.show();
                 !_input.val() && (_btn.hide());
             };
-            _input.on("input",keyupEvent).focus(function (){
+            _input.on("input", keyupEvent).focus(function () {
                 $(this).val() && _btn.show();
-            }).bind('blur',function(){
-                if($(this).val() == '' ) {
-                    $('#J_searchT').show()
-                }
-            });
-            _btn.on("click",function(e){
+            }).bind('blur', function () {
+                    if ($(this).val() == '') {
+                        $('#J_searchT').show()
+                    }
+                });
+            _btn.on("click", function (e) {
                 e.preventDefault();
                 _input.val('');
                 _btn.hide();
@@ -89,27 +89,37 @@ define(function (require, exports, module) {
         },
 
 
-        search:function(keyword,page){
+        search: function (keyword, page) {
 
             var self = this;
+            if (page <= 0) {
+                window.location.hash = "#search/" + keyword + "/p1";
+            }
+
             var keywords = decodeURI(keyword);
 
             var params = {keywords: keywords, curPage: page, pageSize: this.getAttr('PAGESIZE')};
             this.setAttr('curPage', page);
             $("#J-searchkeyword").val(keywords);
-            if($("#J-searchkeyword").val() !==""){
+            if ($("#J-searchkeyword").val() !== "") {
                 $("#J-searchResult .close-btn").show();
             }
-            this.setAttr('keywords',keywords);
+            this.setAttr('keywords', keywords);
 
             mtop.searchAccount(params, function (result) {
+
                 self.Collection.reset(result.list);
-                self._renderPager(result.totalCount);
+
+                if (result && result.totalCount) {
+                    var totalPage = Math.ceil(result.totalCount / self.getAttr('PAGESIZE'));
+                    if (page > totalPage) {
+                        //不设置最小1的话会导致和上方逻辑死循环
+                        window.location.hash = '#search/' + keyword + "/p" + Math.max(totalPage, 1);
+                    }
+                    totalPage && self._renderPager(totalPage);
+                }
             });
-
-
         },
-
 
 
         //跳转到搜索页面
@@ -117,28 +127,26 @@ define(function (require, exports, module) {
             e.preventDefault();
 
             var nick = $.trim($("#J-searchkeyword").val());
-            var keyword = nick.replace(/<[^>].*?>/g,"");
-            if(keyword){
-                window.location.hash = '#search/'+encodeURI(keyword)+'/p'+1;
+            var keyword = nick.replace(/<[^>].*?>/g, "");
+            if (keyword) {
+                window.location.hash = '#search/' + encodeURI(keyword) + '/p' + 1;
             }
         },
 
 
-        _renderPager: function (totalCount) {
+        _renderPager: function (totalPage) {
 
             var self = this;
 
-            var pageTotal = Math.ceil(totalCount / this.getAttr('PAGESIZE'));
+            if (totalPage > 1) {
 
-            if (pageTotal > 1) {
-
-                self.pageNav = new pageNav({'id': '#J-searchResultPageNav', 'index': self.curPage, 'pageCount': pageTotal, 'pageSize': this.getAttr('PAGESIZE'),'objId':'p'});
+                self.pageNav = new pageNav({'id': '#J-searchResultPageNav', 'index': self.curPage, 'pageCount': totalPage, 'pageSize': this.getAttr('PAGESIZE'), 'objId': 'p'});
 
                 self.pageNav.pContainer().on('P:switchPage', function (e, goPage) {
                     //判断是否为分页，如果是分页返回还是账号列表
                     self.backURL = $('.navbar .back a').attr('href');
                 });
-            }else{
+            } else {
                 self.pageNav = null;
                 $("#J-searchResultPageNav").html("");
             }
@@ -162,37 +170,21 @@ define(function (require, exports, module) {
             _accountListPage.find("#J-searchResultList").html('<div class="loading"><span class="spinner"></span></div>');
 
 
-            /*var _back = {'backUrl': '', 'backTitle': '返回'};
-            if (typeof window.AccountList != 'undefined') {
-                //window.location.hash=window.AccountList.hash;
-                _back = {'backUrl': '#' + window.AccountList.hash, 'backTitle': '返回'};
-                window.AccountList.flag = false;
-                delete window.AccountList;
-            } else {
-                if (self.backURL != '') {
-                    _back = {'backUrl': self.backURL, 'backTitle': '返回'}
-                } else {
-                    _back = {'backUrl': '#index', 'backTitle': '返回'}
-                }
-            }*/
-
             //TODO: navbar 渲染放到pageLoad时，通过配置参数实现
 
-            _navbar.html(_.template($('#navBack_tpl').html(),{'backUrl':'#index','backTitle':'返回'})+'<div class="title">帐号搜索</div>');
+            _navbar.html(_.template($('#navBack_tpl').html(), {'backUrl': '#index', 'backTitle': '返回'}) + '<div class="title">帐号搜索</div>');
 
 
             // render
 
-
-            if(this.Collection.length){
+            if (this.Collection.length) {
                 _accountListPage.find("#J-searchResultList").html("");
                 this.Collection.each(function (person) {
                     self.addItem(person);
                 });
-            }else{
-                _accountListPage.find("#J-searchResultList").html('<p class="search-no-result">没有找到 "'+self.getAttr('keywords')+'" 相关的微淘帐号</p>');
+            } else {
+                _accountListPage.find("#J-searchResultList").html('<p class="search-no-result">没有找到 "' + self.getAttr('keywords') + '" 相关的微淘帐号</p>');
             }
-
 
 
             if (_navbar.hasClass('iT')) {
@@ -200,14 +192,13 @@ define(function (require, exports, module) {
             }
 
             var _show = $('.view-page.show');
-            if(!_accountListPage.hasClass('show')){
-                _show.removeClass('show iC').addClass('iL').wAE(function(){
+            if (!_accountListPage.hasClass('show')) {
+                _show.removeClass('show iC').addClass('iL').wAE(function () {
                     _show.addClass('hide');
                 });
             }
 
             _accountListPage.removeClass('hide');
-
 
 
             setTimeout(function () {
@@ -217,14 +208,13 @@ define(function (require, exports, module) {
 
             window.scrollTo(0, 1);
 
-          //  window.lazyload.reload();
+            //  window.lazyload.reload();
 
             // this is for Android
             $('#content')[0].style.minHeight = '360px';
 
 
         },
-
 
 
         goToAccount: function (e) {
