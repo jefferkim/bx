@@ -24,7 +24,6 @@ define(function (require, exports, module) {
             "click .content": "goToAccount" //不考虑放入到personItemView中，预防后期跳转链接不同
         },
 
-
         attrs: {
             PAGESIZE: 15,
             curPage: 1,
